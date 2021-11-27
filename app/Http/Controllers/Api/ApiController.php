@@ -43,6 +43,11 @@ use Illuminate\Http\Request;
 *	description="Users endpoints"
 * )
 *
+* @OA\Tag(
+*	name="Categories",
+*	description="Categories endpoints"
+* )
+*
 * @OA\SecurityScheme(
 *	securityScheme="bearerAuth",
 *   in="header",
@@ -56,9 +61,14 @@ class ApiController extends Controller
 {
 	public function dataUser($user) {
 		$user->rol=roleUser($user, false);
-		$user->photo=(!is_null($user->photo)) ? $user->photo : '';
+		$user->photo=(!is_null($user->photo)) ? asset('/admins/img/users/'.$user->photo) : '';
 		$data=$user->only("id", "name", "lastname", "slug", "photo", "email", "state", "rol");
-		
+		return $data;
+	}
+
+	public function dataCategory($category) {
+		$category->image=(!is_null($category->image)) ? asset('/admins/img/categories/'.$category->image) : '';
+		$data=$category->only("id", "name", "slug", "image", "state");
 		return $data;
 	}
 }

@@ -46,4 +46,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 		Route::put('/{user:slug}/activate', 'UserController@activate')->name('users.activate')->middleware('permission:users.active');
 		Route::put('/{user:slug}/deactivate', 'UserController@deactivate')->name('users.deactivate')->middleware('permission:users.deactive');
 	});
+
+	// Categories
+	Route::group(['prefix' => 'categories'], function () {
+		Route::get('/', 'CategoryController@index')->name('categories.index')->middleware('permission:categories.index');
+		Route::get('/registrar', 'CategoryController@create')->name('categories.create')->middleware('permission:categories.create');
+		Route::post('', 'CategoryController@store')->name('categories.store')->middleware('permission:categories.create');
+		Route::get('/{category:slug}/edit', 'CategoryController@edit')->name('categories.edit')->middleware('permission:categories.edit');
+		Route::put('/{category:slug}', 'CategoryController@update')->name('categories.update')->middleware('permission:categories.edit');
+		Route::delete('/{category:slug}', 'CategoryController@destroy')->name('categories.delete')->middleware('permission:categories.delete');
+		Route::put('/{category:slug}/activate', 'CategoryController@activate')->name('categories.activate')->middleware('permission:categories.active');
+		Route::put('/{category:slug}/deactivate', 'CategoryController@deactivate')->name('categories.deactivate')->middleware('permission:categories.deactive');
+	});
 });

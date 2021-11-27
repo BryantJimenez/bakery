@@ -211,8 +211,42 @@ $(document).ready(function(){
 					maxlength: 40
 				}
 			},
+			messages:
+			{
+				type: {
+					required: 'Select an option.'
+				}
+			},
 			submitHandler: function(form) {
 				$("button[action='user']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Categories
+	$("button[action='category']").on("click",function(){
+		$("#formCategory").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				image: {
+					required: false
+				}
+			},
+			messages:
+			{
+				image: {
+					required: 'Select an image.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='category']").attr('disabled', true);
 				form.submit();
 			}
 		});

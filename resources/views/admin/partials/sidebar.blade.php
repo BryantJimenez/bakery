@@ -29,6 +29,16 @@
                 </a>
             </li>
             @endcan
+
+            @can('categories.index')
+            <li class="menu {{ active('admin/categories', 0) }}">
+                <a href="{{ route('categories.index') }}" aria-expanded="{{ menu_expanded('admin/categories', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-box"></i> Categories</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
         </ul>
 
     </nav>

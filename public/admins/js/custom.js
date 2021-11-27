@@ -245,8 +245,23 @@ function activeUser(slug) {
   $('#formActiveUser').attr('action', '/admin/users/' + slug + '/activate');
 }
 
+function deactiveCategory(slug) {
+  $("#deactiveCategory").modal();
+  $('#formDeactiveCategory').attr('action', '/admin/categories/' + slug + '/deactivate');
+}
+
+function activeCategory(slug) {
+  $("#activeCategory").modal();
+  $('#formActiveCategory').attr('action', '/admin/categories/' + slug + '/activate');
+}
+
 // functions to ask when deleting
 function deleteUser(slug) {
   $("#deleteUser").modal();
   $('#formDeleteUser').attr('action', '/admin/users/' + slug);
+}
+
+function deleteCategory(slug) {
+  $("#deleteCategory").modal();
+  $('#formDeleteCategory').attr('action', '/admin/categories/' + slug);
 }
