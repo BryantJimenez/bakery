@@ -15,5 +15,40 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1'], function() {
-	
+	/////////////////////////////////////// AUTH ////////////////////////////////////////////////////
+	Route::group(['prefix' => 'auth'], function() {
+		Route::prefix('login')->group(function () {
+			Route::post('/', 'Api\AuthController@login');
+		});
+		Route::post('/register', 'Api\AuthController@register');
+		// Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+
+		Route::group(['middleware' => 'auth:api'], function() {
+			Route::get('/logout', 'Api\AuthController@logout');
+		});
+	});
+
+	/////////////////////////////////////// ADMIN ////////////////////////////////////////////////////
+	Route::group(['middleware' => 'auth:api'], function () {
+		// Profile
+		Route::group(['prefix' => 'profile'], function () {
+			Route::get('/', 'Api\ProfileController@get');
+			Route::put('/', 'Api\ProfileController@update');
+			Route::prefix('change')->group(function () {
+				Route::post('/password', 'Api\ProfileController@changePassword');
+				Route::post('/email', 'Api\ProfileController@changeEmail');
+			});
+		});
+
+		// Users
+		Route::group(['prefix' => 'users'], function () {
+			Route::get('/', 'Api\UserController@index')->middleware('permission:users.index');
+			Route::post('/', 'Api\UserController@store')->middleware('permission:users.create');
+			Route::get('/{user:id}', 'Api\UserController@show')->middleware('permission:users.show');
+			Route::put('/{user:id}', 'Api\UserController@update')->middleware('permission:users.edit');
+			Route::delete('/{user:id}', 'Api\UserController@destroy')->middleware('permission:users.delete');
+			Route::put('/{user:id}/activate', 'Api\UserController@activate')->middleware('permission:users.active');
+			Route::put('/{user:id}/deactivate', 'Api\UserController@deactivate')->middleware('permission:users.deactive');
+		});
+	});
 });
