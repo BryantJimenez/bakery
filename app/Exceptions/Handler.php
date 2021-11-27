@@ -2,8 +2,13 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +55,28 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if (request()->header('Content-Type')=='application/json' || (isset(explode('/', $request->url())[3]) && explode('/', $request->url())[3]=="api")) {
+            if ($exception instanceof MethodNotAllowedHttpException) {
+                return response()->json(['code' => 405, 'status' => 'error', 'message' => 'The method specified in the request is not valid.'], 405);
+            }
+
+            if ($exception instanceof NotFoundHttpException) {
+                return response()->json(['code' => 404, 'status' => 'error', 'message' => 'No results found.'], 404);
+            }
+
+            if ($exception instanceof AuthenticationException) {
+                return response()->json(['code' => 401, 'status' => 'error', 'message' => 'Not authenticated.'], 401);
+            }
+
+            if ($exception instanceof UnauthorizedException) {
+                return response()->json(['code' => 403, 'status' => 'error', 'message' => 'Forbidden.'], 403);
+            }
+
+            if ($exception instanceof ValidationException) {
+                return response()->json(['code' => 422, 'status' => 'error', 'message' => 'The data sent was not valid.', 'errors' => $exception->validator->getMessageBag()], 422);
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }

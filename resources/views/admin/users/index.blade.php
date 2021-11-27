@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Usuarios')
+@section('title', 'List of Users')
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -21,7 +21,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Lista de Usuarios</h4>
+						<h4>List of Users</h4>
 					</div>                 
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 					<div class="col-12">
 						@can('users.create')
 						<div class="text-right">
-							<a href="{{ route('usuarios.create') }}" class="btn btn-primary">Agregar</a>
+							<a href="{{ route('users.create') }}" class="btn btn-primary">Add</a>
 						</div>
 						@endcan
 
@@ -40,13 +40,13 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre Completo</th>
-										<th>Correo</th>
-										<th>Teléfono</th>
-										<th>Tipo</th>
-										<th>Estado</th>
+										<th>Full Name</th>
+										<th>Email</th>
+										<th>Phone</th>
+										<th>Type</th>
+										<th>State</th>
 										@if(auth()->user()->can('users.show') || auth()->user()->can('users.edit') || auth()->user()->can('users.active') || auth()->user()->can('users.deactive') || auth()->user()->can('users.delete'))
-										<th>Acciones</th>
+										<th>Actions</th>
 										@endif
 									</tr>
 								</thead>
@@ -65,24 +65,24 @@
 										<td>
 											<div class="btn-group" role="group">
 												@can('users.show')
-												<a href="{{ route('usuarios.show', ['user' => $user->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Perfil"><i class="fa fa-user"></i></a>
+												<a href="{{ route('users.show', ['user' => $user->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Profile"><i class="fa fa-user"></i></a>
 												@endcan
 												@can('users.edit')
-												<a href="{{ route('usuarios.edit', ['user' => $user->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Editar"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('users.edit', ['user' => $user->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Edit"><i class="fa fa-edit"></i></a>
 												@endcan
 												@if(Auth::user()->id!=$user->id)
-												@if($user->state==1)
+												@if($user->state=='Active')
 												@can('users.deactive')
-												<button type="button" class="btn btn-warning btn-sm bs-tooltip" title="Desactivar" onclick="deactiveUser('{{ $user->slug }}')"><i class="fa fa-power-off"></i></button>
+												<button type="button" class="btn btn-warning btn-sm bs-tooltip" title="Deactivate" onclick="deactiveUser('{{ $user->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
 												@can('users.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activar" onclick="activeUser('{{ $user->slug }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activate" onclick="activeUser('{{ $user->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 												@can('users.delete')
 												@if(!$user->hasRole('Super Admin') || ($user->hasRole('Super Admin') && Auth::user()->hasRole('Super Admin')))
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Eliminar" onclick="deleteUser('{{ $user->slug }}')"><i class="fa fa-trash"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Remove" onclick="deleteUser('{{ $user->slug }}')"><i class="fa fa-trash"></i></button>
 												@endif
 												@endcan
 												@endif
@@ -108,17 +108,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres desactivar este usuario?</h5>
+				<h5 class="modal-title">Are you sure you want to deactivate this user?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
 				<form action="#" method="POST" id="formDeactiveUser">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Desactivar</button>
+					<button type="submit" class="btn btn-primary">Deactivate</button>
 				</form>
 			</div>
 		</div>
@@ -131,17 +131,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres activar este usuario?</h5>
+				<h5 class="modal-title">Are you sure you want to activate this user?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
 				<form action="#" method="POST" id="formActiveUser">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Activar</button>
+					<button type="submit" class="btn btn-primary">Activate</button>
 				</form>
 			</div>
 		</div>
@@ -154,17 +154,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres eliminar este usuario?</h5>
+				<h5 class="modal-title">Are you sure you want to delete this user?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
 				<form action="#" method="POST" id="formDeleteUser">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Eliminar</button>
+					<button type="submit" class="btn btn-primary">Remove</button>
 				</form>
 			</div>
 		</div>

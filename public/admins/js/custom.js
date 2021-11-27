@@ -135,50 +135,37 @@ function GetIEVersion() {
 
 //////// Scripts ////////
 $(document).ready(function() {
-  //Validación para introducir solo números
+  // Validation to enter only numbers
   $('.number, #phone').keypress(function() {
     return event.charCode >= 48 && event.charCode <= 57;
   });
-  //Validación para introducir solo letras y espacios
+  // Validation to enter only letters and spaces
   $('#name, #lastname, .only-letters').keypress(function() {
     return event.charCode >= 65 && event.charCode <= 90 || event.charCode >= 97 && event.charCode <= 122 || event.charCode==32;
   });
-  //Validación para solo presionar enter y borrar
+  // Validation to just hit enter and delete
   $('.date').keypress(function() {
     return event.charCode == 32 || event.charCode == 127;
   });
 
-  //select2
+  // select2
   if ($('.select2').length) {
     $('.select2').select2({
       language: "es",
-      placeholder: "Seleccione",
+      placeholder: "Select",
       tags: true
     });
   }
 
-  //Datatables normal
+  // Datatables normal
   if ($('.table-normal').length) {
     $('.table-normal').DataTable({
       "oLanguage": {
-        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-        "sInfo": "Resultados del _START_ al _END_ de un total de _TOTAL_ registros",
+        "oPaginate": {
+          "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+        },
         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-        "sSearchPlaceholder": "Buscar...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sProcessing":     "Procesando...",
-        "sZeroRecords":    "No se encontraron resultados",
-        "sEmptyTable":     "Ningún resultado disponible en esta tabla",
-        "sInfoEmpty":      "No hay resultados",
-        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":    "",
-        "sUrl":            "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oAria": {
-          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
       },
       "stripeClasses": [],
       "lengthMenu": [10, 20, 50, 100, 200, 500],
@@ -198,28 +185,11 @@ $(document).ready(function() {
         ]
       },
       "oLanguage": {
-        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-        "sInfo": "Resultados del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-        "sSearchPlaceholder": "Buscar...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sProcessing":     "Procesando...",
-        "sZeroRecords":    "No se encontraron resultados",
-        "sEmptyTable":     "Ningún resultado disponible en esta tabla",
-        "sInfoEmpty":      "No hay resultados",
-        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":    "",
-        "sUrl":            "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oAria": {
-          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        "oPaginate": {
+          "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+          "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
         },
-        "buttons": {
-          "copy": "Copiar",
-          "print": "Imprimir"
-        }
+        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
       },
       "stripeClasses": [],
       "lengthMenu": [10, 20, 50, 100, 200, 500],
@@ -227,33 +197,18 @@ $(document).ready(function() {
     });
   }
 
-  //dropify para input file más personalizado
+  // dropify for more custom input file
   if ($('.dropify').length) {
-    $('.dropify').dropify({
-      messages: {
-        default: 'Arrastre y suelte una imagen o da click para seleccionarla',
-        replace: 'Arrastre y suelte una imagen o haga click para reemplazar',
-        remove: 'Remover',
-        error: 'Lo sentimos, el archivo es demasiado grande'
-      },
-      error: {
-        'fileSize': 'El tamaño del archivo es demasiado grande ({{ value }} máximo).',
-        'minWidth': 'El ancho de la imagen es demasiado pequeño ({{ value }}}px mínimo).',
-        'maxWidth': 'El ancho de la imagen es demasiado grande ({{ value }}}px máximo).',
-        'minHeight': 'La altura de la imagen es demasiado pequeña ({{ value }}}px mínimo).',
-        'maxHeight': 'La altura de la imagen es demasiado grande ({{ value }}px máximo).',
-        'imageFormat': 'El formato de imagen no está permitido (Debe ser {{ value }}).'
-      }
-    });
+    $('.dropify').dropify();
   }
 
-  //datepicker material
+  // datepicker material
   if ($('.dateMaterial').length) {
     $('.dateMaterial').bootstrapMaterialDatePicker({
       lang : 'es',
       time: false,
-      cancelText: 'Cancelar',
-      clearText: 'Limpiar',
+      cancelText: 'Cancel',
+      clearText: 'Clear',
       format: 'DD-MM-YYYY',
       maxDate : new Date()
     });
@@ -270,7 +225,7 @@ $(document).ready(function() {
   }
 });
 
-// funcion para cambiar el input hidden al cambiar el switch de estado
+// function to change the hidden input when changing the status switch
 $('#stateCheckbox').change(function(event) {
   if ($(this).is(':checked')) {
     $('#stateHidden').val(1);
@@ -279,19 +234,19 @@ $('#stateCheckbox').change(function(event) {
   }
 });
 
-//funciones para desactivar y activar
+// functions to deactivate and activate
 function deactiveUser(slug) {
   $("#deactiveUser").modal();
-  $('#formDeactiveUser').attr('action', '/admin/usuarios/' + slug + '/desactivar');
+  $('#formDeactiveUser').attr('action', '/admin/users/' + slug + '/deactivate');
 }
 
 function activeUser(slug) {
   $("#activeUser").modal();
-  $('#formActiveUser').attr('action', '/admin/usuarios/' + slug + '/activar');
+  $('#formActiveUser').attr('action', '/admin/users/' + slug + '/activate');
 }
 
-//funciones para preguntar al eliminar
+// functions to ask when deleting
 function deleteUser(slug) {
   $("#deleteUser").modal();
-  $('#formDeleteUser').attr('action', '/admin/usuarios/' + slug);
+  $('#formDeleteUser').attr('action', '/admin/users/' + slug);
 }

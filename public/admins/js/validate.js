@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	//Usuarios login
+	// User login
 	$("button[action='login']").on("click",function(){
 		$("#formLogin").validate({
 			rules:
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		});
 	});
 
-	//Usuarios register
+	// User register
 	$("button[action='register']").on("click",function(){
 		$("#formRegister").validate({
 			rules:
@@ -47,7 +47,7 @@ $(document).ready(function(){
 					minlength: 5,
 					maxlength: 191,
 					remote: {
-						url: "/usuarios/email",
+						url: "/users/email",
 						type: "get"
 					}
 				},
@@ -62,12 +62,6 @@ $(document).ready(function(){
 					required: true
 				}
 			},
-			messages:
-			{
-				email: {
-					remote: "Este correo ya esta en uso."
-				}
-			},
 			submitHandler: function(form) {
 				$("button[action='register']").attr('disabled', true);
 				form.submit();
@@ -75,7 +69,7 @@ $(document).ready(function(){
 		});
 	});
 
-	//Recuperar Contraseña
+	// Recover password
 	$("button[action='recovery']").on("click",function(){
 		$("#formRecovery").validate({
 			rules:
@@ -94,7 +88,7 @@ $(document).ready(function(){
 		});
 	});
 
-	//Restaurar Contraseña
+	// Reset Password
 	$("button[action='reset']").on("click",function(){
 		$("#formReset").validate({
 			rules:
@@ -125,7 +119,7 @@ $(document).ready(function(){
 		});
 	});
 
-	//Perfil
+	// Profile
 	$("button[action='profile']").on("click",function(){
 		$("#formProfile").validate({
 			rules:
@@ -167,7 +161,7 @@ $(document).ready(function(){
 		});
 	});
 
-	// Usuarios
+	// Users
 	$("button[action='user']").on("click",function(){
 		$("#formUser").validate({
 			rules:
@@ -190,7 +184,7 @@ $(document).ready(function(){
 					minlength: 5,
 					maxlength: 191,
 					remote: {
-						url: "/usuarios/email",
+						url: "/users/email",
 						type: "get"
 					}
 				},
@@ -215,16 +209,6 @@ $(document).ready(function(){
 					equalTo: "#password",
 					minlength: 8,
 					maxlength: 40
-				}
-			},
-			messages:
-			{
-				email: {
-					remote: "Este correo ya esta en uso."
-				},
-
-				type: {
-					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {

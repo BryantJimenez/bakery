@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
+use App\Http\Requests\Profile\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
@@ -39,7 +39,7 @@ class AdminController extends Controller
         $user->fill($data)->save();
 
         if ($user) {
-            // Mover imagen a carpeta users y extraer nombre
+            // Move image to users folder and extract name
             if ($request->hasFile('photo')) {
                 $file=$request->file('photo');
                 $photo=store_files($file, $user->slug, '/admins/img/users/');
@@ -53,9 +53,9 @@ class AdminController extends Controller
             if (!is_null(request('password'))) {
                 Auth::user()->password=Hash::make(request('password'));
             }
-            return redirect()->route('profile.edit')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El perfil ha sido editado exitosamente.']);
+            return redirect()->route('profile.edit')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The profile has been edited successfully.']);
         } else {
-            return redirect()->route('profile.edit')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('profile.edit')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
         }
     }
 

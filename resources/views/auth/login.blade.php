@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Ingresar')
+@section('title', 'Login')
 
 @section('content')
 
@@ -10,7 +10,7 @@
       <div class="form-container">
         <div class="form-content">
 
-          <h1 class="">Ingresar</h1>
+          <h1 class="">Login</h1>
 
           <form class="text-left" action="{{ route('login') }}" method="POST" id="formLogin">
             {{ csrf_field() }}
@@ -20,15 +20,15 @@
             <div class="form">
 
               <div id="username-field" class="field-wrapper input">
-                <label for="email">CORREO</label>
+                <label for="email">EMAIL</label>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <input id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" required placeholder="{{ 'correo@gmail.com' }}" value="{{ old('email') }}" minlength="5" maxlength="191">
+                <input id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" required placeholder="{{ 'email@gmail.com' }}" value="{{ old('email') }}" minlength="5" maxlength="191">
               </div>
 
               <div id="password-field" class="field-wrapper input mb-2">
                 <div class="d-flex justify-content-between">
-                  <label for="password">CONTRASEÑA</label>
-                  <a href="{{ route('password.request') }}" class="forgot-pass-link">Olvidé mi contraseña</a>
+                  <label for="password">PASSWORD</label>
+                  <a href="{{ route('password.request') }}" class="forgot-pass-link">I forgot my password</a>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 <input id="password" name="password" type="password" class="form-control @error('email') is-invalid @enderror" required placeholder="********" minlength="8" maxlength="40">
@@ -36,7 +36,7 @@
               </div>
               <div class="d-sm-flex justify-content-between">
                 <div class="field-wrapper">
-                  <button type="submit" class="btn btn-primary font-weight-bold" action="login">Ingresar</button>
+                  <button type="submit" class="btn btn-primary font-weight-bold" action="login">Login</button>
                 </div>
               </div>
             </div>

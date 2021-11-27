@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,10 +10,11 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPasswordNotification;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, SoftDeletes, HasSlug;
+    use Notifiable, HasApiTokens, HasRoles, SoftDeletes, HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +53,21 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the state.
+     *
+     * @return string
+     */
+    public function getStateAttribute($value)
+    {
+        if ($value=='1') {
+            return 'Active';
+        } elseif ($value=='0') {
+            return 'Inactive';
+        }
+        return 'Unknown';
+    }
+
+    /**
      * Retrieve the model for a bound value.
      *
      * @param  mixed  $value
@@ -60,7 +76,12 @@ class User extends Authenticatable
      */
     public function resolveRouteBinding($value, $field = null)
     {
-        return $this->with(['roles'])->where($field, $value)->firstOrFail();
+        $user=$this->with(['roles'])->where($field, $value)->first();
+        if (!is_null($user)) {
+            return $user;
+        }
+
+        return abort(404);
     }
 
     public function getSlugOptions() : SlugOptions

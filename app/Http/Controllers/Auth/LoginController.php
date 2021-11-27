@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -58,7 +58,7 @@ class LoginController extends Controller
         if ($count>0) {
             $user=User::where('email', request('email'))->first();
             if($user->state==0 || !$user->hasPermissionTo('dashboard')) {
-                return redirect()->back()->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Ingreso no permitido', 'msg' => 'Este usuario no tiene permitido ingresar.'])->withInput();
+                return redirect()->back()->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Entry not allowed', 'msg' => 'This user is not allowed to enter.'])->withInput();
             }
         }
 

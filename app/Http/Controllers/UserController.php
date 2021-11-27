@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\User\UserStoreRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Jobs\SendEmailRegister;
@@ -46,7 +46,7 @@ class UserController extends Controller
         if ($user) {
             $user->assignRole(request('type'));
 
-            // Mover imagen a carpeta users y extraer nombre
+            // Move image to users folder and extract name
             if ($request->hasFile('photo')) {
                 $file=$request->file('photo');
                 $photo=store_files($file, $user->slug, '/admins/img/users/');
@@ -54,9 +54,9 @@ class UserController extends Controller
             }
 
             SendEmailRegister::dispatch($user->slug);
-            return redirect()->route('usuarios.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El usuario ha sido registrado exitosamente.']);
+            return redirect()->route('users.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful registration', 'msg' => 'The user has been successfully registered.']);
         } else {
-            return redirect()->route('usuarios.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('users.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed registration', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
         }
     }
 
@@ -98,16 +98,16 @@ class UserController extends Controller
         if ($user) {
             $user->syncRoles([request('type')]);
 
-            // Mover imagen a carpeta users y extraer nombre
+            // Move image to users folder and extract name
             if ($request->hasFile('photo')) {
                 $file=$request->file('photo');
                 $photo=store_files($file, $user->slug, '/admins/img/users/');
                 $user->fill(['photo' => $photo])->save();
             }
 
-            return redirect()->route('usuarios.edit', ['user' => $user->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido editado exitosamente.']);
+            return redirect()->route('users.edit', ['user' => $user->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The user has been edited successfully.']);
         } else {
-            return redirect()->route('usuarios.edit', ['user' => $user->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('users.edit', ['user' => $user->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
         }
     }
 
@@ -121,27 +121,27 @@ class UserController extends Controller
     {
         $user->delete();
         if ($user) {
-            return redirect()->route('usuarios.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El usuario ha sido eliminado exitosamente.']);
+            return redirect()->route('users.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful removal', 'msg' => 'The user has been successfully removed.']);
         } else {
-            return redirect()->route('usuarios.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('users.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed deletion', 'msg' => 'An error occurred during the process, please try again.']);
         }
     }
 
     public function deactivate(Request $request, User $user) {
         $user->fill(['state' => "0"])->save();
         if ($user) {
-            return redirect()->route('usuarios.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido desactivado exitosamente.']);
+            return redirect()->route('users.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The user has been successfully deactivated.']);
         } else {
-            return redirect()->route('usuarios.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('users.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
         }
     }
 
     public function activate(Request $request, User $user) {
         $user->fill(['state' => "1"])->save();
         if ($user) {
-            return redirect()->route('usuarios.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El usuario ha sido activado exitosamente.']);
+            return redirect()->route('users.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The user has been successfully activated.']);
         } else {
-            return redirect()->route('usuarios.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('users.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
         }
     }
 }
