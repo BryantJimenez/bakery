@@ -51,6 +51,17 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::put('/{user:id}/deactivate', 'Api\UserController@deactivate')->middleware('permission:users.deactive');
 		});
 
+		// Customers
+		Route::group(['prefix' => 'customers'], function () {
+			Route::get('/', 'Api\CustomerController@index')->middleware('permission:customers.index');
+			Route::post('/', 'Api\CustomerController@store')->middleware('permission:customers.create');
+			Route::get('/{customer:id}', 'Api\CustomerController@show')->middleware('permission:customers.show');
+			Route::put('/{customer:id}', 'Api\CustomerController@update')->middleware('permission:customers.edit');
+			Route::delete('/{customer:id}', 'Api\CustomerController@destroy')->middleware('permission:customers.delete');
+			Route::put('/{customer:id}/activate', 'Api\CustomerController@activate')->middleware('permission:customers.active');
+			Route::put('/{customer:id}/deactivate', 'Api\CustomerController@deactivate')->middleware('permission:customers.deactive');
+		});
+
 		// Categories
 		Route::group(['prefix' => 'categories'], function () {
 			Route::get('/', 'Api\CategoryController@index')->middleware('permission:categories.index');

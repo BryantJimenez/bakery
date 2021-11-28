@@ -245,6 +245,16 @@ function activeUser(slug) {
   $('#formActiveUser').attr('action', '/admin/users/' + slug + '/activate');
 }
 
+function deactiveCustomer(slug) {
+  $("#deactiveCustomer").modal();
+  $('#formDeactiveCustomer').attr('action', '/admin/customers/' + slug + '/deactivate');
+}
+
+function activeCustomer(slug) {
+  $("#activeCustomer").modal();
+  $('#formActiveCustomer').attr('action', '/admin/customers/' + slug + '/activate');
+}
+
 function deactiveCategory(slug) {
   $("#deactiveCategory").modal();
   $('#formDeactiveCategory').attr('action', '/admin/categories/' + slug + '/deactivate');
@@ -259,6 +269,11 @@ function activeCategory(slug) {
 function deleteUser(slug) {
   $("#deleteUser").modal();
   $('#formDeleteUser').attr('action', '/admin/users/' + slug);
+}
+
+function deleteCustomer(slug) {
+  $("#deleteCustomer").modal();
+  $('#formDeleteCustomer').attr('action', '/admin/customers/' + slug);
 }
 
 function deleteCategory(slug) {

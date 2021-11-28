@@ -18,8 +18,9 @@ class AdminController extends Controller
      */
     public function index() {
         $users=User::count();
+        $customers=User::role(['Customer'])->count();
         $categories=Category::count();
-        return view('admin.home', compact('users', 'categories'));
+        return view('admin.home', compact('users', 'customers', 'categories'));
     }
 
     public function profile() {

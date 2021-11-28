@@ -44,6 +44,11 @@ use Illuminate\Http\Request;
 * )
 *
 * @OA\Tag(
+*	name="Customers",
+*	description="Customers endpoints"
+* )
+*
+* @OA\Tag(
 *	name="Categories",
 *	description="Categories endpoints"
 * )
@@ -60,9 +65,10 @@ use Illuminate\Http\Request;
 class ApiController extends Controller
 {
 	public function dataUser($user) {
+		$user->phone=(!is_null($user->phone)) ? $user->phone : '';
 		$user->rol=roleUser($user, false);
 		$user->photo=(!is_null($user->photo)) ? asset('/admins/img/users/'.$user->photo) : '';
-		$data=$user->only("id", "name", "lastname", "slug", "photo", "email", "state", "rol");
+		$data=$user->only("id", "name", "lastname", "slug", "photo", "phone", "email", "state", "rol");
 		return $data;
 	}
 

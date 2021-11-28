@@ -199,6 +199,10 @@ $(document).ready(function(){
 					required: true
 				},
 
+				state: {
+					required: true
+				},
+
 				password: {
 					required: true,
 					minlength: 8,
@@ -215,10 +219,71 @@ $(document).ready(function(){
 			{
 				type: {
 					required: 'Select an option.'
+				},
+
+				state: {
+					required: 'Select an option.'
 				}
 			},
 			submitHandler: function(form) {
 				$("button[action='user']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Customers
+	$("button[action='customer']").on("click",function(){
+		$("#formCustomer").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				lastname: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				email: {
+					required: true,
+					email: true,
+					minlength: 5,
+					maxlength: 191,
+					remote: {
+						url: "/users/email",
+						type: "get"
+					}
+				},
+
+				state: {
+					required: true
+				},
+
+				password: {
+					required: true,
+					minlength: 8,
+					maxlength: 40
+				},
+
+				password_confirmation: { 
+					equalTo: "#password",
+					minlength: 8,
+					maxlength: 40
+				}
+			},
+			messages:
+			{
+				state: {
+					required: 'Select an option.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='customer']").attr('disabled', true);
 				form.submit();
 			}
 		});
