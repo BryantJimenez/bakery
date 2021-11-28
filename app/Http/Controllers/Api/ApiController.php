@@ -53,6 +53,11 @@ use Illuminate\Http\Request;
 *	description="Categories endpoints"
 * )
 *
+* @OA\Tag(
+*	name="Agencies",
+*	description="Agencies endpoints"
+* )
+*
 * @OA\SecurityScheme(
 *	securityScheme="bearerAuth",
 *   in="header",
@@ -75,6 +80,12 @@ class ApiController extends Controller
 	public function dataCategory($category) {
 		$category->image=(!is_null($category->image)) ? asset('/admins/img/categories/'.$category->image) : '';
 		$data=$category->only("id", "name", "slug", "image", "state");
+		return $data;
+	}
+
+	public function dataAgency($agency) {
+		$agency->description=(!is_null($agency->description)) ? $agency->description : '';
+		$data=$agency->only("id", "name", "slug", "route", "description", "price", "state");
 		return $data;
 	}
 }

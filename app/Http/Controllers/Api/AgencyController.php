@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
+use App\Models\Agency;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Api\Customer\CustomerStoreRequest;
-use App\Http\Requests\Api\Customer\CustomerUpdateRequest;
+use App\Http\Requests\Api\Agency\AgencyStoreRequest;
+use App\Http\Requests\Api\Agency\AgencyUpdateRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Jobs\SendEmailRegister;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Arr;
 
-class CustomerController extends ApiController
+class AgencyController extends ApiController
 {
     /**
     *
     * @OA\Get(
-    *   path="/api/v1/customers",
-    *   tags={"Customers"},
-    *   summary="Get customers",
-    *   description="Returns all customers",
-    *   operationId="indexCustomer",
+    *   path="/api/v1/agencies",
+    *   tags={"Agencies"},
+    *   summary="Get agencies",
+    *   description="Returns all agencies",
+    *   operationId="indexAgency",
     *   security={
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Response(
     *       response=200,
-    *       description="Show all customers.",
+    *       description="Show all agencies.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -44,12 +42,12 @@ class CustomerController extends ApiController
     * )
     */
     public function index() {
-        $users=User::with(['roles'])->role(['Customer'])->get()->map(function($user) {
-            return $this->dataUser($user);
+        $agencies=Agency::get()->map(function($agency) {
+            return $this->dataAgency($agency);
         });
 
         $page=Paginator::resolveCurrentPage('page');
-        $pagination=new LengthAwarePaginator($users, $total=count($users), $perPage=15, $page, ['path' => Paginator::resolveCurrentPath(), 'pageName' => 'page']);
+        $pagination=new LengthAwarePaginator($agencies, $total=count($agencies), $perPage=15, $page, ['path' => Paginator::resolveCurrentPath(), 'pageName' => 'page']);
         $pagination=Arr::collapse([$pagination->toArray(), ['code' => 200, 'status' => 'success']]);
 
         return response()->json($pagination, 200);
@@ -58,62 +56,54 @@ class CustomerController extends ApiController
     /**
     *
     * @OA\Post(
-    *   path="/api/v1/customers",
-    *   tags={"Customers"},
-    *   summary="Register customer",
-    *   description="Create a new customer",
-    *   operationId="storeCustomer",
+    *   path="/api/v1/agencies",
+    *   tags={"Agencies"},
+    *   summary="Register agency",
+    *   description="Create a new agency",
+    *   operationId="storeAgency",
     *   security={
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
     *       name="name",
     *       in="query",
-    *       description="Name of customer",
+    *       description="Name of agency",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="lastname",
+    *       name="route",
     *       in="query",
-    *       description="Lastname of customer",
+    *       description="Route of agency",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="email",
+    *       name="price",
     *       in="query",
-    *       description="Email of customer",
+    *       description="Price of agency",
     *       required=true,
     *       @OA\Schema(
-    *           type="string"
+    *           type="string",
+    *           format="float"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="password",
+    *       name="description",
     *       in="query",
-    *       description="Password of customer",
-    *       required=true,
-    *       @OA\Schema(
-    *           type="string"
-    *       )
-    *   ),
-    *   @OA\Parameter(
-    *       name="password_confirmation",
-    *       in="query",
-    *       description="Password confirm of customer",
-    *       required=true,
+    *       description="Description of agency",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Response(
     *       response=201,
-    *       description="Registered customer.",
+    *       description="Registered agency.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -136,18 +126,13 @@ class CustomerController extends ApiController
     *   )
     * )
     */
-    public function store(CustomerStoreRequest $request) {
-    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'email' => request('email'), 'password' => Hash::make(request('password')));
-    	$customer=User::create($data);
-
-    	if ($customer) {
-    		$customer->assignRole('Customer');
-    		SendEmailRegister::dispatch($customer->slug);
-
-            $customer=User::with(['roles'])->where('id', $customer->id)->first();
-            $customer=$this->dataUser($customer);
-
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The customer has been successfully registered.', 'data' => $customer], 201);
+    public function store(AgencyStoreRequest $request) {
+        $data=array('name' => request('name'), 'route' => request('route'), 'description' => request('description'), 'price' => request('price'));
+        $agency=Agency::create($data);
+        if ($agency) {
+            $agency=Agency::where('id', $agency->id)->first();
+            $agency=$this->dataAgency($agency);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The agency has been successfully registered.', 'data' => $agency], 201);
         }
 
         return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
@@ -156,11 +141,11 @@ class CustomerController extends ApiController
     /**
     *
     * @OA\Get(
-    *   path="/api/v1/customers/{id}",
-    *   tags={"Customers"},
-    *   summary="Get customer",
-    *   description="Returns a single customer",
-    *   operationId="showCustomer",
+    *   path="/api/v1/agencies/{id}",
+    *   tags={"Agencies"},
+    *   summary="Get agency",
+    *   description="Returns a single agency",
+    *   operationId="showAgency",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -175,7 +160,7 @@ class CustomerController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Show customer.",
+    *       description="Show agency.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -193,23 +178,20 @@ class CustomerController extends ApiController
     *       description="No results found."
     *   )
     * )
-     */
-    public function show(User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
-        }
-        $customer=$this->dataUser($customer);
-        return response()->json(['code' => 200, 'status' => 'success', 'data' => $customer], 200);
+    */
+    public function show(Agency $agency) {
+        $agency=$this->dataAgency($agency);
+        return response()->json(['code' => 200, 'status' => 'success', 'data' => $agency], 200);
     }
 
     /**
     *
     * @OA\Put(
-    *   path="/api/v1/customers/{id}",
-    *   tags={"Customers"},
-    *   summary="Update customer",
-    *   description="Update a single customer",
-    *   operationId="updateCustomer",
+    *   path="/api/v1/agencies/{id}",
+    *   tags={"Agencies"},
+    *   summary="Update agency",
+    *   description="Update a single agency",
+    *   operationId="updateAgency",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -225,24 +207,43 @@ class CustomerController extends ApiController
     *   @OA\Parameter(
     *       name="name",
     *       in="query",
-    *       description="Name of customer",
+    *       description="Name of agency",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="lastname",
+    *       name="route",
     *       in="query",
-    *       description="Lastname of customer",
+    *       description="Route of agency",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="price",
+    *       in="query",
+    *       description="Price of agency",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           format="float"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description",
+    *       in="query",
+    *       description="Description of agency",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Update customer.",
+    *       description="Update agency.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -265,33 +266,26 @@ class CustomerController extends ApiController
     *   )
     * )
     */
-    public function update(CustomerUpdateRequest $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
+    public function update(AgencyUpdateRequest $request, Agency $agency) {
+        $data=array('name' => request('name'), 'route' => request('route'), 'description' => request('description'), 'price' => request('price'));
+        $agency->fill($data)->save();
+        if ($agency) {
+            $agency=Agency::where('id', $agency->id)->first();
+            $agency=$this->dataAgency($agency);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been edited successfully.', 'data' => $agency], 200);
         }
-
-        $data=array('name' => request('name'), 'lastname' => request('lastname'));
-        $customer->fill($data)->save();
-
-        if ($customer) {
-          $customer->syncRoles(['Customer']);
-          $customer=User::with(['roles'])->where('id', $customer->id)->first();
-          $customer=$this->dataUser($customer);
-
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The customer has been edited successfully.', 'data' => $customer], 200);
-      }
-
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
-  }
+        
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    }
 
     /**
     *
     * @OA\Delete(
-    *   path="/api/v1/customers/{id}",
-    *   tags={"Customers"},
-    *   summary="Delete customer",
-    *   description="Delete a single customer",
-    *   operationId="destroyCustomer",
+    *   path="/api/v1/agencies/{id}",
+    *   tags={"Agencies"},
+    *   summary="Delete agency",
+    *   description="Delete a single agency",
+    *   operationId="destroyAgency",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -306,7 +300,7 @@ class CustomerController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Delete customer.",
+    *       description="Delete agency.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -329,28 +323,24 @@ class CustomerController extends ApiController
     *   )
     * )
      */
-    public function destroy(User $customer)
+    public function destroy(Agency $agency)
     {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
-        }
+    	$agency->delete();
+    	if ($agency) {
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been successfully removed.'], 200);
+    	}
 
-        $customer->delete();
-        if ($customer) {
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The user has been successfully removed.'], 200);
-      }
-
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
-  }
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    }
 
     /**
     *
     * @OA\Put(
-    *   path="/api/v1/customers/{id}/deactivate",
-    *   tags={"Customers"},
-    *   summary="Deactivate customer",
-    *   description="Deactivate a single customer",
-    *   operationId="deactivateCustomer",
+    *   path="/api/v1/agencies/{id}/deactivate",
+    *   tags={"Agencies"},
+    *   summary="Deactivate agency",
+    *   description="Deactivate a single agency",
+    *   operationId="deactivateAgency",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -365,7 +355,7 @@ class CustomerController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Deactivate customer.",
+    *       description="Deactivate agency.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -388,28 +378,24 @@ class CustomerController extends ApiController
     *   )
     * )
      */
-    public function deactivate(Request $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
+    public function deactivate(Request $request, Agency $agency) {
+    	$agency->fill(['state' => "0"])->save();
+    	if ($agency) {
+            $agency=$this->dataAgency($agency);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been successfully deactivated.', 'data' => $agency], 200);
         }
 
-        $customer->fill(['state' => "0"])->save();
-        if ($customer) {
-          $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The customer has been successfully deactivated.', 'data' => $customer], 200);
-      }
-
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
-  }
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    }
 
     /**
     *
     * @OA\Put(
-    *   path="/api/v1/customers/{id}/activate",
-    *   tags={"Customers"},
-    *   summary="Activate customer",
-    *   description="Activate a single customer",
-    *   operationId="activateCustomer",
+    *   path="/api/v1/agencies/{id}/activate",
+    *   tags={"Agencies"},
+    *   summary="Activate agency",
+    *   description="Activate a single agency",
+    *   operationId="activateAgency",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -424,7 +410,7 @@ class CustomerController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Activate customer.",
+    *       description="Activate agency.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -447,17 +433,13 @@ class CustomerController extends ApiController
     *   )
     * )
      */
-    public function activate(Request $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
-        }
+    public function activate(Request $request, Agency $agency) {
+    	$agency->fill(['state' => "1"])->save();
+    	if ($agency) {
+    		$agency=$this->dataAgency($agency);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been successfully activated.', 'data' => $agency], 200);
+    	}
 
-        $customer->fill(['state' => "1"])->save();
-        if ($customer) {
-          $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The customer has been successfully activated.', 'data' => $customer], 200);
-      }
-
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
-  }
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    }
 }

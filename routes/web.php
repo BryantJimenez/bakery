@@ -71,4 +71,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 		Route::put('/{category:slug}/activate', 'CategoryController@activate')->name('categories.activate')->middleware('permission:categories.active');
 		Route::put('/{category:slug}/deactivate', 'CategoryController@deactivate')->name('categories.deactivate')->middleware('permission:categories.deactive');
 	});
+
+	// Agencies
+	Route::group(['prefix' => 'agencies'], function () {
+		Route::get('/', 'AgencyController@index')->name('agencies.index')->middleware('permission:agencies.index');
+		Route::get('/create', 'AgencyController@create')->name('agencies.create')->middleware('permission:agencies.create');
+		Route::post('', 'AgencyController@store')->name('agencies.store')->middleware('permission:agencies.create');
+		Route::get('/{agency:slug}', 'AgencyController@show')->name('agencies.show')->middleware('permission:agencies.show');
+		Route::get('/{agency:slug}/edit', 'AgencyController@edit')->name('agencies.edit')->middleware('permission:agencies.edit');
+		Route::put('/{agency:slug}', 'AgencyController@update')->name('agencies.update')->middleware('permission:agencies.edit');
+		Route::delete('/{agency:slug}', 'AgencyController@destroy')->name('agencies.delete')->middleware('permission:agencies.delete');
+		Route::put('/{agency:slug}/activate', 'AgencyController@activate')->name('agencies.activate')->middleware('permission:agencies.active');
+		Route::put('/{agency:slug}/deactivate', 'AgencyController@deactivate')->name('agencies.deactivate')->middleware('permission:agencies.deactive');
+	});
 });

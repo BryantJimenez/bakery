@@ -316,4 +316,39 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	// Agencies
+	$("button[action='agency']").on("click",function(){
+		$("#formAgency").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				route: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				price: {
+					required: true,
+					min: 0
+				},
+
+				description: {
+					required: false,
+					minlength: 2,
+					maxlength: 191
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='agency']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
 });

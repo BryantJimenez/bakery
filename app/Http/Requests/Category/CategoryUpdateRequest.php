@@ -27,7 +27,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:191|'.Rule::unique('categories')->ignore($this->category->slug, 'slug'),
-            'image' => 'nullable|file|mimetypes:image/*',
+            'image' => 'nullable|file|mimetypes:image/*'
         ];
     }
 }

@@ -275,7 +275,7 @@ class UserController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Registered user.",
+    *       description="Update user.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )

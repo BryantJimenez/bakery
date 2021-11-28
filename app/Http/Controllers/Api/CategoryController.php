@@ -201,7 +201,7 @@ class CategoryController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Registered category.",
+    *       description="Update category.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )

@@ -223,6 +223,38 @@ $(document).ready(function() {
       maxDate : "today"
     });
   }
+
+  //touchspin
+  if ($('.int').length) {
+    $(".int").TouchSpin({
+      min: 0,
+      max: 999999999,
+      buttondown_class: 'btn btn-primary pt-2 pb-3',
+      buttonup_class: 'btn btn-primary pt-2 pb-3'
+    });
+  }
+
+  if ($('.decimal').length) {
+    $(".decimal").TouchSpin({
+      min: 0,
+      max: 999999999,
+      step: 0.50,
+      decimals: 2,
+      buttondown_class: 'btn btn-primary pt-2 pb-3',
+      buttonup_class: 'btn btn-primary pt-2 pb-3'
+    });
+  }
+
+  if ($('.min-decimal').length) {
+    $(".min-decimal").TouchSpin({
+      min: 0,
+      max: 999999999,
+      step: 0.05,
+      decimals: 2,
+      buttondown_class: 'btn btn-primary pt-2 pb-3',
+      buttonup_class: 'btn btn-primary pt-2 pb-3'
+    });
+  }
 });
 
 // function to change the hidden input when changing the status switch
@@ -265,6 +297,16 @@ function activeCategory(slug) {
   $('#formActiveCategory').attr('action', '/admin/categories/' + slug + '/activate');
 }
 
+function deactiveAgency(slug) {
+  $("#deactiveAgency").modal();
+  $('#formDeactiveAgency').attr('action', '/admin/agencies/' + slug + '/deactivate');
+}
+
+function activeAgency(slug) {
+  $("#activeAgency").modal();
+  $('#formActiveAgency').attr('action', '/admin/agencies/' + slug + '/activate');
+}
+
 // functions to ask when deleting
 function deleteUser(slug) {
   $("#deleteUser").modal();
@@ -279,4 +321,9 @@ function deleteCustomer(slug) {
 function deleteCategory(slug) {
   $("#deleteCategory").modal();
   $('#formDeleteCategory').attr('action', '/admin/categories/' + slug);
+}
+
+function deleteAgency(slug) {
+  $("#deleteAgency").modal();
+  $('#formDeleteAgency').attr('action', '/admin/agencies/' + slug);
 }
