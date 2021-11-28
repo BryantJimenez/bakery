@@ -1,12 +1,12 @@
 /*
-	===============================
-			@Import	Function
-	===============================
+  ===============================
+      @Import Function
+  ===============================
 */
 /*
-	===============================
-			@Import	Mixins
-	===============================
+  ===============================
+      @Import Mixins
+  ===============================
 */
 html {
   min-height: 100%; }
@@ -22,7 +22,7 @@ body {
   font-family: 'Quicksand', sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #3b3f5c; }
+  color: #343a40; }
 
 :focus {
   outline: none; }
@@ -122,7 +122,7 @@ code {
   border-top-left-radius: 6px; }
 
 .row [class*="col-"] .widget .widget-header h4 {
-  color: #3b3f5c;
+  color: #343a40;
   font-size: 17px;
   font-weight: 600;
   margin: 0;
@@ -179,7 +179,7 @@ code {
 .navbar {
   padding: 0;
   min-height: 80px;
-  background: #445ede;
+  background: #343a40;
   -webkit-transition: .3s ease all;
   transition: .3s ease all;
   -webkit-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
@@ -216,8 +216,8 @@ code {
   display: flex;
   justify-content: space-around;
   background: #fff;
-  border-right: 1px solid #445ede;
-  background-image: linear-gradient(to right, #445ede 0%, #304aca 100%); }
+  border-right: 1px solid #343a40;
+  background-image: linear-gradient(to right, #343a40 0%, #1d1d1d 100%); }
   .header-container .navbar-nav.theme-brand .theme-logo {
     align-self: center;
     opacity: 1;
@@ -363,7 +363,7 @@ code {
           stroke-width: 1px; }
         .navbar .apps-dropdown .custom-dropdown-icon .dropdown-menu a:hover {
           background-color: transparent;
-          color: #3b3f5c;
+          color: #343a40;
           border-radius: 0 !important; }
 
 .navbar .language-dropdown {
@@ -419,7 +419,7 @@ code {
         padding: 8px 7px;
         font-size: 13px;
         font-weight: 500;
-        color: #3b3f5c; }
+        color: #343a40; }
         .navbar .language-dropdown .custom-dropdown-icon .dropdown-menu a:hover {
           background-color: #ebedf2;
           color: #1b55e2; }
@@ -729,7 +729,7 @@ code {
     padding: 0; }
     .navbar .navbar-item .nav-item.user-profile-dropdown .dropdown-menu .dropdown-item a {
       display: block;
-      color: #3b3f5c;
+      color: #343a40;
       font-size: 13px;
       font-weight: 700;
       padding: 9px 14px; }
@@ -911,7 +911,7 @@ code {
     justify-content: space-between;
     cursor: pointer;
     font-size: 13px;
-    color: #3b3f5c;
+    color: #343a40;
     padding: 14px 10px;
     font-weight: 600;
     transition: .600s;
@@ -941,7 +941,7 @@ code {
     position: relative;
     transition: all .2s ease-in-out; }
   #sidebar ul.menu-categories li.menu:not(.active) > .dropdown-toggle[aria-expanded="true"] {
-    background: #445ede; }
+    background: #343a40; }
   #sidebar ul.menu-categories li.menu:not(.active) > .dropdown-toggle:not([aria-expanded="true"]):hover svg:not(.feather-chevron-right), #sidebar ul.menu-categories li.menu:not(.active) > .dropdown-toggle:hover svg:not(.feather-chevron-right) {
     margin-right: 30px; }
   #sidebar ul.menu-categories li.menu > .dropdown-toggle svg.feather-chevron-right {
@@ -974,15 +974,15 @@ code {
   border-radius: 50%; }
 
 #sidebar ul.menu-categories li.menu ul.submenu > li.active a:before {
-  background-color: #445ede; }
+  background-color: #343a40; }
 
 #sidebar ul.menu-categories ul.submenu > li.active a {
-  color: #304aca;
+  color: #343a40;
   font-size: 14px;
   font-weight: 700; }
 
 #sidebar ul.menu-categories li.menu.active > .dropdown-toggle {
-  background: #304aca; }
+  background: #343a40; }
   #sidebar ul.menu-categories li.menu.active > .dropdown-toggle svg.feather-chevron-right {
     transform: rotate(90deg); }
   #sidebar ul.menu-categories li.menu.active > .dropdown-toggle[aria-expanded="false"] svg {
@@ -993,15 +993,15 @@ code {
     font-weight: 600; }
 
 #sidebar ul.menu-categories ul.submenu > li a:hover {
-  color: #304aca; }
+  color: #343a40; }
   #sidebar ul.menu-categories ul.submenu > li a:hover:before {
-    background-color: #304aca !important; }
+    background-color: #343a40 !important; }
 
 #sidebar ul.menu-categories ul.submenu li > [aria-expanded="true"]:before {
-  background-color: #304aca !important; }
+  background-color: #343a40 !important; }
 
 #sidebar ul.menu-categories ul.submenu li > a[aria-expanded="true"] {
-  color: #304aca;
+  color: #343a40;
   font-size: 14px; }
 
 #sidebar ul.menu-categories ul.submenu > li ul.sub-submenu > li a {
@@ -1013,12 +1013,12 @@ code {
   color: #506690; }
 
 #sidebar ul.menu-categories ul.submenu > li ul.sub-submenu > li.active a {
-  color: #304aca; }
+  color: #343a40; }
 
 #sidebar ul.menu-categories ul.submenu > li ul.sub-submenu > li a:hover {
-  color: #304aca; }
+  color: #343a40; }
   #sidebar ul.menu-categories ul.submenu > li ul.sub-submenu > li a:hover:before {
-    background-color: #304aca; }
+    background-color: #343a40; }
 
 #sidebar ul.menu-categories ul.submenu > li ul.sub-submenu > li a:before {
   content: '';
@@ -1029,7 +1029,7 @@ code {
   left: 0; }
 
 #sidebar ul.menu-categories ul.submenu > li ul.sub-submenu > li.active a:before {
-  background-color: #304aca; }
+  background-color: #343a40; }
 
 .sidebar-closed > .sidebar-wrapper {
   width: 54px; }

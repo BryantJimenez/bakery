@@ -20,6 +20,9 @@ class AdminMiddleware
             return $next($request);
         }
         
+        if (auth()->check()) {
+            return redirect()->route('home');
+        }
         return redirect()->route('login');
     }
 }

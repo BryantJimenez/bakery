@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Agency;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,8 @@ class AdminController extends Controller
         $users=User::count();
         $customers=User::role(['Customer'])->count();
         $categories=Category::count();
-        return view('admin.home', compact('users', 'customers', 'categories'));
+        $agencies=Agency::count();
+        return view('admin.home', compact('users', 'customers', 'categories', 'agencies'));
     }
 
     public function profile() {

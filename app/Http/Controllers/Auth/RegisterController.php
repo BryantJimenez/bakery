@@ -8,7 +8,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Str;
 
 class RegisterController extends Controller
 {
@@ -53,10 +52,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'min:2', 'max:255'],
-            'lastname' => ['required', 'string', 'min:2', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => ['required', 'string', 'min:2', 'max:191'],
+            'lastname' => ['required', 'string', 'min:2', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
     }
 
@@ -68,28 +67,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $count=User::where('name', $data['name'])->where('lastname', $data['lastname'])->count();
-        $slug=Str::slug($data['name']." ".$data['lastname'], '-');
-        if ($count>0) {
-            $slug=$slug."-".$count;
-        }
-
-        // Validación para que no se repita el slug
-        $num=0;
-        while (true) {
-            $count2=User::where('slug', $slug)->count();
-            if ($count2>0) {
-                $slug=Str::slug($data['name']." ".$data['lastname'], '-')."-".$num;
-                $num++;
-            } else {
-                break;
-            }
-        }
-
         $user=User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
-            'slug' => $slug,
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
