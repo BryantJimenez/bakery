@@ -22,5 +22,7 @@ class UsersTableSeeder extends Seeder
         	'password' => bcrypt('12345678'),
         	'state' => "1"
         ]);
+
+        factory(User::class, 5)->create(['phone' => NULL, 'state' => '1']);
     }
 }
