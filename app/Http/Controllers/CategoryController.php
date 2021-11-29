@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\Category\CategoryStoreRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use Illuminate\Http\Request;
+use Str;
 
 class CategoryController extends Controller
 {
@@ -35,7 +36,17 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryStoreRequest $request) {
-        $category=Category::create(['name' => request('name')]);
+        $trashed=Category::where('slug', Str::slug(request('name')))->withTrashed()->exists();
+        $exist=Category::where('slug', Str::slug(request('name')))->exists();
+        if ($trashed && $exist===false) {
+            $category=Category::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $category->restore();
+        } else if ($exist) {
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'It already exists', 'msg' => 'This category already exists.']);
+        } else {
+            $category=Category::create(['name' => request('name')]);
+        }
+
         if ($category) {
             // Move image to categories folder and extract name
             if ($request->hasFile('image')) {

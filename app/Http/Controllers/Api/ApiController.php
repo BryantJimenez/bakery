@@ -63,6 +63,11 @@ use Illuminate\Http\Request;
 *	description="Agencies endpoints"
 * )
 *
+* @OA\Tag(
+*	name="Attributes",
+*	description="Attributes endpoints"
+* )
+*
 * @OA\SecurityScheme(
 *	securityScheme="bearerAuth",
 *   in="header",
@@ -99,6 +104,11 @@ class ApiController extends Controller
 	public function dataAgency($agency) {
 		$agency->description=(!is_null($agency->description)) ? $agency->description : '';
 		$data=$agency->only("id", "name", "slug", "route", "description", "price", "state");
+		return $data;
+	}
+
+	public function dataAttribute($attribute) {
+		$data=$attribute->only("id", "name", "slug", "state");
 		return $data;
 	}
 }

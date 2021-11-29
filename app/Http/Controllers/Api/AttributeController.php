@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Category;
+use App\Models\Attribute;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\Api\Category\CategoryStoreRequest;
-use App\Http\Requests\Api\Category\CategoryUpdateRequest;
+use App\Http\Requests\Api\Attribute\AttributeStoreRequest;
+use App\Http\Requests\Api\Attribute\AttributeUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Arr;
 use Str;
 
-class CategoryController extends ApiController
+class AttributeController extends ApiController
 {
     /**
     *
     * @OA\Get(
-    *   path="/api/v1/categories",
-    *   tags={"Categories"},
-    *   summary="Get categories",
-    *   description="Returns all categories",
-    *   operationId="indexCategory",
+    *   path="/api/v1/attributes",
+    *   tags={"Attributes"},
+    *   summary="Get attributes",
+    *   description="Returns all attributes",
+    *   operationId="indexAttribute",
     *   security={
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Response(
     *       response=200,
-    *       description="Show all categories.",
+    *       description="Show all attributes.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -43,12 +43,12 @@ class CategoryController extends ApiController
     * )
     */
     public function index() {
-        $categories=Category::get()->map(function($category) {
-            return $this->dataCategory($category);
+        $attributes=Attribute::get()->map(function($attribute) {
+            return $this->dataAttribute($attribute);
         });
 
         $page=Paginator::resolveCurrentPage('page');
-        $pagination=new LengthAwarePaginator($categories, $total=count($categories), $perPage=15, $page, ['path' => Paginator::resolveCurrentPath(), 'pageName' => 'page']);
+        $pagination=new LengthAwarePaginator($attributes, $total=count($attributes), $perPage=15, $page, ['path' => Paginator::resolveCurrentPath(), 'pageName' => 'page']);
         $pagination=Arr::collapse([$pagination->toArray(), ['code' => 200, 'status' => 'success']]);
 
         return response()->json($pagination, 200);
@@ -57,18 +57,18 @@ class CategoryController extends ApiController
     /**
     *
     * @OA\Post(
-    *   path="/api/v1/categories",
-    *   tags={"Categories"},
-    *   summary="Register category",
-    *   description="Create a new category",
-    *   operationId="storeCategory",
+    *   path="/api/v1/attributes",
+    *   tags={"Attributes"},
+    *   summary="Register attribute",
+    *   description="Create a new attribute",
+    *   operationId="storeAttribute",
     *   security={
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
     *       name="name",
     *       in="query",
-    *       description="Name of category",
+    *       description="Name of attribute",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -76,7 +76,7 @@ class CategoryController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=201,
-    *       description="Registered category.",
+    *       description="Registered attribute.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -99,22 +99,22 @@ class CategoryController extends ApiController
     *   )
     * )
     */
-    public function store(CategoryStoreRequest $request) {
-        $trashed=Category::where('slug', Str::slug(request('name')))->withTrashed()->exists();
-        $exist=Category::where('slug', Str::slug(request('name')))->exists();
+    public function store(AttributeStoreRequest $request) {
+        $trashed=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->exists();
+        $exist=Attribute::where('slug', Str::slug(request('name')))->exists();
         if ($trashed && $exist===false) {
-            $category=Category::where('slug', Str::slug(request('name')))->withTrashed()->first();
-            $category->restore();
+            $attribute=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $attribute->restore();
         } else if ($exist) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'This category already exists.'], 500);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'This attribute already exists.'], 500);
         } else {
-            $category=Category::create(['name' => request('name')]);
+            $attribute=Attribute::create(['name' => request('name')]);
         }
-
-        if ($category) {
-            $category=Category::where('id', $category->id)->first();
-            $category=$this->dataCategory($category);
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The category has been successfully registered.', 'data' => $category], 201);
+        
+        if ($attribute) {
+            $attribute=Attribute::where('id', $attribute->id)->first();
+            $attribute=$this->dataAttribute($attribute);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The attribute has been successfully registered.', 'data' => $attribute], 201);
         }
 
         return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
@@ -123,11 +123,11 @@ class CategoryController extends ApiController
     /**
     *
     * @OA\Get(
-    *   path="/api/v1/categories/{id}",
-    *   tags={"Categories"},
-    *   summary="Get category",
-    *   description="Returns a single category",
-    *   operationId="showCategory",
+    *   path="/api/v1/attributes/{id}",
+    *   tags={"Attributes"},
+    *   summary="Get attribute",
+    *   description="Returns a single attribute",
+    *   operationId="showAttribute",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -142,7 +142,7 @@ class CategoryController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Show category.",
+    *       description="Show attribute.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -161,19 +161,19 @@ class CategoryController extends ApiController
     *   )
     * )
     */
-    public function show(Category $category) {
-        $category=$this->dataCategory($category);
-        return response()->json(['code' => 200, 'status' => 'success', 'data' => $category], 200);
+    public function show(Attribute $attribute) {
+        $attribute=$this->dataAttribute($attribute);
+        return response()->json(['code' => 200, 'status' => 'success', 'data' => $attribute], 200);
     }
 
     /**
     *
     * @OA\Put(
-    *   path="/api/v1/categories/{id}",
-    *   tags={"Categories"},
-    *   summary="Update category",
-    *   description="Update a single category",
-    *   operationId="updateCategory",
+    *   path="/api/v1/attributes/{id}",
+    *   tags={"Attributes"},
+    *   summary="Update attribute",
+    *   description="Update a single attribute",
+    *   operationId="updateAttribute",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -189,7 +189,7 @@ class CategoryController extends ApiController
     *   @OA\Parameter(
     *       name="name",
     *       in="query",
-    *       description="Name of category",
+    *       description="Name of attribute",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -197,7 +197,7 @@ class CategoryController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Update category.",
+    *       description="Update attribute.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -220,12 +220,12 @@ class CategoryController extends ApiController
     *   )
     * )
     */
-    public function update(CategoryUpdateRequest $request, Category $category) {
-        $category->fill(['name' => request('name')])->save();        
-        if ($category) {
-            $category=Category::where('id', $category->id)->first();
-            $category=$this->dataCategory($category);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The category has been edited successfully.', 'data' => $category], 200);
+    public function update(AttributeUpdateRequest $request, Attribute $attribute) {
+        $attribute->fill(['name' => request('name')])->save();        
+        if ($attribute) {
+            $attribute=Attribute::where('id', $attribute->id)->first();
+            $attribute=$this->dataAttribute($attribute);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been edited successfully.', 'data' => $attribute], 200);
         }
         
         return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
@@ -234,11 +234,11 @@ class CategoryController extends ApiController
     /**
     *
     * @OA\Delete(
-    *   path="/api/v1/categories/{id}",
-    *   tags={"Categories"},
-    *   summary="Delete category",
-    *   description="Delete a single category",
-    *   operationId="destroyCategory",
+    *   path="/api/v1/attributes/{id}",
+    *   tags={"Attributes"},
+    *   summary="Delete attribute",
+    *   description="Delete a single attribute",
+    *   operationId="destroyAttribute",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -253,7 +253,7 @@ class CategoryController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Delete category.",
+    *       description="Delete attribute.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -276,11 +276,11 @@ class CategoryController extends ApiController
     *   )
     * )
      */
-    public function destroy(Category $category)
+    public function destroy(Attribute $attribute)
     {
-    	$category->delete();
-    	if ($category) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The category has been successfully removed.'], 200);
+    	$attribute->delete();
+    	if ($attribute) {
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully removed.'], 200);
     	}
 
     	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
@@ -289,11 +289,11 @@ class CategoryController extends ApiController
     /**
     *
     * @OA\Put(
-    *   path="/api/v1/categories/{id}/deactivate",
-    *   tags={"Categories"},
-    *   summary="Deactivate category",
-    *   description="Deactivate a single category",
-    *   operationId="deactivateCategory",
+    *   path="/api/v1/attributes/{id}/deactivate",
+    *   tags={"Attributes"},
+    *   summary="Deactivate attribute",
+    *   description="Deactivate a single attribute",
+    *   operationId="deactivateAttribute",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -308,7 +308,7 @@ class CategoryController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Deactivate category.",
+    *       description="Deactivate attribute.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -331,11 +331,11 @@ class CategoryController extends ApiController
     *   )
     * )
      */
-    public function deactivate(Request $request, Category $category) {
-    	$category->fill(['state' => "0"])->save();
-    	if ($category) {
-            $category=$this->dataCategory($category);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The category has been successfully deactivated.', 'data' => $category], 200);
+    public function deactivate(Request $request, Attribute $attribute) {
+    	$attribute->fill(['state' => "0"])->save();
+    	if ($attribute) {
+            $attribute=$this->dataAttribute($attribute);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully deactivated.', 'data' => $attribute], 200);
         }
 
         return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
@@ -344,11 +344,11 @@ class CategoryController extends ApiController
     /**
     *
     * @OA\Put(
-    *   path="/api/v1/categories/{id}/activate",
-    *   tags={"Categories"},
-    *   summary="Activate category",
-    *   description="Activate a single category",
-    *   operationId="activateCategory",
+    *   path="/api/v1/attributes/{id}/activate",
+    *   tags={"Attributes"},
+    *   summary="Activate attribute",
+    *   description="Activate a single attribute",
+    *   operationId="activateAttribute",
     *   security={
     *       {"bearerAuth": {}}
     *   },
@@ -363,7 +363,7 @@ class CategoryController extends ApiController
     *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Activate category.",
+    *       description="Activate attribute.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -386,11 +386,11 @@ class CategoryController extends ApiController
     *   )
     * )
      */
-    public function activate(Request $request, Category $category) {
-    	$category->fill(['state' => "1"])->save();
-    	if ($category) {
-    		$category=$this->dataCategory($category);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The category has been successfully activated.', 'data' => $category], 200);
+    public function activate(Request $request, Attribute $attribute) {
+    	$attribute->fill(['state' => "1"])->save();
+    	if ($attribute) {
+    		$attribute=$this->dataAttribute($attribute);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully activated.', 'data' => $attribute], 200);
     	}
 
         return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);

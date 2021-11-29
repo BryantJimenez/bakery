@@ -97,4 +97,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 		Route::put('/{agency:slug}/activate', 'AgencyController@activate')->name('agencies.activate')->middleware('permission:agencies.active');
 		Route::put('/{agency:slug}/deactivate', 'AgencyController@deactivate')->name('agencies.deactivate')->middleware('permission:agencies.deactive');
 	});
+
+	// Attributes
+	Route::group(['prefix' => 'attributes'], function () {
+		Route::get('/', 'AttributeController@index')->name('attributes.index')->middleware('permission:attributes.index');
+		Route::get('/create', 'AttributeController@create')->name('attributes.create')->middleware('permission:attributes.create');
+		Route::post('/', 'AttributeController@store')->name('attributes.store')->middleware('permission:attributes.create');
+		Route::get('/{attribute:slug}/edit', 'AttributeController@edit')->name('attributes.edit')->middleware('permission:attributes.edit');
+		Route::put('/{attribute:slug}', 'AttributeController@update')->name('attributes.update')->middleware('permission:attributes.edit');
+		Route::delete('/{attribute:slug}', 'AttributeController@destroy')->name('attributes.delete')->middleware('permission:attributes.delete');
+		Route::put('/{attribute:slug}/activate', 'AttributeController@activate')->name('attributes.activate')->middleware('permission:attributes.active');
+		Route::put('/{attribute:slug}/deactivate', 'AttributeController@deactivate')->name('attributes.deactivate')->middleware('permission:attributes.deactive');
+	});
 });

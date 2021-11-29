@@ -69,6 +69,16 @@
                 </a>
             </li>
             @endcan
+
+            @can('attributes.index')
+            <li class="menu {{ active('admin/attributes', 0) }}">
+                <a href="{{ route('attributes.index') }}" aria-expanded="{{ menu_expanded('admin/attributes', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-tags"></i> Attributes</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
         </ul>
 
     </nav>

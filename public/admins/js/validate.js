@@ -445,4 +445,22 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	// Attributes
+	$("button[action='attribute']").on("click",function(){
+		$("#formAttribute").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='attribute']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
 });

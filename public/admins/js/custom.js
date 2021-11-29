@@ -297,6 +297,16 @@ function activeCategory(slug) {
   $('#formActiveCategory').attr('action', '/admin/categories/' + slug + '/activate');
 }
 
+function deactiveProduct(slug) {
+  $("#deactiveProduct").modal();
+  $('#formDeactiveProduct').attr('action', '/admin/products/' + slug + '/deactivate');
+}
+
+function activeProduct(slug) {
+  $("#activeProduct").modal();
+  $('#formActiveProduct').attr('action', '/admin/products/' + slug + '/activate');
+}
+
 function deactiveAgency(slug) {
   $("#deactiveAgency").modal();
   $('#formDeactiveAgency').attr('action', '/admin/agencies/' + slug + '/deactivate');
@@ -307,14 +317,14 @@ function activeAgency(slug) {
   $('#formActiveAgency').attr('action', '/admin/agencies/' + slug + '/activate');
 }
 
-function deactiveProduct(slug) {
-  $("#deactiveProduct").modal();
-  $('#formDeactiveProduct').attr('action', '/admin/products/' + slug + '/deactivate');
+function deactiveAttribute(slug) {
+  $("#deactiveAttribute").modal();
+  $('#formDeactiveAttribute').attr('action', '/admin/attributes/' + slug + '/deactivate');
 }
 
-function activeProduct(slug) {
-  $("#activeProduct").modal();
-  $('#formActiveProduct').attr('action', '/admin/products/' + slug + '/activate');
+function activeAttribute(slug) {
+  $("#activeAttribute").modal();
+  $('#formActiveAttribute').attr('action', '/admin/attributes/' + slug + '/activate');
 }
 
 // functions to ask when deleting
@@ -333,12 +343,17 @@ function deleteCategory(slug) {
   $('#formDeleteCategory').attr('action', '/admin/categories/' + slug);
 }
 
+function deleteProduct(slug) {
+  $("#deleteProduct").modal();
+  $('#formDeleteProduct').attr('action', '/admin/products/' + slug);
+}
+
 function deleteAgency(slug) {
   $("#deleteAgency").modal();
   $('#formDeleteAgency').attr('action', '/admin/agencies/' + slug);
 }
 
-function deleteProduct(slug) {
-  $("#deleteProduct").modal();
-  $('#formDeleteProduct').attr('action', '/admin/products/' + slug);
+function deleteAttribute(slug) {
+  $("#deleteAttribute").modal();
+  $('#formDeleteAttribute').attr('action', '/admin/attributes/' + slug);
 }
