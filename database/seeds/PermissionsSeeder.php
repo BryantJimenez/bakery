@@ -44,6 +44,15 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'categories.active']);
         Permission::create(['name' => 'categories.deactive']);
 
+        // Product Permissions
+        Permission::create(['name' => 'products.index']);
+        Permission::create(['name' => 'products.create']);
+        Permission::create(['name' => 'products.show']);
+        Permission::create(['name' => 'products.edit']);
+        Permission::create(['name' => 'products.delete']);
+        Permission::create(['name' => 'products.active']);
+        Permission::create(['name' => 'products.deactive']);
+
         // Agency Permissions
         Permission::create(['name' => 'agencies.index']);
         Permission::create(['name' => 'agencies.create']);

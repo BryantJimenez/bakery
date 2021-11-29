@@ -307,6 +307,16 @@ function activeAgency(slug) {
   $('#formActiveAgency').attr('action', '/admin/agencies/' + slug + '/activate');
 }
 
+function deactiveProduct(slug) {
+  $("#deactiveProduct").modal();
+  $('#formDeactiveProduct').attr('action', '/admin/products/' + slug + '/deactivate');
+}
+
+function activeProduct(slug) {
+  $("#activeProduct").modal();
+  $('#formActiveProduct').attr('action', '/admin/products/' + slug + '/activate');
+}
+
 // functions to ask when deleting
 function deleteUser(slug) {
   $("#deleteUser").modal();
@@ -326,4 +336,9 @@ function deleteCategory(slug) {
 function deleteAgency(slug) {
   $("#deleteAgency").modal();
   $('#formDeleteAgency').attr('action', '/admin/agencies/' + slug);
+}
+
+function deleteProduct(slug) {
+  $("#deleteProduct").modal();
+  $('#formDeleteProduct').attr('action', '/admin/products/' + slug);
 }

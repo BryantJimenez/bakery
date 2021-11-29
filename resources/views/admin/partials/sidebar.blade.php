@@ -50,6 +50,16 @@
             </li>
             @endcan
 
+            @can('products.index')
+            <li class="menu {{ active('admin/products', 0) }}">
+                <a href="{{ route('products.index') }}" aria-expanded="{{ menu_expanded('admin/products', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-hamburger"></i> Products</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
+
             @can('agencies.index')
             <li class="menu {{ active('admin/agencies', 0) }}">
                 <a href="{{ route('agencies.index') }}" aria-expanded="{{ menu_expanded('admin/agencies', 0) }}" class="dropdown-toggle">

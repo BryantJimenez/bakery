@@ -27,7 +27,7 @@ class AgencyUpdateRequest extends FormRequest
             'name' => 'required|string|min:2|max:191',
             'route' => 'required|string|min:2|max:191',
             'price' => 'required|string|min:0',
-            'description' => 'nullable|string|min:2|max:191'
+            'description' => 'nullable|string|min:2|max:1000'
         ];
     }
 }

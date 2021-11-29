@@ -317,6 +317,100 @@ $(document).ready(function(){
 		});
 	});
 
+	// Products (Create)
+	$("button[action='product']").on("click",function(){
+		$("#formProduct").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				image: {
+					required: true
+				},
+
+				price: {
+					required: true,
+					min: 0
+				},
+
+				description: {
+					required: false,
+					minlength: 2,
+					maxlength: 1000
+				},
+
+				category_id: {
+					required: true
+				}
+			},
+			messages:
+			{
+				image: {
+					required: 'Select an image.'
+				},
+
+				category_id: {
+					required: 'Select an option.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='product']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Products (Edit)
+	$("button[action='product']").on("click",function(){
+		$("#formProductEdit").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				image: {
+					required: false
+				},
+
+				price: {
+					required: true,
+					min: 0
+				},
+
+				description: {
+					required: false,
+					minlength: 2,
+					maxlength: 1000
+				},
+
+				category_id: {
+					required: true
+				}
+			},
+			messages:
+			{
+				image: {
+					required: 'Select an image.'
+				},
+
+				category_id: {
+					required: 'Select an option.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='product']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
 	// Agencies
 	$("button[action='agency']").on("click",function(){
 		$("#formAgency").validate({
@@ -342,7 +436,7 @@ $(document).ready(function(){
 				description: {
 					required: false,
 					minlength: 2,
-					maxlength: 191
+					maxlength: 1000
 				}
 			},
 			submitHandler: function(form) {

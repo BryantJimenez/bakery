@@ -54,6 +54,11 @@ use Illuminate\Http\Request;
 * )
 *
 * @OA\Tag(
+*	name="Products",
+*	description="Products endpoints"
+* )
+*
+* @OA\Tag(
 *	name="Agencies",
 *	description="Agencies endpoints"
 * )
@@ -80,6 +85,14 @@ class ApiController extends Controller
 	public function dataCategory($category) {
 		$category->image=(!is_null($category->image)) ? asset('/admins/img/categories/'.$category->image) : '';
 		$data=$category->only("id", "name", "slug", "image", "state");
+		return $data;
+	}
+
+	public function dataProduct($product) {
+		$product->image=(!is_null($product->image)) ? asset('/admins/img/products/'.$product->image) : '';
+		$product->description=(!is_null($product->description)) ? $product->description : '';
+		$product->category=(!is_null($product['category'])) ? $this->dataCategory($product['category']) : [];
+		$data=$product->only("id", "name", "slug", "image", "price", "state", "category");
 		return $data;
 	}
 

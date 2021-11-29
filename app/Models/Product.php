@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Category extends Model
+class Product extends Model
 {
     use SoftDeletes, HasSlug;
 
-    protected $fillable = ['name', 'slug', 'image', 'state'];
+    protected $fillable = ['name', 'slug', 'image', 'description', 'price', 'state', 'category_id'];
 
     /**
      * Get the state.
@@ -37,9 +37,9 @@ class Category extends Model
      */
     public function resolveRouteBinding($value, $field = null)
     {
-        $category=$this->where($field, $value)->first();
-        if (!is_null($category)) {
-            return $category;
+        $product=$this->with(['category'])->where($field, $value)->first();
+        if (!is_null($product)) {
+            return $product;
         }
 
         return abort(404);
@@ -50,7 +50,7 @@ class Category extends Model
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
     }
 
-    public function products() {
-        return $this->hasMany(Product::class);
+    public function category() {
+        return $this->belongsTo(Category::class);
     }
 }

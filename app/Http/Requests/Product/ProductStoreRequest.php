@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\Agency;
+namespace App\Http\Requests\Product;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class AgencyStoreRequest extends FormRequest
+class ProductStoreRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -23,11 +26,13 @@ class AgencyStoreRequest extends FormRequest
    */
   public function rules()
   {
+    $categories=Category::where('state', '1')->get()->pluck('slug');
     return [
       'name' => 'required|string|min:2|max:191',
-      'route' => 'required|string|min:2|max:191',
+      'image' => 'required|file|mimetypes:image/*',
+      'description' => 'nullable|string|min:2|max:5000',
       'price' => 'required|string|min:0',
-      'description' => 'nullable|string|min:2|max:1000'
+      'category_id' => 'required|'.Rule::in($categories)
     ];
   }
 }

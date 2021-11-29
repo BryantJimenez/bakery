@@ -73,6 +73,17 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::put('/{category:id}/deactivate', 'Api\CategoryController@deactivate')->middleware('permission:categories.deactive');
 		});
 
+		// Products
+		Route::group(['prefix' => 'products'], function () {
+			Route::get('/', 'Api\ProductController@index')->middleware('permission:products.index');
+			Route::post('/', 'Api\ProductController@store')->middleware('permission:products.create');
+			Route::get('/{product:id}', 'Api\ProductController@show')->middleware('permission:products.show');
+			Route::put('/{product:id}', 'Api\ProductController@update')->middleware('permission:products.edit');
+			Route::delete('/{product:id}', 'Api\ProductController@destroy')->middleware('permission:products.delete');
+			Route::put('/{product:id}/activate', 'Api\ProductController@activate')->middleware('permission:products.active');
+			Route::put('/{product:id}/deactivate', 'Api\ProductController@deactivate')->middleware('permission:products.deactive');
+		});
+
 		// Agencies
 		Route::group(['prefix' => 'agencies'], function () {
 			Route::get('/', 'Api\AgencyController@index')->middleware('permission:agencies.index');
