@@ -1132,6 +1132,349 @@
                 ]
             }
         },
+        "/api/v1/complements": {
+            "get": {
+                "tags": [
+                    "Complements"
+                ],
+                "summary": "Get complements",
+                "description": "Returns all complements",
+                "operationId": "indexComplement",
+                "responses": {
+                    "200": {
+                        "description": "Show all complements.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Complements"
+                ],
+                "summary": "Register complement",
+                "description": "Create a new complement",
+                "operationId": "storeComplement",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of complement",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description of complement",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of complement",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Registered complement.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/complements/{id}": {
+            "get": {
+                "tags": [
+                    "Complements"
+                ],
+                "summary": "Get complement",
+                "description": "Returns a single complement",
+                "operationId": "showComplement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show complement.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Complements"
+                ],
+                "summary": "Update complement",
+                "description": "Update a single complement",
+                "operationId": "updateComplement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of complement",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description of complement",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of complement",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update complement.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Complements"
+                ],
+                "summary": "Delete complement",
+                "description": "Delete a single complement",
+                "operationId": "destroyComplement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete complement.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/complements/{id}/deactivate": {
+            "put": {
+                "tags": [
+                    "Complements"
+                ],
+                "summary": "Deactivate complement",
+                "description": "Deactivate a single complement",
+                "operationId": "deactivateComplement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deactivate complement.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/complements/{id}/activate": {
+            "put": {
+                "tags": [
+                    "Complements"
+                ],
+                "summary": "Activate complement",
+                "description": "Activate a single complement",
+                "operationId": "activateComplement",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activate complement.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/customers": {
             "get": {
                 "tags": [
@@ -2453,6 +2796,10 @@
         {
             "name": "Products",
             "description": "Products endpoints"
+        },
+        {
+            "name": "Complements",
+            "description": "Complements endpoints"
         },
         {
             "name": "Agencies",

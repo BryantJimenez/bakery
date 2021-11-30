@@ -59,6 +59,11 @@ use Illuminate\Http\Request;
 * )
 *
 * @OA\Tag(
+*	name="Complements",
+*	description="Complements endpoints"
+* )
+*
+* @OA\Tag(
 *	name="Agencies",
 *	description="Agencies endpoints"
 * )
@@ -97,7 +102,14 @@ class ApiController extends Controller
 		$product->image=(!is_null($product->image)) ? asset('/admins/img/products/'.$product->image) : '';
 		$product->description=(!is_null($product->description)) ? $product->description : '';
 		$product->category=(!is_null($product['category'])) ? $this->dataCategory($product['category']) : [];
-		$data=$product->only("id", "name", "slug", "image", "price", "state", "category");
+		$data=$product->only("id", "name", "slug", "image", "description", "price", "state", "category");
+		return $data;
+	}
+
+	public function dataComplement($complement) {
+		$complement->image=(!is_null($complement->image)) ? asset('/admins/img/complements/'.$complement->image) : '';
+		$complement->description=(!is_null($complement->description)) ? $complement->description : '';
+		$data=$complement->only("id", "name", "slug", "image", "description", "price", "state");
 		return $data;
 	}
 

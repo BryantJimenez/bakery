@@ -85,6 +85,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 		Route::put('/{product:slug}/deactivate', 'ProductController@deactivate')->name('products.deactivate')->middleware('permission:products.deactive');
 	});
 
+	// Complements
+	Route::group(['prefix' => 'complements'], function () {
+		Route::get('/', 'ComplementController@index')->name('complements.index')->middleware('permission:complements.index');
+		Route::get('/create', 'ComplementController@create')->name('complements.create')->middleware('permission:complements.create');
+		Route::post('/', 'ComplementController@store')->name('complements.store')->middleware('permission:complements.create');
+		Route::get('/{complement:slug}', 'ComplementController@show')->name('complements.show')->middleware('permission:complements.show');
+		Route::get('/{complement:slug}/edit', 'ComplementController@edit')->name('complements.edit')->middleware('permission:complements.edit');
+		Route::put('/{complement:slug}', 'ComplementController@update')->name('complements.update')->middleware('permission:complements.edit');
+		Route::delete('/{complement:slug}', 'ComplementController@destroy')->name('complements.delete')->middleware('permission:complements.delete');
+		Route::put('/{complement:slug}/activate', 'ComplementController@activate')->name('complements.activate')->middleware('permission:complements.active');
+		Route::put('/{complement:slug}/deactivate', 'ComplementController@deactivate')->name('complements.deactivate')->middleware('permission:complements.deactive');
+	});
+
 	// Agencies
 	Route::group(['prefix' => 'agencies'], function () {
 		Route::get('/', 'AgencyController@index')->name('agencies.index')->middleware('permission:agencies.index');

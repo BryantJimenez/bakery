@@ -411,6 +411,84 @@ $(document).ready(function(){
 		});
 	});
 
+	// Complements (Create)
+	$("button[action='complement']").on("click",function(){
+		$("#formComplement").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				image: {
+					required: true
+				},
+
+				price: {
+					required: true,
+					min: 0
+				},
+
+				description: {
+					required: false,
+					minlength: 2,
+					maxlength: 1000
+				}
+			},
+			messages:
+			{
+				image: {
+					required: 'Select an image.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='complement']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Complements (Edit)
+	$("button[action='complement']").on("click",function(){
+		$("#formComplementEdit").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				image: {
+					required: false
+				},
+
+				price: {
+					required: true,
+					min: 0
+				},
+
+				description: {
+					required: false,
+					minlength: 2,
+					maxlength: 1000
+				}
+			},
+			messages:
+			{
+				image: {
+					required: 'Select an image.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='complement']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
 	// Agencies
 	$("button[action='agency']").on("click",function(){
 		$("#formAgency").validate({

@@ -307,6 +307,16 @@ function activeProduct(slug) {
   $('#formActiveProduct').attr('action', '/admin/products/' + slug + '/activate');
 }
 
+function deactiveComplement(slug) {
+  $("#deactiveComplement").modal();
+  $('#formDeactiveComplement').attr('action', '/admin/complements/' + slug + '/deactivate');
+}
+
+function activeComplement(slug) {
+  $("#activeComplement").modal();
+  $('#formActiveComplement').attr('action', '/admin/complements/' + slug + '/activate');
+}
+
 function deactiveAgency(slug) {
   $("#deactiveAgency").modal();
   $('#formDeactiveAgency').attr('action', '/admin/agencies/' + slug + '/deactivate');
@@ -346,6 +356,11 @@ function deleteCategory(slug) {
 function deleteProduct(slug) {
   $("#deleteProduct").modal();
   $('#formDeleteProduct').attr('action', '/admin/products/' + slug);
+}
+
+function deleteComplement(slug) {
+  $("#deleteComplement").modal();
+  $('#formDeleteComplement').attr('action', '/admin/complements/' + slug);
 }
 
 function deleteAgency(slug) {

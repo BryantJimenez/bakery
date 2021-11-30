@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'List of Products')
+@section('title', 'List of Complements')
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -21,7 +21,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>List of Products</h4>
+						<h4>List of Complements</h4>
 					</div>                 
 				</div>
 			</div>
@@ -29,9 +29,9 @@
 
 				<div class="row">
 					<div class="col-12">
-						@can('products.create')
+						@can('complements.create')
 						<div class="text-right">
-							<a href="{{ route('products.create') }}" class="btn btn-primary">Add</a>
+							<a href="{{ route('complements.create') }}" class="btn btn-primary">Add</a>
 						</div>
 						@endcan
 
@@ -42,43 +42,41 @@
 										<th>#</th>
 										<th>Name</th>
 										<th>Price</th>
-										<th>Category</th>
 										<th>State</th>
-										@if(auth()->user()->can('products.show') || auth()->user()->can('products.edit') || auth()->user()->can('products.active') || auth()->user()->can('products.deactive') || auth()->user()->can('products.delete'))
+										@if(auth()->user()->can('complements.show') || auth()->user()->can('complements.edit') || auth()->user()->can('complements.active') || auth()->user()->can('complements.deactive') || auth()->user()->can('complements.delete'))
 										<th>Actions</th>
 										@endif
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($products as $product)
+									@foreach($complements as $complement)
 									<tr>
 										<td>{{ $loop->iteration }}</td>
 										<td class="d-flex">
-											<img src="{{ image_exist('/admins/img/products/', $product->image, false, false) }}" class="rounded-circle mr-2" width="45" height="45" alt="{{ $product->name }}" title="{{ $product->name }}"> {{ $product->name }}
+											<img src="{{ image_exist('/admins/img/complements/', $complement->image, false, false) }}" class="rounded-circle mr-2" width="45" height="45" alt="{{ $complement->name }}" title="{{ $complement->name }}"> {{ $complement->name }}
 										</td>
-										<td>{{ number_format($product->price, 2, ',', '.') }}</td>
-										<td>@if(!is_null($product['category'])){{ $product['category']->name }}@else{{ "Not Added" }}@endif</td>
-										<td>{!! state($product->state) !!}</td>
-										@if(auth()->user()->can('products.show') || auth()->user()->can('products.edit') || auth()->user()->can('products.active') || auth()->user()->can('products.deactive') || auth()->user()->can('products.delete'))
+										<td>{{ number_format($complement->price, 2, ',', '.') }}</td>
+										<td>{!! state($complement->state) !!}</td>
+										@if(auth()->user()->can('complements.show') || auth()->user()->can('complements.edit') || auth()->user()->can('complements.active') || auth()->user()->can('complements.deactive') || auth()->user()->can('complements.delete'))
 										<td>
 											<div class="btn-group" role="group">
-												@can('products.show')
-												<a href="{{ route('products.show', ['product' => $product->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Show"><i class="fa fa-eye"></i></a>
+												@can('complements.show')
+												<a href="{{ route('complements.show', ['complement' => $complement->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Show"><i class="fa fa-eye"></i></a>
 												@endcan
-												@can('products.edit')
-												<a href="{{ route('products.edit', ['product' => $product->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+												@can('complements.edit')
+												<a href="{{ route('complements.edit', ['complement' => $complement->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Edit"><i class="fa fa-edit"></i></a>
 												@endcan
-												@if($product->state=='Active')
-												@can('products.deactive')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Deactivate" onclick="deactiveProduct('{{ $product->slug }}')"><i class="fa fa-power-off"></i></button>
+												@if($complement->state=='Active')
+												@can('complements.deactive')
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Deactivate" onclick="deactiveComplement('{{ $complement->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
-												@can('products.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activate" onclick="activeProduct('{{ $product->slug }}')"><i class="fa fa-check"></i></button>
+												@can('complements.active')
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activate" onclick="activeComplement('{{ $complement->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
-												@can('products.delete')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Remove" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>
+												@can('complements.delete')
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Remove" onclick="deleteComplement('{{ $complement->slug }}')"><i class="fa fa-trash"></i></button>
 												@endcan
 											</div>
 										</td>
@@ -97,19 +95,19 @@
 
 </div>
 
-@can('products.deactive')
-<div class="modal fade" id="deactiveProduct" tabindex="-1" role="dialog" aria-hidden="true">
+@can('complements.deactive')
+<div class="modal fade" id="deactiveComplement" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to disable this product?</h5>
+				<h5 class="modal-title">Are you sure you want to disable this complement?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
-				<form action="#" method="POST" id="formDeactiveProduct">
+				<form action="#" method="POST" id="formDeactiveComplement">
 					@csrf
 					@method('PUT')
 					<button type="submit" class="btn btn-primary">Deactivate</button>
@@ -120,19 +118,19 @@
 </div>
 @endcan
 
-@can('products.active')
-<div class="modal fade" id="activeProduct" tabindex="-1" role="dialog" aria-hidden="true">
+@can('complements.active')
+<div class="modal fade" id="activeComplement" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to activate this product?</h5>
+				<h5 class="modal-title">Are you sure you want to activate this complement?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
-				<form action="#" method="POST" id="formActiveProduct">
+				<form action="#" method="POST" id="formActiveComplement">
 					@csrf
 					@method('PUT')
 					<button type="submit" class="btn btn-primary">Activate</button>
@@ -143,19 +141,19 @@
 </div>
 @endcan
 
-@can('products.delete')
-<div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog" aria-hidden="true">
+@can('complements.delete')
+<div class="modal fade" id="deleteComplement" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to delete this product?</h5>
+				<h5 class="modal-title">Are you sure you want to delete this complement?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
-				<form action="#" method="POST" id="formDeleteProduct">
+				<form action="#" method="POST" id="formDeleteComplement">
 					@csrf
 					@method('DELETE')
 					<button type="submit" class="btn btn-primary">Remove</button>
