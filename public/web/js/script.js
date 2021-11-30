@@ -7,11 +7,194 @@
  	// loader
  	var loader = function() {
  		setTimeout(function() { 
- 			if($('#ftco-loader').length > 0) {
+ 			if($('#ftco-loader').length>0) {
  				$('#ftco-loader').removeClass('show');
  			}
  		}, 1);
  	};
  	loader();
 
- })(jQuery);
+ 	$('.int').keypress(function() {
+ 		return event.charCode >= 48 && event.charCode <= 57;
+ 	});
+
+ 	// Lazy load
+ 	if($('.lazy').length) {
+ 		var lazyLoadInstance=new LazyLoad({
+ 			elements_selector: ".lazy"
+ 		});
+ 	}
+
+	// Footer collapse
+	if($('footer').length) {
+		var headingFooter=$('footer h3');
+		$(window).resize(function() {
+			if($(window).width() <= 768) {
+				headingFooter.attr("data-toggle","collapse");
+			} else {
+				headingFooter.removeAttr("data-toggle","collapse");
+			}
+		}).resize();
+		headingFooter.on("click", function () {
+			$(this).toggleClass('opened');
+		});
+	}
+
+	// Opacity mask
+	if($('.opacity-mask').length) {
+		$('.opacity-mask').each(function(){
+			$(this).css('background-color', $(this).attr('data-opacity-mask'));
+		});
+	}
+
+	// Carousel categories
+	if($('.categories_carousel').length) {
+		$('.categories_carousel').owlCarousel({
+			center: false,
+			stagePadding: 50,
+			items: 1,
+			loop: false,
+			margin: 20,
+			dots: false,
+			nav: true,
+			lazyLoad: true,
+			navText: ["<i class='arrow_left'></i>","<i class='arrow_right'></i>"],
+			responsive: {
+				0: {
+					nav: false,
+					dots: false,
+					items: 2
+				},
+				600: {
+					nav: false,
+					dots: false,
+					items: 2
+				},
+				768: {
+					nav: false,
+					dots: false,
+					items: 4
+				},
+				1025: {
+					nav: true,
+					dots: false,
+					items: 4
+				},
+				1340: {
+					nav: true,
+					dots: false,
+					items: 5
+				},
+				1460: {
+					nav: true,
+					dots: false,
+					items: 5
+				}
+			}
+		});
+	}
+
+	// Secondary fixed
+	if($('.sticky_horizontal').length) {
+		$('.sticky_horizontal').stick_in_parent({
+			offset_top: 0
+		});
+	}
+
+	// Secondary scroll
+	if($('.secondary_nav').length) {
+		$('.secondary_nav').find('a').on('click', function(e) {
+			e.preventDefault();
+			var target = this.hash;
+			var $target = $(target);
+			$('html, body').animate({
+				'scrollTop': $target.offset().top - 60
+			}, 700, 'swing');
+		});
+	}
+
+	// Sticky sidebar
+	if($('#sidebar_fixed').length) {
+		$('#sidebar_fixed').theiaStickySidebar({
+			minWidth: 991,
+			updateSidebarHeight: false,
+			containerSelector: '',
+			additionalMarginTop: 90
+		});
+	}
+
+	// Drodown options prevent close
+	if($('.dropdown-options').length) {
+		$('.dropdown-options .dropdown-menu').on("click", function(e) { e.stopPropagation(); });
+	}
+
+	//touchspin
+	if ($('.qty-max').length) {
+		var max=$(".qty-max").attr('max');
+		$(".qty-max").TouchSpin({
+			min: 1,
+			max: max,
+			buttondown_class: 'btn desc button_inc',
+			buttonup_class: 'btn inc button_inc'
+		});
+	}
+
+	// flatpickr
+	if ($('#minTodayFlatpickr').length) {
+		flatpickr(document.getElementById('minTodayFlatpickr'), {
+			locale: 'es',
+			enableTime: false,
+			dateFormat: "d-m-Y",
+			minDate : "today"
+		});
+	}
+})(jQuery);
+
+// Sticky nav
+if($('.element_to_stick').length) {
+	$(window).on('scroll', function () {
+		if ($(this).scrollTop() > 1) {
+			$('.element_to_stick').addClass("sticky");
+		} else {
+			$('.element_to_stick').removeClass("sticky");
+		}
+	});
+	$(window).scroll();
+}
+
+// Menu
+$('a.open_close').on("click", function () {
+	$('.main-menu').toggleClass('show');
+	$('.layer').toggleClass('layer-is-visible');
+});
+$('a.show-submenu').on("click", function () {
+	$(this).next().toggleClass("show_normal");
+});
+
+// Scroll to top
+if($('#toTop').length) {
+	var pxShow = 800; // height on which the button will show
+	var scrollSpeed = 500; // how slow / fast you want the button to scroll to top.
+	$(window).scroll(function(){
+		if($(window).scrollTop() >= pxShow){
+			$("#toTop").addClass('visible');
+		} else {
+			$("#toTop").removeClass('visible');
+		}
+	});
+	$('#toTop').on('click', function(){
+		$('html, body').animate({scrollTop:0}, scrollSpeed);
+		return false;
+	});
+}
+
+// Reserve Fixed on mobile
+if($('.btn_reserve_fixed').length) {
+	$('.btn_reserve_fixed a').on('click', function() {
+		$(".box_order").show();
+	});
+	$(".close_panel_mobile").on('click', function (event){
+		event.stopPropagation();
+		$(".box_order").hide();
+	});
+}

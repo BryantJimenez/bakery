@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('image')->default('image.jpg');
+            $table->string('image')->default('categories.jpg');
             $table->enum('state', [0, 1])->default(1);
             $table->timestamps();
             $table->softDeletes();

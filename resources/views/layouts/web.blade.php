@@ -20,17 +20,26 @@
 
 	<link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
 
+	<!-- Google Fonts -->
+	<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 	<!-- Font Awesome -->
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="{{ asset('/web/css/fontawesome/all.min.css') }}">
 	<!-- Bootstrap core CSS -->
 	<link href="{{ asset('/web/css/bootstrap.css') }}" rel="stylesheet">
-	
-	@yield('links')
 
-	<!-- Style CSS -->
+	<!-- BASE CSS -->
+	<link href="{{ asset('/web/css/template/style.css') }}" rel="stylesheet">
+	<!-- BASE CSS -->
+	
+	<!-- SPECIFIC CSS -->
+	@yield('links')
+	<!-- SPECIFIC CSS -->
+
+	<!-- Custom Style CSS -->
 	<link href="{{ asset('/web/css/style.css') }}" rel="stylesheet">
-	<!-- Style CSS -->
+	<!-- Custom Style CSS -->
 </head>
 <body class="goto-here bg-white">
 
@@ -38,14 +47,7 @@
 
 	@yield('content')
 
-	@include('web.partials.footer')
-
-	@if(!session()->has('user'))
-	@include('web.partials.login')
-	{{-- @include('web.partials.register') --}}
-	@include('web.partials.recovery')
-	@include('web.partials.terms')
-	@endif
+	{{-- @include('web.partials.footer') --}}
 	
 	@include('web.partials.loader')
 
@@ -59,26 +61,7 @@
 	@yield('scripts')
 
 	<!-- Scripts -->
-	<script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
-	<script src="{{ asset('/admins/vendor/validate/additional-methods.js') }}"></script>
-	<script src="{{ asset('/admins/vendor/validate/messages_es.js') }}"></script>
-	<script src="{{ asset('/admins/js/validate.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/web/js/script.js') }}"></script>
-	@include('admin.partials.notifications')
-	@if(!session()->has('user'))
-	@if(!is_null(old('name')) && !is_null(old('lastname')) && !is_null(old('email')) || session('error.register'))
-	<script type="text/javascript">
-		$('#modal-register').modal('show');
-	</script>
-	@elseif(!is_null(old('email')) || session('error.login'))
-	<script type="text/javascript">
-		$('#modal-login').modal('show');
-	</script>
-	@elseif(!is_null(old('recovery')) || session('error.recovery') || session('success.recovery'))
-	<script type="text/javascript">
-		$('#modal-recovery').modal('show');
-	</script>
-	@endif
-	@endif
+	@include('web.partials.notifications')
 </body>
 </html>
