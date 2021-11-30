@@ -6,29 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.ico') }}"/>
+
+    <!-- Google Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+
     <link href="{{ asset('/admins/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/admins/css/fontawesome/all.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/admins/css/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/admins/css/authentication/form-2.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/auth/style.css') }}" rel="stylesheet" type="text/css" />
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <link href="{{ asset('/admins/css/forms/theme-checkbox-radio.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/admins/css/forms/switches.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/web/css/template/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('/web/css/template/order-sign_up.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/admins/vendor/lobibox/Lobibox.min.css') }}">
 </head>
-<body class="form" style="background-color: #343a40!important;">
+<body id="register_bg">
 
     @yield('content')
 
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{ asset('/admins/js/libs/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('/admins/js/bootstrap/popper.min.js') }}"></script>
-    <script src="{{ asset('/admins/js/bootstrap/bootstrap.min.js') }}"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="{{ asset('/web/js/jquery-3.4.1.min.js') }}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{ asset('/web/js/popper.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{ asset('/web/js/bootstrap.min.js') }}"></script>  
 
     <script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
     <script src="{{ asset('/admins/js/validate.js') }}"></script>

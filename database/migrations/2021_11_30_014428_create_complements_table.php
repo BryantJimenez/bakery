@@ -17,7 +17,7 @@ class CreateComplementsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('image')->default('image.jpg');
+            $table->string('image')->default('complements.jpg');
             $table->text('description')->nullable();
             $table->float('price', 10, 2)->default(0.00)->unsigned();
             $table->enum('state', [0, 1])->default(1);

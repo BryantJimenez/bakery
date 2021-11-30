@@ -4,59 +4,45 @@
 
 @section('content')
 
-<section class="login-block">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-5 col-12 login-sec">
-                <h2 class="text-center">User Register</h2>
-                <form class="login-form" action="{{ route('register') }}" method="POST" id="formRegister">
-                    {{ csrf_field() }}
+<div id="register">
+    <aside>
+        <figure>
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('/web/img/logo_sticky.svg') }}" width="140" height="35" title="Logo" alt="Logo">
+            </a>
+        </figure>
+        <form action="{{ route('register') }}" method="POST" id="formRegister">
+            {{ csrf_field() }}
 
-                    @include('admin.partials.errors')
+            @include('admin.partials.errors')
 
-                    <div class="row">
-                        <div class="form-group col-lg-6 col-md-6 col-12">
-                            <label for="name" class="text-uppercase">NAME</label>
-                            <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" required placeholder="Name" value="{{ old('name') }}" minlength="2" maxlength="191">
-                        </div>
-
-                        <div class="form-group col-lg-6 col-md-6 col-12">
-                            <label for="lastname" class="text-uppercase">LAST NAME</label>
-                            <input id="lastname" name="lastname" type="text" class="form-control @error('email') is-invalid @enderror" required placeholder="Last name" value="{{ old('lastname') }}" minlength="2" maxlength="191">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="text-uppercase">EMAIL</label>
-                        <input id="email" name="email" type="email" class="form-control @error('email') is-invalid @enderror" required placeholder="{{ 'email@gmail.com' }}" value="{{ old('email') }}" minlength="5" maxlength="191">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="text-uppercase">PASSWORD</label>
-                        <input id="password" name="password" type="password" class="form-control @error('password') is-invalid @enderror" required placeholder="********" minlength="8" maxlength="40">
-                    </div>
-
-                    <div class="form-group mb-2">
-                        <input type="checkbox" name="terms" required id="terms-conditions">
-                        <label class="text-body small mb-0" for="terms-conditions">I accept <a href="javascript:void(0);" class="text-primary" data-dismiss="modal" data-toggle="modal" data-target="#modal-terms">terms and conditions</a></label>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-login" action="register">Sign Up</button>
-                    </div>
-
-                    <div class="form-group">
-                        Do you want to enter? <a href="{{ route('login') }}"><b>Sign in</b></a>
-                    </div>
-                </form>
+            <div class="form-group">
+                <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Name" value="{{ old('name') }}" minlength="2" maxlength="191">
+                <i class="icon_pencil-edit"></i>
             </div>
-
-            <div class="col-lg-8 col-md-7 col-12 banner-sec">
-                <img class="d-block img-fluid h-100 w-100" src="{{ asset("/auth/image.jpg") }}" alt="Image" title="Image">
+            <div class="form-group">
+                <input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Last Name" value="{{ old('lastname') }}" minlength="2" maxlength="191">
+                <i class="icon_pencil-edit"></i>
             </div>
-        </div>
-    </div>
-</section>
+            <div class="form-group">
+                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="Email" value="{{ old('email') }}" minlength="5" maxlength="191">
+                <i class="icon_mail_alt"></i>
+            </div>
+            <div class="form-group">
+                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Password" minlength="8" maxlength="40" id="password">
+                <i class="icon_lock_alt"></i>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="terms" required id="terms-conditions">
+                <label class="small" for="terms-conditions">I accept <a href="javascript:void(0);">terms and conditions</a></label>
+            </div>
+            <div id="pass-info" class="clearfix"></div>
+            <button type="submit" class="btn_1 gradient full-width" action="register">Sign Up</button>
+            <div class="text-center mt-2"><small>Do you already have an account? <strong><a href="{{ route('login') }}">Sign in</a></strong></small></div>
+        </form>
+        <div class="copy">© {{ date('Y') }} Tiendita</div>
+    </aside>
+</div>
 
 <div class="modal fade" id="modal-terms" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
