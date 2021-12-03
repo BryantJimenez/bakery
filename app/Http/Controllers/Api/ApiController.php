@@ -64,6 +64,11 @@ use Illuminate\Http\Request;
 * )
 *
 * @OA\Tag(
+*	name="Groups",
+*	description="Groups endpoints"
+* )
+*
+* @OA\Tag(
 *	name="Agencies",
 *	description="Agencies endpoints"
 * )
@@ -93,8 +98,8 @@ class ApiController extends Controller
 	}
 
 	public function dataCategory($category) {
-		$category->image=(!is_null($category->image)) ? asset('/admins/img/categories/'.$category->image) : '';
 		$data=$category->only("id", "name", "slug", "image", "state");
+		$data['image']=(!is_null($category->image)) ? asset('/admins/img/categories/'.$category->image) : '';
 		return $data;
 	}
 
@@ -102,14 +107,30 @@ class ApiController extends Controller
 		$product->image=(!is_null($product->image)) ? asset('/admins/img/products/'.$product->image) : '';
 		$product->description=(!is_null($product->description)) ? $product->description : '';
 		$product->category=(!is_null($product['category'])) ? $this->dataCategory($product['category']) : [];
-		$data=$product->only("id", "name", "slug", "image", "description", "price", "state", "category");
+		$product->groups=$product['groups']->map(function($group) {
+			return $this->dataGroup($group);
+		});
+		$data=$product->only("id", "name", "slug", "image", "description", "price", "state", "category", "groups");
 		return $data;
 	}
 
-	public function dataComplement($complement) {
-		$complement->image=(!is_null($complement->image)) ? asset('/admins/img/complements/'.$complement->image) : '';
-		$complement->description=(!is_null($complement->description)) ? $complement->description : '';
+	public function dataComplement($complement, $pivot=false) {
 		$data=$complement->only("id", "name", "slug", "image", "description", "price", "state");
+		$data['image']=(!is_null($complement->image)) ? asset('/admins/img/complements/'.$complement->image) : '';
+		$data['description']=(!is_null($complement->description)) ? $complement->description : '';
+		if ($pivot) {
+			$data['price']=$complement['pivot']->price;
+			$data['state']=stateComplement($complement['pivot']->state, false);
+		}
+		return $data;
+	}
+
+	public function dataGroup($group) {
+		$group->attribute=(!is_null($group['attribute'])) ? $this->dataAttribute($group['attribute']) : [];
+		$group->complements=$group['complements']->map(function($complement) {
+			return $this->dataComplement($complement, true);
+		});
+		$data=$group->only("id", "name", "slug", "condition", "min", "max", "state", "attribute", "complements");
 		return $data;
 	}
 

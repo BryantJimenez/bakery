@@ -2628,10 +2628,7 @@ label.error {
   }
 }
 
-text.apexcharts-datalabel-label {
-  font-size: 16px !important;
-}
-
-.form-control.goals {
-  height: 38px !important;
+.card.card-complement img {
+  height: 150px;
+  object-fit: cover;
 }

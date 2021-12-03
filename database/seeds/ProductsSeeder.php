@@ -15,7 +15,8 @@ class ProductsSeeder extends Seeder
     		['name' => 'Soda', 'slug' => 'soda', 'image' => 'soda.jpg', 'description' => 'Carbonated drink is a flavored drink, made with carbonated water and natural sweeteners.', 'price' => 1.90, 'state' => '1', 'category_id' => 1],
     		['name' => 'Water', 'slug' => 'water', 'image' => 'water.jfif', 'description' => 'Cold natural drink.', 'price' => 1.90, 'state' => '1', 'category_id' => 1],
     		['name' => 'Juice', 'slug' => 'juice', 'image' => 'juice.jpg', 'description' => 'Juice obtained by squeezing a fruit.', 'price' => 1.90, 'state' => '1', 'category_id' => 1],
-    		['name' => 'Cacaolat', 'slug' => 'cacaolat', 'image' => 'cacaolat.jfif', 'description' => 'Cocoa-based chocolate drink.', 'price' => 2.20, 'state' => '1', 'category_id' => 1]
+    		['name' => 'Cacaolat', 'slug' => 'cacaolat', 'image' => 'cacaolat.jfif', 'description' => 'Cocoa-based chocolate drink.', 'price' => 2.20, 'state' => '1', 'category_id' => 1],
+            ['name' => 'Sandwich', 'slug' => 'sandwich', 'image' => 'sandwich.png', 'description' => 'A sandwich is a food typically consisting of vegetables, sliced cheese or meat, placed on or between slices of bread.', 'price' => 3.00, 'state' => '1', 'category_id' => 3],
     	];
     	DB::table('products')->insert($products);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Group\Group;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
@@ -37,7 +38,7 @@ class Product extends Model
      */
     public function resolveRouteBinding($value, $field = null)
     {
-        $product=$this->with(['category'])->where($field, $value)->first();
+        $product=$this->with(['category', 'groups.complements'])->where($field, $value)->first();
         if (!is_null($product)) {
             return $product;
         }
@@ -52,5 +53,9 @@ class Product extends Model
 
     public function category() {
         return $this->belongsTo(Category::class);
+    }
+
+    public function groups() {
+        return $this->belongsToMany(Group::class)->withTimestamps();
     }
 }

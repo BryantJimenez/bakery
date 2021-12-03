@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Group\Group;
 use App\Models\Complement;
 use App\Models\Agency;
+use App\Models\Attribute;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,9 +26,11 @@ class AdminController extends Controller
         $customers=User::role(['Customer'])->count();
         $categories=Category::count();
         $products=Product::count();
+        $groups=Group::count();
         $complements=Complement::count();
         $agencies=Agency::count();
-        return view('admin.home', compact('users', 'customers', 'categories', 'products', 'complements', 'agencies'));
+        $attributes=Attribute::count();
+        return view('admin.home', compact('users', 'customers', 'categories', 'products', 'groups', 'complements', 'agencies', 'attributes'));
     }
 
     public function profile() {

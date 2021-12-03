@@ -82,6 +82,7 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::delete('/{product:id}', 'Api\ProductController@destroy')->middleware('permission:products.delete');
 			Route::put('/{product:id}/activate', 'Api\ProductController@activate')->middleware('permission:products.active');
 			Route::put('/{product:id}/deactivate', 'Api\ProductController@deactivate')->middleware('permission:products.deactive');
+			Route::put('/{product:id}/assign', 'Api\ProductController@assign')->middleware('permission:products.assign.groups');
 		});
 
 		// Complements
@@ -93,6 +94,18 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::delete('/{complement:id}', 'Api\ComplementController@destroy')->middleware('permission:complements.delete');
 			Route::put('/{complement:id}/activate', 'Api\ComplementController@activate')->middleware('permission:complements.active');
 			Route::put('/{complement:id}/deactivate', 'Api\ComplementController@deactivate')->middleware('permission:complements.deactive');
+		});
+
+		// Groups
+		Route::group(['prefix' => 'groups'], function () {
+			Route::get('/', 'Api\GroupController@index')->middleware('permission:groups.index');
+			Route::post('/', 'Api\GroupController@store')->middleware('permission:groups.create');
+			Route::get('/{group:id}', 'Api\GroupController@show')->middleware('permission:groups.show');
+			Route::put('/{group:id}', 'Api\GroupController@update')->middleware('permission:groups.edit');
+			Route::delete('/{group:id}', 'Api\GroupController@destroy')->middleware('permission:groups.delete');
+			Route::put('/{group:id}/activate', 'Api\GroupController@activate')->middleware('permission:groups.active');
+			Route::put('/{group:id}/deactivate', 'Api\GroupController@deactivate')->middleware('permission:groups.deactive');
+			Route::put('/{group:id}/assign', 'Api\GroupController@assign')->middleware('permission:groups.assign.complements');
 		});
 
 		// Agencies

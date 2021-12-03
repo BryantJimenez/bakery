@@ -134,6 +134,14 @@ function GetIEVersion() {
 }
 
 //////// Scripts ////////
+function errorNotification() {
+  Lobibox.notify('error', {
+    title: 'Error',
+    sound: true,
+    msg: 'A problem has occurred, please try again.'
+  });
+}
+
 $(document).ready(function() {
   // Validation to enter only numbers
   $('.number, #phone').keypress(function() {
@@ -151,7 +159,6 @@ $(document).ready(function() {
   // select2
   if ($('.select2').length) {
     $('.select2').select2({
-      language: "es",
       placeholder: "Select",
       tags: true
     });
@@ -255,6 +262,15 @@ $(document).ready(function() {
       buttonup_class: 'btn btn-primary pt-2 pb-3'
     });
   }
+
+  if ($('.int-max-100').length) {
+    $(".int-max-100").TouchSpin({
+      min: 0,
+      max: 100,
+      buttondown_class: 'btn btn-primary pt-2 pb-3',
+      buttonup_class: 'btn btn-primary pt-2 pb-3'
+    });
+  }
 });
 
 // function to change the hidden input when changing the status switch
@@ -317,6 +333,16 @@ function activeComplement(slug) {
   $('#formActiveComplement').attr('action', '/admin/complements/' + slug + '/activate');
 }
 
+function deactiveGroup(slug) {
+  $("#deactiveGroup").modal();
+  $('#formDeactiveGroup').attr('action', '/admin/groups/' + slug + '/deactivate');
+}
+
+function activeGroup(slug) {
+  $("#activeGroup").modal();
+  $('#formActiveGroup').attr('action', '/admin/groups/' + slug + '/activate');
+}
+
 function deactiveAgency(slug) {
   $("#deactiveAgency").modal();
   $('#formDeactiveAgency').attr('action', '/admin/agencies/' + slug + '/deactivate');
@@ -363,6 +389,11 @@ function deleteComplement(slug) {
   $('#formDeleteComplement').attr('action', '/admin/complements/' + slug);
 }
 
+function deleteGroup(slug) {
+  $("#deleteGroup").modal();
+  $('#formDeleteGroup').attr('action', '/admin/groups/' + slug);
+}
+
 function deleteAgency(slug) {
   $("#deleteAgency").modal();
   $('#formDeleteAgency').attr('action', '/admin/agencies/' + slug);
@@ -371,4 +402,136 @@ function deleteAgency(slug) {
 function deleteAttribute(slug) {
   $("#deleteAttribute").modal();
   $('#formDeleteAttribute').attr('action', '/admin/attributes/' + slug);
+}
+
+// Function to open modal to assign groups to a product
+function assignGroup(slug, name=null) {
+  $('#formAssignProductGroup .select2').val('');
+  $('#formAssignProductGroup .select2').val('').trigger('change');
+  $('#formAssignProductGroup').attr('action', '/admin/products/'+slug+'/assign');
+  if (name!=null && name!="") {
+    $('#nameAssignProductGroup').text(name);
+    $.ajax({
+      url: '/admin/products/'+slug+'/groups',
+      type: 'POST',
+      dataType: 'json',
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    })
+    .done(function(obj) {
+      if (obj.status) {
+        $('#formAssignProductGroup .select2').val(obj.groups).trigger("change");
+        $("#assignProductGroup").modal();
+      } else {
+        errorNotification();
+      }
+    })
+    .fail(function() {
+      errorNotification();
+    });
+  } else {
+    errorNotification();
+  }
+}
+
+// Add Add-ons to a Group
+$('#add-complements').click(function(event) {
+  var count=parseInt($('#group-complements div[complement]:last-child').attr('complement'))+1;
+
+  $.ajax({
+    url: '/admin/groups/complements',
+    type: 'POST',
+    dataType: 'json',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  })
+  .done(function(obj) {
+    if (obj.status) {
+      $('#group-complements').append($('<div>', {
+        class: 'row',
+        complement: count
+      }));
+
+      $('#group-complements div[complement="'+count+'"]').html('<div class="col-12">'+
+        '<hr class="my-2">'+
+        '</div>'+
+        '<div class="form-group col-xl-4 col-lg-4 col-md-4 col-12">'+
+        '<label class="col-form-label">Complement<b class="text-danger">*</b></label>'+
+        '<select class="form-control" name="complement_id[]" complement="'+count+'" id="complement_'+count+'">'+
+        '<option value="">Select</option>'+
+        '</select>'+
+        '</div>'+
+        '<div class="form-group col-xl-4 col-lg-4 col-md-4 col-sm-5 col-12">'+
+        '<label class="col-form-label">Price<b class="text-danger">*</b></label>'+
+        '<input class="form-control min-decimal" type="text" name="price[]" required placeholder="Enter a price" value="0.00" complement="'+count+'" id="price_'+count+'">'+
+        '</div>'+
+        '<div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-5 col-10">'+
+        '<label class="col-form-label">State<b class="text-danger">*</b></label>'+
+        '<select class="form-control" name="state[]" required id="state_'+count+'">'+
+        '<option value="1">Available</option>'+
+        '<option value="2">Not Available</option>'+
+        '<option value="3">Out of Stock</option>'+
+        '<option value="0">Not Visible</option>'+
+        '</select>'+
+        '</div>'+
+        '<div class="form-group col-xl-1 col-lg-1 col-md-1 col-2 d-flex align-items-end">'+
+        '<a href="javascript:void(0);" class="text-danger complement-remove mb-3" complement="'+count+'">'+
+        '<i class="fa fa-trash"></i>'+
+        '</a>'+
+        '</div>');
+
+      for (var i=obj.complements.length-1; i>=0; i--) {
+        $('#complement_'+count).append($('<option>', {
+          value: obj.complements[i].slug,
+          text: obj.complements[i].name,
+          price: obj.complements[i].price
+        }));
+      }
+
+      if ($('.min-decimal').length) {
+        $(".min-decimal").TouchSpin({
+          min: 0,
+          max: 999999999,
+          step: 0.05,
+          decimals: 2,
+          buttondown_class: 'btn btn-primary pt-2 pb-3',
+          buttonup_class: 'btn btn-primary pt-2 pb-3'
+        });
+      }
+
+      // Change default price when selecting add-on
+      $('#complement_'+count).on('change', function(event) {
+        priceComplement($(this));
+      });
+
+      // Function to remove complements
+      $('.complement-remove[complement="'+count+'"]').on('click', function(event) {
+        $('#group-complements div[complement="'+$(this).attr('complement')+'"]').remove();
+      });
+    } else {
+      errorNotification();
+    }
+  })
+  .fail(function() {
+    errorNotification();
+  });
+});
+
+// Function to remove complements
+$('.complement-remove').click(function(event) {
+  $('#group-complements div[complement="'+$(this).attr('complement')+'"]').remove();
+});
+
+// Change default price when selecting add-on
+$('select[name="complement_id[]"]').change(function(event) {
+  priceComplement($(this));
+});
+
+// Function for change default price when selecting add-on
+function priceComplement($selected) {
+  var complement=$selected.attr('complement');
+  var price=$('select[complement="'+complement+'"] option[value="'+$selected.val()+'"]').attr('price');
+  $('.min-decimal[complement="'+complement+'"]').val(price);
 }

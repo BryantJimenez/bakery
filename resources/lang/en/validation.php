@@ -147,7 +147,9 @@ return [
     */
 
     'attributes' => [
-        'category_id'                  => 'category',
+        'category_id'               => 'category',
+        'group_id'                  => 'group',
+        'complement_id'             => 'complement',
     ],
 
 ];

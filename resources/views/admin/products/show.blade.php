@@ -9,12 +9,12 @@
 @section('content')
 
 <div class="row">
-	<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 layout-top-spacing">
+	<div class="col-xl-6 col-lg-6 col-md-6 col-12 layout-top-spacing">
 
 		<div class="user-profile layout-spacing">
 			<div class="widget-content widget-content-area">
 				<div class="d-flex justify-content-between">
-					<h3 class="">Product Information</h3>
+					<h3 class="">Product Data</h3>
 					@can('products.edit')
 					<a href="{{ route('products.edit', ['product' => $product->slug]) }}" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
 					@endcan
@@ -58,6 +58,9 @@
 									<span class="h6 text-black"><b>Category:</b> @if(!is_null($product['category'])){{ $product['category']->name }}@else{{ 'Not Added' }}@endif</span>
 								</li>
 								<li class="contacts-block__item">
+									<span class="h6 text-black"><b>Nº Groups:</b> {{ $product['groups']->count() }}</span>
+								</li>
+								<li class="contacts-block__item">
 									<a href="{{ route('products.index') }}" class="btn btn-secondary">Return</a>
 								</li>
 							</ul>
@@ -68,6 +71,41 @@
 			</div>
 		</div>
 	</div>
+
+	@if($product['groups']->count()>0)
+	<div class="col-12 layout-top-spacing">
+		<div class="user-profile layout-spacing">
+			<div class="widget-content widget-content-area">
+				<div class="d-flex justify-content-between">
+					<h3 class="pb-3">Groups</h3>
+				</div>
+				<div class="user-info-list">
+					@foreach($product['groups'] as $group)
+					<div class="row">
+						<div class="col-12 my-2">
+							<h6 class="font-weight-bold">{{ $group->name }}</h6>
+							<div class="row">
+								@foreach($group['complements'] as $complement)
+								<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+									<div class="card card-complement mb-3">
+										<img class="card-img-top" src="{{ image_exist('/admins/img/complements/', $complement->image, false, false) }}" alt="{{ $complement->name }}" title="{{ $complement->name }}">
+										<div class="card-body p-2">
+											<h5 class="card-title mb-1">{{ $complement->name }}</h5>
+											<p class="card-text mb-0">Price: {{ number_format($complement->price, 2, ',', '.') }}</p>
+											<p class="card-text mb-0">State: {!! state($complement->state) !!}</p>
+										</div>
+									</div>
+								</div>
+								@endforeach
+							</div>
+						</div>
+					</div>
+					@endforeach
+				</div>
+			</div>
+		</div>
+	</div>
+	@endif
 </div>
 
 @endsection

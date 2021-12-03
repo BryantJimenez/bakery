@@ -52,6 +52,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'products.delete']);
         Permission::create(['name' => 'products.active']);
         Permission::create(['name' => 'products.deactive']);
+        Permission::create(['name' => 'products.assign.groups']);
 
         // Complements Permissions
         Permission::create(['name' => 'complements.index']);
@@ -61,6 +62,16 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'complements.delete']);
         Permission::create(['name' => 'complements.active']);
         Permission::create(['name' => 'complements.deactive']);
+
+        // Groups Permissions
+        Permission::create(['name' => 'groups.index']);
+        Permission::create(['name' => 'groups.create']);
+        Permission::create(['name' => 'groups.show']);
+        Permission::create(['name' => 'groups.edit']);
+        Permission::create(['name' => 'groups.delete']);
+        Permission::create(['name' => 'groups.active']);
+        Permission::create(['name' => 'groups.deactive']);
+        Permission::create(['name' => 'groups.assign.complements']);
 
         // Agency Permissions
         Permission::create(['name' => 'agencies.index']);

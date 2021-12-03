@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/custom_dt_html5.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/dt-global_style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/select2/select2.min.css') }}">
 <link href="{{ asset('/admins/vendor/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('/admins/vendor/sweetalerts/sweetalert.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('/admins/css/components/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />
@@ -67,6 +68,9 @@
 												@endcan
 												@can('products.edit')
 												<a href="{{ route('products.edit', ['product' => $product->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+												@endcan
+												@can('products.assign.groups')
+												<button type="button" class="btn btn-secondary btn-sm bs-tooltip" title="Assign Groups" onclick="assignGroup('{{ $product->slug }}', '{{ $product->name }}')"><i class="fab fa-dropbox"></i></button>
 												@endcan
 												@if($product->state=='Active')
 												@can('products.deactive')
@@ -166,6 +170,47 @@
 </div>
 @endcan
 
+@can('products.assign.groups')
+<div class="modal fade" id="assignProductGroup" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<form action="#" method="POST" class="modal-content" id="formAssignProductGroup">
+			@csrf
+			@method('PUT')
+			<div class="modal-header">
+				<h5 class="modal-title">Select the groups that will be assigned to this product</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-12">
+						@include('admin.partials.errors')
+					</div>
+
+					<div class="form-group col-12">
+						<p class="h6 mb-0">Product: <span class="font-weight-bold" id="nameAssignProductGroup"></span></p>
+					</div>
+
+					<div class="form-group col-12">
+						<label class="col-form-label">Groups<b class="text-danger">*</b></label>
+						<select class="form-control select2 @error('group_id') is-invalid @enderror" name="group_id[]" required multiple>
+							@foreach($groups as $group)
+							<option value="{{ $group->slug }}">{{ $group->name }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-primary" action="product">Save</button>
+			</div>
+		</form>
+	</div>
+</div>
+@endcan
+
 @endsection
 
 @section('scripts')
@@ -174,7 +219,11 @@
 <script src="{{ asset('/admins/vendor/table/datatable/button-ext/jszip.min.js') }}"></script>    
 <script src="{{ asset('/admins/vendor/table/datatable/button-ext/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/table/datatable/button-ext/buttons.print.min.js') }}"></script>
+<script src="{{ asset('/admins/vendor/select2/select2.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/sweetalerts/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/sweetalerts/custom-sweetalert.js') }}"></script>
+<script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
+<script src="{{ asset('/admins/vendor/validate/additional-methods.js') }}"></script>
+<script src="{{ asset('/admins/js/validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>
 @endsection

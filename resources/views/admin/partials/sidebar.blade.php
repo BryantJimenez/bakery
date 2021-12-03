@@ -70,6 +70,16 @@
             </li>
             @endcan
 
+            @can('groups.index')
+            <li class="menu {{ active('admin/groups', 0) }}">
+                <a href="{{ route('groups.index') }}" aria-expanded="{{ menu_expanded('admin/groups', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-th"></i> Groups</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
+
             @can('agencies.index')
             <li class="menu {{ active('admin/agencies', 0) }}">
                 <a href="{{ route('agencies.index') }}" aria-expanded="{{ menu_expanded('admin/agencies', 0) }}" class="dropdown-toggle">

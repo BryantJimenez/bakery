@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Group\Group;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
@@ -48,5 +49,9 @@ class Attribute extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
+    }
+
+    public function groups() {
+        return $this->hasMany(Group::class);
     }
 }

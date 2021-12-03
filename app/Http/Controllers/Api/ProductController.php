@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Group\Group;
+use App\Models\Group\GroupProduct;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Product\ProductStoreRequest;
 use App\Http\Requests\Api\Product\ProductUpdateRequest;
+use App\Http\Requests\Api\Product\ProductAssignRequest;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -43,7 +46,7 @@ class ProductController extends ApiController
     * )
     */
     public function index() {
-      $products=Product::with(['category'])->get()->map(function($product) {
+      $products=Product::with(['category', 'groups.complements'])->get()->map(function($product) {
          return $this->dataProduct($product);
      });
 
@@ -128,8 +131,7 @@ class ProductController extends ApiController
     * )
     */
     public function store(ProductStoreRequest $request) {
-    	$category=Category::where('id', request('category_id'))->first();
-        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => $category->id);
+        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => request('category_id'));
     	$product=Product::create($data);
 
     	if ($product) {
@@ -271,8 +273,7 @@ class ProductController extends ApiController
     * )
     */
     public function update(ProductUpdateRequest $request, Product $product) {
-    	$category=Category::where('id', request('category_id'))->first();
-        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => $category->id);
+        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => request('category_id'));
     	$product->fill($data)->save();        
 
     	if ($product) {
@@ -448,5 +449,82 @@ class ProductController extends ApiController
     	}
         
     	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    }
+
+    /**
+    *
+    * @OA\Put(
+    *   path="/api/v1/products/{id}/assign",
+    *   tags={"Products"},
+    *   summary="Assign groups to product",
+    *   description="assign groups to a single product",
+    *   operationId="assignProduct",
+    *   security={
+    *       {"bearerAuth": {}}
+    *   },
+    *   @OA\Parameter(
+    *       name="id",
+    *       in="path",
+    *       description="Search for ID",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="group_id[0]",
+    *       in="query",
+    *       description="Group ID",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="Assign groups to product.",
+    *       @OA\MediaType(
+    *           mediaType="application/json"
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       description="Not authenticated."
+    *   ),
+    *   @OA\Response(
+    *       response=403,
+    *       description="Forbidden."
+    *   ),
+    *   @OA\Response(
+    *       response=422,
+    *       description="Data not valid."
+    *   ),
+    *   @OA\Response(
+    *       response=500,
+    *       description="An error occurred during the process."
+    *   )
+    * )
+    */
+    public function assign(ProductAssignRequest $request, Product $product) {  
+        $assign=true;      
+        GroupProduct::where('product_id', $product->id)->delete();
+        foreach (request('group_id') as $value) {
+            $group=Group::where('id', $value)->first();
+            if (!is_null($group)) {
+                $data=array('product_id' => $product->id, 'group_id' => $group->id);
+                $group_product=GroupProduct::create($data);
+                if (!$group_product) {
+                    $assign=false;
+                }
+            }
+        }
+
+        if ($assign) {
+            $product=Product::where('id', $product->id)->first();
+            $product=$this->dataProduct($product);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The groups has been successfully assigned.', 'data' => $product], 200);
+        }
+
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
     }
 }

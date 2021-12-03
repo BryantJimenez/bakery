@@ -411,6 +411,28 @@ $(document).ready(function(){
 		});
 	});
 
+	// Products (Assign Groups)
+	$("button[action='product']").on("click",function(){
+		$("#formAssignProductGroup").validate({
+			rules:
+			{
+				group_id: {
+					required: true
+				}
+			},
+			messages:
+			{
+				group_id: {
+					required: 'Select an option.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='product']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
 	// Complements (Create)
 	$("button[action='complement']").on("click",function(){
 		$("#formComplement").validate({
@@ -484,6 +506,101 @@ $(document).ready(function(){
 			},
 			submitHandler: function(form) {
 				$("button[action='complement']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Groups
+	$("button[action='group']").on("click",function(){
+		$("#formGroup").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				condition: {
+					required: true
+				},
+
+				min: {
+					required: true,
+					min: 0,
+					max: 100
+				},
+
+				max: {
+					required: true,
+					min: 1,
+					max: 100
+				},
+
+				attribute_id: {
+					required: true
+				},
+
+				state: {
+					required: true
+				}
+			},
+			messages:
+			{
+				condition: {
+					required: 'Select an option.'
+				},
+
+				attribute_id: {
+					required: 'Select an option.'
+				},
+
+				state: {
+					required: 'Select an option.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='group']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Groups (Assign Complements)
+	$("button[action='group']").on("click",function(){
+		$("#formAssignGroupComplement").validate({
+			rules:
+			{
+				"complement_id[]": {
+					required: true
+				},
+
+				"price[]": {
+					required: true,
+					min: 0
+				},
+
+				"state[]": {
+					required: true
+				}
+			},
+			messages:
+			{
+				"name[]": {
+					required: 'Select an option.'
+				},
+
+				"price[]": {
+					min: 'Please enter a value greater than or equal to {0}.'
+				},
+
+				"state[]": {
+					required: 'Select an option.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='group']").attr('disabled', true);
 				form.submit();
 			}
 		});

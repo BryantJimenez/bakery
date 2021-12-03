@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Group\Group;
+use App\Models\Group\GroupProduct;
 use App\Http\Requests\Product\ProductStoreRequest;
 use App\Http\Requests\Product\ProductUpdateRequest;
+use App\Http\Requests\Product\ProductAssignRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,7 +20,8 @@ class ProductController extends Controller
      */
     public function index() {
         $products=Product::with(['category'])->orderBy('id', 'DESC')->get();
-        return view('admin.products.index', compact('products'));
+        $groups=Group::where('state', '1')->orderBy('name', 'ASC')->get();
+        return view('admin.products.index', compact('products', 'groups'));
     }
 
     /**
@@ -130,6 +134,34 @@ class ProductController extends Controller
         $product->fill(['state' => "1"])->save();
         if ($product) {
             return redirect()->route('products.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The product has been activated successfully.']);
+        } else {
+            return redirect()->route('products.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+        }
+    }
+
+    public function groups(Product $product) {
+        $groups=$product['groups']->map(function($group) {
+            return array($group->slug);
+        });
+        return response()->json(['status' => true, 'groups' => $groups]);
+    }
+
+    public function assign(ProductAssignRequest $request, Product $product) {  
+        $assign=true;      
+        GroupProduct::where('product_id', $product->id)->delete();
+        foreach (request('group_id') as $value) {
+            $group=Group::where('slug', $value)->first();
+            if (!is_null($group)) {
+                $data=array('product_id' => $product->id, 'group_id' => $group->id);
+                $group_product=GroupProduct::create($data);
+                if (!$group_product) {
+                    $assign=false;
+                }
+            }
+        }
+
+        if ($assign) {
+            return redirect()->route('products.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The complements group has been assigned successfully.']);
         } else {
             return redirect()->route('products.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
         }

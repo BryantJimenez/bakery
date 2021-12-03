@@ -49,7 +49,7 @@
 			</div>
 			<div class="row">
 				@foreach ($categories as $category)
-				<div class="col-lg-2 col-md-3 col-sm-4 col-6 my-2">
+				<div class="col-lg-2 col-md-3 col-sm-4 col-6 my-3">
 					<div class="item_version_2">
 						<a href="#">
 							<figure>

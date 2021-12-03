@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 layout-top-spacing">
+<div class="col-xl-6 col-lg-6 col-md-6 col-12 layout-top-spacing">
 
 	<div class="user-profile layout-spacing">
 		<div class="widget-content widget-content-area">
