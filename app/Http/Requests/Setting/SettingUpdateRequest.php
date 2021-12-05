@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\Setting;
 
-use App\Models\Group\Group;
+use App\Models\Currency;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class ProductAssignRequest extends FormRequest
+class SettingUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,11 @@ class ProductAssignRequest extends FormRequest
      */
     public function rules()
     {
-        $groups=Group::where('state', '1')->get()->pluck('slug');
+        $currencies=Currency::where('state', '1')->get()->pluck('slug');
         return [
-            'group_id' => 'required|array',
-            'group_id.*' => 'required|'.Rule::in($groups)
+            'terms' => 'nullable|string|min:1|max:16770000',
+            'privacity' => 'nullable|string|min:1|max:16770000',
+            'currency_id' => 'required|'.Rule::in($currencies)
         ];
     }
 }

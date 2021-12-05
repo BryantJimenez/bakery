@@ -658,4 +658,68 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	// Currencies
+	$("button[action='currency']").on("click",function(){
+		$("#formCurrency").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				iso: {
+					required: true,
+					minlength: 3,
+					maxlength: 3
+				},
+
+				symbol: {
+					required: true,
+					minlength: 1,
+					maxlength: 2
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='currency']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Settings
+	$("button[action='setting']").on("click",function(){
+		$("#formSetting").validate({
+			rules:
+			{
+				currency_id: {
+					required: true
+				},
+
+				terms: {
+					required: false,
+					minlength: 1,
+					maxlength: 16770000
+				},
+
+				privacity: {
+					required: false,
+					minlength: 1,
+					maxlength: 16770000
+				}
+			},
+			messages:
+			{
+				currency_id: {
+					required: 'Select an option.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='setting']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
 });

@@ -99,6 +99,26 @@
                 </a>
             </li>
             @endcan
+
+            @can('currencies.index')
+            <li class="menu {{ active('admin/currencies', 0) }}">
+                <a href="{{ route('currencies.index') }}" aria-expanded="{{ menu_expanded('admin/currencies', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-dollar-sign"></i> Currencies</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
+
+            @can('settings.edit')
+            <li class="menu {{ active('admin/settings', 0) }}">
+                <a href="{{ route('settings.edit') }}" aria-expanded="{{ menu_expanded('admin/settings', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-cogs"></i> Settings</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
         </ul>
 
     </nav>

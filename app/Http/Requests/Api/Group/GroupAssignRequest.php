@@ -26,7 +26,7 @@ class GroupAssignRequest extends FormRequest
      */
     public function rules()
     {
-        $complements=Complement::get()->pluck('id');
+        $complements=Complement::where('state', '1')->get()->pluck('id');
         return [
             'complement_id' => 'required|array',
             'complement_id.*' => 'required|'.Rule::in($complements),

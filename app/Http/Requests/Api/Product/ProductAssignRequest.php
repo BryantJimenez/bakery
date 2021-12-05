@@ -26,7 +26,7 @@ class ProductAssignRequest extends FormRequest
      */
     public function rules()
     {
-        $groups=Group::get()->pluck('id');
+        $groups=Group::where('state', '1')->get()->pluck('id');
         return [
             'group_id' => 'required|array',
             'group_id.*' => 'required|'.Rule::in($groups)

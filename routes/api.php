@@ -129,5 +129,16 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::put('/{attribute:id}/activate', 'Api\AttributeController@activate')->middleware('permission:attributes.active');
 			Route::put('/{attribute:id}/deactivate', 'Api\AttributeController@deactivate')->middleware('permission:attributes.deactive');
 		});
+
+		// Currencies
+		Route::group(['prefix' => 'currencies'], function () {
+			Route::get('/', 'Api\CurrencyController@index')->middleware('permission:currencies.index');
+			Route::post('/', 'Api\CurrencyController@store')->middleware('permission:currencies.create');
+			Route::get('/{currency:id}', 'Api\CurrencyController@show')->middleware('permission:currencies.show');
+			Route::put('/{currency:id}', 'Api\CurrencyController@update')->middleware('permission:currencies.edit');
+			Route::delete('/{currency:id}', 'Api\CurrencyController@destroy')->middleware('permission:currencies.delete');
+			Route::put('/{currency:id}/activate', 'Api\CurrencyController@activate')->middleware('permission:currencies.active');
+			Route::put('/{currency:id}/deactivate', 'Api\CurrencyController@deactivate')->middleware('permission:currencies.deactive');
+		});
 	});
 });

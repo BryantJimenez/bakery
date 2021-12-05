@@ -271,6 +271,19 @@ $(document).ready(function() {
       buttonup_class: 'btn btn-primary pt-2 pb-3'
     });
   }
+
+  // CKeditor plugin
+  if ($('#content-term').length) {
+    CKEDITOR.config.height=400;
+    CKEDITOR.config.width='auto';
+    CKEDITOR.replace('content-term');
+  }
+
+  if ($('#content-privacity').length) {
+    CKEDITOR.config.height=400;
+    CKEDITOR.config.width='auto';
+    CKEDITOR.replace('content-privacity');
+  }
 });
 
 // function to change the hidden input when changing the status switch
@@ -363,6 +376,16 @@ function activeAttribute(slug) {
   $('#formActiveAttribute').attr('action', '/admin/attributes/' + slug + '/activate');
 }
 
+function deactiveCurrency(slug) {
+  $("#deactiveCurrency").modal();
+  $('#formDeactiveCurrency').attr('action', '/admin/currencies/' + slug + '/deactivate');
+}
+
+function activeCurrency(slug) {
+  $("#activeCurrency").modal();
+  $('#formActiveCurrency').attr('action', '/admin/currencies/' + slug + '/activate');
+}
+
 // functions to ask when deleting
 function deleteUser(slug) {
   $("#deleteUser").modal();
@@ -402,6 +425,11 @@ function deleteAgency(slug) {
 function deleteAttribute(slug) {
   $("#deleteAttribute").modal();
   $('#formDeleteAttribute').attr('action', '/admin/attributes/' + slug);
+}
+
+function deleteCurrency(slug) {
+  $("#deleteCurrency").modal();
+  $('#formDeleteCurrency').attr('action', '/admin/currencies/' + slug);
 }
 
 // Function to open modal to assign groups to a product

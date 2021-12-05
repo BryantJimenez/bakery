@@ -91,6 +91,18 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'attributes.active']);
         Permission::create(['name' => 'attributes.deactive']);
 
+        // Currency Permissions
+        Permission::create(['name' => 'currencies.index']);
+        Permission::create(['name' => 'currencies.create']);
+        Permission::create(['name' => 'currencies.show']);
+        Permission::create(['name' => 'currencies.edit']);
+        Permission::create(['name' => 'currencies.delete']);
+        Permission::create(['name' => 'currencies.active']);
+        Permission::create(['name' => 'currencies.deactive']);
+
+        // Setting Permissions
+        Permission::create(['name' => 'settings.edit']);
+
     	$superadmin=Role::create(['name' => 'Super Admin']);
         $superadmin->givePermissionTo(Permission::all());
         

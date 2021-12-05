@@ -78,6 +78,11 @@ use Illuminate\Http\Request;
 *	description="Attributes endpoints"
 * )
 *
+* @OA\Tag(
+*	name="Currencies",
+*	description="Currencies endpoints"
+* )
+*
 * @OA\SecurityScheme(
 *	securityScheme="bearerAuth",
 *   in="header",
@@ -142,6 +147,11 @@ class ApiController extends Controller
 
 	public function dataAttribute($attribute) {
 		$data=$attribute->only("id", "name", "slug", "state");
+		return $data;
+	}
+
+	public function dataCurrency($currency) {
+		$data=$currency->only("id", "name", "slug", "iso", "symbol", "state");
 		return $data;
 	}
 }
