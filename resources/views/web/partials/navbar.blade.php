@@ -14,6 +14,9 @@
         @else
         <ul id="top_menu" class="drop_user">
             <li>
+                <livewire:web.cart.header />
+            </li>
+            <li class="mt-lg-0 mt-1">
                 <div class="dropdown user clearfix">
                     <a href="javascript:void(0);" data-toggle="dropdown">
                         <figure>
@@ -54,9 +57,12 @@
                 <li>
                     <a href="{{ route('home') }}">Home</a>
                 </li>
-                {{-- <li>
-                    <a href="{{ route('web.categories') }}">Category</a>
-                </li> --}}
+                <li class="d-lg-none">
+                    <a href="{{ route('web.cart') }}">Cart</a>
+                </li>
+                <li class="d-lg-none">
+                    <a href="{{ route('web.checkout') }}">Checkout</a>
+                </li>
             </ul>
         </nav>
     </div>

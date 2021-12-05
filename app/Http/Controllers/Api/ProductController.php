@@ -105,6 +105,16 @@ class ProductController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="state",
+    *       in="query",
+    *       description="State of product (0=Inactive, 1=Active, 2=Not Available, 3=Out of Stock)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           enum={"1", "2", "3", "0"}
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=201,
     *       description="Registered product.",
@@ -131,7 +141,7 @@ class ProductController extends ApiController
     * )
     */
     public function store(ProductStoreRequest $request) {
-        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => request('category_id'));
+        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'state' => request('state'), 'category_id' => request('category_id'));
     	$product=Product::create($data);
 
     	if ($product) {
@@ -247,6 +257,16 @@ class ProductController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="state",
+    *       in="query",
+    *       description="State of product (0=Inactive, 1=Active, 2=Not Available, 3=Out of Stock)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           enum={"1", "2", "3", "0"}
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Update product.",
@@ -273,7 +293,7 @@ class ProductController extends ApiController
     * )
     */
     public function update(ProductUpdateRequest $request, Product $product) {
-        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => request('category_id'));
+        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'state' => request('state'), 'category_id' => request('category_id'));
     	$product->fill($data)->save();        
 
     	if ($product) {

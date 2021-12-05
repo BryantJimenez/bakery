@@ -42,7 +42,7 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request) {
         $category=Category::where('slug', request('category_id'))->first();
-        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => $category->id);
+        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'state' => request('state'), 'category_id' => $category->id);
         $product=Product::create($data);
 
         if ($product) {
@@ -89,7 +89,7 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product) {
         $category=Category::where('slug', request('category_id'))->first();
-        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'category_id' => $category->id);
+        $data=array('name' => request('name'), 'description' => request('description'), 'price' => request('price'), 'state' => request('state'), 'category_id' => $category->id);
         $product->fill($data)->save();
 
         if ($product) {

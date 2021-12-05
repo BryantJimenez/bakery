@@ -19,11 +19,11 @@
  	});
 
  	// Lazy load
- 	if($('.lazy').length) {
- 		var lazyLoadInstance=new LazyLoad({
- 			elements_selector: ".lazy"
- 		});
- 	}
+ 	// if($('.lazy').length) {
+ 	// 	var lazyLoadInstance=new LazyLoad({
+ 	// 		elements_selector: ".lazy"
+ 	// 	});
+ 	// }
 
 	// Footer collapse
 	if($('footer').length) {
@@ -44,53 +44,6 @@
 	if($('.opacity-mask').length) {
 		$('.opacity-mask').each(function(){
 			$(this).css('background-color', $(this).attr('data-opacity-mask'));
-		});
-	}
-
-	// Carousel categories
-	if($('.categories_carousel').length) {
-		$('.categories_carousel').owlCarousel({
-			center: false,
-			stagePadding: 50,
-			items: 1,
-			loop: false,
-			margin: 20,
-			dots: false,
-			nav: true,
-			lazyLoad: true,
-			navText: ["<i class='arrow_left'></i>","<i class='arrow_right'></i>"],
-			responsive: {
-				0: {
-					nav: false,
-					dots: false,
-					items: 2
-				},
-				600: {
-					nav: false,
-					dots: false,
-					items: 2
-				},
-				768: {
-					nav: false,
-					dots: false,
-					items: 4
-				},
-				1025: {
-					nav: true,
-					dots: false,
-					items: 4
-				},
-				1340: {
-					nav: true,
-					dots: false,
-					items: 5
-				},
-				1460: {
-					nav: true,
-					dots: false,
-					items: 5
-				}
-			}
 		});
 	}
 

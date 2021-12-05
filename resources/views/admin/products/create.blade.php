@@ -32,19 +32,19 @@
 						<form action="{{ route('products.store') }}" method="POST" class="form" id="formProduct" enctype="multipart/form-data">
 							@csrf
 							<div class="row">
-								<div class="form-group col-12">
+								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">Name<b class="text-danger">*</b></label>
 									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Enter a name" value="{{ old('name') }}">
-								</div>
-
-								<div class="form-group col-12">
-									<label class="col-form-label">Image<b class="text-danger">*</b></label>
-									<input type="file" name="image" required accept="image/*" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" />
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">Price<b class="text-danger">*</b></label>
 									<input class="form-control min-decimal @error('price') is-invalid @enderror" type="text" name="price" required placeholder="Enter a price" value="@if(!is_null(old('price'))){{ old('price') }}@else{{ '0' }}@endif">
+								</div>
+
+								<div class="form-group col-12">
+									<label class="col-form-label">Image<b class="text-danger">*</b></label>
+									<input type="file" name="image" required accept="image/*" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" />
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
@@ -54,6 +54,16 @@
 										@foreach($categories as $category)
 										<option value="{{ $category->slug }}" @if(old('category_id')==$category->slug) selected @endif>{{ $category->name }}</option>
 										@endforeach
+									</select>
+								</div>
+
+								<div class="form-group col-lg-6 col-md-6 col-12">
+									<label class="col-form-label">State<b class="text-danger">*</b></label>
+									<select class="form-control" name="state" required>
+										<option value="1" @if(old('state')=="1") selected @endif>Active</option>
+										<option value="2" @if(old('state')=="2") selected @endif>Not Available</option>
+										<option value="3" @if(old('state')=="3") selected @endif>Out of Stock</option>
+										<option value="0" @if(old('state')=="0") selected @endif>Inactive</option>
 									</select>
 								</div>
 

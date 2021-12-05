@@ -2388,6 +2388,21 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "State of product (0=Inactive, 1=Active, 2=Not Available, 3=Out of Stock)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "1",
+                                "2",
+                                "3",
+                                "0"
+                            ]
+                        }
                     }
                 ],
                 "responses": {
@@ -2511,6 +2526,21 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "State of product (0=Inactive, 1=Active, 2=Not Available, 3=Out of Stock)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "1",
+                                "2",
+                                "3",
+                                "0"
+                            ]
                         }
                     }
                 ],

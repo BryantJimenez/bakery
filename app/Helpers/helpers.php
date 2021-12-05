@@ -9,6 +9,20 @@ function state($state) {
 	return '<span class="badge badge-dark">'.$state.'</span>';
 }
 
+function stateProduct($state, $badge=true) {
+	if ($badge) {
+		if ($state=='Inactive') {
+			return '<span class="badge badge-danger">'.$state.'</span>';
+		} elseif ($state=='Out of Stock' || $state=='Not Available') {
+			return '<span class="badge badge-warning">'.$state.'</span>';
+		} elseif ($state=='Active') {
+			return '<span class="badge badge-success">'.$state.'</span>';
+		}
+		return '<span class="badge badge-dark">'.$state.'</span>';
+	}
+	return $state;
+}
+
 function stateComplement($state, $badge=true) {
 	if ($badge) {
 		if ($state=='0') {

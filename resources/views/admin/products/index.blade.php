@@ -59,7 +59,7 @@
 										</td>
 										<td>{{ number_format($product->price, 2, ',', '.') }}</td>
 										<td>@if(!is_null($product['category'])){{ $product['category']->name }}@else{{ "Not Added" }}@endif</td>
-										<td>{!! state($product->state) !!}</td>
+										<td>{!! stateProduct($product->state) !!}</td>
 										@if(auth()->user()->can('products.show') || auth()->user()->can('products.edit') || auth()->user()->can('products.active') || auth()->user()->can('products.deactive') || auth()->user()->can('products.delete'))
 										<td>
 											<div class="btn-group" role="group">

@@ -21,7 +21,11 @@ class Product extends Model
      */
     public function getStateAttribute($value)
     {
-        if ($value=='1') {
+        if ($value=='3') {
+            return 'Out of Stock';
+        } elseif ($value=='2') {
+            return 'Not Available';
+        } elseif ($value=='1') {
             return 'Active';
         } elseif ($value=='0') {
             return 'Inactive';

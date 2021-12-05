@@ -35,6 +35,7 @@
 	
 	<!-- SPECIFIC CSS -->
 	@yield('links')
+	@livewireStyles
 	<!-- SPECIFIC CSS -->
 
 	<!-- Custom Style CSS -->
@@ -58,6 +59,7 @@
 	<!-- Bootstrap core JavaScript -->
 	<script type="text/javascript" src="{{ asset('/web/js/bootstrap.min.js') }}"></script>
 
+	@livewireScripts
 	@yield('scripts')
 
 	<!-- Scripts -->

@@ -28,7 +28,7 @@
 					<div class="">
 						<ul class="contacts-block list-unstyled">
 							<li class="contacts-block__item">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>{!! state($product->state) !!}
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>{!! stateProduct($product->state) !!}
 							</li>
 						</ul>
 					</div>                                    
@@ -91,8 +91,8 @@
 										<img class="card-img-top" src="{{ image_exist('/admins/img/complements/', $complement->image, false, false) }}" alt="{{ $complement->name }}" title="{{ $complement->name }}">
 										<div class="card-body p-2">
 											<h5 class="card-title mb-1">{{ $complement->name }}</h5>
-											<p class="card-text mb-0">Price: {{ number_format($complement->price, 2, ',', '.') }}</p>
-											<p class="card-text mb-0">State: {!! state($complement->state) !!}</p>
+											<p class="card-text mb-0">Price: {{ number_format($complement['pivot']->price, 2, ',', '.') }}</p>
+											<p class="card-text mb-0">State: {!! stateComplement($complement['pivot']->state) !!}</p>
 										</div>
 									</div>
 								</div>

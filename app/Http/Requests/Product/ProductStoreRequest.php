@@ -32,7 +32,8 @@ class ProductStoreRequest extends FormRequest
       'image' => 'required|file|mimetypes:image/*',
       'description' => 'nullable|string|min:2|max:5000',
       'price' => 'required|string|min:0',
-      'category_id' => 'required|'.Rule::in($categories)
+      'category_id' => 'required|'.Rule::in($categories),
+      'state' => 'required|'.Rule::in(['0', '1', '2', '3'])
     ];
   }
 }

@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('image')->default('products.jpg');
             $table->text('description')->nullable();
             $table->float('price', 10, 2)->default(0.00)->unsigned();
-            $table->enum('state', [0, 1])->default(1);
+            $table->enum('state', [0, 1, 2, 3])->default(1);
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
