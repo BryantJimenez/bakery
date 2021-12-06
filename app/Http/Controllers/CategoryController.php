@@ -42,7 +42,7 @@ class CategoryController extends Controller
             $category=Category::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $category->restore();
         } else if ($exist) {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'It already exists', 'msg' => 'This category already exists.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'La categoría ya existe', 'msg' => 'Esta categoría ya se encuentra registrada.']);
         } else {
             $category=Category::create(['name' => request('name')]);
         }
@@ -55,9 +55,9 @@ class CategoryController extends Controller
                 $category->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful registration', 'msg' => 'The category has been successfully registered.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La categoría ha sido registrada exitosamente.']);
         } else {
-            return redirect()->route('categories.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed registration', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
+            return redirect()->route('categories.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
         }
     }
 
@@ -88,9 +88,9 @@ class CategoryController extends Controller
                 $category->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The category has been edited successfully.']);
+            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La categoría ha sido editada exitosamente.']);
         } else {
-            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -103,27 +103,27 @@ class CategoryController extends Controller
     public function destroy(Category $category) {
         $category->delete();
         if ($category) {
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful removal', 'msg' => 'The category has been successfully removed.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La categoría ha sido eliminada exitosamente.']);
         } else {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed deletion', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function deactivate(Request $request, Category $category) {
         $category->fill(['state' => "0"])->save();
         if ($category) {
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The category has been successfully deactivated.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La categoría ha sido desactivada exitosamente.']);
         } else {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function activate(Request $request, Category $category) {
         $category->fill(['state' => "1"])->save();
         if ($category) {
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The category has been activated successfully.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La categoría ha sido activada exitosamente.']);
         } else {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

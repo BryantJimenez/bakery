@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Login')
+@section('title', 'Iniciar Sesión')
 
 @section('content')
 
@@ -21,13 +21,13 @@
         <i class="icon_mail_alt"></i>
       </div>
       <div class="form-group">
-        <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Password" minlength="8" maxlength="40" id="password">
+        <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Contraseña" minlength="8" maxlength="40" id="password">
         <i class="icon_lock_alt"></i>
       </div>
       <div id="pass-info" class="clearfix"></div>
-      <button type="submit" class="btn_1 gradient full-width" action="login">Login</button>
-      <div class="text-center mt-2"><small>Did you forget your password? <strong><a href="{{ route('password.request') }}">Recover</a></strong></small></div>
-      <div class="text-center mt-2"><small>You do not have an account? <strong><a href="{{ route('register') }}">Sign up</a></strong></small></div>
+      <button type="submit" class="btn_1 gradient full-width" action="login">Ingresar</button>
+      <div class="text-center mt-2"><small>¿Olvidaste tu contraseña? <strong><a href="{{ route('password.request') }}">Recuperar</a></strong></small></div>
+      <div class="text-center mt-2"><small>¿No tienes cuenta? <strong><a href="{{ route('register') }}">Registrate</a></strong></small></div>
     </form>
     <div class="copy">© {{ date('Y') }} Tiendita</div>
   </aside>

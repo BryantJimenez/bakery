@@ -11,7 +11,7 @@ class Shop extends Component
 	public $align='center';
 	public $undo=false;
 	public $history='';
-	public $title='Categories';
+	public $title='Categorías';
 	public $category='';
 
 	public function render()
@@ -36,7 +36,7 @@ class Shop extends Component
 			$this->align='center';
 			$this->undo=false;
 			$this->history='';
-			$this->title="Categories";
+			$this->title="Categorías";
 			$this->view='categories';
 		}
 	}

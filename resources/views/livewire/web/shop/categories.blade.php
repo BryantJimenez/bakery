@@ -14,4 +14,8 @@
 		</div>
 	</div>
 	@endforeach
+
+	<div class="col-12 d-lg-none">
+		<livewire:web.cart.card />
+	</div>
 </div>

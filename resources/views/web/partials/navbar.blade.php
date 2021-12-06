@@ -1,15 +1,19 @@
-<header class="header clearfix element_to_stick">
+<header class="header_in clearfix">
     <div class="container">
         <div id="logo">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('/web/img/logo.svg') }}" width="162" height="35" title="Logo" alt="Logo" class="logo_normal">
                 <img src="{{ asset('/web/img/logo_sticky.svg') }}" width="162" height="35"  title="Logo" alt="Logo" class="logo_sticky">
             </a>
         </div>
         <div class="layer"></div>
         @guest
         <ul id="top_menu">
-            <li><a href="{{ route('login') }}" class="login">Login</a></li>
+            <li>
+                <livewire:web.cart.header />
+            </li>
+            <li>
+                <a href="{{ route('login') }}" class="login">Ingresar</a>
+            </li>
         </ul>
         @else
         <ul id="top_menu" class="drop_user">
@@ -28,9 +32,9 @@
                         <div class="dropdown-menu-content">
                             <ul>
                                 @can('dashboard')
-                                <li><a href="{{ route('admin') }}"><i class="icon_cog"></i>Dashboard</a></li>
+                                <li><a href="{{ route('admin') }}"><i class="icon_cog"></i>Panel Administrativo</a></li>
                                 @endcan
-                                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon_key"></i>Logout</a></li>
+                                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon_key"></i>Cerrar Sesión</a></li>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -55,13 +59,10 @@
             </div>
             <ul>
                 <li>
-                    <a href="{{ route('home') }}">Home</a>
+                    <a href="{{ route('home') }}">Inicio</a>
                 </li>
                 <li class="d-lg-none">
-                    <a href="{{ route('web.cart') }}">Cart</a>
-                </li>
-                <li class="d-lg-none">
-                    <a href="{{ route('web.checkout') }}">Checkout</a>
+                    <a href="{{ route('web.checkout') }}">Finalizar Compra</a>
                 </li>
             </ul>
         </nav>

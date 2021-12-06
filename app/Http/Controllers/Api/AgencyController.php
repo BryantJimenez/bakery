@@ -132,10 +132,10 @@ class AgencyController extends ApiController
         if ($agency) {
             $agency=Agency::where('id', $agency->id)->first();
             $agency=$this->dataAgency($agency);
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The agency has been successfully registered.', 'data' => $agency], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'La agencia ha sido registrada exitosamente.', 'data' => $agency], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -272,10 +272,10 @@ class AgencyController extends ApiController
         if ($agency) {
             $agency=Agency::where('id', $agency->id)->first();
             $agency=$this->dataAgency($agency);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been edited successfully.', 'data' => $agency], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La agencia ha sido editada exitosamente.', 'data' => $agency], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -327,10 +327,10 @@ class AgencyController extends ApiController
     {
     	$agency->delete();
     	if ($agency) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been successfully removed.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La agencia ha sido eliminada exitosamente.'], 200);
     	}
 
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -382,10 +382,10 @@ class AgencyController extends ApiController
     	$agency->fill(['state' => "0"])->save();
     	if ($agency) {
             $agency=$this->dataAgency($agency);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been successfully deactivated.', 'data' => $agency], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La agencia ha sido desactivada exitosamente.', 'data' => $agency], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -437,9 +437,9 @@ class AgencyController extends ApiController
     	$agency->fill(['state' => "1"])->save();
     	if ($agency) {
     		$agency=$this->dataAgency($agency);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The agency has been successfully activated.', 'data' => $agency], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La agencia ha sido activada exitosamente.', 'data' => $agency], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 }

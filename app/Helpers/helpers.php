@@ -1,9 +1,9 @@
 <?php
 
 function state($state) {
-	if ($state=='Inactive') {
+	if ($state=='Inactivo') {
 		return '<span class="badge badge-danger">'.$state.'</span>';
-	} elseif ($state=='Active') {
+	} elseif ($state=='Activo') {
 		return '<span class="badge badge-success">'.$state.'</span>';
 	}
 	return '<span class="badge badge-dark">'.$state.'</span>';
@@ -11,11 +11,11 @@ function state($state) {
 
 function stateProduct($state, $badge=true) {
 	if ($badge) {
-		if ($state=='Inactive') {
+		if ($state=='Inactivo') {
 			return '<span class="badge badge-danger">'.$state.'</span>';
-		} elseif ($state=='Out of Stock' || $state=='Not Available') {
+		} elseif ($state=='Agotado' || $state=='No Disponible') {
 			return '<span class="badge badge-warning">'.$state.'</span>';
-		} elseif ($state=='Active') {
+		} elseif ($state=='Activo') {
 			return '<span class="badge badge-success">'.$state.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$state.'</span>';
@@ -26,26 +26,26 @@ function stateProduct($state, $badge=true) {
 function stateComplement($state, $badge=true) {
 	if ($badge) {
 		if ($state=='0') {
-			return '<span class="badge badge-danger">Not Visible</span>';
+			return '<span class="badge badge-danger">No Visible</span>';
 		} elseif ($state=='3') {
-			return '<span class="badge badge-warning">Out of Stock</span>';
+			return '<span class="badge badge-warning">Agotado</span>';
 		} elseif ($state=='2') {
-			return '<span class="badge badge-warning">Not Available</span>';
+			return '<span class="badge badge-warning">No Disponible</span>';
 		} elseif ($state=='1') {
-			return '<span class="badge badge-success">Available</span>';
+			return '<span class="badge badge-success">Disponible</span>';
 		}
-		return '<span class="badge badge-dark">Unknown</span>';
+		return '<span class="badge badge-dark">Desconocido</span>';
 	} else {
 		if ($state=='0') {
-			return 'Not Visible';
+			return 'No Visible';
 		} elseif ($state=='3') {
-			return 'Out of Stock';
+			return 'Agotado';
 		} elseif ($state=='2') {
-			return 'Not Available';
+			return 'No Disponible';
 		} elseif ($state=='1') {
-			return 'Available';
+			return 'Disponible';
 		}
-		return 'Unknown';
+		return 'Desconocido';
 	}
 }
 
@@ -67,9 +67,9 @@ function roleUser($user, $badge=true) {
 		}
 	} else {
 		if ($badge) {
-			return '<span class="badge badge-dark">Unknown</span>';
+			return '<span class="badge badge-dark">Desconocido</span>';
 		} else {
-			return 'Unknown';
+			return 'Desconocido';
 		}
 	}
 }
@@ -188,4 +188,11 @@ function image_exist($file_route, $image, $user_image=false, $large=true) {
 	}
 
 	return $img;
+}
+
+function currencySymbol($currency) {
+	if (!is_null($currency)) {
+		return $currency->symbol;
+	}
+	return '';
 }

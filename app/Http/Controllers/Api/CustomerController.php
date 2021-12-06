@@ -44,7 +44,7 @@ class CustomerController extends ApiController
     * )
     */
     public function index() {
-        $users=User::with(['roles'])->role(['Customer'])->get()->map(function($user) {
+        $users=User::with(['roles'])->role(['Cliente'])->get()->map(function($user) {
             return $this->dataUser($user);
         });
 
@@ -147,10 +147,10 @@ class CustomerController extends ApiController
             $customer=User::with(['roles'])->where('id', $customer->id)->first();
             $customer=$this->dataUser($customer);
 
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The customer has been successfully registered.', 'data' => $customer], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'El cliente ha sido registrado exitosamente.', 'data' => $customer], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -196,7 +196,7 @@ class CustomerController extends ApiController
      */
     public function show(User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
+            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
         }
         $customer=$this->dataUser($customer);
         return response()->json(['code' => 200, 'status' => 'success', 'data' => $customer], 200);
@@ -267,7 +267,7 @@ class CustomerController extends ApiController
     */
     public function update(CustomerUpdateRequest $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
+            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
         }
 
         $data=array('name' => request('name'), 'lastname' => request('lastname'));
@@ -278,10 +278,10 @@ class CustomerController extends ApiController
           $customer=User::with(['roles'])->where('id', $customer->id)->first();
           $customer=$this->dataUser($customer);
 
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The customer has been edited successfully.', 'data' => $customer], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido editado exitosamente.', 'data' => $customer], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
   }
 
     /**
@@ -332,15 +332,15 @@ class CustomerController extends ApiController
     public function destroy(User $customer)
     {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
+            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
         }
 
         $customer->delete();
         if ($customer) {
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The user has been successfully removed.'], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido eliminado exitosamente.'], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
   }
 
     /**
@@ -390,16 +390,16 @@ class CustomerController extends ApiController
      */
     public function deactivate(Request $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
+            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
         }
 
         $customer->fill(['state' => "0"])->save();
         if ($customer) {
           $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The customer has been successfully deactivated.', 'data' => $customer], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido desactivado exitosamente.', 'data' => $customer], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
   }
 
     /**
@@ -449,15 +449,15 @@ class CustomerController extends ApiController
      */
     public function activate(Request $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'This user is not a customer'], 200);
+            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
         }
 
         $customer->fill(['state' => "1"])->save();
         if ($customer) {
           $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The customer has been successfully activated.', 'data' => $customer], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido activado exitosamente.', 'data' => $customer], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
   }
 }

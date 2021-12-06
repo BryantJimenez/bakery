@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Checkout')
+@section('title', 'Finalizar Compra')
 
 @section('links')
 <link href="{{ asset('/web/css/template/home.css') }}" rel="stylesheet">
@@ -14,7 +14,7 @@
 <div class="container margin_60_20">
 	<form action="{{ route('web.checkout.store') }}" method="POST" class="row" id="formCheckout">
 		@csrf
-		<div class="col-xl-7 col-lg-7 col-12">
+		<div class="col-xl-7 col-lg-7 col-12 mb-4">
 			<div class="box_order_form">
 				<div class="head">
 					<div class="title">
@@ -30,15 +30,11 @@
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label>Apellido</label>
-							<input type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" required placeholder="Introduzca su apellido"value="{{ old('lastname') }}">
+							<input type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" required placeholder="Introduzca su apellido" value="{{ old('lastname') }}">
 						</div>
 						<div class="form-group col-12">
-							<label>Correo Electrónico</label>
-							<input type="email" class="form-control @error('email') is-invalid @enderror" name="email" required placeholder="Introduzca un email" @if(session()->has('coupon')) value="{{ session('coupon')['email'] }}" @endif>
-						</div>
-						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label>Cédula</label>
-							<input type="text" class="form-control int @error('dni') is-invalid @enderror" name="dni" required placeholder="Introduzca una cédula" value="{{ old('dni') }}">
+							<label>Email</label>
+							<input type="email" class="form-control @error('email') is-invalid @enderror" name="email" required placeholder="Introduzca un email" value="{{ old('email') }}">
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
 							<label>Teléfono</label>
@@ -46,11 +42,11 @@
 						</div>
 						@else
 						<div class="form-group col-12">
-							<label>Nombre y Apellido</label>
+							<label>Nombre Completo</label>
 							<input type="text" class="form-control" disabled value="{{ Auth::user()->name." ".Auth::user()->lastname }}">
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
-							<label>Correo Electrónico</label>
+							<label>Email</label>
 							<input type="email" class="form-control" disabled value="{{ Auth::user()->email }}">
 						</div>
 						<div class="form-group col-lg-6 col-md-6 col-12">
@@ -103,53 +99,24 @@
 				<div class="main">
 					<div class="row">
 						<div class="col-lg-4 col-md-4 col-12">
-							<label class="container_radio">Efectivo <i class="icon_wallet"></i>
+							<label class="container_radio">Tarjeta <i class="icon_creditcard"></i>
 								<input type="radio" value="1" name="payment" required @if(is_null(old('payment')) || old('payment')==1) checked @endif>
 								<span class="checkmark"></span>
 							</label>
 						</div>
-						<div class="col-lg-4 col-md-4 col-12">
-							<label class="container_radio">Tarjeta <i class="icon_creditcard"></i>
-								<input type="radio" value="2" name="payment" required @if(old('payment')==2) checked @endif>
-								<span class="checkmark"></span>
-							</label>
-						</div>
-						<div class="col-lg-4 col-md-4 col-12">
-							<label class="container_radio">Transferencia <i class="icon_currency"></i>
-								<input type="radio" value="3" name="payment" required @if(old('payment')==3) checked @endif>
-								<span class="checkmark"></span>
-							</label>
-						</div>
 
-						<div class="col-12 mt-2" id="div-coupon">
-							@if(!session()->has('coupon'))
-							<a href="javascript:void(0);" id="btn-coupon">Agregar cupón de descuento</a>
-							<div class="row" style="display: none;" id="card-add-coupon">
-								<div class="form-group col-lg-8 col-md-8 col-12">
-									<input type="text" class="form-control" name="coupon" placeholder="Introduzca un coupon" id="input-coupon">
-									<p class="text-danger font-weight-bold validate-coupon d-none mb-0">Este campo es requerido</p>
-									<p class="text-danger font-weight-bold validate-email d-none mb-0">El campo email es requerido</p>
-								</div>
-								<div class="form-group col-lg-4 col-md-4 col-12">
-									<button type="button" class="btn_1 gradient full-width mb_5" id="btn-add-coupon">Agregar</button>
-								</div>
-							</div>
-							@else
-							<div class="alert alert-success">
-								<p class="mb-1">El cupón de descuendo ha sido agregado</p>
-								<a href="javascript:void(0);" id="remove-coupon">Quitar cupón</a>
-							</div>
-							@endif
+						<div class="col-12">
+							<div class="card py-3" id="card-stripe-element"></div>
+							<span class="payment-errors text-danger" id="card-errors"></span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-xl-5 col-lg-5 col-12 mt-4 mt-lg-0" id="sidebar_fixed">
+		<div class="col-xl-5 col-lg-5 col-12 mt-lg-0" id="sidebar_fixed">
 			<livewire:web.cart.card />
 		</div>
-
 	</form>
 </div>
 
@@ -158,7 +125,7 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ asset('/admins/vendor/lazyload/lazyload.min.js') }}"></script>
+{{-- <script type="text/javascript" src="{{ asset('/admins/vendor/lazyload/lazyload.min.js') }}"></script> --}}
 <script type="text/javascript" src="{{ asset('/admins/vendor/sticky-sidebar/sticky_sidebar.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/sticky-kit/sticky-kit.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
@@ -166,4 +133,39 @@
 <script src="{{ asset('/admins/vendor/validate/messages_es.js') }}"></script>
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+	var style = {
+		base: {
+			color: '#32325d',
+			lineHeight: '18px',
+			fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+			fontSmoothing: 'antialiased',
+			fontSize: '16px',
+			'::placeholder': {
+				color: '#aab7c4'
+			}
+		},
+		invalid: {
+			color: '#fa755a',
+			iconColor: '#fa755a'
+		}
+	};
+
+  const stripe = Stripe('pk_test_51IfLYLEjV3ifuikCdVwSvLVClsIaO1XtfD6MKLKXCGbYfh3JKSHDOa4zR4pDZBSTVu7PhUJxboFiWgsG8lgoWH7q002KHykxpV', { locale: '{{ app()->getLocale() }}' }); // Create a Stripe client.
+  const elements = stripe.elements(); // Create an instance of Elements.
+  const card = elements.create('card', { style: style }); // Create an instance of the card Element.
+
+  card.mount('#card-stripe-element'); // Add an instance of the card Element into the `card-stripe-element` <div>.
+
+  card.on('change', function(event) {
+  	var displayError = document.getElementById('card-errors');
+  	if (event.error) {
+  		displayError.textContent = event.error.message;
+  	} else {
+  		displayError.textContent = '';
+  	}
+  });
+</script>
 @endsection

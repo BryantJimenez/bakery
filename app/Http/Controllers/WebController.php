@@ -15,10 +15,6 @@ class WebController extends Controller
         return view('web.home');
     }
 
-    public function cart() {
-        return view('web.cart');
-    }
-
     public function checkout() {
         return view('web.checkout');
     }

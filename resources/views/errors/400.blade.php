@@ -7,9 +7,9 @@
 <div class="container-fluid error-content">
 	<div class="">
 		<h1 class="error-number">400</h1>
-		<p class="mini-text">Error loading page!</p>
-		<p class="error-text mb-4 mt-1">Please try again later!</p>
-		<a href="{{ route('home') }}" class="btn btn-primary mt-5">Home</a>
+		<p class="mini-text">¡Error al cargar la página!</p>
+		<p class="error-text mb-4 mt-1">¡Por favor, inténtelo de nuevo más tarde!</p>
+		<a href="{{ route('home') }}" class="btn btn-primary mt-5">Inicio</a>
 	</div>
 </div>
 

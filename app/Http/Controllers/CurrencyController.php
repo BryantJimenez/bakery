@@ -42,16 +42,16 @@ class CurrencyController extends Controller
             $currency=Currency::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $currency->restore();
         } else if ($exist) {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'It already exists', 'msg' => 'This currency already exists.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'La moneda ya existe', 'msg' => 'Esta moneda ya se encuentra registrada.']);
         } else {
             $data=array('name' => request('name'), 'iso' => request('iso'), 'symbol' => request('symbol'));
             $currency=Currency::create($data);
         }
 
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful registration', 'msg' => 'The currency has been successfully registered.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La moneda ha sido registrada exitosamente.']);
         } else {
-            return redirect()->route('currencies.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed registration', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
+            return redirect()->route('currencies.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
         }
     }
 
@@ -76,9 +76,9 @@ class CurrencyController extends Controller
         $data=array('name' => request('name'), 'iso' => request('iso'), 'symbol' => request('symbol'));
         $currency->fill($data)->save();
         if ($currency) {
-            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The currency has been edited successfully.']);
+            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La moneda ha sido editada exitosamente.']);
         } else {
-            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -91,27 +91,27 @@ class CurrencyController extends Controller
     public function destroy(Currency $currency) {
         $currency->delete();
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful removal', 'msg' => 'The currency has been successfully removed.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La moneda ha sido eliminada exitosamente.']);
         } else {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed deletion', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function deactivate(Request $request, Currency $currency) {
         $currency->fill(['state' => "0"])->save();
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The currency has been successfully deactivated.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La moneda ha sido desactivada exitosamente.']);
         } else {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function activate(Request $request, Currency $currency) {
         $currency->fill(['state' => "1"])->save();
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The currency has been activated successfully.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La moneda ha sido activada exitosamente.']);
         } else {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

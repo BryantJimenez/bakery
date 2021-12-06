@@ -218,11 +218,11 @@ $(document).ready(function(){
 			messages:
 			{
 				type: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				},
 
 				state: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {
@@ -279,7 +279,7 @@ $(document).ready(function(){
 			messages:
 			{
 				state: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {
@@ -307,7 +307,7 @@ $(document).ready(function(){
 			messages:
 			{
 				image: {
-					required: 'Select an image.'
+					required: 'Seleccione una imagen.'
 				}
 			},
 			submitHandler: function(form) {
@@ -350,11 +350,11 @@ $(document).ready(function(){
 			messages:
 			{
 				image: {
-					required: 'Select an image.'
+					required: 'Seleccione una imagen.'
 				},
 
 				category_id: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {
@@ -397,11 +397,11 @@ $(document).ready(function(){
 			messages:
 			{
 				image: {
-					required: 'Select an image.'
+					required: 'Seleccione una imagen.'
 				},
 
 				category_id: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {
@@ -423,7 +423,7 @@ $(document).ready(function(){
 			messages:
 			{
 				group_id: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {
@@ -462,7 +462,7 @@ $(document).ready(function(){
 			messages:
 			{
 				image: {
-					required: 'Select an image.'
+					required: 'Seleccione una imagen.'
 				}
 			},
 			submitHandler: function(form) {
@@ -501,7 +501,7 @@ $(document).ready(function(){
 			messages:
 			{
 				image: {
-					required: 'Select an image.'
+					required: 'Seleccione una imagen.'
 				}
 			},
 			submitHandler: function(form) {
@@ -549,15 +549,15 @@ $(document).ready(function(){
 			messages:
 			{
 				condition: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				},
 
 				attribute_id: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				},
 
 				state: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {
@@ -588,15 +588,15 @@ $(document).ready(function(){
 			messages:
 			{
 				"name[]": {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				},
 
 				"price[]": {
-					min: 'Please enter a value greater than or equal to {0}.'
+					min: 'Ingrese un valor mayor o igual que {0}.'
 				},
 
 				"state[]": {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {
@@ -713,7 +713,7 @@ $(document).ready(function(){
 			messages:
 			{
 				currency_id: {
-					required: 'Select an option.'
+					required: 'Seleccione una opción.'
 				}
 			},
 			submitHandler: function(form) {

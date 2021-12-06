@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Agency')
+@section('title', 'Editar Agencia')
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendor/touchspin/jquery.bootstrap-touchspin.min.css') }}">
@@ -19,7 +19,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Edit Agency</h4>
+						<h4>Editar Agencia</h4>
 					</div>                 
 				</div>
 			</div>
@@ -30,35 +30,35 @@
 
 						@include('admin.partials.errors')
 
-						<p>Required fields (<b class="text-danger">*</b>)</p>
+						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('agencies.update', ['agency' => $agency->slug]) }}" method="POST" class="form" id="formAgency">
 							@csrf
 							@method('PUT')
 							<div class="row">
 								<div class="form-group col-12">
-									<label class="col-form-label">Name<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Enter a name" value="{{ $agency->name }}">
+									<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
+									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ $agency->name }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Route<b class="text-danger">*</b></label>
-									<input class="form-control @error('route') is-invalid @enderror" type="text" name="route" required placeholder="Enter a route" value="{{ $agency->route }}">
+									<label class="col-form-label">Ruta<b class="text-danger">*</b></label>
+									<input class="form-control @error('route') is-invalid @enderror" type="text" name="route" required placeholder="Introduzca una ruta" value="{{ $agency->route }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Price<b class="text-danger">*</b></label>
-									<input class="form-control min-decimal @error('price') is-invalid @enderror" type="text" name="price" required placeholder="Enter a price" value="{{ $agency->price }}">
+									<label class="col-form-label">Precio<b class="text-danger">*</b></label>
+									<input class="form-control min-decimal @error('price') is-invalid @enderror" type="text" name="price" required placeholder="Introduzca un precio" value="{{ $agency->price }}">
 								</div>
 
 								<div class="form-group col-12">
-									<label class="col-form-label">Description (Optional)</label>
-									<textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Enter a description" rows="2">{{ $agency->description }}</textarea>
+									<label class="col-form-label">Descripción (Opcional)</label>
+									<textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="Introduzca una descripción" rows="2">{{ $agency->description }}</textarea>
 								</div>
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="agency">Update</button>
-										<a href="{{ route('agencies.index') }}" class="btn btn-secondary">Return</a>
+										<button type="submit" class="btn btn-primary" action="agency">Actualizar</button>
+										<a href="{{ route('agencies.index') }}" class="btn btn-secondary">Volver</a>
 									</div>
 								</div> 
 							</div>
@@ -78,6 +78,7 @@
 <script src="{{ asset('/admins/vendor/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/additional-methods.js') }}"></script>
+<script src="{{ asset('/admins/vendor/validate/messages_es.js') }}"></script>
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/sweetalerts/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/sweetalerts/custom-sweetalert.js') }}"></script>

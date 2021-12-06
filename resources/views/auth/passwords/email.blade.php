@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Recover Password')
+@section('title', 'Recuperar Contraseña')
 
 @section('content')
 
@@ -21,8 +21,8 @@
         <i class="icon_mail_alt"></i>
       </div>
       <div id="pass-info" class="clearfix"></div>
-      <button type="submit" class="btn_1 gradient full-width" action="recovery">Send</button>
-      <div class="text-center mt-2"><small>You do not have an account? <strong><a href="{{ route('login') }}">Sign up</a></strong></small></div>
+      <button type="submit" class="btn_1 gradient full-width" action="recovery">Enviar</button>
+      <div class="text-center mt-2"><small>¿No tienes cuenta? <strong><a href="{{ route('register') }}">Regístrate</a></strong></small></div>
     </form>
     <div class="copy">© {{ date('Y') }} Tiendita</div>
   </aside>

@@ -3376,10 +3376,15 @@
                     {
                         "name": "type",
                         "in": "query",
-                        "description": "Type of user (Super Admin, Administrator, Customer)",
+                        "description": "Type of user",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "Super Admin",
+                                "Administrador",
+                                "Cliente"
+                            ]
                         }
                     }
                 ],
@@ -3499,10 +3504,15 @@
                     {
                         "name": "type",
                         "in": "query",
-                        "description": "Type of user (Super Admin, Administrator, Customer)",
-                        "required": false,
+                        "description": "Type of user",
+                        "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": [
+                                "Super Admin",
+                                "Administrador",
+                                "Cliente"
+                            ]
                         }
                     }
                 ],

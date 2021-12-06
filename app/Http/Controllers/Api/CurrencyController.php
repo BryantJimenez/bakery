@@ -124,7 +124,7 @@ class CurrencyController extends ApiController
             $currency=Currency::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $currency->restore();
         } else if ($exist) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'This currency already exists.'], 500);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'Esta moneda ya existe.'], 500);
         } else {
             $data=array('name' => request('name'), 'iso' => request('iso'), 'symbol' => request('symbol'));
             $currency=Currency::create($data);
@@ -133,10 +133,10 @@ class CurrencyController extends ApiController
         if ($currency) {
             $currency=Currency::where('id', $currency->id)->first();
             $currency=$this->dataCurrency($currency);
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The currency has been successfully registered.', 'data' => $currency], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'La moneda ha sido registrada exitosamente.', 'data' => $currency], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -263,10 +263,10 @@ class CurrencyController extends ApiController
         if ($currency) {
             $currency=Currency::where('id', $currency->id)->first();
             $currency=$this->dataCurrency($currency);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The currency has been edited successfully.', 'data' => $currency], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La moneda ha sido editada exitosamente.', 'data' => $currency], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -318,10 +318,10 @@ class CurrencyController extends ApiController
     {
     	$currency->delete();
     	if ($currency) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The currency has been successfully removed.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La moneda ha sido eliminada exitosamente.'], 200);
     	}
 
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -373,10 +373,10 @@ class CurrencyController extends ApiController
     	$currency->fill(['state' => "0"])->save();
     	if ($currency) {
             $currency=$this->dataCurrency($currency);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The currency has been successfully deactivated.', 'data' => $currency], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La moneda ha sido desactivada exitosamente.', 'data' => $currency], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -428,9 +428,9 @@ class CurrencyController extends ApiController
     	$currency->fill(['state' => "1"])->save();
     	if ($currency) {
     		$currency=$this->dataCurrency($currency);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The currency has been successfully activated.', 'data' => $currency], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La moneda ha sido activada exitosamente.', 'data' => $currency], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 }

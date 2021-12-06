@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Web\Shop;
 
 use App\Models\Category;
+use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,12 +12,17 @@ class Products extends Component
 	use WithPagination;
 
 	public $category;
+    public $currency=NULL;
 	protected $paginationTheme='bootstrap';
 
 	protected $listeners=['categoryProducts' => 'category'];
 
 	public function mount($category)
     {
+        $setting=Setting::with(['currency'])->first();
+        if (!is_null($setting)) {
+            $this->currency=$setting['currency'];
+        }
         $this->category=$category;
     }
 

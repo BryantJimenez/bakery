@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'List of Products')
+@section('title', 'Lista de Productos')
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -22,7 +22,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>List of Products</h4>
+						<h4>Lista de Productos</h4>
 					</div>                 
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 					<div class="col-12">
 						@can('products.create')
 						<div class="text-right">
-							<a href="{{ route('products.create') }}" class="btn btn-primary">Add</a>
+							<a href="{{ route('products.create') }}" class="btn btn-primary">Agregar</a>
 						</div>
 						@endcan
 
@@ -41,12 +41,12 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Name</th>
-										<th>Price</th>
-										<th>Category</th>
-										<th>State</th>
+										<th>Nombre</th>
+										<th>Precio</th>
+										<th>Categoría</th>
+										<th>Estado</th>
 										@if(auth()->user()->can('products.show') || auth()->user()->can('products.edit') || auth()->user()->can('products.active') || auth()->user()->can('products.deactive') || auth()->user()->can('products.delete'))
-										<th>Actions</th>
+										<th>Acciones</th>
 										@endif
 									</tr>
 								</thead>
@@ -58,31 +58,31 @@
 											<img src="{{ image_exist('/admins/img/products/', $product->image, false, false) }}" class="rounded-circle mr-2" width="45" height="45" alt="{{ $product->name }}" title="{{ $product->name }}"> {{ $product->name }}
 										</td>
 										<td>{{ number_format($product->price, 2, ',', '.') }}</td>
-										<td>@if(!is_null($product['category'])){{ $product['category']->name }}@else{{ "Not Added" }}@endif</td>
+										<td>@if(!is_null($product['category'])){{ $product['category']->name }}@else{{ "No Ingresado" }}@endif</td>
 										<td>{!! stateProduct($product->state) !!}</td>
 										@if(auth()->user()->can('products.show') || auth()->user()->can('products.edit') || auth()->user()->can('products.active') || auth()->user()->can('products.deactive') || auth()->user()->can('products.delete'))
 										<td>
 											<div class="btn-group" role="group">
 												@can('products.show')
-												<a href="{{ route('products.show', ['product' => $product->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Show"><i class="fa fa-eye"></i></a>
+												<a href="{{ route('products.show', ['product' => $product->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Ver"><i class="fa fa-eye"></i></a>
 												@endcan
 												@can('products.edit')
-												<a href="{{ route('products.edit', ['product' => $product->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('products.edit', ['product' => $product->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Editar"><i class="fa fa-edit"></i></a>
 												@endcan
 												@can('products.assign.groups')
-												<button type="button" class="btn btn-secondary btn-sm bs-tooltip" title="Assign Groups" onclick="assignGroup('{{ $product->slug }}', '{{ $product->name }}')"><i class="fab fa-dropbox"></i></button>
+												<button type="button" class="btn btn-secondary btn-sm bs-tooltip" title="Asignar Grupos" onclick="assignGroup('{{ $product->slug }}', '{{ $product->name }}')"><i class="fab fa-dropbox"></i></button>
 												@endcan
-												@if($product->state=='Active')
+												@if($product->state=='Activo')
 												@can('products.deactive')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Deactivate" onclick="deactiveProduct('{{ $product->slug }}')"><i class="fa fa-power-off"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Desactivar" onclick="deactiveProduct('{{ $product->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
 												@can('products.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activate" onclick="activeProduct('{{ $product->slug }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activar" onclick="activeProduct('{{ $product->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 												@can('products.delete')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Remove" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Eliminar" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>
 												@endcan
 											</div>
 										</td>
@@ -106,17 +106,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to disable this product?</h5>
+				<h5 class="modal-title">¿Está seguro de que desea desactivar este producto?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				<form action="#" method="POST" id="formDeactiveProduct">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Deactivate</button>
+					<button type="submit" class="btn btn-primary">Desactivar</button>
 				</form>
 			</div>
 		</div>
@@ -129,17 +129,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to activate this product?</h5>
+				<h5 class="modal-title">¿Está seguro de que desea activar este producto?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				<form action="#" method="POST" id="formActiveProduct">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Activate</button>
+					<button type="submit" class="btn btn-primary">Activar</button>
 				</form>
 			</div>
 		</div>
@@ -152,17 +152,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to delete this product?</h5>
+				<h5 class="modal-title">¿Está seguro de que desea eliminar este producto?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				<form action="#" method="POST" id="formDeleteProduct">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Remove</button>
+					<button type="submit" class="btn btn-primary">Eliminar</button>
 				</form>
 			</div>
 		</div>
@@ -177,7 +177,7 @@
 			@csrf
 			@method('PUT')
 			<div class="modal-header">
-				<h5 class="modal-title">Select the groups that will be assigned to this product</h5>
+				<h5 class="modal-title">Seleccione los grupos que se asignarán a este producto</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -189,11 +189,11 @@
 					</div>
 
 					<div class="form-group col-12">
-						<p class="h6 mb-0">Product: <span class="font-weight-bold" id="nameAssignProductGroup"></span></p>
+						<p class="h6 mb-0">Producto: <span class="font-weight-bold" id="nameAssignProductGroup"></span></p>
 					</div>
 
 					<div class="form-group col-12">
-						<label class="col-form-label">Groups<b class="text-danger">*</b></label>
+						<label class="col-form-label">Grupos<b class="text-danger">*</b></label>
 						<select class="form-control select2 @error('group_id') is-invalid @enderror" name="group_id[]" required multiple>
 							@foreach($groups as $group)
 							<option value="{{ $group->slug }}">{{ $group->name }}</option>
@@ -203,8 +203,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
-				<button type="submit" class="btn btn-primary" action="product">Save</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="submit" class="btn btn-primary" action="product">Guardar</button>
 			</div>
 		</form>
 	</div>
@@ -224,6 +224,7 @@
 <script src="{{ asset('/admins/vendor/sweetalerts/custom-sweetalert.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/additional-methods.js') }}"></script>
+<script src="{{ asset('/admins/vendor/validate/messages_es.js') }}"></script>
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>
 @endsection

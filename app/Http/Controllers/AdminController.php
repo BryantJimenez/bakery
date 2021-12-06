@@ -23,7 +23,7 @@ class AdminController extends Controller
      */
     public function index() {
         $users=User::count();
-        $customers=User::role(['Customer'])->count();
+        $customers=User::role(['Cliente'])->count();
         $categories=Category::count();
         $products=Product::count();
         $groups=Group::count();

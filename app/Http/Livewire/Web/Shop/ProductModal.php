@@ -3,11 +3,13 @@
 namespace App\Http\Livewire\Web\Shop;
 
 use App\Models\Product;
+use App\Models\Setting;
 use Livewire\Component;
 
 class ProductModal extends Component
 {
 	public $show=false;
+	public $currency=NULL;
 	public $product=NULL;
 	public $price=0.00;
 	public $groups=[];
@@ -16,6 +18,14 @@ class ProductModal extends Component
 	public $finish=false;
 
 	protected $listeners=['productModal' => 'open'];
+
+	public function mount()
+	{
+		$setting=Setting::with(['currency'])->first();
+        if (!is_null($setting)) {
+            $this->currency=$setting['currency'];
+        }
+	}
 
 	public function render()
 	{

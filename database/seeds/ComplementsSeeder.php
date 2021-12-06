@@ -12,13 +12,13 @@ class ComplementsSeeder extends Seeder
     public function run()
     {
         $complements = [
-    		['name' => 'Orange', 'slug' => 'orange', 'image' => 'orange.jpg', 'description' => 'Orange flavor juice.', 'price' => 0.00, 'state' => '1'],
-    		['name' => 'Watermelon', 'slug' => 'watermelon', 'image' => 'watermelon.jfif', 'description' => 'Watermelon flavored juice.', 'price' => 0.50, 'state' => '1'],
-    		['name' => 'Strawberry', 'slug' => 'strawberry', 'image' => 'strawberry.jpg', 'description' => 'Strawberry flavored juice.', 'price' => 0.00, 'state' => '1'],
-    		['name' => 'Carrot with Orange', 'slug' => 'carrot-with-orange', 'image' => 'carrot-with-orange.jpeg', 'description' => 'Carrot flavored juice with orange.', 'price' => 1.00, 'state' => '1'],
-            ['name' => 'Tomato', 'slug' => 'tomato', 'image' => 'tomato.jpg', 'description' => 'Fruit of this plant, edible, with red, smooth and shiny skin, very juicy pulp.', 'price' => 0.00, 'state' => '1'],
-            ['name' => 'Butter', 'slug' => 'butter', 'image' => 'butter.jpg', 'description' => 'Edible fat with a soft consistency, yellowish color and mild flavor.', 'price' => 0.00, 'state' => '1'],
-            ['name' => 'Oil', 'slug' => 'oil', 'image' => 'oil.jpg', 'description' => 'Oil obtained from olives and used mainly as a condiment.', 'price' => 0.00, 'state' => '1']
+    		['name' => 'Naranja', 'slug' => 'naranja', 'image' => 'orange.jpg', 'description' => 'Jugo de naranja.', 'price' => 0.00, 'state' => '1'],
+    		['name' => 'Sandía', 'slug' => 'sandia', 'image' => 'watermelon.jfif', 'description' => 'Jugo con sabor a sandía.', 'price' => 0.50, 'state' => '1'],
+    		['name' => 'Fresa', 'slug' => 'fresa', 'image' => 'strawberry.jpg', 'description' => 'Jugo con sabor a fresa.', 'price' => 0.00, 'state' => '1'],
+    		['name' => 'Zanahoria con Naranja', 'slug' => 'zanahoria-con-naranja', 'image' => 'carrot-with-orange.jpeg', 'description' => 'Zumo de zanahoria con naranja.', 'price' => 1.00, 'state' => '1'],
+            ['name' => 'Tomate', 'slug' => 'tomate', 'image' => 'tomato.jpg', 'description' => 'Fruto de esta planta, comestible, con piel roja, tersa y brillante, pulpa muy jugosa.', 'price' => 0.00, 'state' => '1'],
+            ['name' => 'Mantequilla', 'slug' => 'mantequilla', 'image' => 'butter.jpg', 'description' => 'Grasa comestible de consistencia blanda, color amarillento y sabor suave.', 'price' => 0.00, 'state' => '1'],
+            ['name' => 'Aceite', 'slug' => 'aceite', 'image' => 'oil.jpg', 'description' => 'Aceite obtenido de aceitunas y utilizado principalmente como condimento.', 'price' => 0.00, 'state' => '1']
     	];
     	DB::table('complements')->insert($complements);
     }

@@ -24,11 +24,11 @@ class Group extends Model
     public function getConditionAttribute($value)
     {
         if ($value=='1') {
-            return 'Required';
+            return 'Obligatorio';
         } elseif ($value=='0') {
-            return 'Optional';
+            return 'Opcional';
         }
-        return 'Unknown';
+        return 'Desconocido';
     }
 
     /**
@@ -39,11 +39,11 @@ class Group extends Model
     public function getStateAttribute($value)
     {
         if ($value=='1') {
-            return 'Active';
+            return 'Activo';
         } elseif ($value=='0') {
-            return 'Inactive';
+            return 'Inactivo';
         }
-        return 'Unknown';
+        return 'Desconocido';
     }
 
     /**

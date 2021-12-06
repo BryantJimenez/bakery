@@ -150,7 +150,21 @@ return [
         'password'              => 'contraseña',
         'confirm'               => 'confirmar contraseña',
         'password_confirmation' => 'confirmar contraseña',
-        'state'                 => 'estado'
+        'state'                 => 'estado',
+        'terms'                 => 'términos y condiciones',
+        'price'                 => 'precio',
+        'description'           => 'descripción',
+        'category_id'           => 'categoría',
+        'group_id'              => 'grupo',
+        'condition'             => 'condición',
+        'min'                   => 'mínimo',
+        'max'                   => 'máximo',
+        'attribute_id'          => 'atributo',
+        'complement_id'         => 'complemento',
+        'route'                 => 'ruta',
+        'symbol'                => 'simbolo',
+        'currency_id'           => 'moneda',
+        'privacity'             => 'políticas de privacidad'
     ],
 ];
 ?>

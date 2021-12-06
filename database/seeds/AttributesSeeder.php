@@ -12,11 +12,11 @@ class AttributesSeeder extends Seeder
     public function run()
     {
         $attributes = [
-    		['name' => 'Type', 'slug' => 'type', 'state' => '1'],
-            ['name' => 'Flavor', 'slug' => 'flavor', 'state' => '1'],
-            ['name' => 'Milk', 'slug' => 'milk', 'state' => '1'],
-            ['name' => 'Juice', 'slug' => 'juice', 'state' => '1'],
-            ['name' => 'Fruit', 'slug' => 'fruit', 'state' => '1']
+    		['name' => 'Tipo', 'slug' => 'tipo', 'state' => '1'],
+            ['name' => 'Sabor', 'slug' => 'sabor', 'state' => '1'],
+            ['name' => 'Leche', 'slug' => 'leche', 'state' => '1'],
+            ['name' => 'Jugo', 'slug' => 'jugo', 'state' => '1'],
+            ['name' => 'Fruta', 'slug' => 'fruta', 'state' => '1']
     	];
     	DB::table('attributes')->insert($attributes);
     }

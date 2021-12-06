@@ -32,6 +32,10 @@ header.header.sticky ul#top_menu li a, header.header ul#top_menu li .dropdown-me
   left: 20px;
 }
 
+.container_check img, .container_radio img {
+  object-fit: cover;
+}
+
 /* Dropdown cart */
 
 ul#top_menu li a.cart_bt {

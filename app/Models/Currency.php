@@ -21,11 +21,11 @@ class Currency extends Model
     public function getStateAttribute($value)
     {
         if ($value=='1') {
-            return 'Active';
+            return 'Activo';
         } elseif ($value=='0') {
-            return 'Inactive';
+            return 'Inactivo';
         }
-        return 'Unknown';
+        return 'Desconocido';
     }
 
     /**

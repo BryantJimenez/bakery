@@ -117,7 +117,7 @@ class AttributeController extends ApiController
             return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The attribute has been successfully registered.', 'data' => $attribute], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -228,7 +228,7 @@ class AttributeController extends ApiController
             return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been edited successfully.', 'data' => $attribute], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -283,7 +283,7 @@ class AttributeController extends ApiController
     		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully removed.'], 200);
     	}
 
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -338,7 +338,7 @@ class AttributeController extends ApiController
             return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully deactivated.', 'data' => $attribute], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -393,6 +393,6 @@ class AttributeController extends ApiController
     		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully activated.', 'data' => $attribute], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 }

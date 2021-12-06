@@ -46,9 +46,9 @@ class ComplementController extends Controller
                 $complement->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful registration', 'msg' => 'The complement has been successfully registered.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El complemento ha sido registrado exitosamente.']);
         } else {
-            return redirect()->route('complements.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed registration', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
+            return redirect()->route('complements.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
         }
     }
 
@@ -91,9 +91,9 @@ class ComplementController extends Controller
                 $complement->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The complement has been edited successfully.']);
+            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El complemento ha sido editado exitosamente.']);
         } else {
-            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -106,27 +106,27 @@ class ComplementController extends Controller
     public function destroy(Complement $complement) {
         $complement->delete();
         if ($complement) {
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful removal', 'msg' => 'The complement has been successfully removed.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El complemento ha sido eliminado exitosamente.']);
         } else {
-            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed deletion', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function deactivate(Request $request, Complement $complement) {
         $complement->fill(['state' => "0"])->save();
         if ($complement) {
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The complement has been successfully deactivated.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El complemento ha sido desactivado exitosamente.']);
         } else {
-            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function activate(Request $request, Complement $complement) {
         $complement->fill(['state' => "1"])->save();
         if ($complement) {
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The complement has been activated successfully.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El complemento ha sido activado exitosamente.']);
         } else {
-            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

@@ -14,13 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 /////////////////////////////////////// AUTH ////////////////////////////////////////////////////
-
 Auth::routes();
 Route::get('/users/email', 'AdminController@emailVerifyAdmin');
 
 /////////////////////////////////////////////// WEB ////////////////////////////////////////////////
 Route::get('/', 'WebController@index')->name('home');
-Route::get('/cart', 'WebController@cart')->name('web.cart');
 Route::get('/checkout', 'WebController@checkout')->name('web.checkout');
 Route::post('/checkout', 'WebController@checkoutStore')->name('web.checkout.store');
 

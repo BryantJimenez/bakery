@@ -5,46 +5,51 @@
 				<div class="modal-content">
 					@if(!is_null($product))
 					<div class="modal-header small-dialog-header">
-						<h5 class="modal-title">[<span class="font-weigt-bold">{{ number_format($price, 2, ',', '.') }}</span>] {{ $product['category']->name.": ".$product->name }}</h5>
+						<h5 class="modal-title">[<span class="font-weigt-bold">{{ number_format($price, 2, ',', '.').currencySymbol($currency) }}</span>] {{ $product['category']->name.": ".$product->name }}</h5>
 						<button type="button" class="mfp-close" aria-label="Close" wire:click.prevent="close"></button>
 					</div>
 					<div class="modal-body content">
 						<p class="modal-description text-justify">{{ $product->description }}</p>
 
-
 						{{-- <p>{{ $current }}</p> --}}
 
-
 						{{-- <form> --}}
-							{{-- <h5>Tamaño</h5>
-							<ul class="clearfix">
-								<li>
-									<label class="container_radio">Name<span>$0,00</span>
-										<input type="radio" value="slug" name="size_id" price="0.00" checked>
-										<span class="checkmark"></span>
-									</label>
-								</li>
-								<li>
-									<label class="container_radio">Name<span>$0,00</span>
-										<input type="radio" value="slug-2" name="size_id" price="0.00">
-										<span class="checkmark"></span>
-									</label>
-								</li>
-							</ul> --}}
-
 							@if($steps)
 							<div class="row">
 								{{-- @foreach($groups as $group) --}}
 								<div class="col-12" group="{{ $current }}" condition="{{ $groups[$current]->name }}" min="{{ $groups[$current]->min }}" max="{{ $groups[$current]->max }}" slug="slug">
-									<h5>{{ $groups[$current]->name }}</h5>
+									<h5>Choose {{ $groups[$current]->max." ".$groups[$current]->name }}</h5>
 									<ul class="clearfix mb-0">
 										@foreach($groups[$current]['complements'] as $complement)
+										@if($complement['pivot']->state!='0')
+										@if($groups[$current]->max>1)
 										<li>
-											<label class="container_check">{{ $complement->name }}<span>+ ${{ number_format($complement['pivot']->price, 2, ',', '.') }}</span>
-												<input type="checkbox" value="slug" price="{{ $complement['pivot']->price }}" group="{{ $current }}">
-												<span class="checkmark"></span>
+											<label class="container_check">
+												<img src="{{ image_exist('/admins/img/complements/', $complement->image, false, false) }}" class="rounded-circle mr-2" width="30" height="30" title="{{ $complement->name }}" alt="{{ $complement->name }}">
+												{{ $complement->name }}
+												@if($complement['pivot']->state=='2' || $complement['pivot']->state=='3')
+												<i class="badge badge-pill badge-danger font-weight-normal px-2 py-1 ml-1">Not Available</i>
+												@endif
+												<span>+ {{ number_format($complement['pivot']->price, 2, ',', '.').currencySymbol($currency) }}</span>
+												<input type="checkbox" value="{{ $complement->slug }}" name="{{ $groups[$current]->slug }}" @if($complement['pivot']->state=='2' || $complement['pivot']->state=='3') disabled @endif>
+												<span class="checkmark mt-1"></span>
 											</label>
 										</li>
+										@else
+										<li>
+											<label class="container_radio">
+												<img src="{{ image_exist('/admins/img/complements/', $complement->image, false, false) }}" class="rounded-circle mr-2" width="30" height="30" title="{{ $complement->name }}" alt="{{ $complement->name }}">
+												{{ $complement->name }}
+												@if($complement['pivot']->state=='2' || $complement['pivot']->state=='3')
+												<i class="badge badge-pill badge-danger font-weight-normal px-2 py-1 ml-1">Not Available</i>
+												@endif
+												<span>+ {{ number_format($complement['pivot']->price, 2, ',', '.').currencySymbol($currency) }}</span>
+												<input type="radio" value="{{ $complement->price }}" name="{{ $groups[$current]->slug }}" @if($complement['pivot']->state=='2' || $complement['pivot']->state=='3') disabled @endif>
+												<span class="checkmark mt-1"></span>
+											</label>
+										</li>
+										@endif
+										@endif
 										@endforeach
 									</ul>
 									<p class="text-danger font-weight-bold"></p>

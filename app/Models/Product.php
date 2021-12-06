@@ -22,15 +22,15 @@ class Product extends Model
     public function getStateAttribute($value)
     {
         if ($value=='3') {
-            return 'Out of Stock';
+            return 'Agotado';
         } elseif ($value=='2') {
-            return 'Not Available';
+            return 'No Disponible';
         } elseif ($value=='1') {
-            return 'Active';
+            return 'Activo';
         } elseif ($value=='0') {
-            return 'Inactive';
+            return 'Inactivo';
         }
-        return 'Unknown';
+        return 'Desconocido';
     }
 
     /**

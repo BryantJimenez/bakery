@@ -57,45 +57,45 @@ class Handler extends ExceptionHandler
     {
         if (request()->header('Content-Type')=='application/json' || (isset(explode('/', $request->url())[3]) && explode('/', $request->url())[3]=="api")) {
             if ($exception instanceof MethodNotAllowedHttpException) {
-                return response()->json(['code' => 405, 'status' => 'error', 'message' => 'The method specified in the request is not valid.'], 405);
+                return response()->json(['code' => 405, 'status' => 'error', 'message' => 'El método especificado en la solicitud no es válido.'], 405);
             }
 
             if ($exception instanceof NotFoundHttpException) {
-                return response()->json(['code' => 404, 'status' => 'error', 'message' => 'No results found.'], 404);
+                return response()->json(['code' => 404, 'status' => 'error', 'message' => 'No se han encontrado resultados.'], 404);
             }
 
             if ($exception instanceof AuthenticationException) {
-                return response()->json(['code' => 401, 'status' => 'error', 'message' => 'Not authenticated.'], 401);
+                return response()->json(['code' => 401, 'status' => 'error', 'message' => 'No autenticado.'], 401);
             }
 
             if ($exception instanceof UnauthorizedException) {
-                return response()->json(['code' => 403, 'status' => 'error', 'message' => 'Forbidden.'], 403);
+                return response()->json(['code' => 403, 'status' => 'error', 'message' => 'Prohibido.'], 403);
             }
 
             if ($exception instanceof ValidationException) {
-                return response()->json(['code' => 422, 'status' => 'error', 'message' => 'The data sent was not valid.', 'errors' => $exception->validator->getMessageBag()], 422);
+                return response()->json(['code' => 422, 'status' => 'error', 'message' => 'Los datos enviados no eran válidos.', 'errors' => $exception->validator->getMessageBag()], 422);
             }
         }
 
         if ($request->ajax()) {
             if ($exception instanceof MethodNotAllowedHttpException) {
-                return response()->json(['code' => 405, 'status' => false, 'message' => 'The method specified in the request is not valid.'], 405);
+                return response()->json(['code' => 405, 'status' => false, 'message' => 'El método especificado en la solicitud no es válido.'], 405);
             }
 
             if ($exception instanceof NotFoundHttpException) {
-                return response()->json(['code' => 404, 'status' => false, 'message' => 'No results found.'], 404);
+                return response()->json(['code' => 404, 'status' => false, 'message' => 'No se han encontrado resultados.'], 404);
             }
 
             if ($exception instanceof AuthenticationException) {
-                return response()->json(['code' => 401, 'status' => false, 'message' => 'Not authenticated.'], 401);
+                return response()->json(['code' => 401, 'status' => false, 'message' => 'No autenticado.'], 401);
             }
 
             if ($exception instanceof UnauthorizedException) {
-                return response()->json(['code' => 403, 'status' => false, 'message' => 'Forbidden.'], 403);
+                return response()->json(['code' => 403, 'status' => false, 'message' => 'Prohibido.'], 403);
             }
 
             if ($exception instanceof ValidationException) {
-                return response()->json(['code' => 422, 'status' => false, 'message' => 'The data sent was not valid.', 'errors' => $exception->validator->getMessageBag()], 422);
+                return response()->json(['code' => 422, 'status' => false, 'message' => 'Los datos enviados no eran válidos.', 'errors' => $exception->validator->getMessageBag()], 422);
             }
         }
 

@@ -138,7 +138,7 @@ function errorNotification() {
   Lobibox.notify('error', {
     title: 'Error',
     sound: true,
-    msg: 'A problem has occurred, please try again.'
+    msg: 'Ha ocurrido un problema, inténtelo de nuevo.'
   });
 }
 
@@ -159,7 +159,7 @@ $(document).ready(function() {
   // select2
   if ($('.select2').length) {
     $('.select2').select2({
-      placeholder: "Select",
+      placeholder: "Seleccione",
       tags: true
     });
   }
@@ -168,11 +168,24 @@ $(document).ready(function() {
   if ($('.table-normal').length) {
     $('.table-normal').DataTable({
       "oLanguage": {
-        "oPaginate": {
-          "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-          "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        },
+        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+        "sInfo": "Resultados del _START_ al _END_ de un total de _TOTAL_ registros",
         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+        "sSearchPlaceholder": "Buscar...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sProcessing":     "Procesando...",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "Ningún resultado disponible en esta tabla",
+        "sInfoEmpty":      "No hay resultados",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":    "",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oAria": {
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
       },
       "stripeClasses": [],
       "lengthMenu": [10, 20, 50, 100, 200, 500],
@@ -192,11 +205,28 @@ $(document).ready(function() {
         ]
       },
       "oLanguage": {
-        "oPaginate": {
-          "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
-          "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
-        },
+        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+        "sInfo": "Resultados del _START_ al _END_ de un total de _TOTAL_ registros",
         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+        "sSearchPlaceholder": "Buscar...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sProcessing":     "Procesando...",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "Ningún resultado disponible en esta tabla",
+        "sInfoEmpty":      "No hay resultados",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":    "",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oAria": {
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+          "copy": "Copiar",
+          "print": "Imprimir"
+        }
       },
       "stripeClasses": [],
       "lengthMenu": [10, 20, 50, 100, 200, 500],
@@ -206,7 +236,22 @@ $(document).ready(function() {
 
   // dropify for more custom input file
   if ($('.dropify').length) {
-    $('.dropify').dropify();
+    $('.dropify').dropify({
+      messages: {
+        default: 'Arrastre y suelte una imagen o da click para seleccionarla',
+        replace: 'Arrastre y suelte una imagen o haga click para reemplazar',
+        remove: 'Remover',
+        error: 'Lo sentimos, el archivo es demasiado grande'
+      },
+      error: {
+        'fileSize': 'El tamaño del archivo es demasiado grande ({{ value }} máximo).',
+        'minWidth': 'El ancho de la imagen es demasiado pequeño ({{ value }}}px mínimo).',
+        'maxWidth': 'El ancho de la imagen es demasiado grande ({{ value }}}px máximo).',
+        'minHeight': 'La altura de la imagen es demasiado pequeña ({{ value }}}px mínimo).',
+        'maxHeight': 'La altura de la imagen es demasiado grande ({{ value }}px máximo).',
+        'imageFormat': 'El formato de imagen no está permitido (Debe ser {{ value }}).'
+      }
+    });
   }
 
   // datepicker material
@@ -214,8 +259,8 @@ $(document).ready(function() {
     $('.dateMaterial').bootstrapMaterialDatePicker({
       lang : 'es',
       time: false,
-      cancelText: 'Cancel',
-      clearText: 'Clear',
+      cancelText: 'Cancelar',
+      clearText: 'Limpiar',
       format: 'DD-MM-YYYY',
       maxDate : new Date()
     });
@@ -486,22 +531,22 @@ $('#add-complements').click(function(event) {
         '<hr class="my-2">'+
         '</div>'+
         '<div class="form-group col-xl-4 col-lg-4 col-md-4 col-12">'+
-        '<label class="col-form-label">Complement<b class="text-danger">*</b></label>'+
+        '<label class="col-form-label">Complemento<b class="text-danger">*</b></label>'+
         '<select class="form-control" name="complement_id[]" complement="'+count+'" id="complement_'+count+'">'+
-        '<option value="">Select</option>'+
+        '<option value="">Seleccione</option>'+
         '</select>'+
         '</div>'+
         '<div class="form-group col-xl-4 col-lg-4 col-md-4 col-sm-5 col-12">'+
-        '<label class="col-form-label">Price<b class="text-danger">*</b></label>'+
-        '<input class="form-control min-decimal" type="text" name="price[]" required placeholder="Enter a price" value="0.00" complement="'+count+'" id="price_'+count+'">'+
+        '<label class="col-form-label">Precio<b class="text-danger">*</b></label>'+
+        '<input class="form-control min-decimal" type="text" name="price[]" required placeholder="Introduzca un precio" value="0.00" complement="'+count+'" id="price_'+count+'">'+
         '</div>'+
         '<div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-5 col-10">'+
-        '<label class="col-form-label">State<b class="text-danger">*</b></label>'+
+        '<label class="col-form-label">Estado<b class="text-danger">*</b></label>'+
         '<select class="form-control" name="state[]" required id="state_'+count+'">'+
-        '<option value="1">Available</option>'+
-        '<option value="2">Not Available</option>'+
-        '<option value="3">Out of Stock</option>'+
-        '<option value="0">Not Visible</option>'+
+        '<option value="1">Disponible</option>'+
+        '<option value="2">No Disponible</option>'+
+        '<option value="3">Agotado</option>'+
+        '<option value="0">No Visible</option>'+
         '</select>'+
         '</div>'+
         '<div class="form-group col-xl-1 col-lg-1 col-md-1 col-2 d-flex align-items-end">'+

@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'User Register')
+@section('title', 'Registro de Usuario')
 
 @section('content')
 
@@ -17,11 +17,11 @@
             @include('admin.partials.errors')
 
             <div class="form-group">
-                <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Name" value="{{ old('name') }}" minlength="2" maxlength="191">
+                <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Nombre" value="{{ old('name') }}" minlength="2" maxlength="191">
                 <i class="icon_pencil-edit"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Last Name" value="{{ old('lastname') }}" minlength="2" maxlength="191">
+                <input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Apellido" value="{{ old('lastname') }}" minlength="2" maxlength="191">
                 <i class="icon_pencil-edit"></i>
             </div>
             <div class="form-group">
@@ -29,16 +29,16 @@
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Password" minlength="8" maxlength="40" id="password">
+                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Contraseña" minlength="8" maxlength="40" id="password">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="form-group">
                 <input type="checkbox" name="terms" required id="terms-conditions">
-                <label class="small" for="terms-conditions">I accept <a href="javascript:void(0);">terms and conditions</a></label>
+                <label class="small" for="terms-conditions">Acepto <a href="javascript:void(0);">términos y condiciones</a></label>
             </div>
             <div id="pass-info" class="clearfix"></div>
-            <button type="submit" class="btn_1 gradient full-width" action="register">Sign Up</button>
-            <div class="text-center mt-2"><small>Do you already have an account? <strong><a href="{{ route('login') }}">Sign in</a></strong></small></div>
+            <button type="submit" class="btn_1 gradient full-width" action="register">Regístrate</button>
+            <div class="text-center mt-2"><small>Ya tienes una cuenta? <strong><a href="{{ route('login') }}">Ingresar</a></strong></small></div>
         </form>
         <div class="copy">© {{ date('Y') }} Tiendita</div>
     </aside>
@@ -48,7 +48,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Terms and Conditions</h5>
+                <h5 class="modal-title">Términos y Condiciones</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

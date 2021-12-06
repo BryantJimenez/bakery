@@ -106,17 +106,17 @@ class PermissionsSeeder extends Seeder
     	$superadmin=Role::create(['name' => 'Super Admin']);
         $superadmin->givePermissionTo(Permission::all());
         
-        $admin=Role::create(['name' => 'Administrator']);
+        $admin=Role::create(['name' => 'Administrador']);
         $admin->givePermissionTo(Permission::all());
 
-        $customer=Role::create(['name' => 'Customer']);
+        $customer=Role::create(['name' => 'Cliente']);
 
     	$user=User::find(1);
     	$user->assignRole('Super Admin');
 
         $users=User::where('id', '!=', 1)->get();
         foreach ($users as $user) {
-            $user->assignRole('Customer');
+            $user->assignRole('Cliente');
         }
     }
 }

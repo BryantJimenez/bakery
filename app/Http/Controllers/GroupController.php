@@ -45,9 +45,9 @@ class GroupController extends Controller
         $group=Group::create($data);
 
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful registration', 'msg' => 'The group has been successfully registered.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El grupo ha sido registrado exitosamente.']);
         } else {
-            return redirect()->route('groups.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed registration', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
+            return redirect()->route('groups.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
         }
     }
 
@@ -85,9 +85,9 @@ class GroupController extends Controller
         $group->fill($data)->save();
 
         if ($group) {
-            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The group has been edited successfully.']);
+            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El grupo ha sido editado exitosamente.']);
         } else {
-            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -100,27 +100,27 @@ class GroupController extends Controller
     public function destroy(Group $group) {
         $group->delete();
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful removal', 'msg' => 'The group has been successfully removed.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El grupo ha sido eliminado exitosamente.']);
         } else {
-            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed deletion', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function deactivate(Request $request, Group $group) {
         $group->fill(['state' => "0"])->save();
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The group has been successfully deactivated.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El grupo ha sido desactivado exitosamente.']);
         } else {
-            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function activate(Request $request, Group $group) {
         $group->fill(['state' => "1"])->save();
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The group has been activated successfully.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El grupo ha sido activado exitosamente.']);
         } else {
-            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -146,9 +146,9 @@ class GroupController extends Controller
         }
 
         if ($assign) {
-            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The complements has been assigned successfully.']);
+            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'Los complementos han sido asignados exitosamente.']);
         } else {
-            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 

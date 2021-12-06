@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'List of Groups')
+@section('title', 'Lista de Grupos')
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -21,7 +21,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>List of Groups</h4>
+						<h4>Lista de Grupos</h4>
 					</div>                 
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 					<div class="col-12">
 						@can('groups.create')
 						<div class="text-right">
-							<a href="{{ route('groups.create') }}" class="btn btn-primary">Add</a>
+							<a href="{{ route('groups.create') }}" class="btn btn-primary">Agregar</a>
 						</div>
 						@endcan
 
@@ -40,13 +40,13 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Name</th>
-										<th>Condition</th>
+										<th>Nombre</th>
+										<th>Condición</th>
 										<th>Min/Max</th>
-										<th>Attribute</th>
-										<th>State</th>
+										<th>Atributo</th>
+										<th>Estado</th>
 										@if(auth()->user()->can('groups.show') || auth()->user()->can('groups.edit') || auth()->user()->can('groups.active') || auth()->user()->can('groups.deactive') || auth()->user()->can('groups.delete'))
-										<th>Actions</th>
+										<th>Acciones</th>
 										@endif
 									</tr>
 								</thead>
@@ -63,25 +63,25 @@
 										<td>
 											<div class="btn-group" role="group">
 												@can('groups.show')
-												<a href="{{ route('groups.show', ['group' => $group->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Show"><i class="fa fa-eye"></i></a>
+												<a href="{{ route('groups.show', ['group' => $group->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Ver"><i class="fa fa-eye"></i></a>
 												@endcan
 												@can('groups.edit')
-												<a href="{{ route('groups.edit', ['group' => $group->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Edit"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('groups.edit', ['group' => $group->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Editar"><i class="fa fa-edit"></i></a>
 												@endcan
 												@can('groups.assign.complements')
-												<a href="{{ route('groups.assign', ['group' => $group->slug]) }}" class="btn btn-secondary btn-sm bs-tooltip" title="Assign Complements"><i class="fab fa-dropbox"></i></a>
+												<a href="{{ route('groups.assign', ['group' => $group->slug]) }}" class="btn btn-secondary btn-sm bs-tooltip" title="Asignar Complementos"><i class="fab fa-dropbox"></i></a>
 												@endcan
-												@if($group->state=='Active')
+												@if($group->state=='Activo')
 												@can('groups.deactive')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Deactivate" onclick="deactiveGroup('{{ $group->slug }}')"><i class="fa fa-power-off"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Desactivar" onclick="deactiveGroup('{{ $group->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
 												@can('groups.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activate" onclick="activeGroup('{{ $group->slug }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activar" onclick="activeGroup('{{ $group->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 												@can('groups.delete')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Remove" onclick="deleteGroup('{{ $group->slug }}')"><i class="fa fa-trash"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Eliminar" onclick="deleteGroup('{{ $group->slug }}')"><i class="fa fa-trash"></i></button>
 												@endcan
 											</div>
 										</td>
@@ -105,17 +105,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to disable this group?</h5>
+				<h5 class="modal-title">¿Estás seguro de que quieres desactivar este grupo?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				<form action="#" method="POST" id="formDeactiveGroup">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Deactivate</button>
+					<button type="submit" class="btn btn-primary">Desactivar</button>
 				</form>
 			</div>
 		</div>
@@ -128,17 +128,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to activate this group?</h5>
+				<h5 class="modal-title">¿Estás seguro de que quieres activar este grupo?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				<form action="#" method="POST" id="formActiveGroup">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Activate</button>
+					<button type="submit" class="btn btn-primary">Activar</button>
 				</form>
 			</div>
 		</div>
@@ -151,17 +151,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Are you sure you want to delete this group?</h5>
+				<h5 class="modal-title">¿Estás seguro de que deseas eliminar este grupo?</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				<form action="#" method="POST" id="formDeleteGroup">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Remove</button>
+					<button type="submit" class="btn btn-primary">Eliminar</button>
 				</form>
 			</div>
 		</div>

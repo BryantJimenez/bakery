@@ -19,7 +19,7 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $customers=User::with(['roles'])->role(['Customer'])->orderBy('id', 'DESC')->get();
+        $customers=User::with(['roles'])->role(['Cliente'])->orderBy('id', 'DESC')->get();
         return view('admin.customers.index', compact('customers'));
     }
 
@@ -43,7 +43,7 @@ class CustomerController extends Controller
         $customer=User::create($data);
 
         if ($customer) {
-            $customer->assignRole('Customer');
+            $customer->assignRole('Cliente');
 
             // Move image to users folder and extract name
             if ($request->hasFile('photo')) {
@@ -53,9 +53,9 @@ class CustomerController extends Controller
             }
 
             SendEmailRegister::dispatch($customer->slug);
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful registration', 'msg' => 'The user has been successfully registered.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El cliente ha sido registrado exitosamente.']);
         } else {
-            return redirect()->route('customers.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed registration', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
+            return redirect()->route('customers.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
         }
     }
 
@@ -66,8 +66,8 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'User is not a customer', 'msg' => 'This user is not a customer, he has a different role.']);
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
         }
         return view('admin.customers.show', compact('customer'));
     }
@@ -79,8 +79,8 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'User is not a customer', 'msg' => 'This user is not a customer, he has a different role.']);
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
         }
         return view('admin.customers.edit', compact("customer"));
     }
@@ -93,15 +93,15 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(CustomerUpdateRequest $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'User is not a customer', 'msg' => 'This user is not a customer, he has a different role.']);
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
         }
 
         $data=array('name' => request('name'), 'lastname' => request('lastname'), 'state' => request('state'));
         $customer->fill($data)->save();
 
         if ($customer) {
-            $customer->syncRoles(['Customer']);
+            $customer->syncRoles(['Cliente']);
 
             // Move image to users folder and extract name
             if ($request->hasFile('photo')) {
@@ -110,9 +110,9 @@ class CustomerController extends Controller
                 $customer->fill(['photo' => $photo])->save();
             }
 
-            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The customer has been edited successfully.']);
+            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El cliente ha sido editado exitosamente.']);
         } else {
-            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
@@ -124,41 +124,41 @@ class CustomerController extends Controller
      */
     public function destroy(User $customer)
     {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'User is not a customer', 'msg' => 'This user is not a customer, he has a different role.']);
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
         }
 
         $customer->delete();
         if ($customer) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful removal', 'msg' => 'The customer has been successfully removed.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El cliente ha sido eliminado exitosamente.']);
         } else {
-            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed deletion', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function deactivate(Request $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'User is not a customer', 'msg' => 'This user is not a customer, he has a different role.']);
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
         }
 
         $customer->fill(['state' => "0"])->save();
         if ($customer) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The customer has been successfully deactivated.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El cliente ha sido desactivado exitosamente.']);
         } else {
-            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 
     public function activate(Request $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'User is not a customer', 'msg' => 'This user is not a customer, he has a different role.']);
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
         }
         
         $customer->fill(['state' => "1"])->save();
         if ($customer) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The customer has been successfully activated.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El cliente ha sido activado exitosamente.']);
         } else {
-            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.']);
+            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
         }
     }
 }

@@ -148,10 +148,10 @@ class ProductController extends ApiController
             $product=Product::with(['category'])->where('id', $product->id)->first();
             $product=$this->dataProduct($product);
 
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The product has been successfully registered.', 'data' => $product], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'El producto ha sido registrado exitosamente.', 'data' => $product], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -300,10 +300,10 @@ class ProductController extends ApiController
             $product=Product::with(['category'])->where('id', $product->id)->first();
             $product=$this->dataProduct($product);
 
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The product has been edited successfully.', 'data' => $product], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El producto ha sido editado exitosamente.', 'data' => $product], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -355,10 +355,10 @@ class ProductController extends ApiController
     {
     	$product->delete();
     	if ($product) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The product has been successfully removed.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El producto ha sido eliminado exitosamente.'], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -410,10 +410,10 @@ class ProductController extends ApiController
     	$product->fill(['state' => "0"])->save();
     	if ($product) {
     		$product=$this->dataProduct($product);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The product has been successfully deactivated.', 'data' => $product], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El producto ha sido desactivado exitosamente.', 'data' => $product], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -465,10 +465,10 @@ class ProductController extends ApiController
     	$product->fill(['state' => "1"])->save();
     	if ($product) {
     		$product=$this->dataProduct($product);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The product has been successfully activated.', 'data' => $product], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El producto ha sido activado exitosamente.', 'data' => $product], 200);
     	}
         
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 
     /**
@@ -542,9 +542,9 @@ class ProductController extends ApiController
         if ($assign) {
             $product=Product::where('id', $product->id)->first();
             $product=$this->dataProduct($product);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The groups has been successfully assigned.', 'data' => $product], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'Los grupos han sido asignados exitosamente.', 'data' => $product], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'An error occurred during the process, please try again.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
     }
 }

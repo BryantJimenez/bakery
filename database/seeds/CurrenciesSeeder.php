@@ -12,9 +12,9 @@ class CurrenciesSeeder extends Seeder
     public function run()
     {
         $currencies = [
-            ['name' => 'US Dollar', 'slug' => 'us-dollar', 'iso' => 'USD', 'symbol' => '$', 'state' => '1'],
+            ['name' => 'Dólar Estadounidense', 'slug' => 'dolar-estadounidense', 'iso' => 'USD', 'symbol' => '$', 'state' => '1'],
     		['name' => 'Euro', 'slug' => 'euro', 'iso' => 'EUR', 'symbol' => '€', 'state' => '1'],
-    		['name' => 'Uruguayan Peso', 'slug' => 'uruguayan-peso', 'iso' => 'UYU', 'symbol' => '$', 'state' => '1']
+    		['name' => 'Peso Uruguayo', 'slug' => 'peso-uruguayo', 'iso' => 'UYU', 'symbol' => '$', 'state' => '1']
     	];
     	DB::table('currencies')->insert($currencies);
     }

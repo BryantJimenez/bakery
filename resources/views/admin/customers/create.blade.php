@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Create Customer')
+@section('title', 'Crear Cliente')
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendor/dropify/dropify.min.css') }}">
@@ -16,7 +16,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Create Customer</h4>
+						<h4>Crear Cliente</h4>
 					</div>                 
 				</div>
 			</div>
@@ -27,47 +27,47 @@
 
 						@include('admin.partials.errors')
 
-						<p>Required fields (<b class="text-danger">*</b>)</p>
+						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('customers.store') }}" method="POST" class="form" id="formCustomer" enctype="multipart/form-data">
 							@csrf
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Photo (Optional)</label>
+									<label class="col-form-label">Foto (Opcional)</label>
 									<input type="file" name="photo" accept="image/*" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" />
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<div class="row">
 										<div class="form-group col-lg-12 col-md-12 col-12">
-											<label class="col-form-label">Name<b class="text-danger">*</b></label>
-											<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Enter a name" value="{{ old('name') }}">
+											<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
+											<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ old('name') }}">
 										</div>
 
 										<div class="form-group col-lg-12 col-md-12 col-12">
-											<label class="col-form-label">Last name<b class="text-danger">*</b></label>
-											<input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Enter a last name" value="{{ old('lastname') }}">
+											<label class="col-form-label">Apellido<b class="text-danger">*</b></label>
+											<input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Introduzca un apellido" value="{{ old('lastname') }}">
 										</div>
 									</div> 
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Email<b class="text-danger">*</b></label>
-									<input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="Enter an email" value="{{ old('email') }}">
+									<label class="col-form-label">Correo Electrónico<b class="text-danger">*</b></label>
+									<input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="Introduzca un correo electrónico" value="{{ old('email') }}">
 								</div>
 								
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Password<b class="text-danger">*</b></label>
+									<label class="col-form-label">Contraseña<b class="text-danger">*</b></label>
 									<input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="********" id="password">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Confirm Password<b class="text-danger">*</b></label>
+									<label class="col-form-label">Confirmar Contraseña<b class="text-danger">*</b></label>
 									<input class="form-control" type="password" name="password_confirmation" required placeholder="********">
 								</div>
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="customer">Save</button>
-										<a href="{{ route('customers.index') }}" class="btn btn-secondary">Return</a>
+										<button type="submit" class="btn btn-primary" action="customer">Guardar</button>
+										<a href="{{ route('customers.index') }}" class="btn btn-secondary">Volver</a>
 									</div>
 								</div> 
 							</div>
@@ -87,6 +87,7 @@
 <script src="{{ asset('/admins/vendor/dropify/dropify.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/additional-methods.js') }}"></script>
+<script src="{{ asset('/admins/vendor/validate/messages_es.js') }}"></script>
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>
 @endsection

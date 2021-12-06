@@ -2,27 +2,24 @@
 
 namespace App\Http\Livewire\Web\Cart;
 
+use App\Models\Setting;
 use Livewire\Component;
 
 class Header extends Component
 {
 	public $count;
 	public $total;
+	public $currency=NULL;
 
 	protected $listeners=['cartCounterHeader' => 'mount'];
 
 	public function mount()
 	{
-		$counter=0;
-		$this->total=0.00;
-		if (session()->has('cart')) {
-			$counter=count(session('cart'));
-			$cart=session('cart');
-			foreach($cart as $item) {
-				$this->total+=$item['price']*$item['qty'];
-			}
-		}
-		$this->count=$counter;
+		$setting=Setting::with(['currency'])->first();
+        if (!is_null($setting)) {
+            $this->currency=$setting['currency'];
+        }
+		$this->calculating();
 	}
 
 	public function render()
@@ -34,22 +31,16 @@ class Header extends Component
 		return view('livewire.web.cart.header', compact('cart'));
 	}
 
-	public function remove() {
-        if (session()->has('cart')) {
-            $cart=session('cart');
-
-            if (array_search(request('code'), array_column($cart, 'code'))!==false) {
-                session()->forget('cart');
-                foreach ($cart as $item) {
-                    if (request('code')!=$item['code']) {
-                        if (!session()->has('cart')) {
-                            session()->put('cart', array(0 => $item));
-                        } else {
-                            session()->push('cart', $item);
-                        }
-                    }
-                }
-            }
-        }
-    }
+	public function calculating() {
+		$counter=0;
+		$this->total=0.00;
+		if (session()->has('cart')) {
+			$counter=count(session('cart'));
+			$cart=session('cart');
+			foreach($cart as $item) {
+				$this->total+=$item['price']*$item['qty'];
+			}
+		}
+		$this->count=$counter;
+	}
 }

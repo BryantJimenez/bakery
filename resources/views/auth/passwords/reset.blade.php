@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Reset Password')
+@section('title', 'Restablecer Contraseña')
 
 @section('content')
 
@@ -23,16 +23,16 @@
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="New Password" autocomplete="new-password" minlength="8" maxlength="40" id="password">
+                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Nueva Contraseña" autocomplete="new-password" minlength="8" maxlength="40" id="password">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password_confirmation" required placeholder="Confirm Password" autocomplete="new-password" minlength="8" maxlength="40" id="password-confirm">
+                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password_confirmation" required placeholder="Confirmar Contraseña" autocomplete="new-password" minlength="8" maxlength="40" id="password-confirm">
                 <i class="icon_lock_alt"></i>
             </div>
             <div id="pass-info" class="clearfix"></div>
-            <button type="submit" class="btn_1 gradient full-width" action="reset">Send</button>
-            <div class="text-center mt-2"><small>Do you already have an account? <strong><a href="{{ route('login') }}">Sign in</a></strong></small></div>
+            <button type="submit" class="btn_1 gradient full-width" action="reset">Enviar</button>
+            <div class="text-center mt-2"><small>Ya tienes una cuenta? <strong><a href="{{ route('login') }}">Ingresa</a></strong></small></div>
         </form>
         <div class="copy">© {{ date('Y') }} Tiendita</div>
     </aside>

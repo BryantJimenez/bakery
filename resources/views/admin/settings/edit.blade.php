@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Settings')
+@section('title', 'Editar Ajustes')
 
 @section('links')
 <link href="{{ asset('/admins/vendor/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Edit Settings</h4>
+						<h4>Editar Ajustes</h4>
 					</div>                 
 				</div>
 			</div>
@@ -29,15 +29,15 @@
 
 						@include('admin.partials.errors')
 
-						<p>Required fields (<b class="text-danger">*</b>)</p>
+						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('settings.update') }}" method="POST" class="form" id="formSetting">
 							@csrf
 							@method('PUT')
 							<div class="row">
 								<div class="form-group col-12">
-									<label class="col-form-label">Currency<b class="text-danger">*</b></label>
+									<label class="col-form-label">Moneda<b class="text-danger">*</b></label>
 									<select class="form-control @error('currency_id') is-invalid @enderror" name="currency_id" required>
-										<option value="">Select</option>
+										<option value="">Seleccione</option>
 										@foreach($currencies as $currency)
 										<option value="{{ $currency->slug }}" @if($setting->currency_id==$currency->id) selected @endif>{{ $currency->name." - ".$currency->iso." (".$currency->symbol.")" }}</option>
 										@endforeach
@@ -45,18 +45,18 @@
 								</div>
 
 								<div class="form-group col-12">
-									<label class="col-form-label">Terms and Conditions (Optional)</label>
-									<textarea class="form-control @error('terms') is-invalid @enderror" name="terms" placeholder="Enter the terms and conditions" id="content-term">{{ $setting->terms }}</textarea>
+									<label class="col-form-label">Términos y Condiciones (Opcional)</label>
+									<textarea class="form-control @error('terms') is-invalid @enderror" name="terms" placeholder="Introduzca los términos y condiciones" id="content-term">{{ $setting->terms }}</textarea>
 								</div>
 
 								<div class="form-group col-12">
-									<label class="col-form-label">Privacy Policies (Optional)</label>
-									<textarea class="form-control @error('privacity') is-invalid @enderror" name="privacity" placeholder="Enter privacy policies" id="content-privacity">{{ $setting->privacity }}</textarea>
+									<label class="col-form-label">Políticas de Privacidad (Opcional)</label>
+									<textarea class="form-control @error('privacity') is-invalid @enderror" name="privacity" placeholder="Introduzca las políticas de privacidad" id="content-privacity">{{ $setting->privacity }}</textarea>
 								</div>
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="setting">Update</button>
+										<button type="submit" class="btn btn-primary" action="setting">Actualizar</button>
 									</div>
 								</div> 
 							</div>
@@ -76,6 +76,7 @@
 <script src="{{ asset('/admins/vendor/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/validate/additional-methods.js') }}"></script>
+<script src="{{ asset('/admins/vendor/validate/messages_es.js') }}"></script>
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/sweetalerts/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/sweetalerts/custom-sweetalert.js') }}"></script>
