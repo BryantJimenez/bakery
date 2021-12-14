@@ -19,11 +19,11 @@
  	});
 
  	// Lazy load
- 	// if($('.lazy').length) {
- 	// 	var lazyLoadInstance=new LazyLoad({
- 	// 		elements_selector: ".lazy"
- 	// 	});
- 	// }
+ 	if($('.lazy').length) {
+ 		var lazyLoadInstance=new LazyLoad({
+ 			elements_selector: ".lazy"
+ 		});
+ 	}
 
 	// Footer collapse
 	if($('footer').length) {
@@ -101,6 +101,16 @@
 			minDate : "today"
 		});
 	}
+
+	// mCustomScrollbar
+	if ($('.cart-header').length) {
+		$(".cart-header").mCustomScrollbar({
+			setHeight: 200,
+			autoHideScrollbar: true,
+			scrollbarPosition: "outside",
+			theme: "dark-1" 
+		});
+	}
 })(jQuery);
 
 // Sticky nav
@@ -151,3 +161,42 @@ if($('.btn_reserve_fixed').length) {
 		$(".box_order").hide();
 	});
 }
+
+window.addEventListener('contentChanged', event => {
+	if($('.lazy').length) {
+		var lazyLoadInstance=new LazyLoad({
+			elements_selector: ".lazy"
+		});
+	}
+
+ 	// Sticky sidebar
+ 	if($('#sidebar_fixed').length) {
+ 		$('#sidebar_fixed').theiaStickySidebar({
+ 			minWidth: 991,
+ 			updateSidebarHeight: false,
+ 			containerSelector: '',
+ 			additionalMarginTop: 90
+ 		});
+ 	}
+ 	
+    // Reserve Fixed on mobile
+    if($('.btn_reserve_fixed').length) {
+    	$('.btn_reserve_fixed a').on('click', function() {
+    		$(".box_order").show();
+    	});
+    	$(".close_panel_mobile").on('click', function (event){
+    		event.stopPropagation();
+    		$(".box_order").hide();
+    	});
+    }
+
+    // mCustomScrollbar
+	// if($('.cart-header').length) {
+	// 	$(".cart-header").mCustomScrollbar({
+	// 		setHeight: 200,
+	// 		autoHideScrollbar: true,
+	// 		scrollbarPosition: "outside",
+	// 		theme: "dark-1" 
+	// 	});
+	// }
+});

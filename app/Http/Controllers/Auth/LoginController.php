@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Traits\CartTrait;
 
 class LoginController extends Controller
 {
@@ -21,7 +22,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, CartTrait;
 
     /**
      * Where to redirect users after login.
@@ -73,6 +74,9 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
+            $user=User::where('email', request('email'))->first();
+            $this->convertCartSessionToDatabase($user->id);
+
             return $this->sendLoginResponse($request);
         }
 

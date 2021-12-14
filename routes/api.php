@@ -32,12 +32,21 @@ Route::group(['prefix' => 'v1'], function() {
 	Route::group(['middleware' => 'auth:api'], function () {
 		// Profile
 		Route::group(['prefix' => 'profile'], function () {
-			Route::get('/', 'Api\ProfileController@get');
-			Route::put('/', 'Api\ProfileController@update');
+			Route::get('/', 'Api\Profile\ProfileController@get');
+			Route::put('/', 'Api\Profile\ProfileController@update');
 			Route::prefix('change')->group(function () {
-				Route::post('/password', 'Api\ProfileController@changePassword');
-				Route::post('/email', 'Api\ProfileController@changeEmail');
+				Route::post('/password', 'Api\Profile\ProfileController@changePassword');
+				Route::post('/email', 'Api\Profile\ProfileController@changeEmail');
 			});
+		});
+
+		// Cart
+		Route::group(['prefix' => 'cart'], function () {
+			Route::get('/', 'Api\Profile\CartController@get');
+			Route::post('/', 'Api\Profile\CartController@store');
+			Route::put('/{cart_product:id}/add', 'Api\Profile\CartController@add');
+			Route::put('/{cart_product:id}/remove', 'Api\Profile\CartController@remove');
+			Route::delete('/{cart_product:id}', 'Api\Profile\CartController@destroy');
 		});
 
 		// Users

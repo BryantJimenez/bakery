@@ -52,6 +52,6 @@ class Complement extends Model
     }
 
     public function groups() {
-        return $this->belongsToMany(Group::class)->withPivot('price', 'state')->withTimestamps();
+        return $this->belongsToMany(Group::class)->withPivot('id', 'price', 'state')->withTimestamps();
     }
 }

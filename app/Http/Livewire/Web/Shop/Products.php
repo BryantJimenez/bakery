@@ -40,6 +40,7 @@ class Products extends Component
 
     public function category($category) {
     	$this->category=$category;
+        $this->dispatchBrowserEvent('contentChanged');
     }
 
     public function modal($product) {

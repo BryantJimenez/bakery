@@ -29,15 +29,15 @@ class Shop extends Component
 		$this->title=$category->name;
 		$this->category=$category->slug;
 		$this->emit('categoryProducts', $category->slug);
+		$this->dispatchBrowserEvent('contentChanged');
 	}
 
 	public function undo($history) {
-		if ($history=='home') {
-			$this->align='center';
-			$this->undo=false;
-			$this->history='';
-			$this->title="Categorías";
-			$this->view='categories';
-		}
+		$this->align='center';
+		$this->undo=false;
+		$this->history='';
+		$this->title="Categorías";
+		$this->view='categories';
+		$this->dispatchBrowserEvent('contentChanged');
 	}
 }

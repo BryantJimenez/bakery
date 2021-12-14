@@ -73,7 +73,7 @@ class Group extends Model
     }
 
     public function complements() {
-        return $this->belongsToMany(Complement::class)->withPivot('price', 'state')->withTimestamps();
+        return $this->belongsToMany(Complement::class)->withPivot('id', 'price', 'state')->withTimestamps();
     }
 
     public function products() {

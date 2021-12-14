@@ -5,7 +5,7 @@
 			<a href="javascript:void(0);" wire:click="products('{{ $category->slug }}')">
 				<figure>
 					<span class="d-flex align-items-center justify-content-center">@if($category['products']->count()>99){{ '99+' }}@else{{ $category['products']->count() }}@endif</span>
-					<img src="{{ image_exist('/admins/img/categories/', $category->image, false, false) }}" title="{{ $category->name }}" alt="{{ $category->name }}">
+					<img src="{{ asset('/admins/img/categories/categories.jpg') }}" data-src="{{ image_exist('/admins/img/categories/', $category->image, false, false) }}" class="lazy" title="{{ $category->name }}" alt="{{ $category->name }}">
 					<div class="info">
 						<h3>{{ $category->name }}</h3>
 					</div>

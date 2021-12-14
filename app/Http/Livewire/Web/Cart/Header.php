@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Web\Cart;
 
 use App\Models\Setting;
+use App\Traits\CartTrait;
 use Livewire\Component;
 
 class Header extends Component
 {
+	use CartTrait;
+
 	public $count;
 	public $total;
 	public $currency=NULL;
@@ -19,28 +22,13 @@ class Header extends Component
         if (!is_null($setting)) {
             $this->currency=$setting['currency'];
         }
-		$this->calculating();
+        $this->count=$this->counterCart();
+		$this->total=$this->calculateCart();
 	}
 
 	public function render()
 	{
-		$cart=[];
-		if (session()->has('cart')) {
-			$cart=session('cart');
-		}
+		$cart=$this->getCart();
 		return view('livewire.web.cart.header', compact('cart'));
-	}
-
-	public function calculating() {
-		$counter=0;
-		$this->total=0.00;
-		if (session()->has('cart')) {
-			$counter=count(session('cart'));
-			$cart=session('cart');
-			foreach($cart as $item) {
-				$this->total+=$item['price']*$item['qty'];
-			}
-		}
-		$this->count=$counter;
 	}
 }

@@ -5,22 +5,19 @@
 				<div class="modal-content">
 					@if(!is_null($product))
 					<div class="modal-header small-dialog-header">
-						<h5 class="modal-title">[<span class="font-weigt-bold">{{ number_format($price, 2, ',', '.').currencySymbol($currency) }}</span>] {{ $product['category']->name.": ".$product->name }}</h5>
+						<h5 class="modal-title">[<span class="font-weigt-bold">{{ number_format($price+$price_aditional, 2, ',', '.').currencySymbol($currency) }}</span>] {{ $product['category']->name.": ".$product->name }}</h5>
 						<button type="button" class="mfp-close" aria-label="Close" wire:click.prevent="close"></button>
 					</div>
-					<div class="modal-body content">
-						<p class="modal-description text-justify">{{ $product->description }}</p>
+					@if($steps)
+					<form @if($finish) wire:submit.prevent="add" @else wire:submit.prevent="next" @endif>
+						<div class="modal-body content">
+							<p>{{ $product->description }}</p>
 
-						{{-- <p>{{ $current }}</p> --}}
-
-						{{-- <form> --}}
-							@if($steps)
 							<div class="row">
-								{{-- @foreach($groups as $group) --}}
-								<div class="col-12" group="{{ $current }}" condition="{{ $groups[$current]->name }}" min="{{ $groups[$current]->min }}" max="{{ $groups[$current]->max }}" slug="slug">
-									<h5>Choose {{ $groups[$current]->max." ".$groups[$current]->name }}</h5>
+								<div class="col-12" condition="{{ $groups[$current]->name }}" min="{{ $groups[$current]->min }}" max="{{ $groups[$current]->max }}" slug="slug">
+									<h5>Elige {{ $groups[$current]->max." ".$groups[$current]['attribute']->name }}</h5>
 									<ul class="clearfix mb-0">
-										@foreach($groups[$current]['complements'] as $complement)
+										@foreach($groups[$current]['complements'] as $key => $complement)
 										@if($complement['pivot']->state!='0')
 										@if($groups[$current]->max>1)
 										<li>
@@ -28,10 +25,10 @@
 												<img src="{{ image_exist('/admins/img/complements/', $complement->image, false, false) }}" class="rounded-circle mr-2" width="30" height="30" title="{{ $complement->name }}" alt="{{ $complement->name }}">
 												{{ $complement->name }}
 												@if($complement['pivot']->state=='2' || $complement['pivot']->state=='3')
-												<i class="badge badge-pill badge-danger font-weight-normal px-2 py-1 ml-1">Not Available</i>
+												<i class="badge badge-pill badge-danger font-weight-normal px-2 py-1 ml-1">No Disponible</i>
 												@endif
 												<span>+ {{ number_format($complement['pivot']->price, 2, ',', '.').currencySymbol($currency) }}</span>
-												<input type="checkbox" value="{{ $complement->slug }}" name="{{ $groups[$current]->slug }}" @if($complement['pivot']->state=='2' || $complement['pivot']->state=='3') disabled @endif>
+												<input type="checkbox" value="{{ $complement['pivot']->id }}" @if($complement['pivot']->state=='2' || $complement['pivot']->state=='3') disabled @endif wire:model="extra.{{ $current }}.{{ $key }}" wire:click="price(true)">
 												<span class="checkmark mt-1"></span>
 											</label>
 										</li>
@@ -41,10 +38,10 @@
 												<img src="{{ image_exist('/admins/img/complements/', $complement->image, false, false) }}" class="rounded-circle mr-2" width="30" height="30" title="{{ $complement->name }}" alt="{{ $complement->name }}">
 												{{ $complement->name }}
 												@if($complement['pivot']->state=='2' || $complement['pivot']->state=='3')
-												<i class="badge badge-pill badge-danger font-weight-normal px-2 py-1 ml-1">Not Available</i>
+												<i class="badge badge-pill badge-danger font-weight-normal px-2 py-1 ml-1">No Disponible</i>
 												@endif
 												<span>+ {{ number_format($complement['pivot']->price, 2, ',', '.').currencySymbol($currency) }}</span>
-												<input type="radio" value="{{ $complement->price }}" name="{{ $groups[$current]->slug }}" @if($complement['pivot']->state=='2' || $complement['pivot']->state=='3') disabled @endif>
+												<input type="radio" value="{{ $complement['pivot']->id }}" name="{{ $groups[$current]->slug }}" @if($complement['pivot']->state=='2' || $complement['pivot']->state=='3') disabled @endif wire:model="extra.{{ $current }}" wire:click="price">
 												<span class="checkmark mt-1"></span>
 											</label>
 										</li>
@@ -52,30 +49,49 @@
 										@endif
 										@endforeach
 									</ul>
-									<p class="text-danger font-weight-bold"></p>
+									{{-- @error('extra') <span class="text-danger">{{ $extra }}</span> @enderror --}}
+									{{-- <p class="text-danger font-weight-bold"></p> --}}
 								</div>
-								{{-- @endforeach --}}
 							</div>
-							@endif
-
-						{{-- </form> --}}
+						</div>
+						<div class="footer">
+							<div class="row small-gutters">
+								@if($undo)
+								<div class="col-md-4">
+									<button type="button" class="btn_1 outline full-width mb-mobile" aria-label="Close" wire:click.prevent="undo">Volver</button>
+								</div>
+								@else
+								<div class="col-md-4">
+									<button type="button" class="btn_1 outline full-width mb-mobile" aria-label="Close" wire:click.prevent="close">Cancelar</button>
+								</div>
+								@endif
+								@if($finish)
+								<div class="col-md-8">
+									<button type="submit" class="btn_1 full-width">Agregar al Carrito</button>
+								</div>
+								@else
+								<div class="col-md-8">
+									<button type="submit" class="btn_1 full-width">Continuar</button>
+								</div>
+								@endif
+							</div>
+						</div>
+					</form>
+					@else
+					<div class="modal-body content">
+						<p>{{ $product->description }}</p>
 					</div>
 					<div class="footer">
 						<div class="row small-gutters">
 							<div class="col-md-4">
-								<button type="button" class="btn_1 outline full-width mb-mobile" aria-label="Close" wire:click.prevent="close">Cancel</button>
+								<button type="button" class="btn_1 outline full-width mb-mobile" aria-label="Close" wire:click.prevent="close">Cancelar</button>
 							</div>
-							@if($finish)
 							<div class="col-md-8">
-								<button type="button" class="btn_1 full-width" wire:click="cartAdd">Add to Order</button>
+								<button type="button" class="btn_1 full-width" wire:click="add">Agregar al Carrito</button>
 							</div>
-							@else
-							<div class="col-md-8">
-								<button type="button" class="btn_1 full-width" wire:click="next">Continue</button>
-							</div>
-							@endif
 						</div>
 					</div>
+					@endif
 					@endif
 
 					<div wire:loading wire:target="next">

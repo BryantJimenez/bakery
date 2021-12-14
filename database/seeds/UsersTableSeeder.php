@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Cart\Cart;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -24,5 +25,10 @@ class UsersTableSeeder extends Seeder
         ]);
 
         factory(User::class, 5)->create(['phone' => NULL, 'state' => '1']);
+
+        $users=User::all();
+        foreach ($users as $user) {
+            Cart::create(['user_id' => $user->id]);
+        }
     }
 }

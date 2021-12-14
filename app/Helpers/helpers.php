@@ -196,3 +196,25 @@ function currencySymbol($currency) {
 	}
 	return '';
 }
+
+function cartComplements($complements) {
+	$num=0;
+	$extras=[];
+	foreach ($complements as $complement) {
+		if (array_search($complement['group']['attribute']->name, array_column($extras, 'attribute'))!==false) {
+			$i=array_search($complement['group']['attribute']->name, array_column($extras, 'attribute'));
+			if (array_search($complement['complement']->name, array_column($extras[$i]['values'], 'name'))!==false) {
+				$j=array_search($complement['complement']->name, array_column($extras[$i]['values'], 'name'));
+				$extras[$i]['values'][$j]['qty']=$extras[$i]['values'][$j]['qty']+1;
+			} else {
+				$count=count($extras[$i]['values']);
+				$extras[$i]['values'][$count]=array('qty' => 1, 'name' => $complement['complement']->name);
+			}
+		} else {
+			$extras[$num]=array('attribute' => $complement['group']['attribute']->name, 'values' => array(array('qty' => 1, 'name' => $complement['complement']->name)));
+			$num++;
+		}
+	}
+
+	return $extras;
+}

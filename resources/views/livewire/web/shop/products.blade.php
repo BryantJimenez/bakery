@@ -9,7 +9,7 @@
 
 			@forelse($products as $product)
 			<div class="col-12">
-				<a class="menu_item modal_product" href="javascript:void(0);" @if($product->state!='Not Available' && $product->state!='Out of Stock') wire:click="modal('{{ $product->slug }}')" @endif>
+				<a class="menu_item modal_product" href="javascript:void(0);" @if($product->state!='No Disponible' && $product->state!='Agotado') wire:click="modal('{{ $product->slug }}')" @endif>
 					<figure>
 						<img src="{{ image_exist('/admins/img/products/', $product->image, false, false) }}" title="{{ $product->name }}" alt="{{ $product->name }}">
 					</figure>
@@ -26,7 +26,7 @@
 					</p>
 					<strong>{{ number_format($product->price, 2, ',', '.').currencySymbol($currency) }}</strong>
 
-					@if($product->state=='Not Available' || $product->state=='Out of Stock')
+					@if($product->state=='No Disponible' || $product->state=='Agotado')
 					<span class="badge badge-pill badge-danger font-weight-normal position-absolute px-2 py-1">No Disponible</span>
 					@endif
 				</a>

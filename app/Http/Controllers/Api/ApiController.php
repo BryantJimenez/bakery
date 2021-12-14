@@ -39,6 +39,11 @@ use Illuminate\Http\Request;
 * )
 *
 * @OA\Tag(
+*	name="Cart",
+*	description="User cart endpoints"
+* )
+*
+* @OA\Tag(
 *	name="Users",
 *	description="Users endpoints"
 * )
@@ -99,6 +104,40 @@ class ApiController extends Controller
 		$user->rol=roleUser($user, false);
 		$user->photo=(!is_null($user->photo)) ? asset('/admins/img/users/'.$user->photo) : '';
 		$data=$user->only("id", "name", "lastname", "slug", "photo", "phone", "email", "state", "rol");
+		return $data;
+	}
+
+	public function dataCart($cart) {
+		$cart->products=$cart['products']->map(function($cart_product) {
+			return $this->dataCartProduct($cart_product);
+		});
+		$data=$cart->only("id", "total", "products");
+		return $data;
+	}
+
+	public function dataCartProduct($cart_product) {
+		if (!is_null($cart_product['product'])) {
+			$cart_product['product']->image=(!is_null($cart_product['product']->image)) ? asset('/admins/img/products/'.$cart_product['product']->image) : '';
+			$cart_product['product']->category=(!is_null($cart_product['product']['category'])) ? $this->dataCategory($cart_product['product']['category']) : [];
+			$product=$cart_product['product']->only("id", "name", "slug", "image", "price", "state", "category");
+		} else {
+			$product=[];
+		}
+		$cart_product->product=$product;
+		$cart_product->complements=$cart_product['complements']->map(function($cart_product_complement) {
+			return $this->dataCartProductComplement($cart_product_complement);
+		});
+		$data=$cart_product->only("id", "qty", "price", "complement_price", "subtotal", "product", "complements");
+		return $data;
+	}
+
+	public function dataCartProductComplement($cart_product_complement) {
+		$cart_product_complement->attribute="";
+		$cart_product_complement->complement=(!is_null($cart_product_complement['complement'])) ? $cart_product_complement['complement']->name : "";
+		if (!is_null($cart_product_complement['group'])) {
+			$cart_product_complement->attribute=(!is_null($cart_product_complement['group']['attribute'])) ? $cart_product_complement['group']['attribute']->name : "";
+		}
+		$data=$cart_product_complement->only("id", "qty", "price", "subtotal", "complement", "attribute");
 		return $data;
 	}
 

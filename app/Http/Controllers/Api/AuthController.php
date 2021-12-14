@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Cart\Cart;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
@@ -64,7 +65,7 @@ class AuthController extends ApiController
             return response()->json(['code' => 422, 'status' => 'error', 'message' => 'La contraseña es incorrecta.'], 422);
         }
 
-        if ($user->state=='Inative') {
+        if ($user->state=='Inativo') {
             return response()->json(['code' => 403, 'status' => 'error', 'message' => 'Este usuario no puede ingresar.'], 403);
         }
 
@@ -164,6 +165,7 @@ class AuthController extends ApiController
 
         if ($user) {
             $user->assignRole('Cliente');
+            Cart::create(['user_id' => $user->id]);
             $user=User::with(['roles'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
             

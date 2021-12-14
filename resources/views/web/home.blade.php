@@ -6,6 +6,7 @@
 <link href="{{ asset('/web/css/template/home.css') }}" rel="stylesheet">
 <link href="{{ asset('/web/css/template/detail-page.css') }}" rel="stylesheet">
 {{-- <link rel="stylesheet" href="{{ asset('/admins/vendor/touchspin/jquery.bootstrap-touchspin.min.css') }}"> --}}
+<link href="{{ asset('/admins/vendor/mcustomscrollbar/jquery.mCustomScrollbar.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('/admins/vendor/lobibox/Lobibox.min.css') }}">
 @endsection
 
@@ -26,6 +27,7 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('/admins/vendor/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/lazyload/lazyload.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/sticky-sidebar/sticky_sidebar.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/sticky-kit/sticky-kit.min.js') }}"></script>

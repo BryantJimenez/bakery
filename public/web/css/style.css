@@ -48,7 +48,7 @@ ul#top_menu li a.cart_bt {
 
 .dropdown-cart .dropdown-menu {
   margin-left: -205px!important;
-  width: 260px!important;
+  width: 280px!important;
   font-size: 0.8125rem;
   border-top: 2px solid #e54750;
   border-radius: 3px;
@@ -56,6 +56,19 @@ ul#top_menu li a.cart_bt {
 
 .dropdown-cart .dropdown-menu:before {
   right: 4%;
+}
+
+.cart-header > #mCSB_1_scrollbar_vertical > div > div > div {
+  background-color: #e54750;
+}
+
+.mCSB_outside+.mCSB_scrollTools {
+  right: -4px !important;
+}
+
+.cart-minus, .cart-plus {
+  width: 20px;
+  height: 20px;
 }
 
 @media (max-width: 991px) {

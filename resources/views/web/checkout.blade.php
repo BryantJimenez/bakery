@@ -125,6 +125,7 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('/admins/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 {{-- <script type="text/javascript" src="{{ asset('/admins/vendor/lazyload/lazyload.min.js') }}"></script> --}}
 <script type="text/javascript" src="{{ asset('/admins/vendor/sticky-sidebar/sticky_sidebar.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/sticky-kit/sticky-kit.min.js') }}"></script>
