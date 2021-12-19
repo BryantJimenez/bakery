@@ -33,6 +33,17 @@ trait CartTrait {
 		return $cart;
 	}
 
+	public function getCartDatabase() {
+		$cart=Cart::with(['products.product', 'products.complements.complement', 'products.complements.group'])->where('user_id', Auth::id())->first();
+		$cart=$cart['products']->map(function($product) {
+			$complements=$product['complements'];
+			$data=array('product' => $product['product'], 'complements' => $complements, 'qty' => $product->qty, 'subtotal' => number_format($product->subtotal, 2, ',', '.'), 'price' => $product->price, 'complement_price' => $product->complement_price, 'code' => $product->code);
+			return $data;
+		});
+
+		return $cart;
+	}
+
 	public function addCart($product, $extras) {
 		$code=$product->slug;
 		$complements=[];
@@ -211,7 +222,7 @@ trait CartTrait {
 			foreach($cart['products'] as $item) {
 				$total+=($item->price+$item->complement_price)*$item->qty;
 			}
-			$cart->fill(['total' => $total])->save();
+			$cart->fill(['subtotal' => $total])->save();
 			return $total;
 		}
 
@@ -236,6 +247,20 @@ trait CartTrait {
 			$counter=count(session('cart'));
 		}
 		return $counter;
+	}
+
+	public function clearCart() {
+		if (Auth::check()) {
+			$cart=Cart::where('user_id', Auth::id())->first();
+			$cart_delete=CartProduct::where('cart_id', $cart->id)->delete();
+			if ($cart_delete) {
+				$cart->fill(['total' => 0.00])->save();
+			}
+		}
+
+		if (session()->has('cart')) {
+			session()->forget('cart');
+		}
 	}
 
 	public function convertCartSessionToDatabase($user_id) {

@@ -2657,6 +2657,170 @@
                 ]
             }
         },
+        "/api/v1/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get orders",
+                "description": "Returns all orders",
+                "operationId": "indexOrder",
+                "responses": {
+                    "200": {
+                        "description": "Show all orders.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/orders/{id}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get order",
+                "description": "Returns a single order",
+                "operationId": "showOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show order.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/orders/{id}/reject": {
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Reject order",
+                "description": "Reject a single order",
+                "operationId": "rejectOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Reject order.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/orders/{id}/confirm": {
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Confirm order",
+                "description": "Confirm a single order",
+                "operationId": "confirmOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Confirm order.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/products": {
             "get": {
                 "tags": [
@@ -3320,6 +3484,78 @@
                 ]
             }
         },
+        "/api/v1/profile/orders": {
+            "get": {
+                "tags": [
+                    "Profile Orders"
+                ],
+                "summary": "Get profile orders",
+                "description": "Returns all profile orders",
+                "operationId": "indexProfileOrder",
+                "responses": {
+                    "200": {
+                        "description": "Show all profile orders.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/profile/orders/{id}": {
+            "get": {
+                "tags": [
+                    "Profile Orders"
+                ],
+                "summary": "Get profile order",
+                "description": "Returns a single profile order",
+                "operationId": "showProfileOrder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show profile order.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/profile": {
             "get": {
                 "tags": [
@@ -3366,6 +3602,15 @@
                         "name": "lastname",
                         "in": "query",
                         "description": "Lastname of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Address of user",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -3500,6 +3745,173 @@
                 ]
             }
         },
+        "/api/v1/settings": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Get settings",
+                "description": "Returns all settings",
+                "operationId": "indexSetting",
+                "responses": {
+                    "200": {
+                        "description": "Show all settings.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Update settings",
+                "description": "Update settings",
+                "operationId": "updateSetting",
+                "parameters": [
+                    {
+                        "name": "terms",
+                        "in": "query",
+                        "description": "Terms and conditions",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "privacity",
+                        "in": "query",
+                        "description": "Privacity politics",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "stripe_public",
+                        "in": "query",
+                        "description": "Stripe public key",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "stripe_secret",
+                        "in": "query",
+                        "description": "Stripe secret key",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "currency_id",
+                        "in": "query",
+                        "description": "Currency ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update settings.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/settings/terms": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Get terms and conditions",
+                "description": "Returns terms and conditions",
+                "operationId": "indexTermsSetting",
+                "responses": {
+                    "200": {
+                        "description": "Show terms and conditions.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/settings/privacity": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Get privacity politics",
+                "description": "Returns privacity politics",
+                "operationId": "indexPrivacitySetting",
+                "responses": {
+                    "200": {
+                        "description": "Show privacity politics.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "tags": [
@@ -3558,6 +3970,15 @@
                         "name": "phone",
                         "in": "query",
                         "description": "Phone of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Address of user",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -3713,6 +4134,15 @@
                         "name": "phone",
                         "in": "query",
                         "description": "Phone of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Address of user",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -3930,6 +4360,10 @@
             "description": "User cart endpoints"
         },
         {
+            "name": "Profile Orders",
+            "description": "User cart endpoints"
+        },
+        {
             "name": "Users",
             "description": "Users endpoints"
         },
@@ -3954,6 +4388,10 @@
             "description": "Groups endpoints"
         },
         {
+            "name": "Orders",
+            "description": "Orders endpoints"
+        },
+        {
             "name": "Agencies",
             "description": "Agencies endpoints"
         },
@@ -3964,6 +4402,10 @@
         {
             "name": "Currencies",
             "description": "Currencies endpoints"
+        },
+        {
+            "name": "Settings",
+            "description": "Settings endpoints"
         }
     ],
     "security": [

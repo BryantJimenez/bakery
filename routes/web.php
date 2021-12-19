@@ -19,8 +19,17 @@ Route::get('/users/email', 'AdminController@emailVerifyAdmin');
 
 /////////////////////////////////////////////// WEB ////////////////////////////////////////////////
 Route::get('/', 'WebController@index')->name('home');
-Route::get('/checkout', 'WebController@checkout')->name('web.checkout');
-Route::post('/checkout', 'WebController@checkoutStore')->name('web.checkout.store');
+// Checkout
+Route::group(['prefix' => 'checkout'], function () {
+	Route::get('/', 'WebController@checkout')->name('web.checkout');
+	Route::post('/', 'WebController@checkoutStore')->name('web.checkout.store');
+});
+// Profile
+Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
+	Route::get('/', 'WebController@profile')->name('web.profile');
+	Route::put('/', 'WebController@profileUpdate')->name('web.profile.update');
+	Route::get('/orders/{order:id}', 'WebController@profileOrder')->name('web.profile.order');
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 	/////////////////////////////////////// ADMIN ///////////////////////////////////////////////////
@@ -115,6 +124,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 		Route::get('/{group:slug}/assign', 'GroupController@assign')->name('groups.assign')->middleware('permission:groups.assign.complements');
 		Route::put('/{group:slug}/assign', 'GroupController@assignComplements')->name('groups.assign.complements')->middleware('permission:groups.assign.complements');
 		Route::post('/complements', 'GroupController@complements')->name('groups.complements')->middleware('permission:groups.assign.complements');
+	});
+
+	// Orders
+	Route::group(['prefix' => 'orders'], function () {
+		Route::get('/', 'OrderController@index')->name('orders.index')->middleware('permission:orders.index');
+		Route::get('/{order:id}', 'OrderController@show')->name('orders.show')->middleware('permission:orders.show');
+		Route::put('/{order:id}/confirm', 'OrderController@confirm')->name('orders.confirm')->middleware('permission:orders.confirmed');
+		Route::put('/{order:id}/reject', 'OrderController@reject')->name('orders.reject')->middleware('permission:orders.rejected');
 	});
 
 	// Agencies

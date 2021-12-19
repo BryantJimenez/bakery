@@ -64,6 +64,11 @@
 									<input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" required placeholder="Introduzca un teléfono" value="{{ Auth::user()->phone }}" id="phone">
 								</div>
 
+								<div class="form-group col-12">
+									<label class="col-form-label">Dirección<b class="text-danger">*</b></label>
+									<input class="form-control @error('address') is-invalid @enderror" type="text" name="address" placeholder="Introduzca una dirección" value="{{ Auth::user()->address }}">
+								</div>
+
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">Contraseña (Opcional)</label>
 									<input class="form-control @error('password') is-invalid @enderror" type="password" name="password" placeholder="********" id="password">

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Group\Group;
+use App\Models\Cart\CartProduct;
+use App\Models\Order\OrderProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
@@ -61,5 +63,13 @@ class Product extends Model
 
     public function groups() {
         return $this->belongsToMany(Group::class)->withTimestamps();
+    }
+
+    public function cart_products() {
+        return $this->hasMany(CartProduct::class);
+    }
+
+    public function order_products() {
+        return $this->hasMany(OrderProduct::class);
     }
 }

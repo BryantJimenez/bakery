@@ -73,6 +73,12 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'groups.deactive']);
         Permission::create(['name' => 'groups.assign.complements']);
 
+        // Orders Permissions
+        Permission::create(['name' => 'orders.index']);
+        Permission::create(['name' => 'orders.show']);
+        Permission::create(['name' => 'orders.confirmed']);
+        Permission::create(['name' => 'orders.rejected']);
+
         // Agency Permissions
         Permission::create(['name' => 'agencies.index']);
         Permission::create(['name' => 'agencies.create']);
@@ -101,6 +107,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'currencies.deactive']);
 
         // Setting Permissions
+        Permission::create(['name' => 'settings.index']);
         Permission::create(['name' => 'settings.edit']);
 
     	$superadmin=Role::create(['name' => 'Super Admin']);

@@ -31,6 +31,7 @@ class UserUpdateRequest extends FormRequest
             'name' => 'required|string|min:2|max:191',
             'lastname' => 'required|string|min:2|max:191',
             'phone' => 'required|string|min:5|max:15',
+            'address' => 'required|string|min:5|max:191',
             'type' => 'nullable|'.Rule::in($roles)
         ];
     }

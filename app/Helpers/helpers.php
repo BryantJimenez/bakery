@@ -1,12 +1,15 @@
 <?php
 
-function state($state) {
-	if ($state=='Inactivo') {
-		return '<span class="badge badge-danger">'.$state.'</span>';
-	} elseif ($state=='Activo') {
-		return '<span class="badge badge-success">'.$state.'</span>';
+function state($state, $badge=true) {
+	if ($badge) {
+		if ($state=='Inactivo') {
+			return '<span class="badge badge-danger">'.$state.'</span>';
+		} elseif ($state=='Activo') {
+			return '<span class="badge badge-success">'.$state.'</span>';
+		}
+		return '<span class="badge badge-dark">'.$state.'</span>';
 	}
-	return '<span class="badge badge-dark">'.$state.'</span>';
+	return $state;
 }
 
 function stateProduct($state, $badge=true) {
@@ -47,6 +50,34 @@ function stateComplement($state, $badge=true) {
 		}
 		return 'Desconocido';
 	}
+}
+
+function stateOrder($state, $badge=true) {
+	if ($badge) {
+		if ($state=='Rechazado') {
+			return '<span class="badge badge-danger">'.$state.'</span>';
+		} elseif ($state=='En Espera') {
+			return '<span class="badge badge-warning">'.$state.'</span>';
+		} elseif ($state=='Confirmado') {
+			return '<span class="badge badge-success">'.$state.'</span>';
+		}
+		return '<span class="badge badge-dark">'.$state.'</span>';
+	}
+	return $state;
+}
+
+function statePayment($state, $badge=true) {
+	if ($badge) {
+		if ($state=='Rechazado') {
+			return '<span class="badge badge-danger">'.$state.'</span>';
+		} elseif ($state=='Pendiente') {
+			return '<span class="badge badge-warning">'.$state.'</span>';
+		} elseif ($state=='Confirmado') {
+			return '<span class="badge badge-success">'.$state.'</span>';
+		}
+		return '<span class="badge badge-dark">'.$state.'</span>';
+	}
+	return $state;
 }
 
 function roleUser($user, $badge=true) {
@@ -217,4 +248,24 @@ function cartComplements($complements) {
 	}
 
 	return $extras;
+}
+
+function typeDelivery($type, $badge=true) {
+	if ($badge) {
+		if ($type=='Comer en el Lugar' || $type=='Recoger para Llevar' || $type=='A Domicilio') {
+			return '<span class="badge badge-primary">'.$type.'</span>';
+		}
+		return '<span class="badge badge-dark">'.$type.'</span>';
+	}
+	return $type;
+}
+
+function methodPayment($method, $badge=true) {
+	if ($badge) {
+		if ($method=='Tarjeta') {
+			return '<span class="badge badge-primary">'.$method.'</span>';
+		}
+		return '<span class="badge badge-dark">'.$method.'</span>';
+	}
+	return $method;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Web\Cart;
 
+use App\Models\Agency;
 use App\Models\Setting;
 use App\Traits\CartTrait;
 use Livewire\Component;
@@ -11,10 +12,12 @@ class Card extends Component
 {
 	use CartTrait;
 
-	public $total;
+	public $subtotal=0.00;
+	public $delivery=0.00;
+	public $total=0.00;
 	public $currency=NULL;
 
-	protected $listeners=['cartCard' => 'mount'];
+	protected $listeners=['cartCard' => 'mount', 'cartDelivery' => 'delivery'];
 
 	public function mount()
 	{
@@ -22,13 +25,24 @@ class Card extends Component
 		if (!is_null($setting)) {
 			$this->currency=$setting['currency'];
 		}
-		$this->total=$this->calculateCart();
+		$this->subtotal=$this->calculateCart();
+		$this->total=$this->subtotal+$this->delivery;
 	}
 
 	public function render()
 	{
 		$cart=$this->getCart();
 		return view('livewire.web.cart.card', compact('cart'));
+	}
+
+	public function delivery($agency) {
+		$agency=Agency::where([['slug', $agency], ['state', '1']])->first();
+		if (!is_null($agency)) {
+			$this->delivery=$agency->price;
+		} else {
+			$this->delivery=0.00;
+		}
+		$this->mount();
 	}
 
 	public function plus($code) {
@@ -40,7 +54,8 @@ class Card extends Component
 			}
 		}
 
-		$this->total=$this->calculateCart();
+		$this->subtotal=$this->calculateCart();
+		$this->total=$this->subtotal+$this->delivery;
 		$this->emit('cartCounterHeader');
 	}
 
@@ -53,7 +68,8 @@ class Card extends Component
 			}
 		}
 
-		$this->total=$this->calculateCart();
+		$this->subtotal=$this->calculateCart();
+		$this->total=$this->subtotal+$this->delivery;
 		$this->emit('cartCounterHeader');
 	}
 
@@ -66,7 +82,8 @@ class Card extends Component
 			}
 		}
 
-		$this->total=$this->calculateCart();
+		$this->subtotal=$this->calculateCart();
+		$this->total=$this->subtotal+$this->delivery;
 		$this->emit('cartCounterHeader');
 	}
 }

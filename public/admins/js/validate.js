@@ -142,6 +142,12 @@ $(document).ready(function(){
 					maxlength: 15
 				},
 
+				address: {
+					required: true,
+					minlength: 5,
+					maxlength: 191
+				},
+
 				password: {
 					required: false,
 					minlength: 8,
@@ -193,6 +199,12 @@ $(document).ready(function(){
 					required: true,
 					minlength: 5,
 					maxlength: 15
+				},
+
+				address: {
+					required: true,
+					minlength: 5,
+					maxlength: 191
 				},
 
 				type: {
@@ -708,6 +720,18 @@ $(document).ready(function(){
 					required: false,
 					minlength: 1,
 					maxlength: 16770000
+				},
+
+				stripe_public: {
+					required: true,
+					minlength: 5,
+					maxlength: 191
+				},
+
+				stripe_secret: {
+					required: true,
+					minlength: 5,
+					maxlength: 191
 				}
 			},
 			messages:
@@ -721,5 +745,56 @@ $(document).ready(function(){
 				form.submit();
 			}
 		});
+	});
+
+	// Checkout
+	$("button[action='checkout']").on("click",function(){
+		$("#formCheckout").validate({
+			rules:
+			{
+				phone: {
+					required: true,
+					minlength: 5,
+					maxlength: 15
+				},
+
+				shipping: {
+					required: true
+				},
+
+				agency_id: {
+					required: true
+				},
+
+				address: {
+					required: true,
+					minlength: 5,
+					maxlength: 191
+				},
+
+				payment: {
+					required: true
+				}
+			},
+			messages:
+			{
+				shipping: {
+					required: 'Seleccione una opción.'
+				},
+
+				agency_id: {
+					required: 'Seleccione una opción.'
+				},
+
+				payment: {
+					required: 'Seleccione una opción.'
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='checkout']").attr('disabled', true);
+				// Create Stripe Token
+				createStripeToken();
+    		}
+    	});
 	});
 });

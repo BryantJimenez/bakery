@@ -30,6 +30,8 @@ class SettingUpdateRequest extends FormRequest
         return [
             'terms' => 'nullable|string|min:1|max:16770000',
             'privacity' => 'nullable|string|min:1|max:16770000',
+            'stripe_public' => 'nullable|string|min:1|max:191',
+            'stripe_secret' => 'nullable|string|min:1|max:191',
             'currency_id' => 'required|'.Rule::in($currencies)
         ];
     }

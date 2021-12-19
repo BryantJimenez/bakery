@@ -54,6 +54,16 @@
 									<textarea class="form-control @error('privacity') is-invalid @enderror" name="privacity" placeholder="Introduzca las políticas de privacidad" id="content-privacity">{{ $setting->privacity }}</textarea>
 								</div>
 
+								<div class="form-group col-lg-6 col-md-6 col-12">
+									<label class="col-form-label">Clave Publica de Stripe (Opcional)</label>
+									<input class="form-control @error('stripe_public') is-invalid @enderror" name="stripe_public" placeholder="Introduzca la clave publica de stripe" value="{{ $setting->stripe_public }}">
+								</div>
+
+								<div class="form-group col-lg-6 col-md-6 col-12">
+									<label class="col-form-label">Clave Secreta de Stripe (Opcional)</label>
+									<input class="form-control @error('stripe_secret') is-invalid @enderror" name="stripe_secret" placeholder="Introduzca la clave secreta de stripe" value="{{ $setting->stripe_secret }}">
+								</div>
+
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
 										<button type="submit" class="btn btn-primary" action="setting">Actualizar</button>

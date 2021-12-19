@@ -80,6 +80,16 @@
             </li>
             @endcan
 
+            @can('orders.index')
+            <li class="menu {{ active('admin/orders', 0) }}">
+                <a href="{{ route('orders.index') }}" aria-expanded="{{ menu_expanded('admin/orders', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-shopping-cart"></i> Pedidos</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
+
             @can('agencies.index')
             <li class="menu {{ active('admin/agencies', 0) }}">
                 <a href="{{ route('agencies.index') }}" aria-expanded="{{ menu_expanded('admin/agencies', 0) }}" class="dropdown-toggle">

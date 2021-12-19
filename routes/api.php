@@ -38,6 +38,12 @@ Route::group(['prefix' => 'v1'], function() {
 				Route::post('/password', 'Api\Profile\ProfileController@changePassword');
 				Route::post('/email', 'Api\Profile\ProfileController@changeEmail');
 			});
+
+			// Orders
+			Route::group(['prefix' => 'orders'], function () {
+				Route::get('/', 'Api\Profile\OrderController@get');
+				Route::get('/{order:id}', 'Api\Profile\OrderController@show');
+			});
 		});
 
 		// Cart
@@ -117,6 +123,14 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::put('/{group:id}/assign', 'Api\GroupController@assign')->middleware('permission:groups.assign.complements');
 		});
 
+		// Orders
+		Route::group(['prefix' => 'orders'], function () {
+			Route::get('/', 'Api\OrderController@index')->middleware('permission:orders.index');
+			Route::get('/{order:id}', 'Api\OrderController@show')->middleware('permission:orders.show');
+			Route::put('/{order:id}/confirm', 'Api\OrderController@confirm')->middleware('permission:orders.confirmed');
+			Route::put('/{order:id}/reject', 'Api\OrderController@reject')->middleware('permission:orders.rejected');
+		});
+
 		// Agencies
 		Route::group(['prefix' => 'agencies'], function () {
 			Route::get('/', 'Api\AgencyController@index')->middleware('permission:agencies.index');
@@ -148,6 +162,14 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::delete('/{currency:id}', 'Api\CurrencyController@destroy')->middleware('permission:currencies.delete');
 			Route::put('/{currency:id}/activate', 'Api\CurrencyController@activate')->middleware('permission:currencies.active');
 			Route::put('/{currency:id}/deactivate', 'Api\CurrencyController@deactivate')->middleware('permission:currencies.deactive');
+		});
+
+		// Settings
+		Route::group(['prefix' => 'settings'], function () {
+			Route::get('/', 'Api\SettingController@get')->middleware('permission:settings.index');
+			Route::get('/terms', 'Api\SettingController@terms')->middleware('permission:settings.index');
+			Route::get('/privacity', 'Api\SettingController@privacity')->middleware('permission:settings.index');
+			Route::put('/', 'Api\SettingController@update')->middleware('permission:settings.edit');
 		});
 	});
 });

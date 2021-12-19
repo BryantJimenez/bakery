@@ -34,6 +34,7 @@
                                 @can('dashboard')
                                 <li><a href="{{ route('admin') }}"><i class="icon_cog"></i>Panel Administrativo</a></li>
                                 @endcan
+                                <li><a href="{{ route('web.profile') }}"><i class="icon_profile"></i>Mi Perfil</a></li>
                                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon_key"></i>Cerrar Sesión</a></li>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf

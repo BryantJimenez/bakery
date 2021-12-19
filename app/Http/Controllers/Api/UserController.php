@@ -94,6 +94,15 @@ class UserController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
+    *       name="address",
+    *       in="query",
+    *       description="Address of user",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
     *       name="email",
     *       in="query",
     *       description="Email of user",
@@ -156,7 +165,7 @@ class UserController extends ApiController
     * )
     */
     public function store(UserStoreRequest $request) {
-    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'), 'email' => request('email'), 'password' => Hash::make(request('password')));
+    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'), 'address' => request('address'), 'email' => request('email'), 'password' => Hash::make(request('password')));
     	$user=User::create($data);
 
     	if ($user) {
@@ -266,6 +275,15 @@ class UserController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
+    *       name="address",
+    *       in="query",
+    *       description="Address of user",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
     *       name="type",
     *       in="query",
     *       description="Type of user",
@@ -301,7 +319,7 @@ class UserController extends ApiController
     * )
     */
     public function update(UserUpdateRequest $request, User $user) {
-    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'));
+    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'), 'address' => request('address'));
     	$user->fill($data)->save();        
 
     	if ($user) {

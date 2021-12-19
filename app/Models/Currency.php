@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Payment\Payment;
+use App\Models\Order\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
@@ -48,6 +50,14 @@ class Currency extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
+    }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function orders() {
+        return $this->hasMany(Order::class);
     }
 
     public function setting() {

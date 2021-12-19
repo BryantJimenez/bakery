@@ -64,6 +64,11 @@
 									<input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" required placeholder="Introduzca un teléfono" value="{{ $user->phone }}" id="phone">
 								</div>
 
+								<div class="form-group col-12">
+									<label class="col-form-label">Dirección<b class="text-danger">*</b></label>
+									<input class="form-control @error('address') is-invalid @enderror" type="text" name="address" placeholder="Introduzca una dirección" value="{{ $user->address }}">
+								</div>
+
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">Tipo<b class="text-danger">*</b></label>
 									<select class="form-control @error('type') is-invalid @enderror" name="type" required>

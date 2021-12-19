@@ -401,6 +401,16 @@ function activeGroup(slug) {
   $('#formActiveGroup').attr('action', '/admin/groups/' + slug + '/activate');
 }
 
+function rejectedOrder(slug) {
+  $("#rejectedOrder").modal();
+  $('#formRejectedOrder').attr('action', '/admin/orders/' + slug + '/reject');
+}
+
+function confirmedOrder(slug) {
+  $("#confirmedOrder").modal();
+  $('#formConfirmedOrder').attr('action', '/admin/orders/' + slug + '/confirm');
+}
+
 function deactiveAgency(slug) {
   $("#deactiveAgency").modal();
   $('#formDeactiveAgency').attr('action', '/admin/agencies/' + slug + '/deactivate');

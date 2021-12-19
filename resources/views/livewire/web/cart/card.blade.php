@@ -42,6 +42,8 @@
 				@endforelse
 			</ul>
 			<ul class="clearfix">
+				<li>Subtotal<span>{{ number_format($subtotal, 2, ",", ".").currencySymbol($currency) }}</span></li>
+				<li>Delivery<span>{{ number_format($delivery, 2, ",", ".").currencySymbol($currency) }}</span></li>
 				<li class="total">Total<span>{{ number_format($total, 2, ",", ".").currencySymbol($currency) }}</span></li>
 			</ul>
 			<div class="btn_1_mobile">

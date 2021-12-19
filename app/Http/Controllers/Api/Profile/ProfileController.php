@@ -72,6 +72,15 @@ class ProfileController extends ApiController
     *           type="string"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="address",
+    *       in="query",
+    *       description="Address of user",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Update profile user.",
@@ -95,7 +104,7 @@ class ProfileController extends ApiController
     */
     public function update(ProfileUpdateRequest $request) {
     	$user=Auth::user();
-    	$data=array('name' => request('name'), 'lastname' => request('lastname'));
+    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'address' => request('address'));
     	$user->fill($data)->save();
 
     	if ($user) {

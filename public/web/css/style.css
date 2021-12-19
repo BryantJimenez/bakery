@@ -36,6 +36,18 @@ header.header.sticky ul#top_menu li a, header.header ul#top_menu li .dropdown-me
   object-fit: cover;
 }
 
+.dataTable thead {
+  background-color: #e54750!important;
+}
+
+div.dataTables_wrapper div.dataTables_info, .table .text-primary {
+  color: #e54750 !important;
+}
+
+.table .text-left {
+  text-align: left!important;
+}
+
 /* Dropdown cart */
 
 ul#top_menu li a.cart_bt {
