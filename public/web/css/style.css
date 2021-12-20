@@ -70,6 +70,13 @@ ul#top_menu li a.cart_bt {
   right: 4%;
 }
 
+.cart-header {
+  min-height: 150px;
+  max-height: 200px;
+  overflow-y: scroll;
+  margin-bottom: .5rem;
+}
+
 .cart-header > #mCSB_1_scrollbar_vertical > div > div > div {
   background-color: #e54750;
 }
@@ -142,7 +149,7 @@ ul#top_menu li a.cart_bt {
 
 /* Livewire Loader */
 
-#livewire-loader {
+.livewire-loader {
   position: absolute;
   width: 96px;
   height: 96px;
@@ -163,7 +170,7 @@ ul#top_menu li a.cart_bt {
   z-index: 10;
 }
 
-#livewire-loader.fullscreen {
+.livewire-loader.fullscreen {
   padding: 0;
   left: 0;
   top: 0;
@@ -178,7 +185,7 @@ ul#top_menu li a.cart_bt {
   box-shadow: none;
 }
 
-#livewire-loader.show {
+.livewire-loader.show {
   -webkit-transition: opacity .4s ease-out, visibility 0s linear 0s;
   -o-transition: opacity .4s ease-out, visibility 0s linear 0s;
   transition: opacity .4s ease-out, visibility 0s linear 0s;
@@ -186,7 +193,7 @@ ul#top_menu li a.cart_bt {
   opacity: 1;
 }
 
-#livewire-loader .circular {
+.livewire-loader .circular {
   -webkit-animation: loader-rotate 2s linear infinite;
   animation: loader-rotate 2s linear infinite;
   position: absolute;
@@ -198,7 +205,7 @@ ul#top_menu li a.cart_bt {
   transform: rotate(0deg);
 }
 
-#livewire-loader .path {
+.livewire-loader .path {
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
   -webkit-animation: loader-dash 1.5s ease-in-out infinite;

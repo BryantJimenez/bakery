@@ -95,6 +95,33 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
+						<div class="card bg-secondary">
+							<div class="card-body">
+								<h5 class="card-text text-white text-center font-weight-bold">Pedidos Confirmados</h5>
+								<h2 class="text-white text-center font-weight-bold">{{ $orders_confirms }}</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
+						<div class="card bg-secondary">
+							<div class="card-body">
+								<h5 class="card-text text-white text-center font-weight-bold">Pedidos Pendientes</h5>
+								<h2 class="text-white text-center font-weight-bold">{{ $orders_pendings }}</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
+						<div class="card bg-secondary">
+							<div class="card-body">
+								<h5 class="card-text text-white text-center font-weight-bold">Pagos</h5>
+								<h2 class="text-white text-center font-weight-bold">{{ $payments }}</h2>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

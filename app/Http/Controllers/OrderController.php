@@ -13,7 +13,11 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $orders=Order::orderBy('id', 'DESC')->get();
+        $orders=Order::with(['user' => function($query) {
+            $query->withTrashed();
+        }, 'currency' => function($query) {
+            $query->withTrashed();
+        }])->orderBy('id', 'DESC')->get();
         return view('admin.orders.index', compact('orders'));
     }
 

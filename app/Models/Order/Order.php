@@ -57,7 +57,27 @@ class Order extends Model
      */
     public function resolveRouteBinding($value, $field = null)
     {
-        $order=$this->with(['user', 'currency', 'payment', 'shipping', 'order_products.product.category', 'order_products.complements.complement', 'order_products.complements.group.attribute'])->where($field, $value)->first();
+        $order=$this->with(['user' => function($query) {
+            $query->withTrashed();
+        }, 'currency' => function($query) {
+            $query->withTrashed();
+        }, 'payment' => function($query) {
+            $query->withTrashed();
+        }, 'shipping' => function($query) {
+            $query->withTrashed();
+        }, 'shipping.agency' => function($query) {
+            $query->withTrashed();
+        }, 'order_products.product' => function($query) {
+            $query->withTrashed();
+        }, 'order_products.product.category' => function($query) {
+            $query->withTrashed();
+        }, 'order_products.complements.complement' => function($query) {
+            $query->withTrashed();
+        }, 'order_products.complements.group' => function($query) {
+            $query->withTrashed();
+        }, 'order_products.complements.group.attribute' => function($query) {
+            $query->withTrashed();
+        }])->where($field, $value)->first();
         if (!is_null($order)) {
             return $order;
         }

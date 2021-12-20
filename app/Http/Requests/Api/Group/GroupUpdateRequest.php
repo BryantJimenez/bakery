@@ -28,11 +28,12 @@ class GroupUpdateRequest extends FormRequest
     {
         $min=$this->min;
         $max=$this->max;
+        $condition=($this->condition=='1') ? 1 : 0;
         $attributes=Attribute::where('state', '1')->get()->pluck('id');
         return [
             'name' => 'required|string|min:2|max:191',
             'condition' => 'required|'.Rule::in(['1', '0']),
-            'min' => 'required|min:0|max:'.$max,
+            'min' => 'required|min:'.$condition.'|max:'.$max,
             'max' => 'required|min:1|max:100',
             'state' => 'required|'.Rule::in(['1', '0']),
             'attribute_id' => 'required|'.Rule::in($attributes)

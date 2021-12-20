@@ -1,4 +1,4 @@
-@if (session('type') && session('title') && session('msg'))
+@if (session()->has('type') && session()->has('title') && session()->has('msg'))
 <script type="text/javascript">
 	Lobibox.notify('{{ session('type') }}', {
 		size: '@if(session('size')){{ session('size') }}@else{{ "normal" }}@endif',

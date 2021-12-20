@@ -19,17 +19,17 @@
 					<h3 class="pb-3">Datos del Usuario</h3>
 				</div>
 				<div class="text-center user-info">
-					<img src="{{ image_exist('/admins/img/admins/', $order->user()->withTrashed()->first()->photo, true) }}" width="90" height="90" alt="Foto de perfil">
-					<p class="mb-0">{{ $order->user()->withTrashed()->first()->name." ".$order->user()->withTrashed()->first()->lastname }}</p>
+					<img src="{{ image_exist('/admins/img/admins/', $order['user']->photo, true) }}" width="90" height="90" alt="Foto de perfil">
+					<p class="mb-0">{{ $order['user']->name." ".$order['user']->lastname }}</p>
 				</div>
 				<div class="user-info-list">
 					<div class="">
 						<ul class="contacts-block list-unstyled mw-100 mx-2">
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Teléfono:</b> @if(!is_null($order->user()->withTrashed()->first()) && !empty($order->user()->withTrashed()->first()->phone)){{ $order->user()->withTrashed()->first()->phone }}@else{{ $order->phone }}@endif</span>
+								<span class="h6 text-black"><b>Teléfono:</b> @if(!is_null($order['user']) && !empty($order['user']->phone)){{ $order['user']->phone }}@else{{ $order->phone }}@endif</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Email:</b> {{ $order->user()->withTrashed()->first()->email }}</span>
+								<span class="h6 text-black"><b>Email:</b> {{ $order['user']->email }}</span>
 							</li>
 							<li class="contacts-block__item">
 								<span class="h6 text-black"><b>Estado:</b> @if(!is_null($order->user()->first())){!! state($order['user']->state) !!}@else{!! '<span class="badge badge-danger">Eliminado</span>' !!}@endif</span>

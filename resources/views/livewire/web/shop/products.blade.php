@@ -62,4 +62,6 @@
 	<div class="col-lg-5 col-12 mt-lg-0" id="sidebar_fixed">
 		<livewire:web.cart.card />
 	</div>
+
+	@include('web.partials.notifications')
 </div>

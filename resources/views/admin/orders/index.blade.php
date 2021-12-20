@@ -50,7 +50,7 @@
 									@foreach($orders as $order)
 									<tr>
 										<td>{{ $loop->iteration }}</td>
-										<td>{{ $order->user()->withTrashed()->first()->name." ".$order->user()->withTrashed()->first()->lastname }}</td>
+										<td>{{ $order['user']->name." ".$order['user']->lastname }}</td>
 										<td>{{ number_format($order->total, 2, ",", ".").$order['currency']->symbol }}</td>
 										<td>{!! typeDelivery($order->type_delivery) !!}</td>
 										<td>{!! statePayment($order->payment->state) !!}</td>

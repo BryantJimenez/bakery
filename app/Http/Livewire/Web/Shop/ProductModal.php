@@ -23,10 +23,9 @@ class ProductModal extends Component
 	public $current=0;
 	public $undo=false;
 	public $finish=false;
-	public $extra=[];
 	public $extras=[];
 
-	protected $listeners=['productModal' => 'open'];
+	protected $listeners=['productModal' => 'open', 'nextStepComplements' => 'next', 'addCart' => 'add'];
 
 	public function mount()
 	{
@@ -42,62 +41,31 @@ class ProductModal extends Component
 	}
 
 	public function open($product) {
-		$product=Product::with(['category', 'groups.complements'])->where('slug', $product)->first();
+		$product=Product::with(['category', 'groups.complements'])->where('id', $product)->first();
 		$this->product=$product;
 		$this->price=$product->price;
-		$this->price_aditional=0.00;
 		$this->groups=$product['groups'];
 		$this->steps=$product['groups']->count();
-		$this->extras=[];
-		$this->current=0;
 		$this->current_step=($this->steps>0) ? 1 : 0;
 		$this->show=true;
-		$this->undo=false;
-		$this->finish=false;
 		if ($this->current_step==$this->steps) {
 			$this->finish=true;
 		}
 	}
 
 	public function close() {
-		$this->show=false;
+		$this->resetExcept(['currency']);
 		$this->dispatchBrowserEvent('contentChanged');
 	}
 
-	public function price($multi=false) {
-		if ($multi) {
-			$this->price_aditional=0.0;
-			foreach ($this->extra[$this->current] as $value) {
-				$complement_group=ComplementGroup::where('id', $value)->first();
-				if (!is_null($complement_group)) {
-					$this->price_aditional+=$complement_group->price;
-				}
-			}
-		} else {
-			$complement_group=ComplementGroup::where('id', $this->extra[$this->current])->first();
-			if (!is_null($complement_group)) {
-				$this->price_aditional=$complement_group->price;
+	public function next($data=NULL) {
+		if (!is_null($data)) {
+			$extras_error=$this->extras($data['complements']);
+			if ($extras_error) {
+				return true;
 			}
 		}
-	}
 
-	public function extras() {
-		// $complement_group=ComplementGroup::where('id', $this->extra[$this->current])->first();
-		if (!empty($this->extra)) {
-			$count=count($this->extras);
-			$this->extras[$count]=$this->extra[$this->current];
-			$this->extra=[];
-		}
-	}
-
-	public function next() {
-		// $data = $this->validate([
-  		//    'extra' => 'required.array'
-  		// ]);
-
-        // dd($data);
-
-		$this->extras();
 		$this->price=$this->price+$this->price_aditional;
 		$this->price_aditional=0.00;
 
@@ -117,21 +85,27 @@ class ProductModal extends Component
 		$this->current--;
 		$this->current_step--;
 		$this->undo=($this->current>0) ? true : false;
-		$this->finish=($this->current_step==$this->steps) ? true : false;
+		$this->finish=false;
 
-
-
-		// if (!empty($this->extra)) {
-		// 	$count=count($this->extras);
-		// 	$this->extras[$count]=$this->extra[$this->current];
-		// 	$this->extra=[];
-		// }		
-		// $this->price=$this->price+$this->price_aditional;
-		// $this->price_aditional=0.00;
+		$this->price=$this->product->price;
+		$this->price_aditional=0.00;
+		for ($i=0; $i < $this->current; $i++) {
+			$price_error=$this->price($this->extras[$i]);
+			if ($price_error) {
+				return true;
+			}
+		}
+		$this->price=$this->price+$this->price_aditional;
+		$this->price_aditional=0.00;
 	}
 
-	public function add() {
-		$this->extras();
+	public function add($data=NULL) {
+		if (!is_null($data)) {
+			$extras_error=$this->extras($data['complements']);
+			if ($extras_error) {
+				return true;
+			}
+		}
 
 		if (!is_null($this->product)) {
 			$this->addCart($this->product, $this->extras);
@@ -140,5 +114,33 @@ class ProductModal extends Component
 		$this->emit('cartCounterHeader');
 		$this->emit('cartCard');
 		$this->close();
+	}
+
+	public function extras($data) {
+		$this->price_aditional=0.00;
+		$price_error=$this->price($data);
+		if ($price_error) {
+			return true;
+		}
+		$count=count($this->extras);
+		$this->extras[$count]=$data;
+		return false;
+	}
+
+	public function price($data) {
+		$price=0.00;
+		foreach ($data as $value) {
+			$complement_group=ComplementGroup::where([['id', $value], ['state', '!=', '2'], ['state', '!=', '3']])->first();
+			if (!is_null($complement_group)) {
+				$price+=$complement_group->price;
+			} else {
+				session()->flash('type', 'error');
+				session()->flash('title', 'Complemento No Disponible');
+				session()->flash('msg', 'Ha ocurrido un error durante el proceso, intentelo nuevamente.');
+				return true;
+			}
+		}
+		$this->price_aditional+=$price;
+		return false;
 	}
 }

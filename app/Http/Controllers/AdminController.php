@@ -9,6 +9,8 @@ use App\Models\Group\Group;
 use App\Models\Complement;
 use App\Models\Agency;
 use App\Models\Attribute;
+use App\Models\Order\Order;
+use App\Models\Payment\Payment;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +32,10 @@ class AdminController extends Controller
         $complements=Complement::count();
         $agencies=Agency::count();
         $attributes=Attribute::count();
-        return view('admin.home', compact('users', 'customers', 'categories', 'products', 'groups', 'complements', 'agencies', 'attributes'));
+        $orders_confirms=Order::where('state', '1')->count();
+        $orders_pendings=Order::where('state', '2')->count();
+        $payments=Payment::count();
+        return view('admin.home', compact('users', 'customers', 'categories', 'products', 'groups', 'complements', 'agencies', 'attributes', 'orders_confirms', 'orders_pendings', 'payments'));
     }
 
     public function profile() {

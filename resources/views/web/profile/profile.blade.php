@@ -175,7 +175,6 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('/admins/vendor/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/lazyload/lazyload.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/dropify/dropify.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/table/datatable/datatables.js') }}"></script>

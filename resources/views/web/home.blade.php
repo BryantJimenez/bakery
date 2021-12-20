@@ -26,7 +26,6 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('/admins/vendor/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/lazyload/lazyload.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/admins/vendor/sticky-sidebar/sticky_sidebar.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>

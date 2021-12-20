@@ -123,7 +123,3 @@
 <div id="toTop"></div>
 
 @endsection
-
-@section('scripts')
-<script src="{{ asset('/admins/vendor/mcustomscrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-@endsection

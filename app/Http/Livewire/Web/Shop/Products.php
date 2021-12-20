@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Web\Shop;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,11 +14,11 @@ class Products extends Component
 
 	public $category;
     public $currency=NULL;
-	protected $paginationTheme='bootstrap';
+    protected $paginationTheme='bootstrap';
 
-	protected $listeners=['categoryProducts' => 'category'];
+    protected $listeners=['categoryProducts' => 'category'];
 
-	public function mount($category)
+    public function mount($category)
     {
         $setting=Setting::with(['currency'])->first();
         if (!is_null($setting)) {
@@ -30,11 +31,11 @@ class Products extends Component
     {
     	$products=[];
         $category_name='';
-    	$category=Category::where('slug', $this->category)->first();
-    	if (!is_null($category)) {
+        $category=Category::where('slug', $this->category)->first();
+        if (!is_null($category)) {
             $category_name=$category->name;
-    		$products=$category->products()->with(['groups.attribute'])->paginate(12);
-    	}
+            $products=$category->products()->with(['groups.attribute'])->paginate(12);
+        }
         return view('livewire.web.shop.products', compact('category_name', 'products'));
     }
 
@@ -44,6 +45,13 @@ class Products extends Component
     }
 
     public function modal($product) {
-        $this->emit('productModal', $product);
+        $product=Product::with(['category', 'groups.complements'])->where('slug', $product)->first();
+        if (!is_null($product)) {
+            $this->emit('productModal', $product->id);
+        } else {
+            session()->flash('type', 'error');
+            session()->flash('title', 'Producto No Encontrado');
+            session()->flash('msg', 'Ha ocurrido un error durante el proceso, intentelo nuevamente.');
+        }
     }
 }

@@ -164,7 +164,11 @@ return [
         'route'                 => 'ruta',
         'symbol'                => 'simbolo',
         'currency_id'           => 'moneda',
-        'privacity'             => 'políticas de privacidad'
+        'privacity'             => 'políticas de privacidad',
+        'agency_id'             => 'agencia',
+        'payment'               => 'método de pago',
+        'stripeToken'           => 'token de stripe',
+        'shipping'              => 'método de entrega'
     ],
 ];
 ?>

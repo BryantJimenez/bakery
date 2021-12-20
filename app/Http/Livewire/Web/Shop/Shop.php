@@ -22,22 +22,24 @@ class Shop extends Component
 
 	public function products($category) {
 		$category=Category::with(['products'])->where('slug', $category)->first();
-		$this->align='left';
-		$this->undo=true;
-		$this->history='home';
-		$this->view='products';
-		$this->title=$category->name;
-		$this->category=$category->slug;
-		$this->emit('categoryProducts', $category->slug);
+		if (!is_null($category)) {
+			$this->align='left';
+			$this->undo=true;
+			$this->history='home';
+			$this->view='products';
+			$this->title=$category->name;
+			$this->category=$category->slug;
+			$this->emit('categoryProducts', $category->slug);
+		} else {
+            session()->flash('type', 'error');
+            session()->flash('title', 'Categoría No Encontrada');
+            session()->flash('msg', 'Ha ocurrido un error durante el proceso, intentelo nuevamente.');
+        }
 		$this->dispatchBrowserEvent('contentChanged');
 	}
 
 	public function undo($history) {
-		$this->align='center';
-		$this->undo=false;
-		$this->history='';
-		$this->title="Categorías";
-		$this->view='categories';
+		$this->reset();
 		$this->dispatchBrowserEvent('contentChanged');
 	}
 }

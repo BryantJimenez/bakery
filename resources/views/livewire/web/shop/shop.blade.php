@@ -31,4 +31,6 @@
 	<div wire:loading wire:target="undo">
 		@include("web.partials.livewire_loader")
 	</div>
+
+	@include('web.partials.notifications')
 </div>
