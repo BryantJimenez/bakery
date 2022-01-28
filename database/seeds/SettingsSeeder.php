@@ -13,7 +13,7 @@ class SettingsSeeder extends Seeder
     {
         $text="<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>";
         $settings = [
-    		['id' => 1, 'terms' => $text, 'privacity' => $text, 'stripe_public' => 'pk_test_51K6kOMF1nDrlZowxrw8mhkZrU3THtX2tN5deSEzgyL3CV1qN8dlKNulL5oeqUb3Socl3eMowG21euJAbN3A30sLB00a8k9ccpD', 'stripe_secret' => 'sk_test_51K6kOMF1nDrlZowxVrdCsveoCBJYHKMmdou0utST9mNai7MNoJNyBQkjWtjRHaQSyqAwzxHzbS7Qibsvrh7cBcyf00iuu96tgi', 'currency_id' => 1]
+    		['id' => 1, 'terms' => $text, 'privacity' => $text, 'stripe_public' => 'pk_test_51K6kOMF1nDrlZowxv9Jw54ON3rnaowbUDqnuFzpN1tzhtoXCoxotte68mKC27dePm9rt2qx8BuK2a3CqrwQzubb0002k6iVTLR', 'stripe_secret' => 'sk_test_51K6kOMF1nDrlZowx2KkvhZA96arzFYrMA2ksAzdyGrXQhJnY4hXgCLVr0LnjQ8JLs3aqqLuSNNMLU8s1Ov7h7iTm003OdjR3ak', 'currency_id' => 1]
     	];
     	DB::table('settings')->insert($settings);
     }
