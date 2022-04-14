@@ -2,9 +2,9 @@
 
 function state($state, $badge=true) {
 	if ($badge) {
-		if ($state=='Inactivo') {
+		if ($state==trans('admin.values_attributes.states.inactive')) {
 			return '<span class="badge badge-danger">'.$state.'</span>';
-		} elseif ($state=='Activo') {
+		} elseif ($state==trans('admin.values_attributes.states.active')) {
 			return '<span class="badge badge-success">'.$state.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$state.'</span>';
@@ -14,11 +14,11 @@ function state($state, $badge=true) {
 
 function stateProduct($state, $badge=true) {
 	if ($badge) {
-		if ($state=='Inactivo') {
+		if ($state==trans('admin.values_attributes.states.inactive')) {
 			return '<span class="badge badge-danger">'.$state.'</span>';
-		} elseif ($state=='Agotado' || $state=='No Disponible') {
+		} elseif ($state==trans('admin.values_attributes.states.products.out of stock') || $state==trans('admin.values_attributes.states.products.not available')) {
 			return '<span class="badge badge-warning">'.$state.'</span>';
-		} elseif ($state=='Activo') {
+		} elseif ($state==trans('admin.values_attributes.states.active')) {
 			return '<span class="badge badge-success">'.$state.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$state.'</span>';
@@ -29,36 +29,36 @@ function stateProduct($state, $badge=true) {
 function stateComplement($state, $badge=true) {
 	if ($badge) {
 		if ($state=='0') {
-			return '<span class="badge badge-danger">No Visible</span>';
+			return '<span class="badge badge-danger">'.trans('admin.values_attributes.states.complements.not visible').'</span>';
 		} elseif ($state=='3') {
-			return '<span class="badge badge-warning">Agotado</span>';
+			return '<span class="badge badge-warning">'.trans('admin.values_attributes.states.complements.out of stock').'</span>';
 		} elseif ($state=='2') {
-			return '<span class="badge badge-warning">No Disponible</span>';
+			return '<span class="badge badge-warning">'.trans('admin.values_attributes.states.complements.not available').'</span>';
 		} elseif ($state=='1') {
-			return '<span class="badge badge-success">Disponible</span>';
+			return '<span class="badge badge-success">'.trans('admin.values_attributes.states.complements.available').'</span>';
 		}
-		return '<span class="badge badge-dark">Desconocido</span>';
+		return '<span class="badge badge-dark">'.trans('admin.values_attributes.unknown').'</span>';
 	} else {
 		if ($state=='0') {
-			return 'No Visible';
+			return trans('admin.values_attributes.states.complements.not visible');
 		} elseif ($state=='3') {
-			return 'Agotado';
+			return trans('admin.values_attributes.states.complements.out of stock');
 		} elseif ($state=='2') {
-			return 'No Disponible';
+			return trans('admin.values_attributes.states.complements.not available');
 		} elseif ($state=='1') {
-			return 'Disponible';
+			return trans('admin.values_attributes.states.complements.available');
 		}
-		return 'Desconocido';
+		return trans('admin.values_attributes.unknown');
 	}
 }
 
 function stateOrder($state, $badge=true) {
 	if ($badge) {
-		if ($state=='Rechazado') {
+		if ($state==trans('admin.values_attributes.states.orders.rejected')) {
 			return '<span class="badge badge-danger">'.$state.'</span>';
-		} elseif ($state=='En Espera') {
+		} elseif ($state==trans('admin.values_attributes.states.orders.waiting')) {
 			return '<span class="badge badge-warning">'.$state.'</span>';
-		} elseif ($state=='Confirmado') {
+		} elseif ($state==trans('admin.values_attributes.states.orders.confirmed')) {
 			return '<span class="badge badge-success">'.$state.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$state.'</span>';
@@ -68,11 +68,11 @@ function stateOrder($state, $badge=true) {
 
 function statePayment($state, $badge=true) {
 	if ($badge) {
-		if ($state=='Rechazado') {
+		if ($state==trans('admin.values_attributes.states.payments.rejected')) {
 			return '<span class="badge badge-danger">'.$state.'</span>';
-		} elseif ($state=='Pendiente') {
+		} elseif ($state==trans('admin.values_attributes.states.payments.pending')) {
 			return '<span class="badge badge-warning">'.$state.'</span>';
-		} elseif ($state=='Confirmado') {
+		} elseif ($state==trans('admin.values_attributes.states.payments.confirmed')) {
 			return '<span class="badge badge-success">'.$state.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$state.'</span>';
@@ -98,9 +98,9 @@ function roleUser($user, $badge=true) {
 		}
 	} else {
 		if ($badge) {
-			return '<span class="badge badge-dark">Desconocido</span>';
+			return '<span class="badge badge-dark">'.trans('admin.values_attributes.unknown').'</span>';
 		} else {
-			return 'Desconocido';
+			return trans('admin.values_attributes.unknown');
 		}
 	}
 }
@@ -252,7 +252,7 @@ function cartComplements($complements) {
 
 function typeDelivery($type, $badge=true) {
 	if ($badge) {
-		if ($type=='Comer en el Lugar' || $type=='Recoger para Llevar' || $type=='A Domicilio') {
+		if ($type==trans('admin.values_attributes.types_delivery.orders.eat on site') || $type==trans('admin.values_attributes.types_delivery.orders.to take away') || $type==trans('admin.values_attributes.types_delivery.orders.delivery')) {
 			return '<span class="badge badge-primary">'.$type.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$type.'</span>';
@@ -262,7 +262,7 @@ function typeDelivery($type, $badge=true) {
 
 function methodPayment($method, $badge=true) {
 	if ($badge) {
-		if ($method=='Tarjeta') {
+		if ($method==trans('admin.values_attributes.methods.card')) {
 			return '<span class="badge badge-primary">'.$method.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$method.'</span>';

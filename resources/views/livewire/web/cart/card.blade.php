@@ -1,7 +1,7 @@
 <div>
 	<div class="box_order mobile_fixed">
 		<div class="head">
-			<h3>Resumen del Pedido</h3>
+			<h3>@lang('web.cart.card.title')</h3>
 			<a href="javascript:void(0);" class="close_panel_mobile"><i class="icon_close"></i></a>
 		</div>
 		<div class="main">
@@ -38,20 +38,20 @@
 					</ul>
 				</li>
 				@empty
-				<li class="text-danger text-center font-weight-bold my-2">Pedido Vacío</li>
+				<li class="text-danger text-center font-weight-bold my-2">@lang('web.cart.card.empty')</li>
 				@endforelse
 			</ul>
 			<ul class="clearfix">
-				<li>Subtotal<span>{{ number_format($subtotal, 2, ",", ".").currencySymbol($currency) }}</span></li>
-				<li>Delivery<span>{{ number_format($delivery, 2, ",", ".").currencySymbol($currency) }}</span></li>
-				<li class="total">Total<span>{{ number_format($total, 2, ",", ".").currencySymbol($currency) }}</span></li>
+				<li>@lang('web.cart.card.subtotal')<span>{{ number_format($subtotal, 2, ",", ".").currencySymbol($currency) }}</span></li>
+				<li>@lang('web.cart.card.delivery')<span>{{ number_format($delivery, 2, ",", ".").currencySymbol($currency) }}</span></li>
+				<li class="total">@lang('web.cart.card.total')<span>{{ number_format($total, 2, ",", ".").currencySymbol($currency) }}</span></li>
 			</ul>
 			<div class="btn_1_mobile">
-				<a href="{{ route('web.checkout') }}" class="btn_1 gradient full-width mb_5">Pedir Ahora</a>
+				<a href="{{ route('web.checkout') }}" class="btn_1 gradient full-width mb_5">@lang('web.cart.card.buttons.checkout')</a>
 			</div>
 		</div>
 	</div>
 	<div class="btn_reserve_fixed">
-		<a href="javascript:void(0);" class="btn_1 gradient full-width">Ver Pedido</a>
+		<a href="javascript:void(0);" class="btn_1 gradient full-width">@lang('web.cart.card.buttons.mobile')</a>
 	</div>
 </div>

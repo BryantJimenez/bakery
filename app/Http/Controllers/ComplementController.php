@@ -46,9 +46,9 @@ class ComplementController extends Controller
                 $complement->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El complemento ha sido registrado exitosamente.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.store'), 'msg' => trans('admin.notifications.success.messages.complements.store')]);
         } else {
-            return redirect()->route('complements.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('complements.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.store'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 
@@ -91,9 +91,9 @@ class ComplementController extends Controller
                 $complement->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El complemento ha sido editado exitosamente.']);
+            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.complements.update')]);
         } else {
-            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('complements.edit', ['complement' => $complement->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -106,27 +106,27 @@ class ComplementController extends Controller
     public function destroy(Complement $complement) {
         $complement->delete();
         if ($complement) {
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El complemento ha sido eliminado exitosamente.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.destroy'), 'msg' => trans('admin.notifications.success.messages.complements.destroy')]);
         } else {
-            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.destroy'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function deactivate(Request $request, Complement $complement) {
         $complement->fill(['state' => "0"])->save();
         if ($complement) {
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El complemento ha sido desactivado exitosamente.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.complements.deactivate')]);
         } else {
-            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function activate(Request $request, Complement $complement) {
         $complement->fill(['state' => "1"])->save();
         if ($complement) {
-            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El complemento ha sido activado exitosamente.']);
+            return redirect()->route('complements.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.complements.activate')]);
         } else {
-            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('complements.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 }

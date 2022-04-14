@@ -41,13 +41,13 @@ class MessageContactNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject('Mensaje de Contacto')
-        ->greeting('Hola, recibes este mensaje desde el formulario de la página web:')
-        ->line('Nombre: '.$notifiable->name)
-        ->line('Email: '.$notifiable->email_contact)
-        ->line('Asunto: '.$notifiable->subject)
-        ->line('Mensaje: '.$notifiable->message)
-        ->salutation('Saludos, '.config('app.name'));
+        ->subject(trans('emails.contact.subject'))
+        ->greeting(trans('emails.contact.greeting'))
+        ->line(trans('emails.contact.name').': '.$notifiable->name)
+        ->line(trans('emails.contact.email').': '.$notifiable->email_contact)
+        ->line(trans('emails.contact.case').': '.$notifiable->subject)
+        ->line(trans('emails.contact.message').': '.$notifiable->message)
+        ->salutation(trans('emails.salutation', ['name' => config('app.name')]));
     }
 
     /**

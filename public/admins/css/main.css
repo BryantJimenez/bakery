@@ -2632,3 +2632,35 @@ label.error {
   height: 150px;
   object-fit: cover;
 }
+
+.iti {
+  display: block !important;
+}
+
+#app .w-4 {
+  width: 1rem;
+}
+
+#app .h-4 {
+  height: 1rem;
+}
+
+#app .fill-current {
+  fill: currentColor;
+}
+
+#app .cursor-pointer {
+  cursor: pointer;
+}
+
+#app .table .flex {
+  display: flex;
+  align-items: center;
+}
+
+#app .table .flex textarea {
+  border: 1px solid #000000;
+  outline: none;
+  padding: .5rem .75rem;
+  min-height: 40px;
+}

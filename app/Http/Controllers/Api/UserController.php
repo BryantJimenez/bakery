@@ -175,10 +175,10 @@ class UserController extends ApiController
             $user=User::with(['roles'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
 
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'El usuario ha sido registrado exitosamente.', 'data' => $user], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.users.store'), 'data' => $user], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -329,10 +329,10 @@ class UserController extends ApiController
             $user=User::with(['roles'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
 
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El usuario ha sido editado exitosamente.', 'data' => $user], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.users.update'), 'data' => $user], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -384,10 +384,10 @@ class UserController extends ApiController
     {
     	$user->delete();
     	if ($user) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El usuario ha sido eliminado exitosamente.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.users.destroy')], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -439,10 +439,10 @@ class UserController extends ApiController
     	$user->fill(['state' => "0"])->save();
     	if ($user) {
     		$user=$this->dataUser($user);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El usuario ha sido desactivado exitosamente.', 'data' => $user], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.users.deactivate'), 'data' => $user], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -494,9 +494,9 @@ class UserController extends ApiController
     	$user->fill(['state' => "1"])->save();
     	if ($user) {
     		$user=$this->dataUser($user);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El usuario ha sido activado exitosamente.', 'data' => $user], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.users.activate'), 'data' => $user], 200);
     	}
         
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

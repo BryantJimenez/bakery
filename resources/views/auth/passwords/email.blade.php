@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Recuperar Contraseña')
+@section('title', trans('auth.email.title'))
 
 @section('content')
 
@@ -17,14 +17,14 @@
       @include('admin.partials.errors')
 
       <div class="form-group">
-        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="Email"  autocomplete="email" autofocus value="{{ old('email') }}" minlength="5" maxlength="191">
+        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="@lang('form.email.label')" autocomplete="email" autofocus value="{{ old('email') }}" minlength="5" maxlength="191">
         <i class="icon_mail_alt"></i>
       </div>
       <div id="pass-info" class="clearfix"></div>
-      <button type="submit" class="btn_1 gradient full-width" action="recovery">Enviar</button>
-      <div class="text-center mt-2"><small>¿No tienes cuenta? <strong><a href="{{ route('register') }}">Regístrate</a></strong></small></div>
+      <button type="submit" class="btn_1 gradient full-width" action="recovery">@lang('auth.email.button')</button>
+      <div class="text-center mt-2"><small>@lang('auth.email.register.text') <strong><a href="{{ route('register') }}">@lang('auth.email.register.button')</a></strong></small></div>
     </form>
-    <div class="copy">© {{ date('Y') }} Tiendita</div>
+    <div class="copy">© {{ date('Y') }} @lang('admin.name')</div>
   </aside>
 </div>
 

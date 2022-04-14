@@ -45,9 +45,9 @@ class GroupController extends Controller
         $group=Group::create($data);
 
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El grupo ha sido registrado exitosamente.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.store'), 'msg' => trans('admin.notifications.success.messages.groups.store')]);
         } else {
-            return redirect()->route('groups.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('groups.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.store'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 
@@ -85,9 +85,9 @@ class GroupController extends Controller
         $group->fill($data)->save();
 
         if ($group) {
-            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El grupo ha sido editado exitosamente.']);
+            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.groups.update')]);
         } else {
-            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('groups.edit', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -100,27 +100,27 @@ class GroupController extends Controller
     public function destroy(Group $group) {
         $group->delete();
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El grupo ha sido eliminado exitosamente.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.destroy'), 'msg' => trans('admin.notifications.success.messages.groups.destroy')]);
         } else {
-            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.destroy'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function deactivate(Request $request, Group $group) {
         $group->fill(['state' => "0"])->save();
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El grupo ha sido desactivado exitosamente.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.groups.deactivate')]);
         } else {
-            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function activate(Request $request, Group $group) {
         $group->fill(['state' => "1"])->save();
         if ($group) {
-            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El grupo ha sido activado exitosamente.']);
+            return redirect()->route('groups.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.groups.activate')]);
         } else {
-            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('groups.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -146,9 +146,9 @@ class GroupController extends Controller
         }
 
         if ($assign) {
-            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'Los complementos han sido asignados exitosamente.']);
+            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.groups.assign')]);
         } else {
-            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('groups.assign', ['group' => $group->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 

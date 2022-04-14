@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Finalizar Compra')
+@section('title', trans('web.checkout.title'))
 
 @section('links')
 <link href="{{ asset('/web/css/template/home.css') }}" rel="stylesheet">
@@ -20,14 +20,14 @@
 					<div class="box_order_form">
 						<div class="head">
 							<div class="title">
-								<h3>Ingresa A Tu Cuenta</h3>
+								<h3>@lang('web.checkout.login.title')</h3>
 							</div>
 						</div>
 						<div class="main">
 							<div class="row">
 								<div class="col-12">
-									<p class="mb-1">Para finalizar el pedido ingresa a tu cuenta</p>
-									<a href="{{ route('login') }}" class="btn_1 mb-3">Ingresar</a>
+									<p class="mb-1">@lang('web.checkout.login.description')</p>
+									<a href="{{ route('login') }}" class="btn_1 mb-3">@lang('web.checkout.login.button')</a>
 								</div>
 							</div>
 						</div>
@@ -38,14 +38,14 @@
 					<div class="box_order_form">
 						<div class="head">
 							<div class="title">
-								<h3>Crea Tu Cuenta</h3>
+								<h3>@lang('web.checkout.register.title')</h3>
 							</div>
 						</div>
 						<div class="main">
 							<div class="row">
 								<div class="col-12">
-									<p class="mb-1">Si aun no tienes una cuenta</p>
-									<a href="{{ route('register') }}" class="btn_1 mb-3">Registrate</a>
+									<p class="mb-1">@lang('web.checkout.login.description')</p>
+									<a href="{{ route('register') }}" class="btn_1 mb-3">@lang('web.checkout.login.button')</a>
 								</div>
 							</div>
 						</div>
@@ -58,7 +58,7 @@
 				<div class="box_order_form">
 					<div class="head">
 						<div class="title">
-							<h3>Detalles Personales</h3>
+							<h3>@lang('web.checkout.personal details')</h3>
 						</div>
 					</div>
 					<div class="main">
@@ -68,42 +68,42 @@
 							</div>
 
 							<div class="form-group col-12">
-								<label>Nombre Completo</label>
+								<label>@lang('form.fullname.label')</label>
 								<input type="text" class="form-control" disabled value="{{ Auth::user()->name." ".Auth::user()->lastname }}">
 							</div>
 							<div class="form-group col-lg-6 col-md-6 col-12">
-								<label>Email</label>
+								<label>@lang('form.email.label')</label>
 								<input type="email" class="form-control" disabled value="{{ Auth::user()->email }}">
 							</div>
 							<div class="form-group col-lg-6 col-md-6 col-12">
-								<label>Teléfono</label>
-								<input type="text" class="form-control int @error('phone') is-invalid @enderror" name="phone" required placeholder="Introduzca un teléfono" value="{{ Auth::user()->phone }}">
+								<label>@lang('form.phone.label')</label>
+								<input type="text" class="form-control int @error('phone') is-invalid @enderror" name="phone" required placeholder="@lang('form.phone.placeholder')" value="{{ Auth::user()->phone }}">
 							</div>
 						</div>	
 					</div>
 
 					<div class="head">
 						<div class="title">
-							<h3>Método de Entrega</h3>
+							<h3>@lang('web.checkout.shipping.title')</h3>
 						</div>
 					</div>
 					<div class="main">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-12">
-								<label class="container_radio">Consumo en el Sitio
+								<label class="container_radio">@lang('form.delivery.options.eat on site')
 									<label for="shipping"></label>
 									<input type="radio" value="1" name="shipping" required @if(is_null(old('shipping')) || old('shipping')=='1') checked @endif>
 									<span class="checkmark"></span>
 								</label>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<label class="container_radio">Para Llevar
+								<label class="container_radio">@lang('form.delivery.options.to take away')
 									<input type="radio" value="2" name="shipping" required @if(old('shipping')=='2') checked @endif>
 									<span class="checkmark"></span>
 								</label>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
-								<label class="container_radio">Entrega a Domicilio
+								<label class="container_radio">@lang('form.delivery.options.delivery')
 									<input type="radio" value="3" name="shipping" required @if(old('shipping')=='3') checked @endif>
 									<span class="checkmark"></span>
 								</label>
@@ -112,9 +112,9 @@
 							<div class="col-12 @if(old('shipping')!='3') d-none @endif" id="shippingCheckout">
 								<div class="row">
 									<div class="form-group col-12">
-										<label>¿Dónde lo Enviamos?</label>
+										<label>@lang('web.checkout.shipping.label')</label>
 										<select class="form-control @error('agency_id') is-invalid @enderror" name="agency_id" required @if(old('shipping')!='3') disabled @endif>
-											<option value="">Seleccione</option>
+											<option value="">@lang('form.select.select')</option>
 											@foreach($agencies as $agency)
 											<option value="{{ $agency->slug }}" @if(old('agency_id')==$agency->slug) selected @endif>{{ "[".number_format($agency->price, 2, ',', '.').$setting['currency']->symbol."] (".$agency->name.") ".$agency->route }}</option>
 											@endforeach
@@ -122,8 +122,8 @@
 									</div>
 
 									<div class="form-group col-12">
-										<label>Dirección Completa</label>
-										<input type="text" class="form-control @error('address') is-invalid @enderror" name="address" required @if(old('shipping')!='3') disabled @endif placeholder="Introduzca una dirección completa" value="@if(is_null(old('address'))){{ Auth::user()->address }}@else{{ old('address') }}@endif">
+										<label>@lang('form.full address.label')</label>
+										<input type="text" class="form-control @error('address') is-invalid @enderror" name="address" required @if(old('shipping')!='3') disabled @endif placeholder="@lang('form.full address.placeholder')" value="@if(is_null(old('address'))){{ Auth::user()->address }}@else{{ old('address') }}@endif">
 									</div>
 								</div>
 							</div>
@@ -132,14 +132,14 @@
 
 					<div class="head">
 						<div class="title">
-							<h3>Método de Pago</h3>
+							<h3>@lang('web.checkout.payment')</h3>
 						</div>
 					</div>
 					<div class="main">
 						<div class="row">
 							@if(!empty($setting->stripe_public) && !is_null($setting->stripe_public) && !empty($setting->stripe_secret) && !is_null($setting->stripe_secret))
 							<div class="col-lg-4 col-md-4 col-12">
-								<label class="container_radio">Tarjeta <i class="icon_creditcard"></i>
+								<label class="container_radio">@lang('admin.values_attributes.methods.card') <i class="icon_creditcard"></i>
 									<input type="radio" value="1" name="payment" required @if(is_null(old('payment')) || old('payment')==1) checked @endif>
 									<span class="checkmark"></span>
 								</label>
@@ -152,7 +152,7 @@
 							@endif
 
 							<div class="col-12">
-								<button type="submit" class="btn_1 gradient full-width mb_5" action="checkout">Comprar</button>
+								<button type="submit" class="btn_1 gradient full-width mb_5" action="checkout">@lang('web.checkout.button')</button>
 							</div>
 						</div>
 					</div>

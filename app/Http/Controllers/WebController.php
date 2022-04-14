@@ -41,12 +41,12 @@ class WebController extends Controller
     public function checkoutStore(CheckoutBuyRequest $request) {
         $setting=Setting::with(['currency'])->firstOrFail();
         if (is_null($setting['currency'])) {
-            return redirect()->back()->with(['type' => 'error', 'title' => 'Compra fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->back()->with(['type' => 'error', 'title' => trans('web.notifications.error.titles.buy'), 'msg' => trans('admin.notifications.error.500')]);
         }
 
         $counter=$this->counterCart();
         if ($counter==0) {
-            return redirect()->back()->with(['type' => 'warning', 'title' => 'Carrito Vacío', 'msg' => 'El carrito no tiene ningun producto.']);
+            return redirect()->back()->with(['type' => 'warning', 'title' => trans('web.notifications.error.titles.cart'), 'msg' => trans('web.notifications.error.messages.cart')]);
         }
 
         $subject='Compra de productos.';
@@ -60,7 +60,7 @@ class WebController extends Controller
 
         $result=$this->stripePayment($request, $total, $subject, strtolower($setting['currency']->iso));
         if ($result['status']=='error') {
-            return redirect()->back()->with(['type' => 'error', 'title' => 'Compra fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->back()->with(['type' => 'error', 'title' => trans('web.notifications.error.titles.buy'), 'msg' => trans('admin.notifications.error.500')]);
         }
 
         $fee=$this->stripeFee($result['data']['balance_transaction']);
@@ -116,11 +116,11 @@ class WebController extends Controller
                 }
 
                 $this->clearCart();
-                return redirect()->route('web.profile')->with(['type' => 'success', 'title' => 'Compra exitosa', 'msg' => 'La compra ha sido completada exitosamente.']);
+                return redirect()->route('web.profile')->with(['type' => 'success', 'title' => trans('web.notifications.success.titles.buy'), 'msg' => trans('web.notifications.success.messages.buy')]);
             }
         }
 
-        return redirect()->back()->with(['type' => 'error', 'title' => 'Compra fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+        return redirect()->back()->with(['type' => 'error', 'title' => trans('web.notifications.error.titles.buy'), 'msg' => trans('admin.notifications.error.500')]);
     }
 
     public function profile() {
@@ -156,9 +156,9 @@ class WebController extends Controller
             if (!is_null(request('password'))) {
                 Auth::user()->password=Hash::make(request('password'));
             }
-            return redirect()->back()->with(['type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El perfil ha sido editado exitosamente.', 'tabs' => 'setting']);
+            return redirect()->back()->with(['type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.profile.update'), 'tabs' => 'setting']);
         } else {
-            return redirect()->back()->with(['type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.', 'tabs' => 'setting'])->withInputs();
+            return redirect()->back()->with(['type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500'), 'tabs' => 'setting'])->withInputs();
         }
     }
 

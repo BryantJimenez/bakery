@@ -34,18 +34,18 @@ class OrderController extends Controller
     public function reject(Request $request, Order $order) {
         $order->fill(['state' => "0"])->save();
         if ($order) {
-            return redirect()->route('orders.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El pedido ha sido rechazado exitosamente.']);
+            return redirect()->route('orders.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.orders.reject')]);
         } else {
-            return redirect()->route('orders.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('orders.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function confirm(Request $request, Order $order) {
         $order->fill(['state' => "1"])->save();
         if ($order) {
-            return redirect()->route('orders.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El pedido ha sido confirmado exitosamente.']);
+            return redirect()->route('orders.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.orders.confirm')]);
         } else {
-            return redirect()->route('orders.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('orders.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 }

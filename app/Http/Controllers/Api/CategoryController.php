@@ -106,7 +106,7 @@ class CategoryController extends ApiController
             $category=Category::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $category->restore();
         } else if ($exist) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'Esta categoría ya existe.'], 500);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.category')], 422);
         } else {
             $category=Category::create(['name' => request('name')]);
         }
@@ -114,10 +114,10 @@ class CategoryController extends ApiController
         if ($category) {
             $category=Category::where('id', $category->id)->first();
             $category=$this->dataCategory($category);
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'La categoría ha sido registrada exitosamente.', 'data' => $category], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.categories.store'), 'data' => $category], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -225,10 +225,10 @@ class CategoryController extends ApiController
         if ($category) {
             $category=Category::where('id', $category->id)->first();
             $category=$this->dataCategory($category);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La categoría ha sido editada exitosamente.', 'data' => $category], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.categories.update'), 'data' => $category], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -280,10 +280,10 @@ class CategoryController extends ApiController
     {
     	$category->delete();
     	if ($category) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La categoría ha sido eliminada exitosamente.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.categories.destroy')], 200);
     	}
 
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -335,10 +335,10 @@ class CategoryController extends ApiController
     	$category->fill(['state' => "0"])->save();
     	if ($category) {
             $category=$this->dataCategory($category);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La categoría ha sido desactivada exitosamente.', 'data' => $category], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.categories.deactivate'), 'data' => $category], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -390,9 +390,9 @@ class CategoryController extends ApiController
     	$category->fill(['state' => "1"])->save();
     	if ($category) {
     		$category=$this->dataCategory($category);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La categoría ha sido activada exitosamente.', 'data' => $category], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.categories.activate'), 'data' => $category], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

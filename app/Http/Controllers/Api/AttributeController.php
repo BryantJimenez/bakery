@@ -106,7 +106,7 @@ class AttributeController extends ApiController
             $attribute=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $attribute->restore();
         } else if ($exist) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'This attribute already exists.'], 500);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.attribute')], 422);
         } else {
             $attribute=Attribute::create(['name' => request('name')]);
         }
@@ -114,10 +114,10 @@ class AttributeController extends ApiController
         if ($attribute) {
             $attribute=Attribute::where('id', $attribute->id)->first();
             $attribute=$this->dataAttribute($attribute);
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'The attribute has been successfully registered.', 'data' => $attribute], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.attributes.store'), 'data' => $attribute], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -225,10 +225,10 @@ class AttributeController extends ApiController
         if ($attribute) {
             $attribute=Attribute::where('id', $attribute->id)->first();
             $attribute=$this->dataAttribute($attribute);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been edited successfully.', 'data' => $attribute], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.attributes.update'), 'data' => $attribute], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -280,10 +280,10 @@ class AttributeController extends ApiController
     {
     	$attribute->delete();
     	if ($attribute) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully removed.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.attributes.destroy')], 200);
     	}
 
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -335,10 +335,10 @@ class AttributeController extends ApiController
     	$attribute->fill(['state' => "0"])->save();
     	if ($attribute) {
             $attribute=$this->dataAttribute($attribute);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully deactivated.', 'data' => $attribute], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.attributes.deactivate'), 'data' => $attribute], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -390,9 +390,9 @@ class AttributeController extends ApiController
     	$attribute->fill(['state' => "1"])->save();
     	if ($attribute) {
     		$attribute=$this->dataAttribute($attribute);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'The attribute has been successfully activated.', 'data' => $attribute], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.attributes.activate'), 'data' => $attribute], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

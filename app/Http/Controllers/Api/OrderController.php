@@ -146,10 +146,10 @@ class OrderController extends ApiController
     	$order->fill(['state' => "0"])->save();
     	if ($order) {
             $order=$this->dataOrder($order);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El pedido ha sido rechazado exitosamente.', 'data' => $order], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.orders.reject'), 'data' => $order], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -201,9 +201,9 @@ class OrderController extends ApiController
     	$order->fill(['state' => "1"])->save();
     	if ($order) {
     		$order=$this->dataOrder($order);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El pedido ha sido confirmado exitosamente.', 'data' => $order], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.orders.confirm'), 'data' => $order], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

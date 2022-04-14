@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Crear Atributo')
+@section('title', trans('admin.attributes.titles.create'))
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendor/lobibox/Lobibox.min.css') }}">
@@ -15,7 +15,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Crear Atributo</h4>
+						<h4>@lang('admin.attributes.titles.create')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -26,19 +26,19 @@
 
 						@include('admin.partials.errors')
 
-						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
+						<p>@lang('form.required fields') (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('attributes.store') }}" method="POST" class="form" id="formAttribute">
 							@csrf
 							<div class="row">
 								<div class="form-group col-12">
-									<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ old('name') }}">
+									<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
+									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ old('name') }}">
 								</div>
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="attribute">Guardar</button>
-										<a href="{{ route('attributes.index') }}" class="btn btn-secondary">Volver</a>
+										<button type="submit" class="btn btn-primary" action="attribute">@lang('form.buttons.save')</button>
+										<a href="{{ route('attributes.index') }}" class="btn btn-secondary">@lang('form.buttons.back')</a>
 									</div>
 								</div> 
 							</div>

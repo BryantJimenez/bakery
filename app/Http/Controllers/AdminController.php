@@ -72,9 +72,9 @@ class AdminController extends Controller
             if (!is_null(request('password'))) {
                 Auth::user()->password=Hash::make(request('password'));
             }
-            return redirect()->route('profile.edit')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Successful editing', 'msg' => 'The profile has been edited successfully.']);
+            return redirect()->route('profile.edit')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.profile.update')]);
         } else {
-            return redirect()->route('profile.edit')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Failed edit', 'msg' => 'An error occurred during the process, please try again.'])->withInputs();
+            return redirect()->route('profile.edit')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 

@@ -24,15 +24,15 @@ class Product extends Model
     public function getStateAttribute($value)
     {
         if ($value=='3') {
-            return 'Agotado';
+            return trans('admin.values_attributes.states.products.out of stock');
         } elseif ($value=='2') {
-            return 'No Disponible';
+            return trans('admin.values_attributes.states.products.not available');
         } elseif ($value=='1') {
-            return 'Activo';
+            return trans('admin.values_attributes.states.active');
         } elseif ($value=='0') {
-            return 'Inactivo';
+            return trans('admin.values_attributes.states.inactive');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     /**

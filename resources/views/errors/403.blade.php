@@ -1,15 +1,15 @@
 @extends('layouts.error')
 
-@section('title', 'Error 403')
+@section('title', trans('errors.403.title'))
 
 @section('content')
 
 <div class="container-fluid error-content">
 	<div class="">
-		<h1 class="error-number">403</h1>
-		<p class="mini-text">¡Error de prohibición!</p>
-		<p class="error-text mb-4 mt-1">¡No tienes permiso para acceder a este sitio!</p>
-		<a href="{{ route('home') }}" class="btn btn-primary mt-5">Inicio</a>
+		<h1 class="error-number">@lang('errors.403.number')</h1>
+		<p class="mini-text">@lang('errors.403.subtitle')</p>
+		<p class="error-text mb-4 mt-1">@lang('errors.403.text')</p>
+		<a href="{{ route('home') }}" class="btn btn-primary mt-5">@lang('errors.403.button')</a>
 	</div>
 </div>
 

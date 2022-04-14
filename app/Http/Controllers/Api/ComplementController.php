@@ -125,10 +125,10 @@ class ComplementController extends ApiController
             $complement=Complement::where('id', $complement->id)->first();
             $complement=$this->dataComplement($complement);
 
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'El complemento ha sido registrado exitosamente.', 'data' => $complement], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.complements.store'), 'data' => $complement], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -258,10 +258,10 @@ class ComplementController extends ApiController
             $complement=Complement::where('id', $complement->id)->first();
             $complement=$this->dataComplement($complement);
 
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El complemento ha sido editado exitosamente.', 'data' => $complement], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.complements.update'), 'data' => $complement], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -313,10 +313,10 @@ class ComplementController extends ApiController
     {
     	$complement->delete();
     	if ($complement) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El complemento ha sido eliminado exitosamente.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.complements.destroy')], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -368,10 +368,10 @@ class ComplementController extends ApiController
     	$complement->fill(['state' => "0"])->save();
     	if ($complement) {
     		$complement=$this->dataComplement($complement);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El complemento ha sido desactivado exitosamente.', 'data' => $complement], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.complements.deactivate'), 'data' => $complement], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -423,9 +423,9 @@ class ComplementController extends ApiController
     	$complement->fill(['state' => "1"])->save();
     	if ($complement) {
     		$complement=$this->dataComplement($complement);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El complemento ha sido activado exitosamente.', 'data' => $complement], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.complements.activate'), 'data' => $complement], 200);
     	}
         
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

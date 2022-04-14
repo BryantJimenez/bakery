@@ -53,9 +53,9 @@ class CustomerController extends Controller
             }
 
             SendEmailRegister::dispatch($customer->slug);
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El cliente ha sido registrado exitosamente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.store'), 'msg' => trans('admin.notifications.success.messages.customers.store')]);
         } else {
-            return redirect()->route('customers.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('customers.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.store'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 
@@ -67,7 +67,7 @@ class CustomerController extends Controller
      */
     public function show(User $customer) {
         if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.customers.403.title'), 'msg' => trans('admin.notifications.error.messages.customers.403.msg')]);
         }
         return view('admin.customers.show', compact('customer'));
     }
@@ -80,7 +80,7 @@ class CustomerController extends Controller
      */
     public function edit(User $customer) {
         if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.customers.403.title'), 'msg' => trans('admin.notifications.error.messages.customers.403.msg')]);
         }
         return view('admin.customers.edit', compact("customer"));
     }
@@ -94,7 +94,7 @@ class CustomerController extends Controller
      */
     public function update(CustomerUpdateRequest $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.customers.403.title'), 'msg' => trans('admin.notifications.error.messages.customers.403.msg')]);
         }
 
         $data=array('name' => request('name'), 'lastname' => request('lastname'), 'state' => request('state'));
@@ -110,9 +110,9 @@ class CustomerController extends Controller
                 $customer->fill(['photo' => $photo])->save();
             }
 
-            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El cliente ha sido editado exitosamente.']);
+            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.customers.update')]);
         } else {
-            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('customers.edit', ['customer' => $customer->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -125,40 +125,40 @@ class CustomerController extends Controller
     public function destroy(User $customer)
     {
         if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.customers.403.title'), 'msg' => trans('admin.notifications.error.messages.customers.403.msg')]);
         }
 
         $customer->delete();
         if ($customer) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El cliente ha sido eliminado exitosamente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.destroy'), 'msg' => trans('admin.notifications.success.messages.customers.destroy')]);
         } else {
-            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.destroy'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function deactivate(Request $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.customers.403.title'), 'msg' => trans('admin.notifications.error.messages.customers.403.msg')]);
         }
 
         $customer->fill(['state' => "0"])->save();
         if ($customer) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El cliente ha sido desactivado exitosamente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.customers.deactivate')]);
         } else {
-            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function activate(Request $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => 'El usuario no es un cliente', 'msg' => 'Este usuario no es un cliente, tiene un rol diferente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.customers.403.title'), 'msg' => trans('admin.notifications.error.messages.customers.403.msg')]);
         }
         
         $customer->fill(['state' => "1"])->save();
         if ($customer) {
-            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El cliente ha sido activado exitosamente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.customers.activate')]);
         } else {
-            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('customers.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 }

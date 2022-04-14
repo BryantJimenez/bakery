@@ -156,10 +156,10 @@ class GroupController extends ApiController
             $group=Group::where('id', $group->id)->first();
             $group=$this->dataGroup($group);
 
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'El grupo ha sido registrado exitosamente.', 'data' => $group], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.groups.store'), 'data' => $group], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -317,10 +317,10 @@ class GroupController extends ApiController
             $group=Group::where('id', $group->id)->first();
             $group=$this->dataGroup($group);
 
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El grupo ha sido editado exitosamente.', 'data' => $group], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.groups.update'), 'data' => $group], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -372,10 +372,10 @@ class GroupController extends ApiController
     {
     	$group->delete();
     	if ($group) {
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El grupo ha sido eliminado exitosamente.'], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.groups.destroy')], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -427,10 +427,10 @@ class GroupController extends ApiController
     	$group->fill(['state' => "0"])->save();
     	if ($group) {
     		$group=$this->dataGroup($group);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El grupo ha sido desactivado exitosamente.', 'data' => $group], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.groups.deactivate'), 'data' => $group], 200);
     	}
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -482,10 +482,10 @@ class GroupController extends ApiController
     	$group->fill(['state' => "1"])->save();
     	if ($group) {
     		$group=$this->dataGroup($group);
-    		return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El grupo ha sido activado exitosamente.', 'data' => $group], 200);
+    		return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.groups.activate'), 'data' => $group], 200);
     	}
         
-    	return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+    	return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -581,9 +581,9 @@ class GroupController extends ApiController
         if ($assign) {
             $group=Group::where('id', $group->id)->first();
             $group=$this->dataGroup($group);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'Los complementos han sido asignados exitosamente.', 'data' => $group], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.groups.assign'), 'data' => $group], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

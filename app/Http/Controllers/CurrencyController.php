@@ -42,16 +42,16 @@ class CurrencyController extends Controller
             $currency=Currency::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $currency->restore();
         } else if ($exist) {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'La moneda ya existe', 'msg' => 'Esta moneda ya se encuentra registrada.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.currencies.422.title'), 'msg' => trans('admin.notifications.error.messages.currencies.422.msg')]);
         } else {
             $data=array('name' => request('name'), 'iso' => request('iso'), 'symbol' => request('symbol'));
             $currency=Currency::create($data);
         }
 
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La moneda ha sido registrada exitosamente.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.store'), 'msg' => trans('admin.notifications.success.messages.currencies.store')]);
         } else {
-            return redirect()->route('currencies.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('currencies.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.store'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 
@@ -76,9 +76,9 @@ class CurrencyController extends Controller
         $data=array('name' => request('name'), 'iso' => request('iso'), 'symbol' => request('symbol'));
         $currency->fill($data)->save();
         if ($currency) {
-            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La moneda ha sido editada exitosamente.']);
+            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.currencies.update')]);
         } else {
-            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('currencies.edit', ['currency' => $currency->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -91,27 +91,27 @@ class CurrencyController extends Controller
     public function destroy(Currency $currency) {
         $currency->delete();
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La moneda ha sido eliminada exitosamente.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.destroy'), 'msg' => trans('admin.notifications.success.messages.currencies.destroy')]);
         } else {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.destroy'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function deactivate(Request $request, Currency $currency) {
         $currency->fill(['state' => "0"])->save();
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La moneda ha sido desactivada exitosamente.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.currencies.deactivate')]);
         } else {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function activate(Request $request, Currency $currency) {
         $currency->fill(['state' => "1"])->save();
         if ($currency) {
-            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La moneda ha sido activada exitosamente.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.currencies.activate')]);
         } else {
-            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 }

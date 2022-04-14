@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Categorías')
+@section('title', trans('admin.categories.titles.index'))
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -21,7 +21,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Lista de Categorías</h4>
+						<h4>@lang('admin.categories.titles.index')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 					<div class="col-12">
 						@can('categories.create')
 						<div class="text-right">
-							<a href="{{ route('categories.create') }}" class="btn btn-primary">Agregar</a>
+							<a href="{{ route('categories.create') }}" class="btn btn-primary">@lang('form.buttons.add')</a>
 						</div>
 						@endcan
 
@@ -40,10 +40,10 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre</th>
-										<th>Estado</th>
+										<th>@lang('form.name.label')</th>
+										<th>@lang('form.state.label')</th>
 										@if(auth()->user()->can('categories.edit') || auth()->user()->can('categories.active') || auth()->user()->can('categories.deactive') || auth()->user()->can('categories.delete'))
-										<th>Acciones</th>
+										<th>@lang('admin.table.actions')</th>
 										@endif
 									</tr>
 								</thead>
@@ -59,19 +59,19 @@
 										<td>
 											<div class="btn-group" role="group">
 												@can('categories.edit')
-												<a href="{{ route('categories.edit', ['category' => $category->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Editar"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('categories.edit', ['category' => $category->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="@lang('admin.table.edit')"><i class="fa fa-edit"></i></a>
 												@endcan
-												@if($category->state=='Activo')
+												@if($category->state==trans('admin.values_attributes.states.active'))
 												@can('categories.deactive')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Desactivar" onclick="deactiveCategory('{{ $category->slug }}')"><i class="fa fa-power-off"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.deactivate')" onclick="deactiveCategory('{{ $category->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
 												@can('categories.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activar" onclick="activeCategory('{{ $category->slug }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="@lang('admin.table.activate')" onclick="activeCategory('{{ $category->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 												@can('categories.delete')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Eliminar" onclick="deleteCategory('{{ $category->slug }}')"><i class="fa fa-trash"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.delete')" onclick="deleteCategory('{{ $category->slug }}')"><i class="fa fa-trash"></i></button>
 												@endcan
 											</div>
 										</td>
@@ -95,17 +95,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea deshabilitar esta categoría?</h5>
+				<h5 class="modal-title">@lang('admin.categories.modals.titles.deactivate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeactiveCategory">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Desactivar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.deactivate')</button>
 				</form>
 			</div>
 		</div>
@@ -118,17 +118,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea activar esta categoría?</h5>
+				<h5 class="modal-title">@lang('admin.categories.modals.titles.activate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formActiveCategory">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Activar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.activate')</button>
 				</form>
 			</div>
 		</div>
@@ -141,17 +141,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea eliminar esta categoría?</h5>
+				<h5 class="modal-title">@lang('admin.categories.modals.titles.delete')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeleteCategory">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Eliminar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.delete')</button>
 				</form>
 			</div>
 		</div>

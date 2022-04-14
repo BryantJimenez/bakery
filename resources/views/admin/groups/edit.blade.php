@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Editar Grupo')
+@section('title', trans('admin.groups.titles.edit'))
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendor/touchspin/jquery.bootstrap-touchspin.min.css') }}">
@@ -19,7 +19,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Editar Grupo</h4>
+						<h4>@lang('admin.groups.titles.edit')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -30,38 +30,38 @@
 
 						@include('admin.partials.errors')
 
-						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
+						<p>@lang('form.required fields') (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('groups.update', ['group' => $group->slug]) }}" method="POST" class="form" id="formGroup">
 							@csrf
 							@method('PUT')
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ $group->name }}">
+									<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
+									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ $group->name }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Condición<b class="text-danger">*</b></label>
+									<label class="col-form-label">@lang('form.condition.label')<b class="text-danger">*</b></label>
 									<select class="form-control @error('condition') is-invalid @enderror" name="condition" required>
-										<option value="1" @if($group->condition=="Obligatorio") selected @endif>Obligatorio</option>
-										<option value="0" @if($group->condition=="Opcional") selected @endif>Opcional</option>
+										<option value="1" @if($group->condition==trans('admin.values_attributes.conditions.required')) selected @endif>@lang('admin.values_attributes.conditions.required')</option>
+										<option value="0" @if($group->condition==trans('admin.values_attributes.conditions.optional')) selected @endif>@lang('admin.values_attributes.conditions.optional')</option>
 									</select>
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Mínimo<b class="text-danger">*</b></label>
-									<input class="form-control int-max-100 @error('min') is-invalid @enderror" type="text" name="min" required placeholder="Introduzca un mínimo" value="{{ $group->min }}">
+									<label class="col-form-label">@lang('form.minimum.label')<b class="text-danger">*</b></label>
+									<input class="form-control int-max-100 @error('min') is-invalid @enderror" type="text" name="min" required placeholder="@lang('form.minimum.placeholder')" value="{{ $group->min }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Máximo<b class="text-danger">*</b></label>
-									<input class="form-control int-max-100 @error('max') is-invalid @enderror" type="text" name="max" required placeholder="Introduzca un máximo" value="{{ $group->max }}">
+									<label class="col-form-label">@lang('form.maximum.label')<b class="text-danger">*</b></label>
+									<input class="form-control int-max-100 @error('max') is-invalid @enderror" type="text" name="max" required placeholder="@lang('form.maximum.placeholder')" value="{{ $group->max }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Atributo<b class="text-danger">*</b></label>
+									<label class="col-form-label">@lang('form.attribute.label')<b class="text-danger">*</b></label>
 									<select class="form-control @error('attribute_id') is-invalid @enderror" name="attribute_id">
-										<option value="">Seleccione</option>
+										<option value="">@lang('form.select.select')</option>
 										@foreach($attributes as $attribute)
 										<option value="{{ $attribute->slug }}" @if($group->attribute_id==$attribute->id) selected @endif>{{ $attribute->name }}</option>
 										@endforeach
@@ -69,17 +69,17 @@
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Estado<b class="text-danger">*</b></label>
+									<label class="col-form-label">@lang('form.state.label')<b class="text-danger">*</b></label>
 									<select class="form-control @error('state') is-invalid @enderror" name="state" required>
-										<option value="1" @if($group->state=="Activo") selected @endif>Activo</option>
-										<option value="0" @if($group->state=="Inactivo") selected @endif>Inactivo</option>
+										<option value="1" @if($group->state==trans('admin.values_attributes.states.active')) selected @endif>@lang('admin.values_attributes.states.active')</option>
+										<option value="0" @if($group->state==trans('admin.values_attributes.states.inactive')) selected @endif>@lang('admin.values_attributes.states.inactive')</option>
 									</select>
 								</div>
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="group">Actualizar</button>
-										<a href="{{ route('groups.index') }}" class="btn btn-secondary">Volver</a>
+										<button type="submit" class="btn btn-primary" action="group">@lang('form.buttons.update')</button>
+										<a href="{{ route('groups.index') }}" class="btn btn-secondary">@lang('form.buttons.back')</a>
 									</div>
 								</div> 
 							</div>

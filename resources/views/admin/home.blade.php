@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Inicio')
+@section('title', trans('admin.home.title'))
 
 @section('content')
 
@@ -14,8 +14,8 @@
 					<div class="col-xl-5 col-12 mb-3">
 						<div class="card bg-dark">
 							<div class="card-body">
-								<h5 class="card-text text-white font-weight-bold">Bienvenido:</h5>
-								<h6 class="text-white font-weight-bold">Administre todo su negocio de forma simple, fácil, comoda y a medida!</h6>
+								<h5 class="card-text text-white font-weight-bold">@lang('admin.home.welcome.title')</h5>
+								<h6 class="text-white font-weight-bold">@lang('admin.home.welcome.subtitle')</h6>
 							</div>
 						</div>
 					</div>
@@ -25,7 +25,7 @@
 							<div class="col-xl-6 col-md-6 col-sm-6 col-12 mb-3"> 
 								<div class="card bg-secondary">
 									<div class="card-body">
-										<h5 class="card-text text-white text-center font-weight-bold">Usuarios</h5>
+										<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.users')</h5>
 										<h2 class="text-white text-center font-weight-bold">{{ $users }}</h2>
 									</div>
 								</div>
@@ -34,7 +34,7 @@
 							<div class="col-xl-6 col-md-6 col-sm-6 col-12 mb-3"> 
 								<div class="card bg-secondary">
 									<div class="card-body">
-										<h5 class="card-text text-white text-center font-weight-bold">Clientes</h5>
+										<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.customers')</h5>
 										<h2 class="text-white text-center font-weight-bold">{{ $customers }}</h2>
 									</div>
 								</div>
@@ -45,7 +45,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Categorías</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.categories')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $categories }}</h2>
 							</div>
 						</div>
@@ -54,7 +54,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Productos</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.products')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $products }}</h2>
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Grupos</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.groups')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $groups }}</h2>
 							</div>
 						</div>
@@ -72,7 +72,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Complementos</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.complements')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $complements }}</h2>
 							</div>
 						</div>
@@ -81,7 +81,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Agencias</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.agencies')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $agencies }}</h2>
 							</div>
 						</div>
@@ -90,7 +90,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Atributos</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.attributes')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $attributes }}</h2>
 							</div>
 						</div>
@@ -99,7 +99,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Pedidos Confirmados</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.orders.confirms')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $orders_confirms }}</h2>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Pedidos Pendientes</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.orders.pendings')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $orders_pendings }}</h2>
 							</div>
 						</div>
@@ -117,7 +117,7 @@
 					<div class="col-xl-4 col-md-4 col-sm-6 col-12 mb-3"> 
 						<div class="card bg-secondary">
 							<div class="card-body">
-								<h5 class="card-text text-white text-center font-weight-bold">Pagos</h5>
+								<h5 class="card-text text-white text-center font-weight-bold">@lang('admin.home.counters.payments')</h5>
 								<h2 class="text-white text-center font-weight-bold">{{ $payments }}</h2>
 							</div>
 						</div>

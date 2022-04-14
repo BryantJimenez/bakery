@@ -11,8 +11,13 @@ class Shop extends Component
 	public $align='center';
 	public $undo=false;
 	public $history='';
-	public $title='Categorías';
+	public $title='';
 	public $category='';
+
+	public function mount()
+	{
+		$this->title=trans('web.shop.categories');
+	}
 
 	public function render()
 	{
@@ -32,14 +37,15 @@ class Shop extends Component
 			$this->emit('categoryProducts', $category->slug);
 		} else {
             session()->flash('type', 'error');
-            session()->flash('title', 'Categoría No Encontrada');
-            session()->flash('msg', 'Ha ocurrido un error durante el proceso, intentelo nuevamente.');
+            session()->flash('title', trans('web.notifications.error.messages.categories.404.title'));
+            session()->flash('msg', trans('web.notifications.error.messages.categories.404.msg'));
         }
 		$this->dispatchBrowserEvent('contentChanged');
 	}
 
 	public function undo($history) {
 		$this->reset();
+		$this->title=trans('web.shop.categories');
 		$this->dispatchBrowserEvent('contentChanged');
 	}
 }

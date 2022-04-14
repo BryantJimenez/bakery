@@ -38,9 +38,9 @@ class AgencyController extends Controller
         $data=array('name' => request('name'), 'route' => request('route'), 'description' => request('description'), 'price' => request('price'));
         $agency=Agency::create($data);
         if ($agency) {
-            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La agencia ha sido registrada exitosamente.']);
+            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.store'), 'msg' => trans('admin.notifications.success.messages.agencies.store')]);
         } else {
-            return redirect()->route('agencies.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('agencies.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.store'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 
@@ -65,9 +65,9 @@ class AgencyController extends Controller
         $data=array('name' => request('name'), 'route' => request('route'), 'description' => request('description'), 'price' => request('price'));
         $agency->fill($data)->save();
         if ($agency) {
-            return redirect()->route('agencies.edit', ['agency' => $agency->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La agencia ha sido editada exitosamente.']);
+            return redirect()->route('agencies.edit', ['agency' => $agency->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.agencies.update')]);
         } else {
-            return redirect()->route('agencies.edit', ['agency' => $agency->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('agencies.edit', ['agency' => $agency->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -80,27 +80,27 @@ class AgencyController extends Controller
     public function destroy(Agency $agency) {
         $agency->delete();
         if ($agency) {
-            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La agencia ha sido eliminada exitosamente.']);
+            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.destroy'), 'msg' => trans('admin.notifications.success.messages.agencies.destroy')]);
         } else {
-            return redirect()->route('agencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('agencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.destroy'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function deactivate(Request $request, Agency $agency) {
         $agency->fill(['state' => "0"])->save();
         if ($agency) {
-            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La agencia ha sido desactivada exitosamente.']);
+            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.agencies.deactivate')]);
         } else {
-            return redirect()->route('agencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('agencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function activate(Request $request, Agency $agency) {
         $agency->fill(['state' => "1"])->save();
         if ($agency) {
-            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La agencia ha sido activada exitosamente.']);
+            return redirect()->route('agencies.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.agencies.activate')]);
         } else {
-            return redirect()->route('agencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('agencies.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 }

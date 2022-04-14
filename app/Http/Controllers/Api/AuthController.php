@@ -62,11 +62,11 @@ class AuthController extends ApiController
 		$user=User::where('email', request('email'))->first();
 
 		if (!Hash::check(request('password'), $user->password)) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'La contraseña es incorrecta.'], 422);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.auth')], 422);
         }
 
         if ($user->state=='Inativo') {
-            return response()->json(['code' => 403, 'status' => 'error', 'message' => 'Este usuario no puede ingresar.'], 403);
+            return response()->json(['code' => 403, 'status' => 'error', 'message' => trans('api.errors.403.auth')], 403);
         }
 
         Auth::login($user);
@@ -84,7 +84,7 @@ class AuthController extends ApiController
             return response()->json(['code' => 200, 'status' => 'success', 'access_token' => $tokenResult->accessToken, 'token_type' => 'Bearer', 'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()]);
         }
 
-        return response()->json(['code' => 401, 'status' => 'error', 'message' => 'Las credenciales no coinciden.'], 401);
+        return response()->json(['code' => 401, 'status' => 'error', 'message' => trans('api.errors.401.auth')], 401);
     }
 
 	/**
@@ -169,10 +169,10 @@ class AuthController extends ApiController
             $user=User::with(['roles'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
             
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'Registro exitoso.', 'data' => $user], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.auth.register'), 'data' => $user], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -201,6 +201,6 @@ class AuthController extends ApiController
     */
     public function logout(Request $request) {
         $request->user()->token()->revoke();
-        return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La sesión ha sido cerrada exitosamente.'], 200);
+        return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.auth.logout')], 200);
     }
 }

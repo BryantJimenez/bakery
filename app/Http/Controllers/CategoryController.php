@@ -42,7 +42,7 @@ class CategoryController extends Controller
             $category=Category::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $category->restore();
         } else if ($exist) {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'La categoría ya existe', 'msg' => 'Esta categoría ya se encuentra registrada.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.categories.422.title'), 'msg' => trans('admin.notifications.error.messages.categories.422.msg')]);
         } else {
             $category=Category::create(['name' => request('name')]);
         }
@@ -55,9 +55,9 @@ class CategoryController extends Controller
                 $category->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'La categoría ha sido registrada exitosamente.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.store'), 'msg' => trans('admin.notifications.success.messages.categories.store')]);
         } else {
-            return redirect()->route('categories.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('categories.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.store'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 
@@ -88,9 +88,9 @@ class CategoryController extends Controller
                 $category->fill(['image' => $image])->save();
             }
 
-            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La categoría ha sido editada exitosamente.']);
+            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.categories.update')]);
         } else {
-            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('categories.edit', ['category' => $category->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -103,27 +103,27 @@ class CategoryController extends Controller
     public function destroy(Category $category) {
         $category->delete();
         if ($category) {
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'La categoría ha sido eliminada exitosamente.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.destroy'), 'msg' => trans('admin.notifications.success.messages.categories.destroy')]);
         } else {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.destroy'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function deactivate(Request $request, Category $category) {
         $category->fill(['state' => "0"])->save();
         if ($category) {
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La categoría ha sido desactivada exitosamente.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.categories.deactivate')]);
         } else {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function activate(Request $request, Category $category) {
         $category->fill(['state' => "1"])->save();
         if ($category) {
-            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'La categoría ha sido activada exitosamente.']);
+            return redirect()->route('categories.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.categories.activate')]);
         } else {
-            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 }

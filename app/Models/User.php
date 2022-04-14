@@ -64,11 +64,11 @@ class User extends Authenticatable
     public function getStateAttribute($value)
     {
         if ($value=='1') {
-            return 'Activo';
+            return trans('admin.values_attributes.states.active');
         } elseif ($value=='0') {
-            return 'Inactivo';
+            return trans('admin.values_attributes.states.inactive');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Pedidos')
+@section('title', trans('admin.orders.titles.index'))
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -21,7 +21,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Lista de Pedidos</h4>
+						<h4>@lang('admin.orders.titles.index')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -35,14 +35,14 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Usuario</th>
-										<th>Total</th>
-										<th>Entrega</th>
-										<th>Pago</th>
-										<th>Estado</th>
-										<th>Fecha</th>
+										<th>@lang('form.user.label')</th>
+										<th>@lang('admin.orders.info.total')</th>
+										<th>@lang('form.delivery.abbreviation')</th>
+										<th>@lang('form.payment.abbreviation')</th>
+										<th>@lang('form.state.label')</th>
+										<th>@lang('form.date.label')</th>
 										@if(auth()->user()->can('orders.show') || auth()->user()->can('orders.active') || auth()->user()->can('orders.deactive'))
-										<th>Acciones</th>
+										<th>@lang('admin.table.actions')</th>
 										@endif
 									</tr>
 								</thead>
@@ -60,16 +60,16 @@
 										<td>
 											<div class="btn-group" role="group">
 												@can('orders.show')
-												<a href="{{ route('orders.show', ['order' => $order->id]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Ver Pedido"><i class="fa fa-eye"></i></a>
+												<a href="{{ route('orders.show', ['order' => $order->id]) }}" class="btn btn-primary btn-sm bs-tooltip" title="@lang('admin.table.order')"><i class="fa fa-eye"></i></a>
 												@endcan
-												@if($order->state!='Rechazado')
+												@if($order->state!=trans('admin.values_attributes.states.orders.rejected'))
 												@can('orders.rejected')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Rechazar" onclick="rejectedOrder('{{ $order->id }}')"><i class="fa fa-times"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.reject')" onclick="rejectedOrder('{{ $order->id }}')"><i class="fa fa-times"></i></button>
 												@endcan
 												@endif
-												@if($order->state!='Confirmado')
+												@if($order->state!=trans('admin.values_attributes.states.orders.confirmed'))
 												@can('orders.confirmed')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Confirmar" onclick="confirmedOrder('{{ $order->id }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="@lang('admin.table.confirm')" onclick="confirmedOrder('{{ $order->id }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 											</div>
@@ -94,17 +94,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres rechazar este pedido?</h5>
+				<h5 class="modal-title">@lang('admin.orders.modals.titles.reject')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formRejectedOrder">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Rechazar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.reject')</button>
 				</form>
 			</div>
 		</div>
@@ -117,17 +117,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres confirmar este pedido?</h5>
+				<h5 class="modal-title">@lang('admin.orders.modals.titles.confirm')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formConfirmedOrder">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Confirmar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.confirm')</button>
 				</form>
 			</div>
 		</div>

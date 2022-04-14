@@ -24,11 +24,11 @@ class Group extends Model
     public function getConditionAttribute($value)
     {
         if ($value=='1') {
-            return 'Obligatorio';
+            return trans('admin.values_attributes.conditions.required');
         } elseif ($value=='0') {
-            return 'Opcional';
+            return trans('admin.values_attributes.conditions.optional');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     /**
@@ -39,11 +39,11 @@ class Group extends Model
     public function getStateAttribute($value)
     {
         if ($value=='1') {
-            return 'Activo';
+            return trans('admin.values_attributes.states.active');
         } elseif ($value=='0') {
-            return 'Inactivo';
+            return trans('admin.values_attributes.states.inactive');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     /**

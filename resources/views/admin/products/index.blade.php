@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Productos')
+@section('title', trans('admin.products.titles.index'))
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -22,7 +22,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Lista de Productos</h4>
+						<h4>@lang('admin.products.titles.index')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 					<div class="col-12">
 						@can('products.create')
 						<div class="text-right">
-							<a href="{{ route('products.create') }}" class="btn btn-primary">Agregar</a>
+							<a href="{{ route('products.create') }}" class="btn btn-primary">@lang('form.buttons.add')</a>
 						</div>
 						@endcan
 
@@ -41,12 +41,12 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre</th>
-										<th>Precio</th>
-										<th>Categoría</th>
-										<th>Estado</th>
+										<th>@lang('form.name.label')</th>
+										<th>@lang('form.price.label')</th>
+										<th>@lang('form.category.label')</th>
+										<th>@lang('form.state.label')</th>
 										@if(auth()->user()->can('products.show') || auth()->user()->can('products.edit') || auth()->user()->can('products.active') || auth()->user()->can('products.deactive') || auth()->user()->can('products.delete'))
-										<th>Acciones</th>
+										<th>@lang('admin.table.actions')</th>
 										@endif
 									</tr>
 								</thead>
@@ -64,25 +64,25 @@
 										<td>
 											<div class="btn-group" role="group">
 												@can('products.show')
-												<a href="{{ route('products.show', ['product' => $product->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Ver"><i class="fa fa-eye"></i></a>
+												<a href="{{ route('products.show', ['product' => $product->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="@lang('admin.table.show')"><i class="fa fa-eye"></i></a>
 												@endcan
 												@can('products.edit')
-												<a href="{{ route('products.edit', ['product' => $product->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Editar"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('products.edit', ['product' => $product->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="@lang('admin.table.edit')"><i class="fa fa-edit"></i></a>
 												@endcan
 												@can('products.assign.groups')
-												<button type="button" class="btn btn-secondary btn-sm bs-tooltip" title="Asignar Grupos" onclick="assignGroup('{{ $product->slug }}', '{{ $product->name }}')"><i class="fab fa-dropbox"></i></button>
+												<button type="button" class="btn btn-secondary btn-sm bs-tooltip" title="@lang('admin.table.assign.groups')" onclick="assignGroup('{{ $product->slug }}', '{{ $product->name }}')"><i class="fab fa-dropbox"></i></button>
 												@endcan
-												@if($product->state=='Activo')
+												@if($product->state==trans('admin.values_attributes.states.active'))
 												@can('products.deactive')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Desactivar" onclick="deactiveProduct('{{ $product->slug }}')"><i class="fa fa-power-off"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.deactivate')" onclick="deactiveProduct('{{ $product->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
 												@can('products.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activar" onclick="activeProduct('{{ $product->slug }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="@lang('admin.table.activate')" onclick="activeProduct('{{ $product->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 												@can('products.delete')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Eliminar" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.delete')" onclick="deleteProduct('{{ $product->slug }}')"><i class="fa fa-trash"></i></button>
 												@endcan
 											</div>
 										</td>
@@ -106,17 +106,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea desactivar este producto?</h5>
+				<h5 class="modal-title">@lang('admin.products.modals.titles.deactivate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeactiveProduct">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Desactivar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.deactivate')</button>
 				</form>
 			</div>
 		</div>
@@ -129,17 +129,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea activar este producto?</h5>
+				<h5 class="modal-title">@lang('admin.products.modals.titles.activate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formActiveProduct">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Activar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.activate')</button>
 				</form>
 			</div>
 		</div>
@@ -152,17 +152,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea eliminar este producto?</h5>
+				<h5 class="modal-title">@lang('admin.products.modals.titles.delete')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeleteProduct">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Eliminar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.delete')</button>
 				</form>
 			</div>
 		</div>
@@ -177,7 +177,7 @@
 			@csrf
 			@method('PUT')
 			<div class="modal-header">
-				<h5 class="modal-title">Seleccione los grupos que se asignarán a este producto</h5>
+				<h5 class="modal-title">@lang('admin.products.modals.titles.assign')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -189,11 +189,11 @@
 					</div>
 
 					<div class="form-group col-12">
-						<p class="h6 mb-0">Producto: <span class="font-weight-bold" id="nameAssignProductGroup"></span></p>
+						<p class="h6 mb-0">@lang('form.product.label'): <span class="font-weight-bold" id="nameAssignProductGroup"></span></p>
 					</div>
 
 					<div class="form-group col-12">
-						<label class="col-form-label">Grupos<b class="text-danger">*</b></label>
+						<label class="col-form-label">@lang('form.groups.label')<b class="text-danger">*</b></label>
 						<select class="form-control select2 @error('group_id') is-invalid @enderror" name="group_id[]" required multiple>
 							@foreach($groups as $group)
 							<option value="{{ $group->slug }}">{{ $group->name }}</option>
@@ -203,8 +203,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-				<button type="submit" class="btn btn-primary" action="product">Guardar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
+				<button type="submit" class="btn btn-primary" action="product">@lang('form.buttons.save')</button>
 			</div>
 		</form>
 	</div>

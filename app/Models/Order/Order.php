@@ -15,20 +15,20 @@ class Order extends Model
     protected $fillable = ['subtotal', 'delivery', 'total', 'fee', 'balance', 'type_delivery', 'phone', 'state', 'user_id', 'currency_id', 'payment_id'];
 
     /**
-     * Get the state.
+     * Get the type delivery.
      *
      * @return string
      */
-    public function getStateAttribute($value)
+    public function getTypeDeliveryAttribute($value)
     {
-        if ($value=='2') {
-        	return 'En Espera';
+        if ($value=='3') {
+            trans('admin.values_attributes.types_delivery.orders.delivery');
+        } elseif ($value=='2') {
+            trans('admin.values_attributes.types_delivery.orders.to take away');
         } elseif ($value=='1') {
-            return 'Confirmado';
-        } elseif ($value=='0') {
-            return 'Rechazado';
+            trans('admin.values_attributes.types_delivery.orders.eat on site');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     /**
@@ -36,16 +36,16 @@ class Order extends Model
      *
      * @return string
      */
-    public function getTypeDeliveryAttribute($value)
+    public function getStateAttribute($value)
     {
-        if ($value=='3') {
-            return 'A Domicilio';
-        } elseif ($value=='2') {
-            return 'Recoger para Llevar';
+        if ($value=='2') {
+            return trans('admin.values_attributes.states.orders.waiting');
         } elseif ($value=='1') {
-            return 'Comer en el Lugar';
+            return trans('admin.values_attributes.states.orders.confirmed');
+        } elseif ($value=='0') {
+            return trans('admin.values_attributes.states.orders.rejected');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     /**

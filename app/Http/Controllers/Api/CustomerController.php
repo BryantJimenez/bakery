@@ -147,10 +147,10 @@ class CustomerController extends ApiController
             $customer=User::with(['roles'])->where('id', $customer->id)->first();
             $customer=$this->dataUser($customer);
 
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'El cliente ha sido registrado exitosamente.', 'data' => $customer], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.customers.store'), 'data' => $customer], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -196,7 +196,7 @@ class CustomerController extends ApiController
      */
     public function show(User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
+            return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
         $customer=$this->dataUser($customer);
         return response()->json(['code' => 200, 'status' => 'success', 'data' => $customer], 200);
@@ -267,7 +267,7 @@ class CustomerController extends ApiController
     */
     public function update(CustomerUpdateRequest $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
+            return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
         $data=array('name' => request('name'), 'lastname' => request('lastname'));
@@ -278,10 +278,10 @@ class CustomerController extends ApiController
           $customer=User::with(['roles'])->where('id', $customer->id)->first();
           $customer=$this->dataUser($customer);
 
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido editado exitosamente.', 'data' => $customer], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.update'), 'data' => $customer], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
   }
 
     /**
@@ -332,15 +332,15 @@ class CustomerController extends ApiController
     public function destroy(User $customer)
     {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
+            return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
         $customer->delete();
         if ($customer) {
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido eliminado exitosamente.'], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.destroy')], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
   }
 
     /**
@@ -390,16 +390,16 @@ class CustomerController extends ApiController
      */
     public function deactivate(Request $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
+            return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
         $customer->fill(['state' => "0"])->save();
         if ($customer) {
           $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido desactivado exitosamente.', 'data' => $customer], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.deactivate'), 'data' => $customer], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
   }
 
     /**
@@ -449,15 +449,15 @@ class CustomerController extends ApiController
      */
     public function activate(Request $request, User $customer) {
         if (is_null($customer['roles']->where('name', 'Customer')->first())) {
-            return response()->json(['code' => 200, 'status' => 'warning', 'message' => 'El usuario no es un cliente'], 200);
+            return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
         $customer->fill(['state' => "1"])->save();
         if ($customer) {
           $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El cliente ha sido activado exitosamente.', 'data' => $customer], 200);
+          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.activate'), 'data' => $customer], 200);
       }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
   }
 }

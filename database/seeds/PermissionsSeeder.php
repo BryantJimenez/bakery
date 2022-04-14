@@ -106,6 +106,14 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'currencies.active']);
         Permission::create(['name' => 'currencies.deactive']);
 
+        // Permisos de Idiomas
+        Permission::create(['name' => 'languages.index']);
+        Permission::create(['name' => 'languages.create']);
+
+        // Permisos de Traducciones
+        Permission::create(['name' => 'translations.index']);
+        Permission::create(['name' => 'translations.create']);
+
         // Setting Permissions
         Permission::create(['name' => 'settings.index']);
         Permission::create(['name' => 'settings.edit']);

@@ -201,9 +201,9 @@ class SettingController extends ApiController
         if ($setting) {
             $setting=Setting::with(['currency'])->first();
             $setting=$this->dataSetting($setting);
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'Los ajustes han sido editados exitosamente.', 'data' => $setting], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.settings.update'), 'data' => $setting], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Editar Perfil')
+@section('title', trans('admin.profile.titles.edit'))
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendor/dropify/dropify.min.css') }}">
@@ -19,7 +19,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Editar Perfil</h4>
+						<h4>@lang('admin.profile.titles.edit')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -30,59 +30,59 @@
 
 						@include('admin.partials.errors')
 
-						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
+						<p>@lang('form.required fields') (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('profile.update', ['slug' => Auth::user()->slug]) }}" method="POST" class="form" id="formProfile" enctype="multipart/form-data">
 							@csrf
 							@method('PUT')
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Foto (Opcional)</label>
+									<label class="col-form-label">@lang('form.photo.label') (@lang('form.labels.optional'))</label>
 									<input type="file" name="photo" accept="image/*" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" data-default-file="{{ image_exist('/admins/img/users/', Auth::user()->photo, true) }}" />
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<div class="row">
 										<div class="form-group col-lg-12 col-md-12 col-12">
-											<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
-											<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ Auth::user()->name }}">
+											<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
+											<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ Auth::user()->name }}">
 										</div>
 
 										<div class="form-group col-lg-12 col-md-12 col-12">
-											<label class="col-form-label">Apellido<b class="text-danger">*</b></label>
-											<input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Introduzca un apellido" value="{{ Auth::user()->lastname }}">
+											<label class="col-form-label">@lang('form.lastname.label')<b class="text-danger">*</b></label>
+											<input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="@lang('form.lastname.placeholder')" value="{{ Auth::user()->lastname }}">
 										</div>
 									</div> 
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Correo Electrónico</label>
+									<label class="col-form-label">@lang('form.email.label')</label>
 									<input class="form-control" type="text" disabled value="{{ Auth::user()->email }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Teléfono<b class="text-danger">*</b></label>
-									<input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" required placeholder="Introduzca un teléfono" value="{{ Auth::user()->phone }}" id="phone">
+									<label class="col-form-label">@lang('form.phone.label')<b class="text-danger">*</b></label>
+									<input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" required placeholder="@lang('form.phone.placeholder')" value="{{ Auth::user()->phone }}" id="phone">
 								</div>
 
 								<div class="form-group col-12">
-									<label class="col-form-label">Dirección<b class="text-danger">*</b></label>
-									<input class="form-control @error('address') is-invalid @enderror" type="text" name="address" placeholder="Introduzca una dirección" value="{{ Auth::user()->address }}">
+									<label class="col-form-label">@lang('form.address.label')<b class="text-danger">*</b></label>
+									<input class="form-control @error('address') is-invalid @enderror" type="text" name="address" placeholder="@lang('form.address.placeholder')" value="{{ Auth::user()->address }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Contraseña (Opcional)</label>
+									<label class="col-form-label">@lang('form.password.label') (@lang('form.labels.optional'))</label>
 									<input class="form-control @error('password') is-invalid @enderror" type="password" name="password" placeholder="********" id="password">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Confirmar Contraseña (Opcional)</label>
+									<label class="col-form-label">@lang('form.password confirmation.label') (@lang('form.labels.optional'))</label>
 									<input class="form-control" type="password" name="password_confirmation" placeholder="********">
 								</div>
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="profile">Actualizar</button>
-										<a href="{{ route('profile') }}" class="btn btn-secondary">Volver</a>
+										<button type="submit" class="btn btn-primary" action="profile">@lang('form.buttons.update')</button>
+										<a href="{{ route('profile') }}" class="btn btn-secondary">@lang('form.buttons.back')</a>
 									</div>
 								</div> 
 							</div>

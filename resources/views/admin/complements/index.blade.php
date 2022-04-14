@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Complementos')
+@section('title', trans('admin.complements.titles.index'))
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -21,7 +21,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Lista de Complementos</h4>
+						<h4>@lang('admin.complements.titles.index')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 					<div class="col-12">
 						@can('complements.create')
 						<div class="text-right">
-							<a href="{{ route('complements.create') }}" class="btn btn-primary">Agregar</a>
+							<a href="{{ route('complements.create') }}" class="btn btn-primary">@lang('form.buttons.add')</a>
 						</div>
 						@endcan
 
@@ -40,11 +40,11 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre</th>
-										<th>Precio</th>
-										<th>Estado</th>
+										<th>@lang('form.name.label')</th>
+										<th>@lang('form.price.label')</th>
+										<th>@lang('form.state.label')</th>
 										@if(auth()->user()->can('complements.show') || auth()->user()->can('complements.edit') || auth()->user()->can('complements.active') || auth()->user()->can('complements.deactive') || auth()->user()->can('complements.delete'))
-										<th>Acciones</th>
+										<th>@lang('admin.table.actions')</th>
 										@endif
 									</tr>
 								</thead>
@@ -61,22 +61,22 @@
 										<td>
 											<div class="btn-group" role="group">
 												@can('complements.show')
-												<a href="{{ route('complements.show', ['complement' => $complement->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Ver"><i class="fa fa-eye"></i></a>
+												<a href="{{ route('complements.show', ['complement' => $complement->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="@lang('admin.table.show')"><i class="fa fa-eye"></i></a>
 												@endcan
 												@can('complements.edit')
-												<a href="{{ route('complements.edit', ['complement' => $complement->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Editar"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('complements.edit', ['complement' => $complement->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="@lang('admin.table.edit')"><i class="fa fa-edit"></i></a>
 												@endcan
-												@if($complement->state=='Activo')
+												@if($complement->state==trans('admin.values_attributes.states.active'))
 												@can('complements.deactive')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Desactivar" onclick="deactiveComplement('{{ $complement->slug }}')"><i class="fa fa-power-off"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.deactivate')" onclick="deactiveComplement('{{ $complement->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
 												@can('complements.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activar" onclick="activeComplement('{{ $complement->slug }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="@lang('admin.table.activate')" onclick="activeComplement('{{ $complement->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 												@can('complements.delete')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Eliminar" onclick="deleteComplement('{{ $complement->slug }}')"><i class="fa fa-trash"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.delete')" onclick="deleteComplement('{{ $complement->slug }}')"><i class="fa fa-trash"></i></button>
 												@endcan
 											</div>
 										</td>
@@ -100,17 +100,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Seguro que quieres desactivar este complemento?</h5>
+				<h5 class="modal-title">@lang('admin.complements.modals.titles.deactivate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeactiveComplement">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Desactivar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.deactivate')</button>
 				</form>
 			</div>
 		</div>
@@ -123,17 +123,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Estás seguro de que quieres activar este complemento?</h5>
+				<h5 class="modal-title">@lang('admin.complements.modals.titles.activate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formActiveComplement">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Activar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.activate')</button>
 				</form>
 			</div>
 		</div>
@@ -146,17 +146,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Seguro que quieres eliminar este complemento?</h5>
+				<h5 class="modal-title">@lang('admin.complements.modals.titles.delete')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeleteComplement">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Eliminar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.delete')</button>
 				</form>
 			</div>
 		</div>

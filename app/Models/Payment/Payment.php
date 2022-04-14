@@ -22,9 +22,9 @@ class Payment extends Model
     public function getMethodAttribute($value)
     {
         if ($value=='1') {
-            return 'Tarjeta';
+            return trans('admin.values_attributes.methods.card');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     /**
@@ -35,13 +35,13 @@ class Payment extends Model
     public function getStateAttribute($value)
     {
         if ($value=='2') {
-            return 'Pendiente';
+            return trans('admin.values_attributes.states.payments.pending');
         } elseif ($value=='1') {
-            return 'Confirmado';
+            return trans('admin.values_attributes.states.payments.confirmed');
         } elseif ($value=='0') {
-            return 'Rechazado';
+            return trans('admin.values_attributes.states.payments.rejected');
         }
-        return 'Desconocido';
+        return trans('admin.values_attributes.unknown');
     }
 
     public function currency() {

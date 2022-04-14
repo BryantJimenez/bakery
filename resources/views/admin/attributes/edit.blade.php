@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Editar Atributo')
+@section('title', trans('admin.attributes.titles.edit'))
 
 @section('links')
 <link href="{{ asset('/admins/vendor/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -18,7 +18,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Editar Atributo</h4>
+						<h4>@lang('admin.attributes.titles.edit')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -29,20 +29,20 @@
 
 						@include('admin.partials.errors')
 
-						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
+						<p>@lang('form.required fields') (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('attributes.update', ['attribute' => $attribute->slug]) }}" method="POST" class="form" id="formAttribute">
 							@csrf
 							@method('PUT')
 							<div class="row">
 								<div class="form-group col-12">
-									<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ $attribute->name }}">
+									<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
+									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ $attribute->name }}">
 								</div>
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="attribute">Actualizar</button>
-										<a href="{{ route('attributes.index') }}" class="btn btn-secondary">Volver</a>
+										<button type="submit" class="btn btn-primary" action="attribute">@lang('form.buttons.update')</button>
+										<a href="{{ route('attributes.index') }}" class="btn btn-secondary">@lang('form.buttons.back')</a>
 									</div>
 								</div> 
 							</div>

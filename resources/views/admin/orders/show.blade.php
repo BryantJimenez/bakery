@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Detalle del Pedido')
+@section('title', trans('admin.orders.titles.show'))
 
 @section('links')
 <link href="{{ asset('/admins/css/users/user-profile.css') }}" rel="stylesheet" type="text/css" />
@@ -16,7 +16,7 @@
 		<div class="user-profile layout-spacing">
 			<div class="widget-content widget-content-area">
 				<div class="d-flex justify-content-between">
-					<h3 class="pb-3">Datos del Usuario</h3>
+					<h3 class="pb-3">@lang('admin.orders.subtitles.show.user')</h3>
 				</div>
 				<div class="text-center user-info">
 					<img src="{{ image_exist('/admins/img/admins/', $order['user']->photo, true) }}" width="90" height="90" alt="Foto de perfil">
@@ -26,13 +26,13 @@
 					<div class="">
 						<ul class="contacts-block list-unstyled mw-100 mx-2">
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Teléfono:</b> @if(!is_null($order['user']) && !empty($order['user']->phone)){{ $order['user']->phone }}@else{{ $order->phone }}@endif</span>
+								<span class="h6 text-black"><b>@lang('form.phone.label'):</b> @if(!is_null($order['user']) && !empty($order['user']->phone)){{ $order['user']->phone }}@else{{ $order->phone }}@endif</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Email:</b> {{ $order['user']->email }}</span>
+								<span class="h6 text-black"><b>@lang('form.email.label'):</b> {{ $order['user']->email }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Estado:</b> @if(!is_null($order->user()->first())){!! state($order['user']->state) !!}@else{!! '<span class="badge badge-danger">Eliminado</span>' !!}@endif</span>
+								<span class="h6 text-black"><b>@lang('form.state.label'):</b> @if(!is_null($order->user()->first())){!! state($order['user']->state) !!}@else{!! '<span class="badge badge-danger">Eliminado</span>' !!}@endif</span>
 							</li>
 						</ul>
 					</div>                                    
@@ -46,40 +46,40 @@
 		<div class="user-profile layout-spacing">
 			<div class="widget-content widget-content-area">
 				<div class="d-flex justify-content-between">
-					<h3 class="pb-3">Datos del Pedido</h3>
+					<h3 class="pb-3">@lang('admin.orders.subtitles.show.order')</h3>
 				</div>
 				<div class="user-info-list">
 
 					<div class="">
 						<ul class="contacts-block list-unstyled mw-100 mx-2">
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Fecha:</b> {{ $order->created_at->format("d-m-Y H:i a") }}</span>
+								<span class="h6 text-black"><b>@lang('form.date.label'):</b> {{ $order->created_at->format("d-m-Y H:i a") }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Teléfono:</b> {{ $order->phone }}</span>
+								<span class="h6 text-black"><b>@lang('form.phone.label'):</b> {{ $order->phone }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Cantidad de Productos:</b> {{ $order['order_products']->sum('qty') }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.qty products'):</b> {{ $order['order_products']->sum('qty') }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Total Pagado:</b> {{ number_format($order->total, 2, ",", ".").$order['currency']->symbol }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.total paid'):</b> {{ number_format($order->total, 2, ",", ".").$order['currency']->symbol }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Moneda:</b> {{ $order['currency']->name }}</span>
+								<span class="h6 text-black"><b>@lang('form.currency.label'):</b> {{ $order['currency']->name }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Estado:</b> {!! stateOrder($order->state) !!}</span>
+								<span class="h6 text-black"><b>@lang('form.state.label'):</b> {!! stateOrder($order->state) !!}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Tipo de Entrega:</b> {{ typeDelivery($order->type_delivery, 0) }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.type delivery'):</b> {{ typeDelivery($order->type_delivery, 0) }}</span>
 							</li>
-							@if($order->type_delivery==3)
+							@if($order->type_delivery==trans('admin.values_attributes.types_delivery.orders.delivery'))
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Dirección de Envío:</b> {{ $order['shipping']->address }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.address shipping'):</b> {{ $order['shipping']->address }}</span>
 							</li>
 							@endif
 							<li class="contacts-block__item">
-								<a href="{{ route('orders.index') }}" class="btn btn-secondary">Volver</a>
+								<a href="{{ route('orders.index') }}" class="btn btn-secondary">@lang('form.buttons.back')</a>
 							</li>
 						</ul>
 					</div>                                    
@@ -93,7 +93,7 @@
 		<div class="user-profile layout-spacing">
 			<div class="widget-content widget-content-area">
 				<div class="d-flex justify-content-between">
-					<h3 class="pb-3">Productos del Pedido</h3>
+					<h3 class="pb-3">@lang('admin.orders.subtitles.show.products')</h3>
 				</div>
 				<div class="user-info-list">
 
@@ -105,10 +105,10 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Producto</th>
-												<th>Precio</th>
-												<th>Cantidad</th>
-												<th>Subtotal</th>
+												<th>@lang('form.product.label')</th>
+												<th>@lang('form.price.label')</th>
+												<th>@lang('admin.orders.info.qty')</th>
+												<th>@lang('admin.orders.info.subtotal')</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -129,11 +129,11 @@
 										</tbody>
 										<tfooter>
 											<tr>
-												<td colspan="4" class="text-primary text-uppercase font-weight-bold">Envío</td>
+												<td colspan="4" class="text-primary text-uppercase font-weight-bold">@lang('admin.orders.info.shipping')</td>
 												<td class="text-primary text-uppercase font-weight-bold">{{ number_format($order->delivery, 2, ",", ".").$order['currency']->symbol }}</td>
 											</tr>
 											<tr>
-												<td colspan="4" class="text-primary text-uppercase font-weight-bold">Total</td>
+												<td colspan="4" class="text-primary text-uppercase font-weight-bold">@lang('admin.orders.info.total')</td>
 												<td class="text-primary text-uppercase font-weight-bold">{{ number_format($order->total, 2, ",", ".").$order['currency']->symbol }}</td>
 											</tr>
 										</tfooter>
@@ -153,38 +153,38 @@
 		<div class="user-profile layout-spacing">
 			<div class="widget-content widget-content-area">
 				<div class="d-flex justify-content-between">
-					<h3 class="pb-3">Datos del Pago</h3>
+					<h3 class="pb-3">@lang('admin.orders.subtitles.show.payment')</h3>
 				</div>
 				<div class="user-info-list">
 
 					<div class="">
 						<ul class="contacts-block list-unstyled mw-100 mx-2">
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Fecha:</b> {{ $order['payment']->created_at->format("d-m-Y H:i a") }}</span>
+								<span class="h6 text-black"><b>@lang('form.date.label'):</b> {{ $order['payment']->created_at->format("d-m-Y H:i a") }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Método de Pago:</b> {{ methodPayment($order['payment']->method, false) }}</span>
+								<span class="h6 text-black"><b>@lang('form.payment.label'):</b> {{ methodPayment($order['payment']->method, false) }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Motivo:</b> {{ $order['payment']->subject }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.reason'):</b> {{ $order['payment']->subject }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Subtotal:</b> {{ number_format($order['payment']->subtotal, 2, ",", ".").$order['currency']->symbol }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.subtotal'):</b> {{ number_format($order['payment']->subtotal, 2, ",", ".").$order['currency']->symbol }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Envío:</b> {{ number_format($order['payment']->delivery, 2, ",", ".").$order['currency']->symbol }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.shipping'):</b> {{ number_format($order['payment']->delivery, 2, ",", ".").$order['currency']->symbol }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Comisión:</b> <b class="text-danger">{{ "-".number_format($order['payment']->fee, 2, ",", ".").$order['currency']->symbol }}</b></span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.commission'):</b> <b class="text-danger">{{ "-".number_format($order['payment']->fee, 2, ",", ".").$order['currency']->symbol }}</b></span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Balance:</b> {{ number_format($order['payment']->balance, 2, ",", ".").$order['currency']->symbol }}</span>
+								<span class="h6 text-black"><b>@lang('admin.orders.info.balance'):</b> {{ number_format($order['payment']->balance, 2, ",", ".").$order['currency']->symbol }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Moneda:</b> {{ $order['currency']->name }}</span>
+								<span class="h6 text-black"><b>@lang('form.currency.label'):</b> {{ $order['currency']->name }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Estado:</b> {!! statePayment($order['payment']->state) !!}</span>
+								<span class="h6 text-black"><b>@lang('form.state.label'):</b> {!! statePayment($order['payment']->state) !!}</span>
 							</li>
 						</ul>
 					</div>                                    
@@ -200,23 +200,23 @@
 		<div class="user-profile layout-spacing">
 			<div class="widget-content widget-content-area">
 				<div class="d-flex justify-content-between">
-					<h3 class="pb-3">Datos del Envío</h3>
+					<h3 class="pb-3">@lang('admin.orders.subtitles.show.shipping')</h3>
 				</div>
 				<div class="user-info-list">
 
 					<div class="">
 						<ul class="contacts-block list-unstyled mw-100 mx-2">
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Precio:</b> {{ number_format($order->delivery, 2, ",", ".").$order['currency']->symbol }}</span>
+								<span class="h6 text-black"><b>@lang('form.price.label'):</b> {{ number_format($order->delivery, 2, ",", ".").$order['currency']->symbol }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Agencia:</b> {{ $order['shipping']['agency']->name }}</span>
+								<span class="h6 text-black"><b>@lang('form.agency.label'):</b> {{ $order['shipping']['agency']->name }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Ruta:</b> {{ $order['shipping']['agency']->route }}</span>
+								<span class="h6 text-black"><b>@lang('form.route.label'):</b> {{ $order['shipping']['agency']->route }}</span>
 							</li>
 							<li class="contacts-block__item">
-								<span class="h6 text-black"><b>Dirección:</b> {{ $order['shipping']->address }}</span>
+								<span class="h6 text-black"><b>@lang('form.address.label'):</b> {{ $order['shipping']->address }}</span>
 							</li>
 						</ul>
 					</div>                                    

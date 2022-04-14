@@ -106,10 +106,10 @@ class CartController extends ApiController
         if ($cart_product) {
             $cart_product=CartProduct::where('id', $cart_product->id)->first();
             $cart_product=$this->dataCartProduct($cart_product);
-            return response()->json(['code' => 201, 'status' => 'success', 'message' => 'El producto ha sido agragado al carrito exitosamente.', 'data' => $cart_product], 201);
+            return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.cart.store'), 'data' => $cart_product], 201);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -163,10 +163,10 @@ class CartController extends ApiController
             $cart_product=CartProduct::where('id', $cart_product->id)->first();
             $cart_product=$this->dataCartProduct($cart_product);
 
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El producto ha sido agregado al carrito exitosamente.', 'data' => $cart_product], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.cart.add'), 'data' => $cart_product], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -220,10 +220,10 @@ class CartController extends ApiController
             $cart_product=CartProduct::where('id', $cart_product->id)->first();
             $cart_product=$this->dataCartProduct($cart_product);
 
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El producto ha sido removido al carrito exitosamente.', 'data' => $cart_product], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.cart.remove'), 'data' => $cart_product], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -275,9 +275,9 @@ class CartController extends ApiController
     {
         $cart=$this->removeCartDatabase($cart_product->code);
         if ($cart) {
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El producto ha sido eliminado del carrito exitosamente.'], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.cart.destroy')], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

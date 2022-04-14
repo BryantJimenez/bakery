@@ -165,6 +165,8 @@ return [
         'symbol'                => 'simbolo',
         'currency_id'           => 'moneda',
         'privacity'             => 'políticas de privacidad',
+        'stripe_public'         => 'clave pública de stripe',
+        'stripe_secret'         => 'clave secreta de stripe',
         'agency_id'             => 'agencia',
         'payment'               => 'método de pago',
         'stripeToken'           => 'token de stripe',

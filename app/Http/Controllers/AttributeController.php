@@ -42,15 +42,15 @@ class AttributeController extends Controller
             $attribute=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->first();
             $attribute->restore();
         } else if ($exist) {
-            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => 'El atributo ya existe', 'msg' => 'Este atributo ya se encuentra registrado.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.attributes.422.title'), 'msg' => trans('admin.notifications.error.messages.attributes.422.msg')]);
         } else {
             $attribute=Attribute::create(['name' => request('name')]);
         }
 
         if ($attribute) {
-            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Registro exitoso', 'msg' => 'El atributo ha sido registrado exitosamente.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.store'), 'msg' => trans('admin.notifications.success.messages.attributes.store')]);
         } else {
-            return redirect()->route('attributes.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Registro fallido', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'])->withInputs();
+            return redirect()->route('attributes.create')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.store'), 'msg' => trans('admin.notifications.error.500')])->withInputs();
         }
     }
 
@@ -74,9 +74,9 @@ class AttributeController extends Controller
     public function update(AttributeUpdateRequest $request, Attribute $attribute) {
         $attribute->fill(['name' => request('name')])->save();
         if ($attribute) {
-            return redirect()->route('attributes.edit', ['attribute' => $attribute->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El atributo ha sido editado exitosamente.']);
+            return redirect()->route('attributes.edit', ['attribute' => $attribute->slug])->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.attributes.update')]);
         } else {
-            return redirect()->route('attributes.edit', ['attribute' => $attribute->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('attributes.edit', ['attribute' => $attribute->slug])->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
@@ -89,27 +89,27 @@ class AttributeController extends Controller
     public function destroy(Attribute $attribute) {
         $attribute->delete();
         if ($attribute) {
-            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Eliminación exitosa', 'msg' => 'El atributo ha sido eliminado exitosamente.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.destroy'), 'msg' => trans('admin.notifications.success.messages.attributes.destroy')]);
         } else {
-            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Eliminación fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.destroy'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function deactivate(Request $request, Attribute $attribute) {
         $attribute->fill(['state' => "0"])->save();
         if ($attribute) {
-            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El atributo ha sido desactivado exitosamente.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.attributes.deactivate')]);
         } else {
-            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 
     public function activate(Request $request, Attribute $attribute) {
         $attribute->fill(['state' => "1"])->save();
         if ($attribute) {
-            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => 'Edición exitosa', 'msg' => 'El atributo ha sido activado exitosamente.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'sweet', 'type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.attributes.activate')]);
         } else {
-            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Edición fallida', 'msg' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.']);
+            return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500')]);
         }
     }
 }

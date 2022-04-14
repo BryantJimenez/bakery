@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Lista de Clientes')
+@section('title', trans('admin.customers.titles.index'))
 
 @section('links')
 <link rel="stylesheet" type="text/css" href="{{ asset('/admins/vendor/table/datatable/datatables.css') }}">
@@ -21,7 +21,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Lista de Clientes</h4>
+						<h4>@lang('admin.customers.titles.index')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 					<div class="col-12">
 						@can('customers.create')
 						<div class="text-right">
-							<a href="{{ route('customers.create') }}" class="btn btn-primary">Agregar</a>
+							<a href="{{ route('customers.create') }}" class="btn btn-primary">@lang('form.buttons.add')</a>
 						</div>
 						@endcan
 
@@ -40,11 +40,11 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Nombre Completo</th>
-										<th>Email</th>
-										<th>Estado</th>
+										<th>@lang('form.fullname.label')</th>
+										<th>@lang('form.email.label')</th>
+										<th>@lang('form.state.label')</th>
 										@if(auth()->user()->can('customers.show') || auth()->user()->can('customers.edit') || auth()->user()->can('customers.active') || auth()->user()->can('customers.deactive') || auth()->user()->can('customers.delete'))
-										<th>Acciones</th>
+										<th>@lang('admin.table.actions')</th>
 										@endif
 									</tr>
 								</thead>
@@ -61,22 +61,22 @@
 										<td>
 											<div class="btn-group" role="group">
 												@can('customers.show')
-												<a href="{{ route('customers.show', ['customer' => $customer->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="Perfil"><i class="fa fa-user"></i></a>
+												<a href="{{ route('customers.show', ['customer' => $customer->slug]) }}" class="btn btn-primary btn-sm bs-tooltip" title="@lang('admin.table.profile')"><i class="fa fa-user"></i></a>
 												@endcan
 												@can('customers.edit')
-												<a href="{{ route('customers.edit', ['customer' => $customer->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="Editar"><i class="fa fa-edit"></i></a>
+												<a href="{{ route('customers.edit', ['customer' => $customer->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="@lang('admin.table.edit')"><i class="fa fa-edit"></i></a>
 												@endcan
-												@if($customer->state=='Activo')
+												@if($customer->state==trans('admin.values_attributes.states.active'))
 												@can('customers.deactive')
-												<button type="button" class="btn btn-warning btn-sm bs-tooltip" title="Desactivar" onclick="deactiveCustomer('{{ $customer->slug }}')"><i class="fa fa-power-off"></i></button>
+												<button type="button" class="btn btn-warning btn-sm bs-tooltip" title="@lang('admin.table.deactivate')" onclick="deactiveCustomer('{{ $customer->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan
 												@else
 												@can('customers.active')
-												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="Activar" onclick="activeCustomer('{{ $customer->slug }}')"><i class="fa fa-check"></i></button>
+												<button type="button" class="btn btn-success btn-sm bs-tooltip" title="@lang('admin.table.activate')" onclick="activeCustomer('{{ $customer->slug }}')"><i class="fa fa-check"></i></button>
 												@endcan
 												@endif
 												@can('customers.delete')
-												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="Eliminar" onclick="deleteCustomer('{{ $customer->slug }}')"><i class="fa fa-trash"></i></button>
+												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.delete')" onclick="deleteCustomer('{{ $customer->slug }}')"><i class="fa fa-trash"></i></button>
 												@endcan
 											</div>
 										</td>
@@ -100,17 +100,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea desactivar este cliente?</h5>
+				<h5 class="modal-title">@lang('admin.customers.modals.titles.deactivate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeactiveCustomer">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Desactivar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.deactivate')</button>
 				</form>
 			</div>
 		</div>
@@ -123,17 +123,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea activar a este cliente?</h5>
+				<h5 class="modal-title">@lang('admin.customers.modals.titles.activate')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formActiveCustomer">
 					@csrf
 					@method('PUT')
-					<button type="submit" class="btn btn-primary">Activar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.activate')</button>
 				</form>
 			</div>
 		</div>
@@ -146,17 +146,17 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">¿Está seguro de que desea eliminar este cliente?</h5>
+				<h5 class="modal-title">@lang('admin.customers.modals.titles.delete')</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn" data-dismiss="modal">@lang('form.buttons.cancel')</button>
 				<form action="#" method="POST" id="formDeleteCustomer">
 					@csrf
 					@method('DELETE')
-					<button type="submit" class="btn btn-primary">Eliminar</button>
+					<button type="submit" class="btn btn-primary">@lang('form.buttons.delete')</button>
 				</form>
 			</div>
 		</div>

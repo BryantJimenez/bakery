@@ -111,10 +111,10 @@ class ProfileController extends ApiController
             $user=User::with(['roles'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
 
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'Perfil de usuario actualizado exitosamente.', 'data' => $user], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.profile.update'), 'data' => $user], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -170,19 +170,19 @@ class ProfileController extends ApiController
     public function changePassword(ProfilePasswordUpdateRequest $request) {
     	$user=Auth::user();
     	if (!Hash::check(request('current_password'), $user->password)) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'La contraseña actual es incorrecta.'], 422);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.profile.changePassword.password')], 422);
         }
 
         if (request('current_password')==request('new_password')) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'La nueva contraseña no puede ser la misma que la actual.'], 422);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.profile.changePassword.equal')], 422);
         }
         $user->fill(['password' => Hash::make(request('new_password'))])->save();
 
         if ($user) {
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'La contraseña fue editada exitosamente.'], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.profile.changePassword')], 200);
         }
 
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 
     /**
@@ -238,18 +238,18 @@ class ProfileController extends ApiController
     public function changeEmail(ProfileEmailUpdateRequest $request) {
     	$user=Auth::user();
     	if (request('current_email')!=$user->email) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'El correo electrónico actual es incorrecto.'], 422);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.profile.changeEmail.email')], 422);
         }
 
         if (request('new_email')==$user->email) {
-            return response()->json(['code' => 422, 'status' => 'error', 'message' => 'El nuevo correo electrónico no puede ser el mismo que el actual.'], 422);
+            return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.profile.changeEmail.equal')], 422);
         }
         $user->fill(['email' => request('new_email')])->save();
 
         if ($user) {
-            return response()->json(['code' => 200, 'status' => 'success', 'message' => 'El correo electrónico fue editado exitosamente.'], 200);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.profile.changeEmail')], 200);
         }
         
-        return response()->json(['code' => 500, 'status' => 'error', 'message' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'], 500);
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
     }
 }

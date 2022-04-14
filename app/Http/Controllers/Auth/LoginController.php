@@ -58,8 +58,8 @@ class LoginController extends Controller
         $count=User::where('email', request('email'))->count();
         if ($count>0) {
             $user=User::where('email', request('email'))->first();
-            if($user->state=='Inactivo') {
-                return redirect()->back()->with(['alert' => 'lobibox', 'type' => 'error', 'title' => 'Ingreso no permitido', 'msg' => 'Este usuario no tiene permitido ingresar.'])->withInput();
+            if($user->state==trans('admin.values_attributes.states.inactive')) {
+                return redirect()->back()->with(['alert' => 'lobibox', 'type' => 'error', 'title' => trans('auth.notifications.login.error.title'), 'msg' => trans('auth.notifications.login.error.msg')])->withInput();
             }
         }
 

@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Restablecer Contraseña')
+@section('title', trans('auth.reset.title'))
 
 @section('content')
 
@@ -19,22 +19,22 @@
             <input type="hidden" name="token" value="{{ $token }}">
 
             <div class="form-group">
-                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="Email" autocomplete="email" autofocus value="{{ old('email') }}" minlength="5" maxlength="191">
+                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="@lang('form.email.label')" autocomplete="email" autofocus value="{{ old('email') }}" minlength="5" maxlength="191">
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Nueva Contraseña" autocomplete="new-password" minlength="8" maxlength="40" id="password">
+                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="@lang('form.password.new')" autocomplete="new-password" minlength="8" maxlength="40" id="password">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password_confirmation" required placeholder="Confirmar Contraseña" autocomplete="new-password" minlength="8" maxlength="40" id="password-confirm">
+                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password_confirmation" required placeholder="@lang('form.password confirmation.label')" autocomplete="new-password" minlength="8" maxlength="40" id="password-confirm">
                 <i class="icon_lock_alt"></i>
             </div>
             <div id="pass-info" class="clearfix"></div>
-            <button type="submit" class="btn_1 gradient full-width" action="reset">Enviar</button>
-            <div class="text-center mt-2"><small>Ya tienes una cuenta? <strong><a href="{{ route('login') }}">Ingresa</a></strong></small></div>
+            <button type="submit" class="btn_1 gradient full-width" action="reset">@lang('auth.reset.button')</button>
+            <div class="text-center mt-2"><small>@lang('auth.reset.login.text') <strong><a href="{{ route('login') }}">@lang('auth.reset.login.button')</a></strong></small></div>
         </form>
-        <div class="copy">© {{ date('Y') }} Tiendita</div>
+        <div class="copy">© {{ date('Y') }} @lang('admin.name')</div>
     </aside>
 </div>
 

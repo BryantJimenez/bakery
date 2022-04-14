@@ -1,0 +1,1 @@
+<input type="text" class="form-control" placeholder="@lang('admin.languages.info.search')" name="{{ $name }}" value="{{ $value }}">

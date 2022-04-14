@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Editar Cliente')
+@section('title', trans('admin.customers.titles.edit'))
 
 @section('links')
 <link rel="stylesheet" href="{{ asset('/admins/vendor/dropify/dropify.min.css') }}">
@@ -19,7 +19,7 @@
 			<div class="widget-header">
 				<div class="row">
 					<div class="col-xl-12 col-md-12 col-sm-12 col-12">
-						<h4>Editar Cliente</h4>
+						<h4>@lang('admin.customers.titles.edit')</h4>
 					</div>                 
 				</div>
 			</div>
@@ -30,47 +30,47 @@
 
 						@include('admin.partials.errors')
 
-						<p>Campos obligatorios (<b class="text-danger">*</b>)</p>
+						<p>@lang('form.required fields') (<b class="text-danger">*</b>)</p>
 						<form action="{{ route('customers.update', ['customer' => $customer->slug]) }}" method="POST" class="form" id="formCustomer" enctype="multipart/form-data">
 							@csrf
 							@method('PUT')
 							<div class="row">
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Foto (Opcional)</label>
+									<label class="col-form-label">@lang('form.photo.label') (@lang('form.labels.optional'))</label>
 									<input type="file" name="photo" accept="image/*" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" data-default-file="{{ image_exist('/admins/img/users/', $customer->photo, true) }}" />
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<div class="row">
 										<div class="form-group col-lg-12 col-md-12 col-12">
-											<label class="col-form-label">Nombre<b class="text-danger">*</b></label>
-											<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Introduzca un nombre" value="{{ $customer->name }}">
+											<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
+											<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ $customer->name }}">
 										</div>
 
 										<div class="form-group col-lg-12 col-md-12 col-12">
-											<label class="col-form-label">Apellido<b class="text-danger">*</b></label>
-											<input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Introduzca un apellido" value="{{ $customer->lastname }}">
+											<label class="col-form-label">@lang('form.lastname.label')<b class="text-danger">*</b></label>
+											<input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="@lang('form.lastname.placeholder')" value="{{ $customer->lastname }}">
 										</div>
 									</div>
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Correo Electrónico</label>
+									<label class="col-form-label">@lang('form.email.label')</label>
 									<input class="form-control" type="text" disabled value="{{ $customer->email }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">Estado<b class="text-danger">*</b></label>
+									<label class="col-form-label">@lang('form.state.label')<b class="text-danger">*</b></label>
 									<select class="form-control @error('state') is-invalid @enderror" name="state" required>
-										<option value="1" @if($customer->state=="Activo") selected @endif>Activo</option>
-										<option value="0" @if($customer->state=="Inactivo") selected @endif>Inactivo</option>
+										<option value="1" @if($customer->state==trans('admin.values_attributes.states.active')) selected @endif>@lang('admin.values_attributes.states.active')</option>
+										<option value="0" @if($customer->state==trans('admin.values_attributes.states.inactive')) selected @endif>@lang('admin.values_attributes.states.inactive')</option>
 									</select>
 								</div>
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">
-										<button type="submit" class="btn btn-primary" action="customer">Actualizar</button>
-										<a href="{{ route('customers.index') }}" class="btn btn-secondary">Volver</a>
+										<button type="submit" class="btn btn-primary" action="customer">@lang('form.buttons.update')</button>
+										<a href="{{ route('customers.index') }}" class="btn btn-secondary">@lang('form.buttons.back')</a>
 									</div>
 								</div> 
 							</div>

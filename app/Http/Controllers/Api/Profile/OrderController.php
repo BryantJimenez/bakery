@@ -95,7 +95,7 @@ class OrderController extends ApiController
     */
     public function show(Order $order) {
         if (Auth::id()!=$order->user_id) {
-            return response()->json(['code' => 403, 'status' => 'error', 'message' => 'Prohibido.'], 403);
+            return response()->json(['code' => 403, 'status' => 'error', 'message' => trans('errors.exceptions.403')], 403);
         }
 
         $order=$this->dataOrder($order);

@@ -50,8 +50,8 @@ class Products extends Component
             $this->emit('productModal', $product->id);
         } else {
             session()->flash('type', 'error');
-            session()->flash('title', 'Producto No Encontrado');
-            session()->flash('msg', 'Ha ocurrido un error durante el proceso, intentelo nuevamente.');
+            session()->flash('title', trans('web.notifications.error.messages.products.404.title'));
+            session()->flash('msg', trans('web.notifications.error.messages.products.404.msg'));
         }
     }
 }

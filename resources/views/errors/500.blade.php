@@ -1,15 +1,15 @@
 @extends('layouts.error')
 
-@section('title', 'Error 500')
+@section('title', trans('errors.500.title'))
 
 @section('content')
 
 <div class="container-fluid error-content">
 	<div class="">
-		<h1 class="error-number">500</h1>
-		<p class="mini-text">¡Error de servidor interno!</p>
-		<p class="error-text mb-4 mt-1">¡Por favor, inténtelo de nuevo más tarde!</p>
-		<a href="{{ route('home') }}" class="btn btn-primary mt-5">Inicio</a>
+		<h1 class="error-number">@lang('errors.500.number')</h1>
+		<p class="mini-text">@lang('errors.500.subtitle')</p>
+		<p class="error-text mb-4 mt-1">@lang('errors.500.text')</p>
+		<a href="{{ route('home') }}" class="btn btn-primary mt-5">@lang('errors.500.button')</a>
 	</div>
 </div>
 

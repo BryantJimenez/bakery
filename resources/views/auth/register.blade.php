@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Registro de Usuario')
+@section('title', trans('auth.register.title'))
 
 @section('content')
 
@@ -17,30 +17,30 @@
             @include('admin.partials.errors')
 
             <div class="form-group">
-                <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="Nombre" value="{{ old('name') }}" minlength="2" maxlength="191">
+                <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.label')" value="{{ old('name') }}" minlength="2" maxlength="191">
                 <i class="icon_pencil-edit"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="Apellido" value="{{ old('lastname') }}" minlength="2" maxlength="191">
+                <input class="form-control @error('lastname') is-invalid @enderror" type="text" name="lastname" required placeholder="@lang('form.lastname.label')" value="{{ old('lastname') }}" minlength="2" maxlength="191">
                 <i class="icon_pencil-edit"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="Email" value="{{ old('email') }}" minlength="5" maxlength="191">
+                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" required placeholder="@lang('form.email.label')" value="{{ old('email') }}" minlength="5" maxlength="191">
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
-                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="Contraseña" minlength="8" maxlength="40" id="password">
+                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required placeholder="@lang('form.password.label')" minlength="8" maxlength="40" id="password">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="form-group">
                 <input type="checkbox" name="terms" required id="terms-conditions">
-                <label class="small" for="terms-conditions">Acepto <a href="javascript:void(0);">términos y condiciones</a></label>
+                <label class="small" for="terms-conditions">@lang('auth.register.terms.text') <a href="javascript:void(0);">@lang('auth.register.terms.button')</a></label>
             </div>
             <div id="pass-info" class="clearfix"></div>
-            <button type="submit" class="btn_1 gradient full-width" action="register">Regístrate</button>
-            <div class="text-center mt-2"><small>Ya tienes una cuenta? <strong><a href="{{ route('login') }}">Ingresar</a></strong></small></div>
+            <button type="submit" class="btn_1 gradient full-width" action="register">@lang('auth.register.button')</button>
+            <div class="text-center mt-2"><small>@lang('auth.register.login.text') <strong><a href="{{ route('login') }}">@lang('auth.register.login.button')</a></strong></small></div>
         </form>
-        <div class="copy">© {{ date('Y') }} Tiendita</div>
+        <div class="copy">© {{ date('Y') }} @lang('admin.name')</div>
     </aside>
 </div>
 
@@ -48,7 +48,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Términos y Condiciones</h5>
+                <h5 class="modal-title">@lang('auth.register.modal.title')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger rounded" data-dismiss="modal">@lang('form.buttons.close')</button>
             </div>
         </div>
     </div>
