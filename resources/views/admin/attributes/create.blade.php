@@ -30,10 +30,12 @@
 						<form action="{{ route('attributes.store') }}" method="POST" class="form" id="formAttribute">
 							@csrf
 							<div class="row">
-								<div class="form-group col-12">
-									<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ old('name') }}">
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
+                                <div class="form-group col-12">
+									<label class="col-form-label">@lang('form.name.label') ({{ $locales['native'] }})<b class="text-danger">*</b></label>
+									<input class="form-control @error('name.'.$localeCode) is-invalid @enderror" type="text" name="name[{{ $localeCode }}]" required placeholder="@lang('form.name.placeholder')" value="{{ old('name.'.$localeCode) }}" id="{{ 'name_'.$localeCode }}">
 								</div>
+                                @endforeach
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">

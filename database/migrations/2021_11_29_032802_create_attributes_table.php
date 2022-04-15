@@ -15,7 +15,7 @@ class CreateAttributesTable extends Migration
     {
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->json('name')->default('[]');
             $table->string('slug')->unique();
             $table->enum('state', [0, 1])->default(1);
             $table->timestamps();

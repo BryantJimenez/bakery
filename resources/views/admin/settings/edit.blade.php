@@ -44,15 +44,19 @@
 									</select>
 								</div>
 
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
 								<div class="form-group col-12">
-									<label class="col-form-label">@lang('form.terms.label') (@lang('form.labels.optional'))</label>
-									<textarea class="form-control @error('terms') is-invalid @enderror" name="terms" placeholder="@lang('form.terms.placeholder')" id="content-term">{{ $setting->terms }}</textarea>
+									<label class="col-form-label">@lang('form.terms.label') ({{ $locales['native'] }}) (@lang('form.labels.optional'))</label>
+									<textarea class="form-control content-term @error('terms.'.$localeCode) is-invalid @enderror" name="terms[{{ $localeCode }}]" placeholder="@lang('form.terms.placeholder')" id="{{ 'content-term_'.$localeCode }}">{{ $setting->translate('terms', $localeCode) }}</textarea>
 								</div>
+                                @endforeach
 
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
 								<div class="form-group col-12">
-									<label class="col-form-label">@lang('form.privacity.label') (@lang('form.labels.optional'))</label>
-									<textarea class="form-control @error('privacity') is-invalid @enderror" name="privacity" placeholder="@lang('form.privacity.placeholder')" id="content-privacity">{{ $setting->privacity }}</textarea>
+									<label class="col-form-label">@lang('form.privacity.label') ({{ $locales['native'] }}) (@lang('form.labels.optional'))</label>
+									<textarea class="form-control content-privacity @error('privacity.'.$localeCode) is-invalid @enderror" name="privacity[{{ $localeCode }}]" placeholder="@lang('form.privacity.placeholder')" id="{{ 'content-privacity_'.$localeCode }}">{{ $setting->translate('privacity', $localeCode) }}</textarea>
 								</div>
+                                @endforeach
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">@lang('form.stripe_public.label') (@lang('form.labels.optional'))</label>

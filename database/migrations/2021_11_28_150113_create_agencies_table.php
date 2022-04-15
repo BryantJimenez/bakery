@@ -15,10 +15,10 @@ class CreateAgenciesTable extends Migration
     {
         Schema::create('agencies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('name')->default('[]');
             $table->string('slug')->unique();
-            $table->string('route');
-            $table->text('description')->nullable();
+            $table->json('route')->default('[]');
+            $table->json('description')->default('[]');
             $table->float('price', 10, 2)->default(0.00)->unsigned();
             $table->enum('state', [0, 1])->default(1);
             $table->timestamps();

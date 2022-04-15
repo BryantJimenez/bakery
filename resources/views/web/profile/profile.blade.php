@@ -71,7 +71,7 @@
 											<td class="py-2">{!! stateOrder($order->state) !!}</td>
 											<td class="py-2">{{ $order->created_at->format('d-m-Y H:i a') }}</td>
 											<td class="d-flex justify-content-center py-2">
-												<a href="{{ route('web.profile.order', ['order' => $order->id]) }}" class="btn_1 gradient" alt="@lang('web.profile.orders.table.show')" title="@lang('web.profile.orders.table.show')">
+												<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.profile.order', ['order' => $order->id]), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 gradient" alt="@lang('web.profile.orders.table.show')" title="@lang('web.profile.orders.table.show')">
 													<i class="fa fa-shopping-cart"></i>
 												</a>
 											</td>

@@ -306,7 +306,7 @@ $(document).ready(function(){
 		$("#formCategory").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -334,7 +334,7 @@ $(document).ready(function(){
 		$("#formProduct").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -349,7 +349,7 @@ $(document).ready(function(){
 					min: 0
 				},
 
-				description: {
+				"description[]": {
 					required: false,
 					minlength: 2,
 					maxlength: 1000
@@ -381,7 +381,7 @@ $(document).ready(function(){
 		$("#formProductEdit").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -396,7 +396,7 @@ $(document).ready(function(){
 					min: 0
 				},
 
-				description: {
+				"description[]": {
 					required: false,
 					minlength: 2,
 					maxlength: 1000
@@ -450,7 +450,7 @@ $(document).ready(function(){
 		$("#formComplement").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -465,7 +465,7 @@ $(document).ready(function(){
 					min: 0
 				},
 
-				description: {
+				"description[]": {
 					required: false,
 					minlength: 2,
 					maxlength: 1000
@@ -489,7 +489,7 @@ $(document).ready(function(){
 		$("#formComplementEdit").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -504,7 +504,7 @@ $(document).ready(function(){
 					min: 0
 				},
 
-				description: {
+				"description[]": {
 					required: false,
 					minlength: 2,
 					maxlength: 1000
@@ -528,7 +528,7 @@ $(document).ready(function(){
 		$("#formGroup").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -623,13 +623,13 @@ $(document).ready(function(){
 		$("#formAgency").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
 				},
 
-				route: {
+				"route[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -640,7 +640,7 @@ $(document).ready(function(){
 					min: 0
 				},
 
-				description: {
+				"description[]": {
 					required: false,
 					minlength: 2,
 					maxlength: 1000
@@ -658,7 +658,7 @@ $(document).ready(function(){
 		$("#formAttribute").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -676,7 +676,7 @@ $(document).ready(function(){
 		$("#formCurrency").validate({
 			rules:
 			{
-				name: {
+				"name[]": {
 					required: true,
 					minlength: 2,
 					maxlength: 191
@@ -710,13 +710,13 @@ $(document).ready(function(){
 					required: true
 				},
 
-				terms: {
+				"terms[]": {
 					required: false,
 					minlength: 1,
 					maxlength: 16770000
 				},
 
-				privacity: {
+				"privacity[]": {
 					required: false,
 					minlength: 1,
 					maxlength: 16770000

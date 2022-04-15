@@ -14,7 +14,10 @@ $factory->define(Group::class, function (Faker $faker) {
 		$max=$min;
 	}
 	return [
-        'name' => $faker->word,
+        'name' => [
+        	'es' => $faker->word,
+        	'en' => $faker->word
+        ],
         'condition' => $faker->randomElement(['1', '0']),
         'min' => $min,
         'max' => $max,

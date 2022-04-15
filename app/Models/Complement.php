@@ -7,12 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Complement extends Model
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasTranslations;
 
     protected $fillable = ['name', 'slug', 'image', 'description', 'price', 'state'];
+
+    protected $casts = [ 
+        'name' => 'array',
+        'description' => 'array'
+    ];
 
     /**
      * Get the state.
@@ -50,6 +56,8 @@ class Complement extends Model
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
     }
+
+    public $translatable = ['name', 'description'];
 
     public function groups() {
         return $this->belongsToMany(Group::class)->withPivot('id', 'price', 'state')->withTimestamps();

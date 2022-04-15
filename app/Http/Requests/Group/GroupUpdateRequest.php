@@ -31,7 +31,8 @@ class GroupUpdateRequest extends FormRequest
         $condition=($this->condition=='1') ? 1 : 0;
         $attributes=Attribute::where('state', '1')->get()->pluck('slug');
         return [
-            'name' => 'required|string|min:2|max:191',
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191',
             'condition' => 'required|'.Rule::in(['1', '0']),
             'min' => 'required|min:'.$condition.'|max:'.$max,
             'max' => 'required|min:1|max:100',

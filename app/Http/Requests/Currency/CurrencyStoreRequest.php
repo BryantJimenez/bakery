@@ -24,7 +24,8 @@ class CurrencyStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:191',
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191',
             'iso' => 'required|string|min:3|max:3',
             'symbol' => 'required|string|min:1|max:2'
         ];

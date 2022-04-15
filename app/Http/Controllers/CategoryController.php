@@ -36,10 +36,10 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryStoreRequest $request) {
-        $trashed=Category::where('slug', Str::slug(request('name')))->withTrashed()->exists();
-        $exist=Category::where('slug', Str::slug(request('name')))->exists();
+        $trashed=Category::where('slug', Str::slug(request('name')['es']))->withTrashed()->exists();
+        $exist=Category::where('slug', Str::slug(request('name')['es']))->exists();
         if ($trashed && $exist===false) {
-            $category=Category::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $category=Category::where('slug', Str::slug(request('name')['es']))->withTrashed()->first();
             $category->restore();
         } else if ($exist) {
             return redirect()->route('categories.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.categories.422.title'), 'msg' => trans('admin.notifications.error.messages.categories.422.msg')]);

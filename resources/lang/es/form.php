@@ -107,6 +107,9 @@ return [
 		'label' => 'Código de Idioma',
 		'placeholder' => 'Introduzca el código de idioma'
 	],
+	'language' => [
+		'label' => 'Idioma'
+	],
 	'currency' => [
 		'label' => 'Moneda'
 	],

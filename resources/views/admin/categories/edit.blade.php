@@ -35,10 +35,12 @@
 							@csrf
 							@method('PUT')
 							<div class="row">
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
 								<div class="form-group col-12">
-									<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ $category->name }}">
+									<label class="col-form-label">@lang('form.name.label') ({{ $locales['native'] }})<b class="text-danger">*</b></label>
+									<input class="form-control @error('name.'.$localeCode) is-invalid @enderror" type="text" name="name[{{ $localeCode }}]" required placeholder="@lang('form.name.placeholder')" value="{{ $category->translate('name', $localeCode) }}" id="{{ 'name_'.$localeCode }}">
 								</div>
+								@endforeach
 
 								<div class="form-group col-12">
 									<label class="col-form-label">@lang('form.image.label') (@lang('form.labels.optional'))</label>

@@ -36,22 +36,19 @@
 							@csrf
 							@method('PUT')
 							<div class="row">
-								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ $product->name }}">
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
+								<div class="form-group col-12">
+									<label class="col-form-label">@lang('form.name.label') ({{ $locales['native'] }})<b class="text-danger">*</b></label>
+									<input class="form-control @error('name.'.$localeCode) is-invalid @enderror" type="text" name="name[{{ $localeCode }}]" required placeholder="@lang('form.name.placeholder')" value="{{ $product->translate('name', $localeCode) }}" id="{{ 'name_'.$localeCode }}">
 								</div>
-
-								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">@lang('form.price.label')<b class="text-danger">*</b></label>
-									<input class="form-control min-decimal @error('price') is-invalid @enderror" type="text" name="price" required placeholder="@lang('form.price.placeholder')" value="{{ $product->price }}">
-								</div>
+								@endforeach
 
 								<div class="form-group col-12">
 									<label class="col-form-label">@lang('form.image.label') (@lang('form.labels.optional'))</label>
 									<input type="file" name="image" accept="image/*" class="dropify" data-height="125" data-max-file-size="20M" data-allowed-file-extensions="jpg png jpeg web3" data-default-file="{{ image_exist('/admins/img/products/', $product->image, false, false) }}" />
 								</div>
 
-								<div class="form-group col-lg-6 col-md-6 col-12">
+								<div class="form-group col-12">
 									<label class="col-form-label">@lang('form.category.label')<b class="text-danger">*</b></label>
 									<select class="form-control @error('category_id') is-invalid @enderror" name="category_id">
 										<option value="">@lang('form.select.select')</option>
@@ -59,6 +56,11 @@
 										<option value="{{ $category->slug }}" @if($product->category_id==$category->id) selected @endif>{{ $category->name }}</option>
 										@endforeach
 									</select>
+								</div>
+
+								<div class="form-group col-lg-6 col-md-6 col-12">
+									<label class="col-form-label">@lang('form.price.label')<b class="text-danger">*</b></label>
+									<input class="form-control min-decimal @error('price') is-invalid @enderror" type="text" name="price" required placeholder="@lang('form.price.placeholder')" value="{{ $product->price }}">
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
@@ -71,10 +73,12 @@
 									</select>
 								</div>
 
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
 								<div class="form-group col-12">
-									<label class="col-form-label">@lang('form.description.label') (@lang('form.labels.optional'))</label>
-									<textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="@lang('form.description.placeholder')" rows="2">{{ $product->description }}</textarea>
+									<label class="col-form-label">@lang('form.description.label') ({{ $locales['native'] }}) (@lang('form.labels.optional'))</label>
+									<textarea class="form-control @error('description.'.$localeCode) is-invalid @enderror" name="description[{{ $localeCode }}]" placeholder="@lang('form.description.placeholder')" rows="2" id="{{ 'description_'.$localeCode }}">{{ $product->translate('description', $localeCode) }}</textarea>
 								</div>
+								@endforeach
 
 								<div class="form-group col-12">
 									<div class="btn-group" role="group">

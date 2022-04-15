@@ -35,24 +35,30 @@
 							@csrf
 							@method('PUT')
 							<div class="row">
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
 								<div class="form-group col-12">
-									<label class="col-form-label">@lang('form.name.label')<b class="text-danger">*</b></label>
-									<input class="form-control @error('name') is-invalid @enderror" type="text" name="name" required placeholder="@lang('form.name.placeholder')" value="{{ $agency->name }}">
+									<label class="col-form-label">@lang('form.name.label') ({{ $locales['native'] }})<b class="text-danger">*</b></label>
+									<input class="form-control @error('name.'.$localeCode) is-invalid @enderror" type="text" name="name[{{ $localeCode }}]" required placeholder="@lang('form.name.placeholder')" value="{{ $agency->translate('name', $localeCode) }}" id="{{ 'name_'.$localeCode }}">
 								</div>
+								@endforeach
 
-								<div class="form-group col-lg-6 col-md-6 col-12">
-									<label class="col-form-label">@lang('form.route.label')<b class="text-danger">*</b></label>
-									<input class="form-control @error('route') is-invalid @enderror" type="text" name="route" required placeholder="@lang('form.route.placeholder')" value="{{ $agency->route }}">
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
+								<div class="form-group col-12">
+									<label class="col-form-label">@lang('form.route.label') ({{ $locales['native'] }})<b class="text-danger">*</b></label>
+									<input class="form-control @error('route.'.$localeCode) is-invalid @enderror" type="text" name="route[{{ $localeCode }}]" required placeholder="@lang('form.route.placeholder')" value="{{ $agency->translate('route', $localeCode) }}" id="{{ 'name_'.$localeCode }}">
 								</div>
+								@endforeach
+
+								@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
+								<div class="form-group col-12">
+									<label class="col-form-label">@lang('form.description.label') ({{ $locales['native'] }}) (@lang('form.labels.optional'))</label>
+									<textarea class="form-control @error('description.'.$localeCode) is-invalid @enderror" name="description[{{ $localeCode }}]" placeholder="@lang('form.description.placeholder')" rows="2" id="{{ 'description_'.$localeCode }}">{{ $agency->translate('description', $localeCode) }}</textarea>
+								</div>
+								@endforeach
 
 								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">@lang('form.price.label')<b class="text-danger">*</b></label>
 									<input class="form-control min-decimal @error('price') is-invalid @enderror" type="text" name="price" required placeholder="@lang('form.price.placeholder')" value="{{ $agency->price }}">
-								</div>
-
-								<div class="form-group col-12">
-									<label class="col-form-label">@lang('form.description.label') (@lang('form.labels.optional'))</label>
-									<textarea class="form-control @error('description') is-invalid @enderror" name="description" placeholder="@lang('form.description.placeholder')" rows="2">{{ $agency->description }}</textarea>
 								</div>
 
 								<div class="form-group col-12">

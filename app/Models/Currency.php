@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Currency extends Model
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasTranslations;
 
     protected $fillable = ['name', 'slug', 'iso', 'symbol', 'state'];
+
+    protected $casts = [ 
+        'name' => 'array'
+    ];
 
     /**
      * Get the state.
@@ -51,6 +56,8 @@ class Currency extends Model
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
     }
+
+    public $translatable = ['name'];
 
     public function payments() {
         return $this->hasMany(Payment::class);

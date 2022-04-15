@@ -15,10 +15,10 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('name')->default('[]');
             $table->string('slug')->unique();
             $table->string('image')->default('products.jpg');
-            $table->text('description')->nullable();
+            $table->json('description')->default('[]');
             $table->float('price', 10, 2)->default(0.00)->unsigned();
             $table->enum('state', [0, 1, 2, 3])->default(1);
             $table->bigInteger('category_id')->unsigned()->nullable();

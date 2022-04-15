@@ -7,12 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Agency extends Model
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasTranslations;
 
     protected $fillable = ['name', 'slug', 'route', 'description', 'price', 'state'];
+
+    protected $casts = [ 
+        'name' => 'array',
+        'route' => 'array',
+        'description' => 'array'
+    ];
 
     /**
      * Get the state.
@@ -50,6 +57,8 @@ class Agency extends Model
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
     }
+
+    public $translatable = ['name', 'route', 'description'];
 
     public function shippings() {
         return $this->hasMany(Shipping::class);

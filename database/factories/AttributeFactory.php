@@ -7,7 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Attribute::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
+        'name' => [
+        	'es' => $faker->word,
+        	'en' => $faker->word
+        ],
         'state' => $faker->randomElement(['1', '0'])
     ];
 });

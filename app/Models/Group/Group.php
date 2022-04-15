@@ -9,12 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Group extends Model
 {
-	use SoftDeletes, HasSlug;
+	use SoftDeletes, HasSlug, HasTranslations;
 
     protected $fillable = ['name', 'slug', 'condition', 'min', 'max', 'state', 'attribute_id'];
+
+    protected $casts = [ 
+        'name' => 'array'
+    ];
 
     /**
      * Get the condition.
@@ -67,6 +72,8 @@ class Group extends Model
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
     }
+
+    public $translatable = ['name'];
 
     public function attribute() {
         return $this->belongsTo(Attribute::class);

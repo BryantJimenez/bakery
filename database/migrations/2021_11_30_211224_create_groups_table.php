@@ -15,7 +15,7 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('name')->default('[]');
             $table->string('slug')->unique();
             $table->enum('condition', [0, 1])->default(1);
             $table->integer('min')->default(1);

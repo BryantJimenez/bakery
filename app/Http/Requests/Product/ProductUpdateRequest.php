@@ -28,9 +28,11 @@ class ProductUpdateRequest extends FormRequest
     {
         $categories=Category::where('state', '1')->get()->pluck('slug');
         return [
-            'name' => 'required|string|min:2|max:191',
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191',
             'image' => 'nullable|file|mimetypes:image/*',
-            'description' => 'nullable|string|min:2|max:5000',
+            'description' => 'required|array',
+            'description.*' => 'nullable|string|min:2|max:5000',
             'price' => 'required|string|min:0',
             'category_id' => 'required|'.Rule::in($categories),
             'state' => 'required|'.Rule::in(['0', '1', '2', '3'])

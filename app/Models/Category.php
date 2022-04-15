@@ -6,12 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Category extends Model
 {
-    use SoftDeletes, HasSlug;
+    use SoftDeletes, HasSlug, HasTranslations;
 
     protected $fillable = ['name', 'slug', 'image', 'state'];
+
+    protected $casts = [ 
+        'name' => 'array'
+    ];
 
     /**
      * Get the state.
@@ -49,6 +54,8 @@ class Category extends Model
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
     }
+
+    public $translatable = ['name'];
 
     public function products() {
         return $this->hasMany(Product::class);

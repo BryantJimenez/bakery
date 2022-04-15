@@ -3,8 +3,7 @@
 namespace App\Http\Requests\Attribute;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use CodeZero\UniqueTranslation\UniqueTranslationRule;
 
 class AttributeUpdateRequest extends FormRequest
 {
@@ -26,7 +25,8 @@ class AttributeUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:191|'.Rule::unique('attributes')->ignore($this->attribute->slug, 'slug')
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191|'.UniqueTranslationRule::for('attributes')->ignore($this->attribute->slug, 'slug')
         ];
     }
 }

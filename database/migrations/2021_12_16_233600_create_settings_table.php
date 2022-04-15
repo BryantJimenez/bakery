@@ -15,8 +15,8 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->text('terms')->nullable();
-            $table->text('privacity')->nullable();
+            $table->json('terms')->default('[]');
+            $table->json('privacity')->default('[]');
             $table->string('stripe_public')->nullable();
             $table->string('stripe_secret')->nullable();
             $table->bigInteger('currency_id')->unsigned()->nullable();

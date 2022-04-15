@@ -7,7 +7,7 @@
 <div id="register">
     <aside>
         <figure>
-            <a href="{{ route('home') }}">
+            <a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('home'), [], true) }}" hreflang="{{ app()->getLocale() }}">
                 <img src="{{ asset('/web/img/logo_sticky.svg') }}" width="140" height="35" title="Logo" alt="Logo">
             </a>
         </figure>
@@ -32,7 +32,7 @@
             </div>
             <div id="pass-info" class="clearfix"></div>
             <button type="submit" class="btn_1 gradient full-width" action="reset">@lang('auth.reset.button')</button>
-            <div class="text-center mt-2"><small>@lang('auth.reset.login.text') <strong><a href="{{ route('login') }}">@lang('auth.reset.login.button')</a></strong></small></div>
+            <div class="text-center mt-2"><small>@lang('auth.reset.login.text') <strong><a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('login'), [], true) }}" hreflang="{{ app()->getLocale() }}">@lang('auth.reset.login.button')</a></strong></small></div>
         </form>
         <div class="copy">© {{ date('Y') }} @lang('admin.name')</div>
     </aside>

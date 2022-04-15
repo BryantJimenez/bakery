@@ -13,27 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/////////////////////////////////////// AUTH ////////////////////////////////////////////////////
-Auth::routes();
+/////////////////////////////////////////// AUTH ////////////////////////////////////////////////
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+	Auth::routes();
+});
 Route::get('/users/email', 'AdminController@emailVerifyAdmin');
 
-/////////////////////////////////////////////// WEB ////////////////////////////////////////////////
-Route::get('/', 'WebController@index')->name('home');
-// Checkout
-Route::group(['prefix' => 'checkout'], function () {
-	Route::get('/', 'WebController@checkout')->name('web.checkout');
-	Route::post('/', 'WebController@checkoutStore')->name('web.checkout.store');
-});
-// Profile
-Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
-	Route::get('/', 'WebController@profile')->name('web.profile');
-	Route::put('/', 'WebController@profileUpdate')->name('web.profile.update');
-	Route::get('/orders/{order:id}', 'WebController@profileOrder')->name('web.profile.order');
+//////////////////////////////////////////// WEB ////////////////////////////////////////////////
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+	Route::get('/', 'WebController@index')->name('home');
+	// Checkout
+	Route::group(['prefix' => 'checkout'], function () {
+		Route::get('/', 'WebController@checkout')->name('web.checkout');
+		Route::post('/', 'WebController@checkoutStore')->name('web.checkout.store');
+	});
+	// Profile
+	Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
+		Route::get('/', 'WebController@profile')->name('web.profile');
+		Route::put('/', 'WebController@profileUpdate')->name('web.profile.update');
+		Route::get('/orders/{order:id}', 'WebController@profileOrder')->name('web.profile.order');
+	});
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
-	/////////////////////////////////////// ADMIN ///////////////////////////////////////////////////
-
+/////////////////////////////////////////// ADMIN ////////////////////////////////////////////////
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'locale']], function () {
 	// Home
 	Route::get('/', 'AdminController@index')->name('admin');
 

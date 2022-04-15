@@ -24,9 +24,11 @@ class ComplementUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:191',
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191',
             'image' => 'nullable|file|mimetypes:image/*',
-            'description' => 'nullable|string|min:2|max:5000',
+            'description' => 'required|array',
+            'description.*' => 'nullable|string|min:2|max:5000',
             'price' => 'required|string|min:0'
         ];
     }

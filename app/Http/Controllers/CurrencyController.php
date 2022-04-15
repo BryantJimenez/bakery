@@ -36,10 +36,10 @@ class CurrencyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CurrencyStoreRequest $request) {
-        $trashed=Currency::where('slug', Str::slug(request('name')))->withTrashed()->exists();
-        $exist=Currency::where('slug', Str::slug(request('name')))->exists();
+        $trashed=Currency::where('slug', Str::slug(request('name')['es']))->withTrashed()->exists();
+        $exist=Currency::where('slug', Str::slug(request('name')['es']))->exists();
         if ($trashed && $exist===false) {
-            $currency=Currency::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $currency=Currency::where('slug', Str::slug(request('name')['es']))->withTrashed()->first();
             $currency->restore();
         } else if ($exist) {
             return redirect()->route('currencies.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.currencies.422.title'), 'msg' => trans('admin.notifications.error.messages.currencies.422.msg')]);

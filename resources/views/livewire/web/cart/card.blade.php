@@ -47,7 +47,7 @@
 				<li class="total">@lang('web.cart.card.total')<span>{{ number_format($total, 2, ",", ".").currencySymbol($currency) }}</span></li>
 			</ul>
 			<div class="btn_1_mobile">
-				<a href="{{ route('web.checkout') }}" class="btn_1 gradient full-width mb_5">@lang('web.cart.card.buttons.checkout')</a>
+				<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.checkout'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 gradient full-width mb_5">@lang('web.cart.card.buttons.checkout')</a>
 			</div>
 		</div>
 	</div>

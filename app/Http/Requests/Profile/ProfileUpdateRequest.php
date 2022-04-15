@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Profile;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -25,12 +26,14 @@ class ProfileUpdateRequest extends FormRequest
    */
   public function rules()
   {
+    $languages=Language::all()->pluck('id');
     return [
       'photo' => 'nullable|file|mimetypes:image/*',
       'name' => 'required|string|min:2|max:191',
       'lastname' => 'required|string|min:2|max:191',
       'phone' => 'required|string|min:5|max:15',
       'address' => 'required|string|min:5|max:191',
+      'language_id' => 'required|'.Rule::in($languages),
       'password' => 'nullable|string|min:8|confirmed'
     ];
   }

@@ -15,10 +15,10 @@ class CreateComplementsTable extends Migration
     {
         Schema::create('complements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->json('name')->default('[]');
             $table->string('slug')->unique();
             $table->string('image')->default('complements.jpg');
-            $table->text('description')->nullable();
+            $table->json('description')->default('[]');
             $table->float('price', 10, 2)->default(0.00)->unsigned();
             $table->enum('state', [0, 1])->default(1);
             $table->timestamps();

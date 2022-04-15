@@ -64,9 +64,19 @@
 									<input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" required placeholder="@lang('form.phone.placeholder')" value="{{ Auth::user()->phone }}" id="phone">
 								</div>
 
-								<div class="form-group col-12">
+								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">@lang('form.address.label')<b class="text-danger">*</b></label>
 									<input class="form-control @error('address') is-invalid @enderror" type="text" name="address" placeholder="@lang('form.address.placeholder')" value="{{ Auth::user()->address }}">
+								</div>
+
+								<div class="form-group col-lg-6 col-md-6 col-12">
+									<label class="col-form-label">@lang('form.language.label')<b class="text-danger">*</b></label>
+									<select class="form-control @error('language_id') is-invalid @enderror" name="language_id" required>
+										<option value="">@lang('form.select.select')</option>
+										@foreach($languages as $language)
+										<option value="{{ $language->id }}" @if(Auth::user()->language_id==$language->id) selected @endif>{{ $language->name.' ('.$language->language.')' }}</option>
+										@endforeach
+									</select>
 								</div>
 
 								<div class="form-group col-lg-6 col-md-6 col-12">

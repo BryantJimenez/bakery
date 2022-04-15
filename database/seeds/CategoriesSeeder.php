@@ -12,17 +12,17 @@ class CategoriesSeeder extends Seeder
     public function run()
     {
         $categories = [
-    		['name' => 'Bebidas', 'slug' => 'bebidas', 'image' => 'bebidas.jpg', 'state' => '1'],
-    		['name' => 'Desayunos', 'slug' => 'desayunos', 'image' => 'categories.jpg', 'state' => '1'],
-    		['name' => 'Almuerzos', 'slug' => 'almuerzos', 'image' => 'categories.jpg', 'state' => '1'],
-    		['name' => 'Packs', 'slug' => 'packs', 'image' => 'categories.jpg', 'state' => '1'],
-            ['name' => 'Pizzas', 'slug' => 'pizzas', 'image' => 'pizzas.jpg', 'state' => '1'],
-            ['name' => 'Pollo', 'slug' => 'pollo', 'image' => 'pollo.jpg', 'state' => '1'],
-            ['name' => 'Hamburguesas', 'slug' => 'hamburguesas', 'image' => 'hamburguesas.jpg', 'state' => '1'],
-            ['name' => 'Sushi', 'slug' => 'sushi', 'image' => 'sushi.jpg', 'state' => '1'],
-            ['name' => 'Alitas de Pollo', 'slug' => 'alitas-de-pollo', 'image' => 'alitas.jpg', 'state' => '1'],
-            ['name' => 'Postres', 'slug' => 'postres', 'image' => 'postres.jpg', 'state' => '1'],
-            ['name' => 'Perros Calientes', 'slug' => 'perros-calientes', 'image' => 'perros.jpg', 'state' => '1']
+    		['name' => '{"es": "Bebidas", "en": "Drinks"}', 'slug' => 'bebidas', 'image' => 'bebidas.jpg', 'state' => '1'],
+    		['name' => '{"es": "Desayunos", "en": "breakfasts"}', 'slug' => 'desayunos', 'image' => 'categories.jpg', 'state' => '1'],
+    		['name' => '{"es": "Almuerzos", "en": "Lunches"}', 'slug' => 'almuerzos', 'image' => 'categories.jpg', 'state' => '1'],
+    		['name' => '{"es": "Packs", "en": "Packs"}', 'slug' => 'packs', 'image' => 'categories.jpg', 'state' => '1'],
+            ['name' => '{"es": "Pizzas", "en": "Pizzas"}', 'slug' => 'pizzas', 'image' => 'pizzas.jpg', 'state' => '1'],
+            ['name' => '{"es": "Pollo", "en": "Chicken"}', 'slug' => 'pollo', 'image' => 'pollo.jpg', 'state' => '1'],
+            ['name' => '{"es": "Hamburguesas", "en": "Burgers"}', 'slug' => 'hamburguesas', 'image' => 'hamburguesas.jpg', 'state' => '1'],
+            ['name' => '{"es": "Sushi", "en": "Sushi"}', 'slug' => 'sushi', 'image' => 'sushi.jpg', 'state' => '1'],
+            ['name' => '{"es": "Alitas de Pollo", "en": "Chicken Wings"}', 'slug' => 'alitas-de-pollo', 'image' => 'alitas.jpg', 'state' => '1'],
+            ['name' => '{"es": "Postres", "en": "Desserts"}', 'slug' => 'postres', 'image' => 'postres.jpg', 'state' => '1'],
+            ['name' => '{"es": "Perros Calientes", "en": "Hot Dogs"}', 'slug' => 'perros-calientes', 'image' => 'perros.jpg', 'state' => '1']
     	];
     	DB::table('categories')->insert($categories);
     }

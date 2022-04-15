@@ -110,6 +110,9 @@ return [
 	'currency' => [
 		'label' => 'Currency'
 	],
+	'language' => [
+		'label' => 'Language'
+	],
 	'terms' => [
 		'label' => 'Terms and Conditions',
 		'placeholder' => 'Enter the terms and conditions'

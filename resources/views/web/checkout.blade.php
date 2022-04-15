@@ -27,7 +27,7 @@
 							<div class="row">
 								<div class="col-12">
 									<p class="mb-1">@lang('web.checkout.login.description')</p>
-									<a href="{{ route('login') }}" class="btn_1 mb-3">@lang('web.checkout.login.button')</a>
+									<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('login'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 mb-3">@lang('web.checkout.login.button')</a>
 								</div>
 							</div>
 						</div>
@@ -45,7 +45,7 @@
 							<div class="row">
 								<div class="col-12">
 									<p class="mb-1">@lang('web.checkout.login.description')</p>
-									<a href="{{ route('register') }}" class="btn_1 mb-3">@lang('web.checkout.login.button')</a>
+									<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('register'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 mb-3">@lang('web.checkout.login.button')</a>
 								</div>
 							</div>
 						</div>

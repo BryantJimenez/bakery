@@ -36,10 +36,10 @@ class AttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(AttributeStoreRequest $request) {
-        $trashed=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->exists();
-        $exist=Attribute::where('slug', Str::slug(request('name')))->exists();
+        $trashed=Attribute::where('slug', Str::slug(request('name')['es']))->withTrashed()->exists();
+        $exist=Attribute::where('slug', Str::slug(request('name')['es']))->exists();
         if ($trashed && $exist===false) {
-            $attribute=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $attribute=Attribute::where('slug', Str::slug(request('name')['es']))->withTrashed()->first();
             $attribute->restore();
         } else if ($exist) {
             return redirect()->route('attributes.index')->with(['alert' => 'lobibox', 'type' => 'warning', 'title' => trans('admin.notifications.error.messages.attributes.422.title'), 'msg' => trans('admin.notifications.error.messages.attributes.422.msg')]);

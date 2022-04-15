@@ -90,6 +90,22 @@ ul#top_menu li a.cart_bt {
   height: 20px;
 }
 
+.dropdown.user.languages > a {
+  padding-left: 0px!important;
+}
+
+.dropdown.user.languages .dropdown-toggle::after {
+  border: 0px solid transparent!important;
+}
+
+.dropdown.user.languages .dropdown-menu {
+  min-width: 100px;
+}
+
+.dropdown.user.languages .dropdown-menu:before {
+  right: 75%!important;
+}
+
 @media (max-width: 991px) {
   .dropdown-cart {
     display: none;

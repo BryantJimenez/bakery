@@ -25,9 +25,13 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->enum('state', [0, 1])->default(1);
+            $table->integer('language_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+
+            #Relations
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('set null')->onUpdate('cascade');
         });
     }
 

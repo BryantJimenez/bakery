@@ -28,8 +28,10 @@ class SettingUpdateRequest extends FormRequest
     {
         $currencies=Currency::where('state', '1')->get()->pluck('slug');
         return [
-            'terms' => 'nullable|string|min:1|max:16770000',
-            'privacity' => 'nullable|string|min:1|max:16770000',
+            'terms' => 'required|array',
+            'terms.*' => 'nullable|string|min:1|max:16770000',
+            'privacity' => 'required|array',
+            'privacity.*' => 'nullable|string|min:1|max:16770000',
             'stripe_public' => 'nullable|string|min:1|max:191',
             'stripe_secret' => 'nullable|string|min:1|max:191',
             'currency_id' => 'required|'.Rule::in($currencies)

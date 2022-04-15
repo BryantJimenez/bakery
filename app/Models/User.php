@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Cart\Cart;
 use App\Models\Payment\Payment;
 use App\Models\Order\Order;
+use JoeDixon\Translation\Language;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -25,7 +26,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'lastname', 'slug', 'photo', 'phone', 'address', 'email', 'password', 'state'];
+    protected $fillable = ['name', 'lastname', 'slug', 'photo', 'phone', 'address', 'email', 'password', 'state', 'language_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -91,6 +92,10 @@ class User extends Authenticatable
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()->generateSlugsFrom(['name', 'lastname'])->saveSlugsTo('slug')->slugsShouldBeNoLongerThan(191)->doNotGenerateSlugsOnUpdate();
+    }
+
+    public function language() {
+        return $this->belongsTo(Language::class);
     }
 
     public function cart() {

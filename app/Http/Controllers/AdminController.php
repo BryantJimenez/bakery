@@ -11,6 +11,7 @@ use App\Models\Agency;
 use App\Models\Attribute;
 use App\Models\Order\Order;
 use App\Models\Payment\Payment;
+use JoeDixon\Translation\Language;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -43,12 +44,13 @@ class AdminController extends Controller
     }
 
     public function profileEdit() {
-        return view('admin.edit');
+        $languages=Language::all();
+        return view('admin.edit', compact('languages'));
     }
 
     public function profileUpdate(ProfileUpdateRequest $request) {
         $user=User::where('slug', Auth::user()->slug)->firstOrFail();
-        $data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'), 'address' => request('address'));
+        $data=array('name' => request('name'), 'lastname' => request('lastname'), 'phone' => request('phone'), 'address' => request('address'), 'language_id' => request('language_id'));
 
         if (!is_null(request('password'))) {
             $data['password']=Hash::make(request('password'));
@@ -69,6 +71,7 @@ class AdminController extends Controller
             Auth::user()->lastname=request('lastname');
             Auth::user()->phone=request('phone');
             Auth::user()->address=request('address');
+            Auth::user()->language_id=request('language_id');
             if (!is_null(request('password'))) {
                 Auth::user()->password=Hash::make(request('password'));
             }

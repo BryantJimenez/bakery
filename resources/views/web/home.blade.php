@@ -1,6 +1,6 @@
 @extends('layouts.web')
 
-@section('title', 'Bakery')
+@section('title', trans('admin.name'))
 
 @section('links')
 <link href="{{ asset('/web/css/template/home.css') }}" rel="stylesheet">

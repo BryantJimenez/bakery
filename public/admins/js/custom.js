@@ -329,6 +329,22 @@ $(document).ready(function() {
     CKEDITOR.config.width='auto';
     CKEDITOR.replace('content-privacity');
   }
+
+  if ($('.content-term').length) {
+    $('.content-term').each(function(index) {
+      CKEDITOR.config.height=250;
+      CKEDITOR.config.width='auto';
+      CKEDITOR.replace($(this).attr("id"));
+    });
+  }
+
+  if ($('.content-privacity').length) {
+    $('.content-privacity').each(function(index) {
+      CKEDITOR.config.height=250;
+      CKEDITOR.config.width='auto';
+      CKEDITOR.replace($(this).attr("id"));
+    });
+  }
 });
 
 // function to change the hidden input when changing the status switch

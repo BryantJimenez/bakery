@@ -33,7 +33,7 @@
 		</ul>
 		<div class="total_drop">
 			<div class="clearfix add_bottom_15"><strong>@lang('web.cart.header.total')</strong><span>{{ number_format($total, 2, ',', '.').currencySymbol($currency) }}</span></div>
-			<a href="{{ route('web.checkout') }}" class="btn_1 text-white py-2">@lang('web.cart.header.button')</a>
+			<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.checkout'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 text-white py-2">@lang('web.cart.header.button')</a>
 		</div>
 	</div>
 </div>

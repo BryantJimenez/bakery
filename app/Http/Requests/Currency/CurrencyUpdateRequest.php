@@ -3,8 +3,7 @@
 namespace App\Http\Requests\Currency;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use CodeZero\UniqueTranslation\UniqueTranslationRule;
 
 class CurrencyUpdateRequest extends FormRequest
 {
@@ -26,7 +25,8 @@ class CurrencyUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:191|'.Rule::unique('currencies')->ignore($this->currency->slug, 'slug'),
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191|'.UniqueTranslationRule::for('currencies')->ignore($this->currency->slug, 'slug'),
             'iso' => 'required|string|min:3|max:3',
             'symbol' => 'required|string|min:1|max:2'
         ];
