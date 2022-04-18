@@ -85,7 +85,7 @@ function roleUser($user, $badge=true) {
 	$roles="";
 	foreach ($user['roles'] as $rol) {
 		if ($user->hasRole($rol->name)) {
-			$roles.=($user['roles']->count()==$num) ? $rol->name : $rol->name."<br>";
+			$roles.=($user['roles']->count()==$num) ? trans('roles.'.$rol->name) : trans('roles.'.$rol->name)."<br>";
 			$num++;
 		}
 	}

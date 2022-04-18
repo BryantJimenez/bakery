@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function() {
 	/////////////////////////////////////// AUTH ////////////////////////////////////////////////////
-	Route::group(['prefix' => 'auth'], function() {
+	Route::group(['prefix' => 'auth', 'middleware' => 'locale'], function() {
 		Route::prefix('login')->group(function () {
 			Route::post('/', 'Api\AuthController@login');
 		});
@@ -29,7 +29,7 @@ Route::group(['prefix' => 'v1'], function() {
 	});
 
 	/////////////////////////////////////// ADMIN ////////////////////////////////////////////////////
-	Route::group(['middleware' => 'auth:api'], function () {
+	Route::group(['middleware' => ['auth:api', 'locale']], function () {
 		// Profile
 		Route::group(['prefix' => 'profile'], function () {
 			Route::get('/', 'Api\Profile\ProfileController@get');
@@ -162,6 +162,14 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::delete('/{currency:id}', 'Api\CurrencyController@destroy')->middleware('permission:currencies.delete');
 			Route::put('/{currency:id}/activate', 'Api\CurrencyController@activate')->middleware('permission:currencies.active');
 			Route::put('/{currency:id}/deactivate', 'Api\CurrencyController@deactivate')->middleware('permission:currencies.deactive');
+		});
+
+		// Languages
+		Route::group(['prefix' => 'languages'], function () {
+			Route::get('/', 'Api\LanguageController@index')->middleware('permission:languages.index');
+			Route::post('/', 'Api\LanguageController@store')->middleware('permission:languages.create');
+			Route::get('/{language:id}', 'Api\LanguageController@show')->middleware('permission:languages.show');
+			Route::delete('/{language:id}', 'Api\LanguageController@destroy')->middleware('permission:languages.delete');
 		});
 
 		// Settings

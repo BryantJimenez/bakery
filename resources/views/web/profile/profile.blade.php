@@ -40,7 +40,7 @@
 		<div class="col-lg-8 col-md-8 col-12">
 			<ul class="nav nav-tabs mb-3" id="animateLine" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link active" id="animated-underline-shopping-tab" data-toggle="tab" href="#animated-underline-shopping" role="tab" aria-controls="animated-underline-shopping" aria-selected="true">@lang('web.profile.orders.title')</a>
+					<a class="nav-link @if(session('tabs')!="setting"){{ 'active' }}@endif" id="animated-underline-shopping-tab" data-toggle="tab" href="#animated-underline-shopping" role="tab" aria-controls="animated-underline-shopping" aria-selected="@if(session('tabs')!="setting"){{ 'true' }}@else{{ 'false' }}@endif">@lang('web.profile.orders.title')</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link @if(session('tabs')=="setting"){{ 'active' }}@endif" id="animated-underline-setting-tab" data-toggle="tab" href="#animated-underline-setting" role="tab" aria-controls="animated-underline-setting" aria-selected="@if(session('tabs')=="setting"){{ 'true' }}@else{{ 'false' }}@endif">@lang('web.profile.settings.title')</a>
@@ -48,7 +48,7 @@
 			</ul>
 
 			<div class="tab-content" id="animateLineContent-4">
-				<div class="tab-pane fade show active" id="animated-underline-shopping" role="tabpanel" aria-labelledby="animated-underline-shopping-tab">
+				<div class="tab-pane fade @if(session('tabs')!="setting"){{ 'show active' }}@endif" id="animated-underline-shopping" role="tabpanel" aria-labelledby="animated-underline-shopping-tab">
 					<div class="row">
 						<div class="col-12">
 							@if($orders->count()>0)
@@ -71,7 +71,7 @@
 											<td class="py-2">{!! stateOrder($order->state) !!}</td>
 											<td class="py-2">{{ $order->created_at->format('d-m-Y H:i a') }}</td>
 											<td class="d-flex justify-content-center py-2">
-												<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.profile.order', ['order' => $order->id]), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 gradient" alt="@lang('web.profile.orders.table.show')" title="@lang('web.profile.orders.table.show')">
+												<a href="{{ route('web.profile.order', ['order' => $order->id]) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 gradient" alt="@lang('web.profile.orders.table.show')" title="@lang('web.profile.orders.table.show')">
 													<i class="fa fa-shopping-cart"></i>
 												</a>
 											</td>
@@ -138,9 +138,19 @@
 												<input class="form-control int @error('phone') is-invalid @enderror" type="text" name="phone" required placeholder="@lang('form.phone.placeholder')" value="{{ Auth::user()->phone }}">
 											</div>
 
-											<div class="form-group col-12">
+											<div class="form-group col-lg-6 col-md-6 col-12">
 												<label class="col-form-label">@lang('form.address.label')<b class="text-danger">*</b></label>
 												<input class="form-control @error('address') is-invalid @enderror" type="text" name="address" placeholder="@lang('form.address.placeholder')" value="{{ Auth::user()->address }}">
+											</div>
+
+											<div class="form-group col-lg-6 col-md-6 col-12">
+												<label class="col-form-label">@lang('form.language.label')<b class="text-danger">*</b></label>
+												<select class="form-control @error('language_id') is-invalid @enderror" name="language_id" required>
+													<option value="">@lang('form.select.select')</option>
+													@foreach($languages as $language)
+													<option value="{{ $language->id }}" @if(Auth::user()->language_id==$language->id) selected @endif>{{ $language->name.' ('.$language->language.')' }}</option>
+													@endforeach
+												</select>
 											</div>
 
 											<div class="form-group col-lg-6 col-md-6 col-12">

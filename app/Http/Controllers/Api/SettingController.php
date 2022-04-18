@@ -2,14 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Currency;
 use App\Models\Setting;
+use App\Models\Currency;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Setting\SettingUpdateRequest;
 use Illuminate\Http\Request;
 
 class SettingController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+    
     /**
     *
     * @OA\Get(
@@ -21,6 +35,15 @@ class SettingController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all settings.",
@@ -38,7 +61,7 @@ class SettingController extends ApiController
     *   )
     * )
     */
-    public function get() {
+    public function get(Request $request) {
         $setting=Setting::with(['currency'])->first();
         $setting=$this->dataSetting($setting);
         return response()->json(['code' => 200, 'status' => 'success', 'data' => $setting], 200);
@@ -55,6 +78,15 @@ class SettingController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show terms and conditions.",
@@ -72,7 +104,7 @@ class SettingController extends ApiController
     *   )
     * )
     */
-    public function terms() {
+    public function terms(Request $request) {
         $setting=Setting::with(['currency'])->first();
         $terms=(!is_null($setting->terms)) ? $setting->terms : "";
         return response()->json(['code' => 200, 'status' => 'success', 'data' => $terms], 200);
@@ -89,6 +121,15 @@ class SettingController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show privacity politics.",
@@ -106,7 +147,7 @@ class SettingController extends ApiController
     *   )
     * )
     */
-    public function privacity() {
+    public function privacity(Request $request) {
         $setting=Setting::with(['currency'])->first();
         $privacity=(!is_null($setting->privacity)) ? $setting->privacity : "";
         return response()->json(['code' => 200, 'status' => 'success', 'data' => $privacity], 200);
@@ -124,19 +165,37 @@ class SettingController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="terms",
+    *       name="terms[es]",
     *       in="query",
-    *       description="Terms and conditions",
-    *       required=false,
+    *       description="Terms and conditions in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="privacity",
+    *       name="terms[en]",
     *       in="query",
-    *       description="Privacity politics",
-    *       required=false,
+    *       description="Terms and conditions in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="privacity[es]",
+    *       in="query",
+    *       description="Privacity politics in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="privacity[en]",
+    *       in="query",
+    *       description="Privacity politics in english (The key of the value must be the locale of the language)",
+    *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -166,6 +225,15 @@ class SettingController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

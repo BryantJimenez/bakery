@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Cart;
 
 use App\Models\Product;
+use JoeDixon\Translation\Language;
 use App\Models\Group\ComplementGroup;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
@@ -39,10 +40,12 @@ class CartStoreRequest extends FormRequest
         }
       }
     }
+    $locales=Language::all()->pluck('language');
     return [
       'product_id' => 'required|'.Rule::in($products),
       'complement_group_id' => 'required|array',
       'complement_group_id.*' => 'required|'.Rule::in($complements_groups),
+      'locale' => 'nullable|'.Rule::in($locales)
     ];
   }
 }

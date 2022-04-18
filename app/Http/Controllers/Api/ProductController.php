@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Group\Group;
 use App\Models\Group\GroupProduct;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Product\ProductStoreRequest;
 use App\Http\Requests\Api\Product\ProductUpdateRequest;
@@ -17,6 +18,19 @@ use Arr;
 
 class ProductController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+    
     /**
     *
     * @OA\Get(
@@ -28,6 +42,24 @@ class ProductController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all products.",
@@ -45,7 +77,7 @@ class ProductController extends ApiController
     *   )
     * )
     */
-    public function index() {
+    public function index(Request $request) {
       $products=Product::with(['category', 'groups.complements'])->get()->map(function($product) {
          return $this->dataProduct($product);
      });
@@ -69,18 +101,36 @@ class ProductController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of product",
+    *       description="Name of product in spanish (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="description",
+    *       name="name[en]",
     *       in="query",
-    *       description="Description of product",
+    *       description="Name of product in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[es]",
+    *       in="query",
+    *       description="Description of product in spanish (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[en]",
+    *       in="query",
+    *       description="Description of product in english (The key of the value must be the locale of the language)",
     *       required=false,
     *       @OA\Schema(
     *           type="string"
@@ -113,6 +163,15 @@ class ProductController extends ApiController
     *       @OA\Schema(
     *           type="string",
     *           enum={"1", "2", "3", "0"}
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -174,6 +233,15 @@ class ProductController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show product.",
@@ -221,18 +289,36 @@ class ProductController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of product",
+    *       description="Name of product in spanish (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="description",
+    *       name="name[en]",
     *       in="query",
-    *       description="Description of product",
+    *       description="Name of product in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[es]",
+    *       in="query",
+    *       description="Description of product in spanish (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[en]",
+    *       in="query",
+    *       description="Description of product in english (The key of the value must be the locale of the language)",
     *       required=false,
     *       @OA\Schema(
     *           type="string"
@@ -265,6 +351,15 @@ class ProductController extends ApiController
     *       @OA\Schema(
     *           type="string",
     *           enum={"1", "2", "3", "0"}
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -326,6 +421,15 @@ class ProductController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Delete product.",
@@ -379,6 +483,15 @@ class ProductController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -436,6 +549,15 @@ class ProductController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Activate product.",
@@ -491,13 +613,23 @@ class ProductController extends ApiController
     *           type="integer"
     *       )
     *   ),
-    *   @OA\Parameter(
-    *       name="group_id[0]",
+    *    @OA\Parameter(
+    *       name="group_id[]",
     *       in="query",
     *       description="Group ID",
     *       required=true,
     *       @OA\Schema(
-    *           type="integer"
+    *           type="array",
+    *           @OA\Items(type="integer")
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

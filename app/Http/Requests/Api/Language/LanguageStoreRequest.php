@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Api\Attribute;
+namespace App\Http\Requests\Api\Language;
 
 use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class AttributeStoreRequest extends FormRequest
+class LanguageStoreRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -28,8 +28,8 @@ class AttributeStoreRequest extends FormRequest
   {
     $locales=Language::all()->pluck('language');
     return [
-      'name' => 'required|array',
-      'name.*' => 'required|string|min:2|max:191',
+      'name' => 'required|string|min:2|max:191|unique:languages,name',
+      'language' => 'required|string|min:2|max:2|unique:languages,language',
       'locale' => 'nullable|'.Rule::in($locales)
     ];
   }

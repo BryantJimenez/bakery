@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Profile;
 use App\Models\Product;
 use App\Models\Cart\Cart;
 use App\Models\Cart\CartProduct;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Cart\CartStoreRequest;
 use Illuminate\Http\Request;
@@ -14,6 +15,19 @@ use Auth;
 class CartController extends ApiController
 {
     use CartTrait;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
 
     /**
     *
@@ -26,6 +40,15 @@ class CartController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Get cart.",
@@ -65,13 +88,23 @@ class CartController extends ApiController
     *           type="integer"
     *       )
     *   ),
-    *   @OA\Parameter(
-    *       name="complement_group_id[0]",
+    *    @OA\Parameter(
+    *       name="complement_group_id[]",
     *       in="query",
     *       description="Complement Group ID",
     *       required=true,
     *       @OA\Schema(
-    *           type="integer"
+    *           type="array",
+    *           @OA\Items(type="integer")
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -132,6 +165,15 @@ class CartController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Add a product to cart.",
@@ -189,6 +231,15 @@ class CartController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Add a product to cart.",
@@ -244,6 +295,15 @@ class CartController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

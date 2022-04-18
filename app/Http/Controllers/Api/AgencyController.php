@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Agency;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Agency\AgencyStoreRequest;
 use App\Http\Requests\Api\Agency\AgencyUpdateRequest;
@@ -13,6 +14,19 @@ use Arr;
 
 class AgencyController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+    
     /**
     *
     * @OA\Get(
@@ -24,6 +38,24 @@ class AgencyController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all agencies.",
@@ -41,7 +73,7 @@ class AgencyController extends ApiController
     *   )
     * )
     */
-    public function index() {
+    public function index(Request $request) {
         $agencies=Agency::get()->map(function($agency) {
             return $this->dataAgency($agency);
         });
@@ -65,18 +97,36 @@ class AgencyController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of agency",
+    *       description="Name of agency in spanish (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="route",
+    *       name="name[en]",
     *       in="query",
-    *       description="Route of agency",
+    *       description="Name of agency in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="route[es]",
+    *       in="query",
+    *       description="Route of agency in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="route[en]",
+    *       in="query",
+    *       description="Route of agency in english (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -93,9 +143,27 @@ class AgencyController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="description",
+    *       name="description[es]",
     *       in="query",
-    *       description="Description of agency",
+    *       description="Description of agency in spanish (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[en]",
+    *       in="query",
+    *       description="Description of agency in english (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
     *       required=false,
     *       @OA\Schema(
     *           type="string"
@@ -158,6 +226,15 @@ class AgencyController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show agency.",
@@ -205,18 +282,36 @@ class AgencyController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of agency",
+    *       description="Name of agency in spanish (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="route",
+    *       name="name[en]",
     *       in="query",
-    *       description="Route of agency",
+    *       description="Name of agency in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="route[es]",
+    *       in="query",
+    *       description="Route of agency in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="route[en]",
+    *       in="query",
+    *       description="Route of agency in english (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -233,9 +328,27 @@ class AgencyController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="description",
+    *       name="description[es]",
     *       in="query",
-    *       description="Description of agency",
+    *       description="Description of agency in spanish (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[en]",
+    *       in="query",
+    *       description="Description of agency in english (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
     *       required=false,
     *       @OA\Schema(
     *           type="string"
@@ -298,6 +411,15 @@ class AgencyController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Delete agency.",
@@ -353,6 +475,15 @@ class AgencyController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Deactivate agency.",
@@ -406,6 +537,15 @@ class AgencyController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

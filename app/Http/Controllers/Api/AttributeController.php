@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Attribute;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Attribute\AttributeStoreRequest;
 use App\Http\Requests\Api\Attribute\AttributeUpdateRequest;
@@ -14,6 +15,19 @@ use Str;
 
 class AttributeController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+    
     /**
     *
     * @OA\Get(
@@ -25,6 +39,24 @@ class AttributeController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all attributes.",
@@ -42,7 +74,7 @@ class AttributeController extends ApiController
     *   )
     * )
     */
-    public function index() {
+    public function index(Request $request) {
         $attributes=Attribute::get()->map(function($attribute) {
             return $this->dataAttribute($attribute);
         });
@@ -66,10 +98,28 @@ class AttributeController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of attribute",
+    *       description="Name of attribute in spanish (The key of the value must be the locale of the language)",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of attribute in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -100,10 +150,10 @@ class AttributeController extends ApiController
     * )
     */
     public function store(AttributeStoreRequest $request) {
-        $trashed=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->exists();
-        $exist=Attribute::where('slug', Str::slug(request('name')))->exists();
+        $trashed=Attribute::where('slug', Str::slug(request('name')['es']))->withTrashed()->exists();
+        $exist=Attribute::where('slug', Str::slug(request('name')['es']))->exists();
         if ($trashed && $exist===false) {
-            $attribute=Attribute::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $attribute=Attribute::where('slug', Str::slug(request('name')['es']))->withTrashed()->first();
             $attribute->restore();
         } else if ($exist) {
             return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.attribute')], 422);
@@ -138,6 +188,15 @@ class AttributeController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -187,10 +246,28 @@ class AttributeController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of attribute",
+    *       description="Name of attribute in spanish (The key of the value must be the locale of the language)",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of attribute in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -251,6 +328,15 @@ class AttributeController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Delete attribute.",
@@ -306,6 +392,15 @@ class AttributeController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Deactivate attribute.",
@@ -359,6 +454,15 @@ class AttributeController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

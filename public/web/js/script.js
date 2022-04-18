@@ -95,7 +95,7 @@
 	// flatpickr
 	if ($('#minTodayFlatpickr').length) {
 		flatpickr(document.getElementById('minTodayFlatpickr'), {
-			locale: 'es',
+			locale: locale,
 			enableTime: false,
 			dateFormat: "d-m-Y",
 			minDate : "today"
@@ -106,18 +106,18 @@
 	if ($('.dropify').length) {
 		$('.dropify').dropify({
 			messages: {
-				default: 'Arrastre y suelte una imagen o da click para seleccionarla',
-				replace: 'Arrastre y suelte una imagen o haga click para reemplazar',
-				remove: 'Remover',
-				error: 'Lo sentimos, el archivo es demasiado grande'
+				default: Lang.get('admin.js.file.messages.default'),
+				replace: Lang.get('admin.js.file.messages.replace'),
+				remove: Lang.get('admin.js.file.messages.remove'),
+				error: Lang.get('admin.js.file.messages.error')
 			},
 			error: {
-				'fileSize': 'El tamaño del archivo es demasiado grande ({{ value }} máximo).',
-				'minWidth': 'El ancho de la imagen es demasiado pequeño ({{ value }}}px mínimo).',
-				'maxWidth': 'El ancho de la imagen es demasiado grande ({{ value }}}px máximo).',
-				'minHeight': 'La altura de la imagen es demasiado pequeña ({{ value }}}px mínimo).',
-				'maxHeight': 'La altura de la imagen es demasiado grande ({{ value }}px máximo).',
-				'imageFormat': 'El formato de imagen no está permitido (Debe ser {{ value }}).'
+				'fileSize': Lang.get('admin.js.file.error.fileSize', {value: '{{ value }}'}),
+				'minWidth': Lang.get('admin.js.file.error.minWidth', {value: '{{ value }}'}),
+				'maxWidth': Lang.get('admin.js.file.error.maxWidth', {value: '{{ value }}'}),
+				'minHeight': Lang.get('admin.js.file.error.minHeight', {value: '{{ value }}'}),
+				'maxHeight': Lang.get('admin.js.file.error.maxHeight', {value: '{{ value }}'}),
+				'imageFormat': Lang.get('admin.js.file.error.imageFormat', {value: '{{ value }}'})
 			}
 		});
 	}
@@ -127,28 +127,28 @@
 		$('.table-normal').DataTable({
 			"oLanguage": {
 				"oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-				"sInfo": "Resultados del _START_ al _END_ de un total de _TOTAL_ registros",
+				"sInfo": Lang.get('admin.js.table.info', {start: '_START_', end: '_END_', total: '_TOTAL_'}),
 				"sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-				"sSearchPlaceholder": "Buscar...",
-				"sLengthMenu": "Mostrar _MENU_ registros",
-				"sProcessing":     "Procesando...",
-				"sZeroRecords":    "No se encontraron resultados",
-				"sEmptyTable":     "Ningún resultado disponible en esta tabla",
-				"sInfoEmpty":      "No hay resultados",
-				"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-				"sInfoPostFix":    "",
-				"sUrl":            "",
-				"sInfoThousands":  ",",
-				"sLoadingRecords": "Cargando...",
+				"sSearchPlaceholder": Lang.get('admin.js.table.search'),
+				"sLengthMenu": Lang.get('admin.js.table.length', {menu: '_MENU_'}),
+				"sProcessing": Lang.get('admin.js.table.processing'),
+				"sZeroRecords": Lang.get('admin.js.table.empty.zero'),
+				"sEmptyTable": Lang.get('admin.js.table.empty.table'),
+				"sInfoEmpty": Lang.get('admin.js.table.empty.info'),
+				"sInfoFiltered": Lang.get('admin.js.table.filter', {max: '_MAX_'}),
+				"sInfoPostFix": "",
+				"sUrl": "",
+				"sInfoThousands": ",",
+				"sLoadingRecords": Lang.get('admin.js.table.loading'),
 				"oAria": {
-					"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-					"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+					"sSortAscending": Lang.get('admin.js.table.sort.asc'),
+					"sSortDescending": Lang.get('admin.js.table.sort.desc')
 				}
 			},
 			"stripeClasses": [],
 			"lengthMenu": [10, 20, 50, 100, 200, 500],
 			"pageLength": 10
-		});
+	    });
 	}
 })(jQuery);
 
@@ -242,7 +242,7 @@ if($('#card-stripe-element').length) {
 	};
 
 	// Create a Stripe client.
-	const stripe = Stripe(public, { locale: 'es' });
+	const stripe = Stripe(public, { locale: locale });
   	// Create an instance of Elements.
   	const elements = stripe.elements();
   	// Create an instance of the card Element.
@@ -331,7 +331,6 @@ function nextModalComplements() {
 	if (validationComplements) {
 		$('#next-complements').attr('disabled', true);
 		var data={"complements": complements};
-		console.log(data);
 		Livewire.emit('nextStepComplements', data);
 	}
 }
@@ -340,8 +339,6 @@ function nextModalComplements() {
 function addProductCart() {
 	var complements=[], validationComplements=true, complementsCount=0, i=0;
 	var groupMin=parseInt($('#modal-product .modal-complements').attr('min')), groupMax=parseInt($('#modal-product .modal-complements').attr('max'));
-
-	console.log(groupMin, groupMax);
 
 	$('#modal-product .modal-complements input[checked]').each(function(index, el) {
 		complements[i]=$(this).val();
@@ -365,18 +362,18 @@ function validationRequired(validationComplements, complementsCount, groupMin, g
 	if (complementsCount<groupMin) {
 		validationMinComplements=false;
 		if (groupMin>1) {
-			$('#modal-product .modal-complements p').text("Selecciona mínimo "+groupMin+" opciones");
+			$('#modal-product .modal-complements p').text(Lang.choice('web.shop.modal.validations.choose.min', groupMin, {min: groupMin}));
 		} else {
-			$('#modal-product .modal-complements p').text("Selecciona mínimo 1 opción");
+			$('#modal-product .modal-complements p').text(Lang.choice('web.shop.modal.validations.choose.min', 1));
 		}
 	}
 
 	if (complementsCount>groupMax) {
 		validationMaxComplements=false;
 		if (groupMax>1) {
-			$('#modal-product .modal-complements p').text("Selecciona máximo "+groupMax+" opciones");
+			$('#modal-product .modal-complements p').text(Lang.choice('web.shop.modal.validations.choose.max', groupMax, {max: groupMax}));
 		} else {
-			$('#modal-product .modal-complements p').text("Selecciona máximo 1 opción");
+			$('#modal-product .modal-complements p').text(Lang.choice('web.shop.modal.validations.choose.max', 1));
 		}
 	}
 

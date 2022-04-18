@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <input type="checkbox" name="terms" required id="terms-conditions">
-                <label class="small" for="terms-conditions">@lang('auth.register.terms.text') <a href="javascript:void(0);">@lang('auth.register.terms.button')</a></label>
+                <label class="small" for="terms-conditions">@lang('auth.register.terms.text') <a href="javascript:void(0);" onclick="$('#modal-terms').modal();">@lang('auth.register.terms.button')</a></label>
             </div>
             <div id="pass-info" class="clearfix"></div>
             <button type="submit" class="btn_1 gradient full-width" action="register">@lang('auth.register.button')</button>
@@ -56,7 +56,7 @@
             <div class="modal-body" style="height: 70vh; overflow-y: scroll;">
                 <div class="row">
                     <div class="col-12">
-                        {{-- {!! $setting->terms !!} --}}
+                        {!! $setting->terms !!}
                     </div>
                 </div>
             </div>

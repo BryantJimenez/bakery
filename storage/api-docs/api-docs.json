@@ -25,6 +25,26 @@
                 "summary": "Get agencies",
                 "description": "Returns all agencies",
                 "operationId": "indexAgency",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all agencies.",
@@ -54,18 +74,36 @@
                 "operationId": "storeAgency",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of agency",
+                        "description": "Name of agency in spanish (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "route",
+                        "name": "name[en]",
                         "in": "query",
-                        "description": "Route of agency",
+                        "description": "Name of agency in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "route[es]",
+                        "in": "query",
+                        "description": "Route of agency in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "route[en]",
+                        "in": "query",
+                        "description": "Route of agency in english (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -82,9 +120,27 @@
                         }
                     },
                     {
-                        "name": "description",
+                        "name": "description[es]",
                         "in": "query",
-                        "description": "Description of agency",
+                        "description": "Description of agency in spanish (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[en]",
+                        "in": "query",
+                        "description": "Description of agency in english (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -135,6 +191,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -178,18 +243,36 @@
                         }
                     },
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of agency",
+                        "description": "Name of agency in spanish (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "route",
+                        "name": "name[en]",
                         "in": "query",
-                        "description": "Route of agency",
+                        "description": "Name of agency in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "route[es]",
+                        "in": "query",
+                        "description": "Route of agency in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "route[en]",
+                        "in": "query",
+                        "description": "Route of agency in english (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -206,9 +289,27 @@
                         }
                     },
                     {
-                        "name": "description",
+                        "name": "description[es]",
                         "in": "query",
-                        "description": "Description of agency",
+                        "description": "Description of agency in spanish (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[en]",
+                        "in": "query",
+                        "description": "Description of agency in english (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -257,6 +358,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -302,6 +412,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -349,6 +468,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -386,6 +514,26 @@
                 "summary": "Get attributes",
                 "description": "Returns all attributes",
                 "operationId": "indexAttribute",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all attributes.",
@@ -415,10 +563,28 @@
                 "operationId": "storeAttribute",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of attribute",
+                        "description": "Name of attribute in spanish (The key of the value must be the locale of the language)",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of attribute in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -468,6 +634,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -511,10 +686,28 @@
                         }
                     },
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of attribute",
+                        "description": "Name of attribute in spanish (The key of the value must be the locale of the language)",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of attribute in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -562,6 +755,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -608,6 +810,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -653,6 +864,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -704,6 +924,15 @@
                         "name": "password",
                         "in": "query",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -780,6 +1009,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -809,6 +1047,17 @@
                 "summary": "Logout",
                 "description": "Account log out",
                 "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Logout success.",
@@ -835,6 +1084,26 @@
                 "summary": "Get categories",
                 "description": "Returns all categories",
                 "operationId": "indexCategory",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all categories.",
@@ -864,10 +1133,28 @@
                 "operationId": "storeCategory",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of category",
+                        "description": "Name of category in spanish (The key of the value must be the locale of the language)",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of category in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -917,6 +1204,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -960,10 +1256,28 @@
                         }
                     },
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of category",
+                        "description": "Name of category in spanish (The key of the value must be the locale of the language)",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of category in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -1011,6 +1325,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1056,6 +1379,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -1103,6 +1435,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1140,6 +1481,26 @@
                 "summary": "Get complements",
                 "description": "Returns all complements",
                 "operationId": "indexComplement",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all complements.",
@@ -1169,18 +1530,36 @@
                 "operationId": "storeComplement",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of complement",
+                        "description": "Name of complement in spanish (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "description",
+                        "name": "name[en]",
                         "in": "query",
-                        "description": "Description of complement",
+                        "description": "Name of complement in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[es]",
+                        "in": "query",
+                        "description": "Description of complement in spanish (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[en]",
+                        "in": "query",
+                        "description": "Description of complement in english (The key of the value must be the locale of the language)",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -1194,6 +1573,15 @@
                         "schema": {
                             "type": "string",
                             "format": "float"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -1241,6 +1629,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1284,18 +1681,36 @@
                         }
                     },
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of complement",
+                        "description": "Name of complement in spanish (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "description",
+                        "name": "name[en]",
                         "in": "query",
-                        "description": "Description of complement",
+                        "description": "Name of complement in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[es]",
+                        "in": "query",
+                        "description": "Description of complement in spanish (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[en]",
+                        "in": "query",
+                        "description": "Description of complement in english (The key of the value must be the locale of the language)",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -1309,6 +1724,15 @@
                         "schema": {
                             "type": "string",
                             "format": "float"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -1353,6 +1777,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -1400,6 +1833,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1446,6 +1888,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1483,6 +1934,26 @@
                 "summary": "Get currencies",
                 "description": "Returns all currencies",
                 "operationId": "indexCurrency",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all currencies.",
@@ -1512,9 +1983,18 @@
                 "operationId": "storeCurrency",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of currency",
+                        "description": "Name of currency in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of currency in english (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1534,6 +2014,15 @@
                         "in": "query",
                         "description": "Symbol of currency",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -1583,6 +2072,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1626,9 +2124,18 @@
                         }
                     },
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of currency",
+                        "description": "Name of currency in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of currency in english (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1648,6 +2155,15 @@
                         "in": "query",
                         "description": "Symbol of currency",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -1695,6 +2211,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1740,6 +2265,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -1787,6 +2321,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1824,6 +2367,26 @@
                 "summary": "Get customers",
                 "description": "Returns all customers",
                 "operationId": "indexCustomer",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all customers.",
@@ -1896,6 +2459,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1941,6 +2513,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2001,6 +2582,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2044,6 +2634,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2091,6 +2690,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2137,6 +2745,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2171,12 +2788,32 @@
                 "tags": [
                     "Groups"
                 ],
-                "summary": "Get products",
-                "description": "Returns all products",
-                "operationId": "indexProduct",
+                "summary": "Get groups",
+                "description": "Returns all groups",
+                "operationId": "indexGroup",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Show all products.",
+                        "description": "Show all groups.",
                         "content": {
                             "application/json": {}
                         }
@@ -2203,9 +2840,18 @@
                 "operationId": "storeGroup",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of group",
+                        "description": "Name of group in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of group in english (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -2262,6 +2908,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2309,6 +2964,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2352,9 +3016,18 @@
                         }
                     },
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of group",
+                        "description": "Name of group in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name[en]",
+                        "in": "query",
+                        "description": "Name of group in english (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -2412,6 +3085,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2455,6 +3137,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2502,6 +3193,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2547,6 +3247,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2628,6 +3337,15 @@
                                 "0"
                             ]
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2657,6 +3375,222 @@
                 ]
             }
         },
+        "/api/v1/languages": {
+            "get": {
+                "tags": [
+                    "Languages"
+                ],
+                "summary": "Get languages",
+                "description": "Returns all languages",
+                "operationId": "indexLanguage",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show all languages.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Languages"
+                ],
+                "summary": "Register language",
+                "description": "Create a new language",
+                "operationId": "storeLanguage",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of language",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "language",
+                        "in": "query",
+                        "description": "Code locale of language",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Registered language.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/languages/{id}": {
+            "get": {
+                "tags": [
+                    "Languages"
+                ],
+                "summary": "Get language",
+                "description": "Returns a single language",
+                "operationId": "showLanguage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show language.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Languages"
+                ],
+                "summary": "Delete language",
+                "description": "Delete a single language",
+                "operationId": "destroyLanguage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete language.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/orders": {
             "get": {
                 "tags": [
@@ -2665,6 +3599,26 @@
                 "summary": "Get orders",
                 "description": "Returns all orders",
                 "operationId": "indexOrder",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all orders.",
@@ -2702,6 +3656,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2745,6 +3708,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2792,6 +3764,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2829,6 +3810,26 @@
                 "summary": "Get products",
                 "description": "Returns all products",
                 "operationId": "indexProduct",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all products.",
@@ -2858,18 +3859,36 @@
                 "operationId": "storeProduct",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of product",
+                        "description": "Name of product in spanish (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "description",
+                        "name": "name[en]",
                         "in": "query",
-                        "description": "Description of product",
+                        "description": "Name of product in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[es]",
+                        "in": "query",
+                        "description": "Description of product in spanish (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[en]",
+                        "in": "query",
+                        "description": "Description of product in english (The key of the value must be the locale of the language)",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -2907,6 +3926,15 @@
                                 "3",
                                 "0"
                             ]
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -2954,6 +3982,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2997,18 +4034,36 @@
                         }
                     },
                     {
-                        "name": "name",
+                        "name": "name[es]",
                         "in": "query",
-                        "description": "Name of product",
+                        "description": "Name of product in spanish (The key of the value must be the locale of the language)",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "description",
+                        "name": "name[en]",
                         "in": "query",
-                        "description": "Description of product",
+                        "description": "Name of product in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[es]",
+                        "in": "query",
+                        "description": "Description of product in spanish (The key of the value must be the locale of the language)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description[en]",
+                        "in": "query",
+                        "description": "Description of product in english (The key of the value must be the locale of the language)",
                         "required": false,
                         "schema": {
                             "type": "string"
@@ -3046,6 +4101,15 @@
                                 "3",
                                 "0"
                             ]
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -3090,6 +4154,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -3137,6 +4210,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3182,6 +4264,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -3231,12 +4322,24 @@
                         }
                     },
                     {
-                        "name": "group_id[0]",
+                        "name": "group_id[]",
                         "in": "query",
                         "description": "Group ID",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -3275,6 +4378,17 @@
                 "summary": "Get cart",
                 "description": "Returns cart data",
                 "operationId": "getCart",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get cart.",
@@ -3310,12 +4424,24 @@
                         }
                     },
                     {
-                        "name": "complement_group_id[0]",
+                        "name": "complement_group_id[]",
                         "in": "query",
                         "description": "Complement Group ID",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -3363,6 +4489,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3408,6 +4543,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -3455,6 +4599,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3492,6 +4645,26 @@
                 "summary": "Get profile orders",
                 "description": "Returns all profile orders",
                 "operationId": "indexProfileOrder",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all profile orders.",
@@ -3530,6 +4703,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3564,6 +4746,17 @@
                 "summary": "Get profile",
                 "description": "Returns profile data",
                 "operationId": "getProfile",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get profile.",
@@ -3612,6 +4805,24 @@
                         "in": "query",
                         "description": "Address of user",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "language_id",
+                        "in": "query",
+                        "description": "Language ID of user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -3667,6 +4878,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3719,6 +4939,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -3753,6 +4982,17 @@
                 "summary": "Get settings",
                 "description": "Returns all settings",
                 "operationId": "indexSetting",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all settings.",
@@ -3782,19 +5022,37 @@
                 "operationId": "updateSetting",
                 "parameters": [
                     {
-                        "name": "terms",
+                        "name": "terms[es]",
                         "in": "query",
-                        "description": "Terms and conditions",
-                        "required": false,
+                        "description": "Terms and conditions in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "privacity",
+                        "name": "terms[en]",
                         "in": "query",
-                        "description": "Privacity politics",
-                        "required": false,
+                        "description": "Terms and conditions in english (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "privacity[es]",
+                        "in": "query",
+                        "description": "Privacity politics in spanish (The key of the value must be the locale of the language)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "privacity[en]",
+                        "in": "query",
+                        "description": "Privacity politics in english (The key of the value must be the locale of the language)",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -3824,6 +5082,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -3862,6 +5129,17 @@
                 "summary": "Get terms and conditions",
                 "description": "Returns terms and conditions",
                 "operationId": "indexTermsSetting",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show terms and conditions.",
@@ -3891,6 +5169,17 @@
                 "summary": "Get privacity politics",
                 "description": "Returns privacity politics",
                 "operationId": "indexPrivacitySetting",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show privacity politics.",
@@ -3920,6 +5209,26 @@
                 "summary": "Get users",
                 "description": "Returns all users",
                 "operationId": "indexUser",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Show all users.",
@@ -4024,6 +5333,15 @@
                                 "Cliente"
                             ]
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4069,6 +5387,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -4161,6 +5488,15 @@
                                 "Cliente"
                             ]
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4204,6 +5540,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -4251,6 +5596,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -4296,6 +5650,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -4361,7 +5724,7 @@
         },
         {
             "name": "Profile Orders",
-            "description": "User cart endpoints"
+            "description": "User orders endpoints"
         },
         {
             "name": "Users",
@@ -4402,6 +5765,10 @@
         {
             "name": "Currencies",
             "description": "Currencies endpoints"
+        },
+        {
+            "name": "Languages",
+            "description": "Languages endpoints"
         },
         {
             "name": "Settings",

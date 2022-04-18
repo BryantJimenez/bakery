@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Currency;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Currency\CurrencyStoreRequest;
 use App\Http\Requests\Api\Currency\CurrencyUpdateRequest;
@@ -14,6 +15,19 @@ use Str;
 
 class CurrencyController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+
     /**
     *
     * @OA\Get(
@@ -25,6 +39,24 @@ class CurrencyController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all currencies.",
@@ -42,7 +74,7 @@ class CurrencyController extends ApiController
     *   )
     * )
     */
-    public function index() {
+    public function index(Request $request) {
         $currencies=Currency::get()->map(function($currency) {
             return $this->dataCurrency($currency);
         });
@@ -66,9 +98,18 @@ class CurrencyController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of currency",
+    *       description="Name of currency in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of currency in english (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -88,6 +129,15 @@ class CurrencyController extends ApiController
     *       in="query",
     *       description="Symbol of currency",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -118,10 +168,10 @@ class CurrencyController extends ApiController
     * )
     */
     public function store(CurrencyStoreRequest $request) {
-        $trashed=Currency::where('slug', Str::slug(request('name')))->withTrashed()->exists();
-        $exist=Currency::where('slug', Str::slug(request('name')))->exists();
+        $trashed=Currency::where('slug', Str::slug(request('name')['es']))->withTrashed()->exists();
+        $exist=Currency::where('slug', Str::slug(request('name')['es']))->exists();
         if ($trashed && $exist===false) {
-            $currency=Currency::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $currency=Currency::where('slug', Str::slug(request('name')['es']))->withTrashed()->first();
             $currency->restore();
         } else if ($exist) {
             return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.currency')], 422);
@@ -157,6 +207,15 @@ class CurrencyController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -206,9 +265,18 @@ class CurrencyController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of currency",
+    *       description="Name of currency in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of currency in english (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -228,6 +296,15 @@ class CurrencyController extends ApiController
     *       in="query",
     *       description="Symbol of currency",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -289,6 +366,15 @@ class CurrencyController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Delete currency.",
@@ -344,6 +430,15 @@ class CurrencyController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Deactivate currency.",
@@ -397,6 +492,15 @@ class CurrencyController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

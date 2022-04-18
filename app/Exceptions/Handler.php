@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Throwable;
+use JoeDixon\Translation\Language;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -55,6 +56,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($request->has('locale') && !is_null($request->locale)) {
+            $language=Language::where('language', $request->locale)->first();
+            if (!is_null($language)) {
+                app()->setLocale($language->language);
+            }
+        }
         if (request()->header('Content-Type')=='application/json' || (isset(explode('/', $request->url())[3]) && explode('/', $request->url())[3]=="api")) {
             if ($exception instanceof MethodNotAllowedHttpException) {
                 return response()->json(['code' => 405, 'status' => 'error', 'message' => trans('errors.exceptions.405')], 405);

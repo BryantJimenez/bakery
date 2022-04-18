@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Customer\CustomerStoreRequest;
 use App\Http\Requests\Api\Customer\CustomerUpdateRequest;
@@ -15,6 +16,19 @@ use Arr;
 
 class CustomerController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+
     /**
     *
     * @OA\Get(
@@ -26,6 +40,24 @@ class CustomerController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all customers.",
@@ -43,8 +75,8 @@ class CustomerController extends ApiController
     *   )
     * )
     */
-    public function index() {
-        $users=User::with(['roles'])->role(['Cliente'])->get()->map(function($user) {
+    public function index(Request $request) {
+        $users=User::with(['roles', 'language'])->role(['Cliente'])->get()->map(function($user) {
             return $this->dataUser($user);
         });
 
@@ -111,6 +143,15 @@ class CustomerController extends ApiController
     *           type="string"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=201,
     *       description="Registered customer.",
@@ -141,10 +182,10 @@ class CustomerController extends ApiController
     	$customer=User::create($data);
 
     	if ($customer) {
-    		$customer->assignRole('Customer');
+    		$customer->assignRole('Cliente');
     		SendEmailRegister::dispatch($customer->slug);
 
-            $customer=User::with(['roles'])->where('id', $customer->id)->first();
+            $customer=User::with(['roles', 'language'])->where('id', $customer->id)->first();
             $customer=$this->dataUser($customer);
 
             return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.customers.store'), 'data' => $customer], 201);
@@ -173,6 +214,15 @@ class CustomerController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show customer.",
@@ -195,7 +245,7 @@ class CustomerController extends ApiController
     * )
      */
     public function show(User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
             return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
         $customer=$this->dataUser($customer);
@@ -240,6 +290,15 @@ class CustomerController extends ApiController
     *           type="string"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Update customer.",
@@ -266,7 +325,7 @@ class CustomerController extends ApiController
     * )
     */
     public function update(CustomerUpdateRequest $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
             return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
@@ -274,15 +333,15 @@ class CustomerController extends ApiController
         $customer->fill($data)->save();
 
         if ($customer) {
-          $customer->syncRoles(['Customer']);
-          $customer=User::with(['roles'])->where('id', $customer->id)->first();
-          $customer=$this->dataUser($customer);
+            $customer->syncRoles(['Cliente']);
+            $customer=User::with(['roles', 'language'])->where('id', $customer->id)->first();
+            $customer=$this->dataUser($customer);
 
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.update'), 'data' => $customer], 200);
-      }
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.update'), 'data' => $customer], 200);
+        }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
-  }
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
+    }
 
     /**
     *
@@ -302,6 +361,15 @@ class CustomerController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -331,17 +399,17 @@ class CustomerController extends ApiController
      */
     public function destroy(User $customer)
     {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
             return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
         $customer->delete();
         if ($customer) {
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.destroy')], 200);
-      }
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.destroy')], 200);
+        }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
-  }
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
+    }
 
     /**
     *
@@ -361,6 +429,15 @@ class CustomerController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -389,18 +466,18 @@ class CustomerController extends ApiController
     * )
      */
     public function deactivate(Request $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
             return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
         $customer->fill(['state' => "0"])->save();
         if ($customer) {
-          $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.deactivate'), 'data' => $customer], 200);
-      }
+            $customer=$this->dataUser($customer);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.deactivate'), 'data' => $customer], 200);
+        }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
-  }
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
+    }
 
     /**
     *
@@ -420,6 +497,15 @@ class CustomerController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -448,16 +534,16 @@ class CustomerController extends ApiController
     * )
      */
     public function activate(Request $request, User $customer) {
-        if (is_null($customer['roles']->where('name', 'Customer')->first())) {
+        if (is_null($customer['roles']->where('name', 'Cliente')->first())) {
             return response()->json(['code' => 403, 'status' => 'warning', 'message' => trans('api.errors.403.customer')], 403);
         }
 
         $customer->fill(['state' => "1"])->save();
         if ($customer) {
-          $customer=$this->dataUser($customer);
-          return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.activate'), 'data' => $customer], 200);
-      }
+            $customer=$this->dataUser($customer);
+            return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.customers.activate'), 'data' => $customer], 200);
+        }
 
-      return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
-  }
+        return response()->json(['code' => 500, 'status' => 'error', 'message' => trans('api.errors.500')], 500);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Auth;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -25,9 +26,11 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
+        $locales=Language::all()->pluck('language');
         return [
             'email' => 'required|string|email|min:5|max:191|exists:users,email',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'locale' => 'nullable|'.Rule::in($locales)
         ];
     }
 }

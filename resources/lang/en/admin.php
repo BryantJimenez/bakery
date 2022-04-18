@@ -447,6 +447,10 @@ return [
                     'activate' => 'The customer has been successfully activated.'
                 ],
 
+                'languages' => [
+                    'store' => 'The language has been successfully registered.'
+                ],
+
                 'settings' => [
                     'update' => 'The settings have been successfully edited.'
                 ]
@@ -488,8 +492,67 @@ return [
                         'title' => 'The currency already exists',
                         'msg' => 'This currency is already registered.'
                     ]
+                ],
+
+                'languages' => [
+                    '422' => [
+                        'title' => 'The language already exists',
+                        'msg' => 'This language is already registered.'
+                    ]
                 ]
             ]
+        ]
+    ],
+
+    'js' => [
+        '500' => [
+            'title' => 'Error',
+            'msg' => 'A problem has occurred, please try again.'
+        ],
+
+        'table' => [
+            'info' => 'Results from :start to :end of a total of :total records',
+            'search' => 'Search...',
+            'length' => 'Show :menu records',
+            'processing' => 'Processing...',
+            'empty' => [
+                'zero' => 'No results found',
+                'table' => 'No results available in this table',
+                'info' => 'No results',
+            ],
+            'filter' => '(filtered from a total of :max records)',
+            'loading' => 'Loading...',
+            'sort' => [
+                'asc' => ': Activate to sort the column in ascending order',
+                'desc' => ': Activate to sort the column in descending order'
+            ],
+            'buttons' => [
+                'copy' => 'Copy',
+                'print' => 'Print'
+            ]
+        ],
+
+        'file' => [
+            'messages' => [
+                'default' => 'Drag and drop an image or click to select it',
+                'replace' => 'Drag and drop an image or click to replace',
+                'remove' => 'Remove',
+                'error' => 'Sorry, the file is too big'
+            ],
+
+            'error' => [
+                'fileSize' => 'The file size is too large (:value maximum).',
+                'minWidth' => 'The width of the image is too small (:value px minimum).',
+                'maxWidth' => 'The width of the image is too large (max :value px).',
+                'minHeight' => 'Image height is too small (:value px minimum).',
+                'maxHeight' => 'The height of the image is too large (maximum :value px).',
+                'imageFormat' => 'The image format is not allowed (Must be :value).'
+            ]
+        ],
+
+        'date' => [
+            'cancel' => 'Cancel',
+            'clear' => 'Clear'
         ]
     ]
 ];

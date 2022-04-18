@@ -81,7 +81,7 @@ class User extends Authenticatable
      */
     public function resolveRouteBinding($value, $field = null)
     {
-        $user=$this->with(['roles'])->where($field, $value)->first();
+        $user=$this->with(['roles', 'language'])->where($field, $value)->first();
         if (!is_null($user)) {
             return $user;
         }

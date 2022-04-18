@@ -125,6 +125,12 @@ return [
 		'activate' => 'La moneda ha sido activada exitosamente.'
 	],
 
+	'languages' => [
+		'store' => 'El idioma ha sido registrado exitosamente.',
+		'update' => 'El idioma ha sido editado exitosamente.',
+		'destroy' => 'El idioma ha sido eliminado exitosamente.'
+	],
+
 	'settings' => [
 		'update' => 'Los ajustes han sido editados exitosamente.'
 	]

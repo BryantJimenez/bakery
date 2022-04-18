@@ -109,6 +109,9 @@ class PermissionsSeeder extends Seeder
         // Permisos de Idiomas
         Permission::create(['name' => 'languages.index']);
         Permission::create(['name' => 'languages.create']);
+        Permission::create(['name' => 'languages.show']);
+        Permission::create(['name' => 'languages.edit']);
+        Permission::create(['name' => 'languages.delete']);
 
         // Permisos de Traducciones
         Permission::create(['name' => 'translations.index']);

@@ -178,5 +178,7 @@
 <script src="{{ asset('/admins/vendor/validate/messages_es.js') }}"></script>
 <script src="{{ asset('/admins/js/validate.js') }}"></script>
 <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>
+@if(!empty($setting->stripe_public) && !is_null($setting->stripe_public) && !empty($setting->stripe_secret) && !is_null($setting->stripe_secret))
 <script src="https://js.stripe.com/v3/"></script>
+@endif
 @endsection

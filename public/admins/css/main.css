@@ -2645,6 +2645,14 @@ label.error {
   height: 1rem;
 }
 
+#app .w-5 {
+  width: 1.25rem;
+}
+
+#app .h-5 {
+  height: 1.25rem;
+}
+
 #app .fill-current {
   fill: currentColor;
 }

@@ -172,5 +172,22 @@ return [
         'stripeToken'           => 'token de stripe',
         'shipping'              => 'método de entrega'
     ],
+
+    'validate' => [
+        'required' => [
+            'default' => 'Este campo es obligatorio.',
+            'option' => 'Seleccione una opción.',
+            'image' => 'Seleccione una imagen.'
+        ],
+        'email' => 'Introduce una dirección de correo valida.',
+        'minlength' => 'Escribe mínimo :value caracteres.',
+        'maxlength' => 'Escribe máximo :value caracteres.',
+        'remote' => [
+            'email' => 'Este email no esta disponible.',
+        ],
+        'equalTo' => 'Los datos ingresados no coinciden.',
+        'min' => 'Escribe un valor mayor o igual a :value.',
+        'max' => 'Escribe un valor menor o igual a :value.',
+    ]
 ];
 ?>

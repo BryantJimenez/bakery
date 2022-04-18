@@ -11,6 +11,7 @@ use App\Models\Order\Order;
 use App\Models\Order\OrderProduct;
 use App\Models\Order\ComplementOrder;
 use App\Models\Order\Shipping;
+use JoeDixon\Translation\Language;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
 use App\Http\Requests\Checkout\CheckoutBuyRequest;
 use Illuminate\Http\Request;
@@ -22,6 +23,29 @@ use Auth;
 class WebController extends Controller
 {
     use CartTrait, StripeTrait;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (Auth::check()) {
+                $language='es';
+                if (!is_null(Auth::user()->language)) {
+                    $language=Auth::user()->language->language;
+                }
+                app()->setLocale($language);
+
+                if (session()->has('locale') && !is_null(session('locale'))) {
+                    if ($language!=session('locale')) {
+                        session()->put('locale', $language);
+                    }
+                } else {
+                    session()->push('locale', $language);
+                }
+            }
+
+            return $next($request);
+        });
+    }
 
     /**
      * Show the application dashboard.
@@ -125,13 +149,14 @@ class WebController extends Controller
 
     public function profile() {
         $setting=Setting::firstOrFail();
+        $languages=Language::all();
         $orders=Order::where('user_id', Auth::id())->orderBy('id', 'DESC')->get();
-        return view('web.profile.profile', compact('setting', 'orders'));
+        return view('web.profile.profile', compact('setting', 'orders', 'languages'));
     }
 
     public function profileUpdate(ProfileUpdateRequest $request) {
         $user=User::where('id', Auth::id())->firstOrFail();
-        $data=array('name' => request('name'), 'lastname' => request('lastname'), 'address' => request('address'), 'phone' => request('phone'));
+        $data=array('name' => request('name'), 'lastname' => request('lastname'), 'address' => request('address'), 'phone' => request('phone'), 'language_id' => request('language_id'));
 
         if (!is_null(request('password'))) {
             $data['password']=Hash::make(request('password'));
@@ -153,10 +178,11 @@ class WebController extends Controller
             Auth::user()->lastname=request('lastname');
             Auth::user()->address=request('address');
             Auth::user()->phone=request('phone');
+            Auth::user()->language_id=request('language_id');
             if (!is_null(request('password'))) {
                 Auth::user()->password=Hash::make(request('password'));
             }
-            return redirect()->back()->with(['type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.profile.update'), 'tabs' => 'setting']);
+            return redirect()->route('web.profile')->with(['type' => 'success', 'title' => trans('admin.notifications.success.titles.update'), 'msg' => trans('admin.notifications.success.messages.profile.update'), 'tabs' => 'setting']);
         } else {
             return redirect()->back()->with(['type' => 'error', 'title' => trans('admin.notifications.error.titles.update'), 'msg' => trans('admin.notifications.error.500'), 'tabs' => 'setting'])->withInputs();
         }

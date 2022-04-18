@@ -68,6 +68,15 @@
     <script src="{{ asset('/admins/js/app.js') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
+    <script src="{{ asset('/lang/translations.js') }}"></script>
+    <script type="text/javascript">
+        if ('{{ app()->getLocale() }}'=='es') {
+            var locale='es';
+        } else {
+            var locale='en';
+        }
+        Lang.setLocale('{{ app()->getLocale() }}');
+    </script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @yield('scripts')
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

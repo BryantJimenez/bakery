@@ -60,6 +60,15 @@
 	<script type="text/javascript" src="{{ asset('/web/js/bootstrap.min.js') }}"></script>
 
 	@livewireScripts
+	<script src="{{ asset('/lang/translations.js') }}"></script>
+	<script type="text/javascript">
+		if ('{{ app()->getLocale() }}'=='es') {
+			var locale='es';
+		} else {
+			var locale='en';
+		}
+		Lang.setLocale('{{ app()->getLocale() }}');
+	</script>
 	@yield('scripts')
 
 	<!-- Scripts -->

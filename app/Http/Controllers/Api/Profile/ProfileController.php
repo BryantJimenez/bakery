@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Profile;
 
 use App\Models\User;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Profile\ProfileUpdateRequest;
 use App\Http\Requests\Api\Profile\ProfilePasswordUpdateRequest;
@@ -13,6 +14,19 @@ use Auth;
 
 class ProfileController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+    
 	/**
     *
     * @OA\Get(
@@ -24,6 +38,15 @@ class ProfileController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Get profile.",
@@ -38,7 +61,7 @@ class ProfileController extends ApiController
     * )
     */
     public function get() {
-        $user=User::with(['roles'])->where('id', Auth::user()->id)->first();
+        $user=User::with(['roles', 'language'])->where('id', Auth::user()->id)->first();
         $user=$this->dataUser($user);
         return response()->json(['code' => 200, 'status' => 'success', 'data' => $user], 200);
     }
@@ -81,6 +104,24 @@ class ProfileController extends ApiController
     *           type="string"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="language_id",
+    *       in="query",
+    *       description="Language ID of user",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Update profile user.",
@@ -104,11 +145,11 @@ class ProfileController extends ApiController
     */
     public function update(ProfileUpdateRequest $request) {
     	$user=Auth::user();
-    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'address' => request('address'));
+    	$data=array('name' => request('name'), 'lastname' => request('lastname'), 'address' => request('address'), 'language_id' => request('language_id'));
     	$user->fill($data)->save();
 
     	if ($user) {
-            $user=User::with(['roles'])->where('id', $user->id)->first();
+            $user=User::with(['roles', 'language'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
 
             return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.profile.update'), 'data' => $user], 200);
@@ -142,6 +183,15 @@ class ProfileController extends ApiController
     *       in="query",
     *       description="New password of user",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -210,6 +260,15 @@ class ProfileController extends ApiController
     *       in="query",
     *       description="New email of user",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )

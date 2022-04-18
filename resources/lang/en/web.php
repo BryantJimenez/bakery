@@ -49,6 +49,12 @@ return [
                 'cancel' => 'Cancel',
                 'add cart' => 'Add to Cart',
                 'continue' => 'Continue'
+            ],
+            'validations' => [
+                'choose' => [
+                    'min' => '{1} Select at least 1 option|[2,*] Select minimum :min options',
+                    'max' => '{1} Select maximum 1 option|[2,*] Select max :max options'
+                ]
             ]
         ]
     ],

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Api\Currency;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use CodeZero\UniqueTranslation\UniqueTranslationRule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -25,10 +27,13 @@ class CurrencyUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $locales=Language::all()->pluck('language');
         return [
-            'name' => 'required|string|min:2|max:191|'.Rule::unique('currencies')->ignore($this->currency->slug, 'slug'),
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191|'.UniqueTranslationRule::for('currencies')->ignore($this->currency->slug, 'slug'),
             'iso' => 'required|string|min:3|max:3',
-            'symbol' => 'required|string|min:1|max:2'
+            'symbol' => 'required|string|min:1|max:2',
+            'locale' => 'nullable|'.Rule::in($locales)
         ];
     }
 }

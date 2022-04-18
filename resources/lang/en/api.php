@@ -125,6 +125,12 @@ return [
 		'activate' => 'The currency has been successfully activated.'
 	],
 
+	'languages' => [
+		'store' => 'The language has been successfully registered.',
+		'update' => 'The language has been successfully edited.',
+		'destroy' => 'The language has been successfully deleted.'
+	],
+
 	'settings' => [
 		'update' => 'The settings have been successfully edited.'
 	]

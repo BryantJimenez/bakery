@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Api\Category;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use CodeZero\UniqueTranslation\UniqueTranslationRule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -25,8 +27,11 @@ class CategoryUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $locales=Language::all()->pluck('language');
         return [
-            'name' => 'required|string|min:2|max:191|'.Rule::unique('categories')->ignore($this->category->slug, 'slug')
+            'name' => 'required|array',
+            'name.*' => 'required|string|min:2|max:191|'.UniqueTranslationRule::for('categories')->ignore($this->category->slug, 'slug'),
+            'locale' => 'nullable|'.Rule::in($locales)
         ];
     }
 }

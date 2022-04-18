@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Product;
 
 use App\Models\Group\Group;
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -26,10 +27,12 @@ class ProductAssignRequest extends FormRequest
      */
     public function rules()
     {
+        $locales=Language::all()->pluck('language');
         $groups=Group::where('state', '1')->get()->pluck('id');
         return [
             'group_id' => 'required|array',
-            'group_id.*' => 'required|'.Rule::in($groups)
+            'group_id.*' => 'required|'.Rule::in($groups),
+            'locale' => 'nullable|'.Rule::in($locales)
         ];
     }
 }

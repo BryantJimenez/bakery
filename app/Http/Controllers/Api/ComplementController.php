@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Complement;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Complement\ComplementStoreRequest;
 use App\Http\Requests\Api\Complement\ComplementUpdateRequest;
@@ -13,6 +14,19 @@ use Arr;
 
 class ComplementController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+    
     /**
     *
     * @OA\Get(
@@ -24,6 +38,24 @@ class ComplementController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all complements.",
@@ -41,7 +73,7 @@ class ComplementController extends ApiController
     *   )
     * )
     */
-    public function index() {
+    public function index(Request $request) {
       $complements=Complement::get()->map(function($complement) {
          return $this->dataComplement($complement);
      });
@@ -65,18 +97,36 @@ class ComplementController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of complement",
+    *       description="Name of complement in spanish (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="description",
+    *       name="name[en]",
     *       in="query",
-    *       description="Description of complement",
+    *       description="Name of complement in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[es]",
+    *       in="query",
+    *       description="Description of complement in spanish (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[en]",
+    *       in="query",
+    *       description="Description of complement in english (The key of the value must be the locale of the language)",
     *       required=false,
     *       @OA\Schema(
     *           type="string"
@@ -90,6 +140,15 @@ class ComplementController extends ApiController
     *       @OA\Schema(
     *           type="string",
     *           format="float"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -151,6 +210,15 @@ class ComplementController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show complement.",
@@ -198,18 +266,36 @@ class ComplementController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of complement",
+    *       description="Name of complement in spanish (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="description",
+    *       name="name[en]",
     *       in="query",
-    *       description="Description of complement",
+    *       description="Name of complement in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[es]",
+    *       in="query",
+    *       description="Description of complement in spanish (The key of the value must be the locale of the language)",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="description[en]",
+    *       in="query",
+    *       description="Description of complement in english (The key of the value must be the locale of the language)",
     *       required=false,
     *       @OA\Schema(
     *           type="string"
@@ -223,6 +309,15 @@ class ComplementController extends ApiController
     *       @OA\Schema(
     *           type="string",
     *           format="float"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -284,6 +379,15 @@ class ComplementController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Delete complement.",
@@ -339,6 +443,15 @@ class ComplementController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Deactivate complement.",
@@ -392,6 +505,15 @@ class ComplementController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

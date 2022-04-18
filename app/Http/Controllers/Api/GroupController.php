@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Complement;
 use App\Models\Group\Group;
+use JoeDixon\Translation\Language;
 use App\Models\Group\ComplementGroup;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Group\GroupStoreRequest;
@@ -16,20 +17,51 @@ use Arr;
 
 class GroupController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+
     /**
     *
     * @OA\Get(
     *   path="/api/v1/groups",
     *   tags={"Groups"},
-    *   summary="Get products",
-    *   description="Returns all products",
-    *   operationId="indexProduct",
+    *   summary="Get groups",
+    *   description="Returns all groups",
+    *   operationId="indexGroup",
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
-    *       description="Show all products.",
+    *       description="Show all groups.",
     *       @OA\MediaType(
     *           mediaType="application/json"
     *       )
@@ -44,17 +76,17 @@ class GroupController extends ApiController
     *   )
     * )
     */
-    public function index() {
-      $groups=Group::with(['attribute', 'complements'])->get()->map(function($group) {
-         return $this->dataGroup($group);
-     });
+    public function index(Request $request) {
+        $groups=Group::with(['attribute', 'complements'])->get()->map(function($group) {
+            return $this->dataGroup($group);
+        });
 
-      $page=Paginator::resolveCurrentPage('page');
-      $pagination=new LengthAwarePaginator($groups, $total=count($groups), $perPage=15, $page, ['path' => Paginator::resolveCurrentPath(), 'pageName' => 'page']);
-      $pagination=Arr::collapse([$pagination->toArray(), ['code' => 200, 'status' => 'success']]);
+        $page=Paginator::resolveCurrentPage('page');
+        $pagination=new LengthAwarePaginator($groups, $total=count($groups), $perPage=15, $page, ['path' => Paginator::resolveCurrentPath(), 'pageName' => 'page']);
+        $pagination=Arr::collapse([$pagination->toArray(), ['code' => 200, 'status' => 'success']]);
 
-      return response()->json($pagination, 200);
-  }
+        return response()->json($pagination, 200);
+    }
 
     /**
     *
@@ -68,9 +100,18 @@ class GroupController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of group",
+    *       description="Name of group in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of group in english (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -121,6 +162,15 @@ class GroupController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -182,6 +232,15 @@ class GroupController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show group.",
@@ -229,9 +288,18 @@ class GroupController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of group",
+    *       description="Name of group in spanish (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of group in english (The key of the value must be the locale of the language)",
     *       required=true,
     *       @OA\Schema(
     *           type="string"
@@ -282,6 +350,15 @@ class GroupController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -343,6 +420,15 @@ class GroupController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Delete group.",
@@ -398,6 +484,15 @@ class GroupController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Deactivate group.",
@@ -451,6 +546,15 @@ class GroupController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -535,6 +639,15 @@ class GroupController extends ApiController
     *       @OA\Schema(
     *           type="string",
     *           enum={"1", "2", "3", "0"}
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

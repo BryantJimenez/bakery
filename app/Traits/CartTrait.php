@@ -222,7 +222,7 @@ trait CartTrait {
 			foreach($cart['products'] as $item) {
 				$total+=($item->price+$item->complement_price)*$item->qty;
 			}
-			$cart->fill(['subtotal' => $total])->save();
+			$cart->fill(['total' => $total])->save();
 			return $total;
 		}
 

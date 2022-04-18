@@ -52,7 +52,7 @@
 						</div>
 
 						<div class="col-12 mt-2">
-							<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.profile'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn_1 gradient">@lang('form.buttons.back')</a>
+							<a href="{{ route('web.profile') }}" hreflang="{{ app()->getLocale() }}" class="btn_1 gradient">@lang('form.buttons.back')</a>
 						</div>
 					</div>
 				</div>

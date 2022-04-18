@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\User\UserStoreRequest;
 use App\Http\Requests\Api\User\UserUpdateRequest;
@@ -15,6 +16,19 @@ use Arr;
 
 class UserController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+
     /**
     *
     * @OA\Get(
@@ -26,6 +40,24 @@ class UserController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all users.",
@@ -43,8 +75,8 @@ class UserController extends ApiController
     *   )
     * )
     */
-    public function index() {
-      $users=User::with(['roles'])->get()->map(function($user) {
+    public function index(Request $request) {
+      $users=User::with(['roles', 'language'])->get()->map(function($user) {
          return $this->dataUser($user);
      });
 
@@ -139,6 +171,15 @@ class UserController extends ApiController
     *           enum={"Super Admin", "Administrador", "Cliente"}
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=201,
     *       description="Registered user.",
@@ -172,7 +213,7 @@ class UserController extends ApiController
     		$user->assignRole(request('type'));
     		SendEmailRegister::dispatch($user->slug);
 
-            $user=User::with(['roles'])->where('id', $user->id)->first();
+            $user=User::with(['roles', 'language'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
 
             return response()->json(['code' => 201, 'status' => 'success', 'message' => trans('api.users.store'), 'data' => $user], 201);
@@ -199,6 +240,15 @@ class UserController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -293,6 +343,15 @@ class UserController extends ApiController
     *           enum={"Super Admin", "Administrador", "Cliente"}
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Update user.",
@@ -326,7 +385,7 @@ class UserController extends ApiController
     		if (!is_null(request('type'))) {
     			$user->syncRoles([request('type')]);
     		}
-            $user=User::with(['roles'])->where('id', $user->id)->first();
+            $user=User::with(['roles', 'language'])->where('id', $user->id)->first();
             $user=$this->dataUser($user);
 
             return response()->json(['code' => 200, 'status' => 'success', 'message' => trans('api.users.update'), 'data' => $user], 200);
@@ -353,6 +412,15 @@ class UserController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -410,6 +478,15 @@ class UserController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Deactivate user.",
@@ -463,6 +540,15 @@ class UserController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

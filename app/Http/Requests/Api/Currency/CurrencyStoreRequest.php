@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api\Currency;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CurrencyStoreRequest extends FormRequest
 {
@@ -23,10 +26,13 @@ class CurrencyStoreRequest extends FormRequest
    */
   public function rules()
   {
+    $locales=Language::all()->pluck('language');
     return [
-      'name' => 'required|string|min:2|max:191',
+      'name' => 'required|array',
+      'name.*' => 'required|string|min:2|max:191',
       'iso' => 'required|string|min:3|max:3',
-      'symbol' => 'required|string|min:1|max:2'
+      'symbol' => 'required|string|min:1|max:2',
+      'locale' => 'nullable|'.Rule::in($locales)
     ];
   }
 }

@@ -17,6 +17,21 @@ $(document).ready(function(){
 					maxlength: 40
 				}
 			},
+			messages:
+			{
+				email: {
+					required: Lang.get('validation.validate.required.default'),
+					email: Lang.get('validation.validate.email'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				password: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				}
+			},
 			submitHandler: function(form) {
 				$("button[action='login']").attr('disabled', true);
 				form.submit();
@@ -62,6 +77,34 @@ $(document).ready(function(){
 					required: true
 				}
 			},
+			messages:
+			{
+				name: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				lastname: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				email: {
+					required: Lang.get('validation.validate.required.default'),
+					email: Lang.get('validation.validate.email'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'}),
+					remote: Lang.get('validation.validate.remote.email')
+				},
+
+				password: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				}
+			},
 			submitHandler: function(form) {
 				$("button[action='register']").attr('disabled', true);
 				form.submit();
@@ -79,6 +122,15 @@ $(document).ready(function(){
 					email: true,
 					minlength: 5,
 					maxlength: 191
+				}
+			},
+			messages:
+			{
+				email: {
+					required: Lang.get('validation.validate.required.default'),
+					email: Lang.get('validation.validate.email'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -110,6 +162,27 @@ $(document).ready(function(){
 					equalTo: "#password",
 					minlength: 8,
 					maxlength: 40
+				}
+			},
+			messages:
+			{
+				email: {
+					required: Lang.get('validation.validate.required.default'),
+					email: Lang.get('validation.validate.email'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				password: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				password_confirmation: {
+					equalTo: Lang.get('validation.validate.equalTo'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -158,6 +231,51 @@ $(document).ready(function(){
 					equalTo: "#password",
 					minlength: 8,
 					maxlength: 40
+				}
+			},
+			messages:
+			{
+				name: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				lastname: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				phone: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				address: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				email: {
+					required: Lang.get('validation.validate.required.default'),
+					email: Lang.get('validation.validate.email'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				password: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				password_confirmation: {
+					equalTo: Lang.get('validation.validate.equalTo'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -229,12 +347,56 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				name: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				lastname: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				email: {
+					required: Lang.get('validation.validate.required.default'),
+					email: Lang.get('validation.validate.email'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'}),
+					remote: Lang.get('validation.validate.remote.email')
+				},
+
+				phone: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				address: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				type: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				},
 
 				state: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
+				},
+
+				password: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				password_confirmation: {
+					equalTo: Lang.get('validation.validate.equalTo'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -290,8 +452,40 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				name: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				lastname: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				email: {
+					required: Lang.get('validation.validate.required.default'),
+					email: Lang.get('validation.validate.email'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'}),
+					remote: Lang.get('validation.validate.remote.email')
+				},
+
 				state: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
+				},
+
+				password: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				password_confirmation: {
+					equalTo: Lang.get('validation.validate.equalTo'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -318,8 +512,14 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				image: {
-					required: 'Seleccione una imagen.'
+					required: Lang.get('validation.validate.required.image')
 				}
 			},
 			submitHandler: function(form) {
@@ -361,12 +561,29 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				image: {
-					required: 'Seleccione una imagen.'
+					required: Lang.get('validation.validate.required.image')
+				},
+
+				price: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'})
+				},
+
+				"description[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				},
 
 				category_id: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				}
 			},
 			submitHandler: function(form) {
@@ -408,12 +625,29 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				image: {
-					required: 'Seleccione una imagen.'
+					required: Lang.get('validation.validate.required.image')
+				},
+
+				price: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'})
+				},
+
+				"description[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				},
 
 				category_id: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				}
 			},
 			submitHandler: function(form) {
@@ -435,7 +669,7 @@ $(document).ready(function(){
 			messages:
 			{
 				group_id: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				}
 			},
 			submitHandler: function(form) {
@@ -473,8 +707,25 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				image: {
-					required: 'Seleccione una imagen.'
+					required: Lang.get('validation.validate.required.image')
+				},
+
+				price: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'})
+				},
+
+				"description[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -512,8 +763,25 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				image: {
-					required: 'Seleccione una imagen.'
+					required: Lang.get('validation.validate.required.image')
+				},
+
+				price: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'})
+				},
+
+				"description[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -560,16 +828,34 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				condition: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
+				},
+
+				min: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'}),
+					max: Lang.get('validation.validate.max', {value: '{0}'})
+				},
+
+				max: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'}),
+					max: Lang.get('validation.validate.max', {value: '{0}'})
 				},
 
 				attribute_id: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				},
 
 				state: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				}
 			},
 			submitHandler: function(form) {
@@ -599,16 +885,17 @@ $(document).ready(function(){
 			},
 			messages:
 			{
-				"name[]": {
-					required: 'Seleccione una opción.'
+				"complement_id[]": {
+					required: Lang.get('validation.validate.required.option')
 				},
 
 				"price[]": {
-					min: 'Ingrese un valor mayor o igual que {0}.'
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'})
 				},
 
 				"state[]": {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				}
 			},
 			submitHandler: function(form) {
@@ -646,6 +933,31 @@ $(document).ready(function(){
 					maxlength: 1000
 				}
 			},
+			messages:
+			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				"route[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				price: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'})
+				},
+
+				"description[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				}
+			},
 			submitHandler: function(form) {
 				$("button[action='agency']").attr('disabled', true);
 				form.submit();
@@ -662,6 +974,14 @@ $(document).ready(function(){
 					required: true,
 					minlength: 2,
 					maxlength: 191
+				}
+			},
+			messages:
+			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -692,6 +1012,26 @@ $(document).ready(function(){
 					required: true,
 					minlength: 1,
 					maxlength: 2
+				}
+			},
+			messages:
+			{
+				"name[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				iso: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				symbol: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -737,7 +1077,31 @@ $(document).ready(function(){
 			messages:
 			{
 				currency_id: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
+				},
+
+				"terms[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				"privacity[]": {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				stripe_public: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				stripe_secret: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				}
 			},
 			submitHandler: function(form) {
@@ -778,16 +1142,28 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				phone: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
 				shipping: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				},
 
 				agency_id: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
+				},
+
+				address: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
 				},
 
 				payment: {
-					required: 'Seleccione una opción.'
+					required: Lang.get('validation.validate.required.option')
 				}
 			},
 			submitHandler: function(form) {

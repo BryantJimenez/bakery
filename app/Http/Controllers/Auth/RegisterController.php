@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Setting;
 use App\Models\Cart\Cart;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -42,6 +43,17 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $setting=Setting::firstOrFail();
+        return view('auth.register', compact('setting'));
     }
 
     /**

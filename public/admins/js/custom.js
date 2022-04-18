@@ -136,9 +136,9 @@ function GetIEVersion() {
 //////// Scripts ////////
 function errorNotification() {
   Lobibox.notify('error', {
-    title: 'Error',
+    title: Lang.get('admin.js.500.title'),
     sound: true,
-    msg: 'Ha ocurrido un problema, inténtelo de nuevo.'
+    msg: Lang.get('admin.js.500.msg')
   });
 }
 
@@ -159,7 +159,7 @@ $(document).ready(function() {
   // select2
   if ($('.select2').length) {
     $('.select2').select2({
-      placeholder: "Seleccione",
+      placeholder: Lang.get('form.select.select'),
       tags: true
     });
   }
@@ -169,22 +169,22 @@ $(document).ready(function() {
     $('.table-normal').DataTable({
       "oLanguage": {
         "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-        "sInfo": "Resultados del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfo": Lang.get('admin.js.table.info', {start: '_START_', end: '_END_', total: '_TOTAL_'}),
         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-        "sSearchPlaceholder": "Buscar...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sProcessing":     "Procesando...",
-        "sZeroRecords":    "No se encontraron resultados",
-        "sEmptyTable":     "Ningún resultado disponible en esta tabla",
-        "sInfoEmpty":      "No hay resultados",
-        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":    "",
-        "sUrl":            "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
+        "sSearchPlaceholder": Lang.get('admin.js.table.search'),
+        "sLengthMenu": Lang.get('admin.js.table.length', {menu: '_MENU_'}),
+        "sProcessing": Lang.get('admin.js.table.processing'),
+        "sZeroRecords": Lang.get('admin.js.table.empty.zero'),
+        "sEmptyTable": Lang.get('admin.js.table.empty.table'),
+        "sInfoEmpty": Lang.get('admin.js.table.empty.info'),
+        "sInfoFiltered": Lang.get('admin.js.table.filter', {max: '_MAX_'}),
+        "sInfoPostFix": "",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": Lang.get('admin.js.table.loading'),
         "oAria": {
-          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "sSortAscending": Lang.get('admin.js.table.sort.asc'),
+          "sSortDescending": Lang.get('admin.js.table.sort.desc')
         }
       },
       "stripeClasses": [],
@@ -206,26 +206,26 @@ $(document).ready(function() {
       },
       "oLanguage": {
         "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-        "sInfo": "Resultados del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfo": Lang.get('admin.js.table.info', {start: '_START_', end: '_END_', total: '_TOTAL_'}),
         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-        "sSearchPlaceholder": "Buscar...",
-        "sLengthMenu": "Mostrar _MENU_ registros",
-        "sProcessing":     "Procesando...",
-        "sZeroRecords":    "No se encontraron resultados",
-        "sEmptyTable":     "Ningún resultado disponible en esta tabla",
-        "sInfoEmpty":      "No hay resultados",
-        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":    "",
-        "sUrl":            "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
+        "sSearchPlaceholder": Lang.get('admin.js.table.search'),
+        "sLengthMenu": Lang.get('admin.js.table.length', {menu: '_MENU_'}),
+        "sProcessing": Lang.get('admin.js.table.processing'),
+        "sZeroRecords": Lang.get('admin.js.table.empty.zero'),
+        "sEmptyTable": Lang.get('admin.js.table.empty.table'),
+        "sInfoEmpty": Lang.get('admin.js.table.empty.info'),
+        "sInfoFiltered": Lang.get('admin.js.table.filter', {max: '_MAX_'}),
+        "sInfoPostFix": "",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": Lang.get('admin.js.table.loading'),
         "oAria": {
-          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "sSortAscending": Lang.get('admin.js.table.sort.asc'),
+          "sSortDescending": Lang.get('admin.js.table.sort.desc')
         },
         "buttons": {
-          "copy": "Copiar",
-          "print": "Imprimir"
+          "copy": Lang.get('admin.js.table.buttons.copy'),
+          "print": Lang.get('admin.js.table.buttons.print')
         }
       },
       "stripeClasses": [],
@@ -238,18 +238,18 @@ $(document).ready(function() {
   if ($('.dropify').length) {
     $('.dropify').dropify({
       messages: {
-        default: 'Arrastre y suelte una imagen o da click para seleccionarla',
-        replace: 'Arrastre y suelte una imagen o haga click para reemplazar',
-        remove: 'Remover',
-        error: 'Lo sentimos, el archivo es demasiado grande'
+        default: Lang.get('admin.js.file.messages.default'),
+        replace: Lang.get('admin.js.file.messages.replace'),
+        remove: Lang.get('admin.js.file.messages.remove'),
+        error: Lang.get('admin.js.file.messages.error')
       },
       error: {
-        'fileSize': 'El tamaño del archivo es demasiado grande ({{ value }} máximo).',
-        'minWidth': 'El ancho de la imagen es demasiado pequeño ({{ value }}}px mínimo).',
-        'maxWidth': 'El ancho de la imagen es demasiado grande ({{ value }}}px máximo).',
-        'minHeight': 'La altura de la imagen es demasiado pequeña ({{ value }}}px mínimo).',
-        'maxHeight': 'La altura de la imagen es demasiado grande ({{ value }}px máximo).',
-        'imageFormat': 'El formato de imagen no está permitido (Debe ser {{ value }}).'
+        'fileSize': Lang.get('admin.js.file.error.fileSize', {value: '{{ value }}'}),
+        'minWidth': Lang.get('admin.js.file.error.minWidth', {value: '{{ value }}'}),
+        'maxWidth': Lang.get('admin.js.file.error.maxWidth', {value: '{{ value }}'}),
+        'minHeight': Lang.get('admin.js.file.error.minHeight', {value: '{{ value }}'}),
+        'maxHeight': Lang.get('admin.js.file.error.maxHeight', {value: '{{ value }}'}),
+        'imageFormat': Lang.get('admin.js.file.error.imageFormat', {value: '{{ value }}'})
       }
     });
   }
@@ -257,10 +257,10 @@ $(document).ready(function() {
   // datepicker material
   if ($('.dateMaterial').length) {
     $('.dateMaterial').bootstrapMaterialDatePicker({
-      lang : 'es',
+      lang : locale,
       time: false,
-      cancelText: 'Cancelar',
-      clearText: 'Limpiar',
+      cancelText: Lang.get('admin.js.date.cancel'),
+      clearText: Lang.get('admin.js.date.clear'),
       format: 'DD-MM-YYYY',
       maxDate : new Date()
     });
@@ -269,7 +269,7 @@ $(document).ready(function() {
   // flatpickr
   if ($('#flatpickr').length) {
     flatpickr(document.getElementById('flatpickr'), {
-      locale: 'es',
+      locale: locale,
       enableTime: false,
       dateFormat: "d-m-Y",
       maxDate : "today"
@@ -557,22 +557,22 @@ $('#add-complements').click(function(event) {
         '<hr class="my-2">'+
         '</div>'+
         '<div class="form-group col-xl-4 col-lg-4 col-md-4 col-12">'+
-        '<label class="col-form-label">Complemento<b class="text-danger">*</b></label>'+
+        '<label class="col-form-label">'+Lang.get('form.complement.label')+'<b class="text-danger">*</b></label>'+
         '<select class="form-control" name="complement_id[]" complement="'+count+'" id="complement_'+count+'">'+
-        '<option value="">Seleccione</option>'+
+        '<option value="">'+Lang.get('form.select.select')+'</option>'+
         '</select>'+
         '</div>'+
         '<div class="form-group col-xl-4 col-lg-4 col-md-4 col-sm-5 col-12">'+
-        '<label class="col-form-label">Precio<b class="text-danger">*</b></label>'+
-        '<input class="form-control min-decimal" type="text" name="price[]" required placeholder="Introduzca un precio" value="0.00" complement="'+count+'" id="price_'+count+'">'+
+        '<label class="col-form-label">'+Lang.get('form.price.label')+'<b class="text-danger">*</b></label>'+
+        '<input class="form-control min-decimal" type="text" name="price[]" required placeholder="'+Lang.get('form.complement.placeholder')+'" value="0.00" complement="'+count+'" id="price_'+count+'">'+
         '</div>'+
         '<div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-5 col-10">'+
         '<label class="col-form-label">Estado<b class="text-danger">*</b></label>'+
         '<select class="form-control" name="state[]" required id="state_'+count+'">'+
-        '<option value="1">Disponible</option>'+
-        '<option value="2">No Disponible</option>'+
-        '<option value="3">Agotado</option>'+
-        '<option value="0">No Visible</option>'+
+        '<option value="1">'+Lang.get('admin.values_attributes.states.complements.available')+'</option>'+
+        '<option value="2">'+Lang.get('admin.values_attributes.states.complements.not available')+'</option>'+
+        '<option value="3">'+Lang.get('admin.values_attributes.states.complements.out of stock')+'</option>'+
+        '<option value="0">'+Lang.get('admin.values_attributes.states.complements.not visible')+'</option>'+
         '</select>'+
         '</div>'+
         '<div class="form-group col-xl-1 col-lg-1 col-md-1 col-2 d-flex align-items-end">'+

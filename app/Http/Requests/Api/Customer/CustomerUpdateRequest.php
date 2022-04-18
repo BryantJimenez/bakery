@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api\Customer;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CustomerUpdateRequest extends FormRequest
 {
@@ -23,9 +26,11 @@ class CustomerUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $locales=Language::all()->pluck('language');
         return [
             'name' => 'required|string|min:2|max:191',
-            'lastname' => 'required|string|min:2|max:191'
+            'lastname' => 'required|string|min:2|max:191',
+            'locale' => 'nullable|'.Rule::in($locales)
         ];
     }
 }

@@ -31,6 +31,15 @@
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="{{ asset('/web/js/bootstrap.min.js') }}"></script>  
 
+    <script src="{{ asset('/lang/translations.js') }}"></script>
+    <script type="text/javascript">
+        if ('{{ app()->getLocale() }}'=='es') {
+            var locale='es';
+        } else {
+            var locale='en';
+        }
+        Lang.setLocale('{{ app()->getLocale() }}');
+    </script>
     <script src="{{ asset('/admins/vendor/validate/jquery.validate.js') }}"></script>
     <script src="{{ asset('/admins/js/validate.js') }}"></script>
     <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>

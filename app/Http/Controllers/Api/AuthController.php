@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Models\Cart\Cart;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Http\Requests\Api\Auth\RegisterRequest;
@@ -14,6 +15,19 @@ use Auth;
 
 class AuthController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+
 	/**
 	* @OA\Post(
 	*	path="/api/v1/auth/login",
@@ -37,6 +51,15 @@ class AuthController extends ApiController
 	*        	type="string"
 	*      	)
 	*   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
 	*   @OA\Response(
 	*      	response=200,
 	*      	description="Login success",
@@ -65,7 +88,7 @@ class AuthController extends ApiController
             return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.auth')], 422);
         }
 
-        if ($user->state=='Inativo') {
+        if ($user->state==trans('admin.values_attributes.states.inactive')) {
             return response()->json(['code' => 403, 'status' => 'error', 'message' => trans('api.errors.403.auth')], 403);
         }
 
@@ -138,6 +161,15 @@ class AuthController extends ApiController
     *           type="string"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     * 	@OA\Response(
     * 		response=201,
     *   	description="Register user.",
@@ -186,6 +218,15 @@ class AuthController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Logout success.",

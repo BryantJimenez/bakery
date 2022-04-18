@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Group;
 
 use App\Models\Complement;
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -26,6 +27,7 @@ class GroupAssignRequest extends FormRequest
      */
     public function rules()
     {
+        $locales=Language::all()->pluck('language');
         $complements=Complement::where('state', '1')->get()->pluck('id');
         return [
             'complement_id' => 'required|array',
@@ -33,7 +35,8 @@ class GroupAssignRequest extends FormRequest
             'price' => 'required|array',
             'price.*' => 'required|string|min:0',
             'state' => 'required|array',
-            'state.*' => 'required|'.Rule::in(['0', '1', '2', '3'])
+            'state.*' => 'required|'.Rule::in(['0', '1', '2', '3']),
+            'locale' => 'nullable|'.Rule::in($locales)
         ];
     }
 }

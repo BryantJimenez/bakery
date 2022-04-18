@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api\Complement;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ComplementStoreRequest extends FormRequest
 {
@@ -23,10 +26,14 @@ class ComplementStoreRequest extends FormRequest
    */
   public function rules()
   {
+    $locales=Language::all()->pluck('language');
     return [
-      'name' => 'required|string|min:2|max:191',
-      'description' => 'nullable|string|min:2|max:5000',
-      'price' => 'required|string|min:0'
+      'name' => 'required|array',
+      'name.*' => 'required|string|min:2|max:191',
+      'description' => 'required|array',
+      'description.*' => 'nullable|string|min:2|max:5000',
+      'price' => 'required|string|min:0',
+      'locale' => 'nullable|'.Rule::in($locales)
     ];
   }
 }

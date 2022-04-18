@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\Category\CategoryStoreRequest;
 use App\Http\Requests\Api\Category\CategoryUpdateRequest;
@@ -14,6 +15,19 @@ use Str;
 
 class CategoryController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($request->has('locale') && !is_null($request->locale)) {
+                $language=Language::where('language', $request->locale)->first();
+                if (!is_null($language)) {
+                    app()->setLocale($language->language);
+                }
+            }
+            return $next($request);
+        });
+    }
+    
     /**
     *
     * @OA\Get(
@@ -25,6 +39,24 @@ class CategoryController extends ApiController
     *   security={
     *       {"bearerAuth": {}}
     *   },
+    *   @OA\Parameter(
+    *       name="page",
+    *       in="query",
+    *       description="Number of page",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Show all categories.",
@@ -42,7 +74,7 @@ class CategoryController extends ApiController
     *   )
     * )
     */
-    public function index() {
+    public function index(Request $request) {
         $categories=Category::get()->map(function($category) {
             return $this->dataCategory($category);
         });
@@ -66,10 +98,28 @@ class CategoryController extends ApiController
     *       {"bearerAuth": {}}
     *   },
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of category",
+    *       description="Name of category in spanish (The key of the value must be the locale of the language)",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of category in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -100,10 +150,10 @@ class CategoryController extends ApiController
     * )
     */
     public function store(CategoryStoreRequest $request) {
-        $trashed=Category::where('slug', Str::slug(request('name')))->withTrashed()->exists();
-        $exist=Category::where('slug', Str::slug(request('name')))->exists();
+        $trashed=Category::where('slug', Str::slug(request('name')['es']))->withTrashed()->exists();
+        $exist=Category::where('slug', Str::slug(request('name')['es']))->exists();
         if ($trashed && $exist===false) {
-            $category=Category::where('slug', Str::slug(request('name')))->withTrashed()->first();
+            $category=Category::where('slug', Str::slug(request('name')['es']))->withTrashed()->first();
             $category->restore();
         } else if ($exist) {
             return response()->json(['code' => 422, 'status' => 'error', 'message' => trans('api.errors.422.category')], 422);
@@ -138,6 +188,15 @@ class CategoryController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(
@@ -187,10 +246,28 @@ class CategoryController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
-    *       name="name",
+    *       name="name[es]",
     *       in="query",
-    *       description="Name of category",
+    *       description="Name of category in spanish (The key of the value must be the locale of the language)",
     *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="name[en]",
+    *       in="query",
+    *       description="Name of category in english (The key of the value must be the locale of the language)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
     *       @OA\Schema(
     *           type="string"
     *       )
@@ -251,6 +328,15 @@ class CategoryController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Delete category.",
@@ -306,6 +392,15 @@ class CategoryController extends ApiController
     *           type="integer"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
+    *       )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Deactivate category.",
@@ -359,6 +454,15 @@ class CategoryController extends ApiController
     *       required=true,
     *       @OA\Schema(
     *           type="integer"
+    *       )
+    *   ),
+    *   @OA\Parameter(
+    *       name="locale",
+    *       in="query",
+    *       description="Locale for example ('es','en')",
+    *       required=false,
+    *       @OA\Schema(
+    *           type="string"
     *       )
     *   ),
     *   @OA\Response(

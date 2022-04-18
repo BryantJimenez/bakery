@@ -45,7 +45,7 @@ use Illuminate\Http\Request;
 *
 * @OA\Tag(
 *	name="Profile Orders",
-*	description="User cart endpoints"
+*	description="User orders endpoints"
 * )
 *
 * @OA\Tag(
@@ -99,6 +99,11 @@ use Illuminate\Http\Request;
 * )
 *
 * @OA\Tag(
+*	name="Languages",
+*	description="Languages endpoints"
+* )
+*
+* @OA\Tag(
 *	name="Settings",
 *	description="Settings endpoints"
 * )
@@ -119,7 +124,8 @@ class ApiController extends Controller
 		$user->address=(!is_null($user->address)) ? $user->address : '';
 		$user->rol=roleUser($user, false);
 		$user->photo=(!is_null($user->photo)) ? asset('/admins/img/users/'.$user->photo) : '';
-		$data=$user->only("id", "name", "lastname", "slug", "photo", "phone", "address", "email", "state", "rol");
+		$user->language=(!is_null($user['language'])) ? $this->dataLanguage($user['language']) : [];
+		$data=$user->only("id", "name", "lastname", "slug", "photo", "phone", "address", "email", "state", "language", "rol");
 		return $data;
 	}
 
@@ -244,6 +250,12 @@ class ApiController extends Controller
 
 	public function dataPayment($payment) {
 		$data=$payment->only("id", "subtotal", "delivery", "total", "fee", "balance", "method", "state");
+		return $data;
+	}
+
+	public function dataLanguage($language) {
+		$language->locale=$language->language;
+		$data=$language->only("id", "name", "locale");
 		return $data;
 	}
 

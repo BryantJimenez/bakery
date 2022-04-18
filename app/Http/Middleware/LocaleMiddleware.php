@@ -16,8 +16,8 @@ class LocaleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $language='es';
-        if (!is_null(Auth::user()->language)) {
+        $language=config('app.locale');
+        if (Auth::check() && !is_null(Auth::user()->language)) {
             $language=Auth::user()->language->language;
         }
         app()->setLocale($language);

@@ -55,7 +55,7 @@
                                     <tr>
                                         <th>@lang('admin.languages.info.group single')</th>
                                         <th>@lang('admin.languages.info.key')</th>
-                                        <th>{{ config('app.locale') }}</th>
+                                        <th>Es</th>
                                         <th>{{ $language }}</th>
                                     </tr>
                                 </thead>
@@ -67,11 +67,11 @@
 
                                     @foreach($translations as $key => $value)
 
-                                    @if(!is_array($value[config('app.locale')]))
+                                    @if(!is_array($value['es']))
                                     <tr>
                                         <td>{{ $group }}</td>
                                         <td>{{ $key }}</td>
-                                        <td>{{ $value[config('app.locale')] }}</td>
+                                        <td>{{ $value['es'] }}</td>
                                         <td>
                                             <translation-input initial-translation="{{ $value[$language] }}" language="{{ $language }}" group="{{ $group }}" translation-key="{{ $key }}" route="{{ config('translation.ui_url') }}"></translation-input>
                                         </td>

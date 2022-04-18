@@ -27,12 +27,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 		Route::get('/', 'WebController@checkout')->name('web.checkout');
 		Route::post('/', 'WebController@checkoutStore')->name('web.checkout.store');
 	});
-	// Profile
-	Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
-		Route::get('/', 'WebController@profile')->name('web.profile');
-		Route::put('/', 'WebController@profileUpdate')->name('web.profile.update');
-		Route::get('/orders/{order:id}', 'WebController@profileOrder')->name('web.profile.order');
-	});
+});
+// Profile
+Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
+	Route::get('/', 'WebController@profile')->name('web.profile');
+	Route::put('/', 'WebController@profileUpdate')->name('web.profile.update');
+	Route::get('/orders/{order:id}', 'WebController@profileOrder')->name('web.profile.order');
 });
 
 /////////////////////////////////////////// ADMIN ////////////////////////////////////////////////

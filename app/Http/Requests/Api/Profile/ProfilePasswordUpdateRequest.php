@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api\Profile;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProfilePasswordUpdateRequest extends FormRequest
 {
@@ -23,9 +26,11 @@ class ProfilePasswordUpdateRequest extends FormRequest
    */
   public function rules()
   {
+    $locales=Language::all()->pluck('language');
     return [
       'current_password' => 'required|string|min:8',
-      'new_password' => 'required|string|min:8'
+      'new_password' => 'required|string|min:8',
+      'locale' => 'nullable|'.Rule::in($locales)
     ];
   }
 }

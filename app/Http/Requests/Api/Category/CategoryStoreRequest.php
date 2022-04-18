@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Api\Category;
 
+use JoeDixon\Translation\Language;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CategoryStoreRequest extends FormRequest
 {
@@ -23,8 +26,11 @@ class CategoryStoreRequest extends FormRequest
    */
   public function rules()
   {
+    $locales=Language::all()->pluck('language');
     return [
-      'name' => 'required|string|min:2|max:191'
+      'name' => 'required|array',
+      'name.*' => 'required|string|min:2|max:191',
+      'locale' => 'nullable|'.Rule::in($locales)
     ];
   }
 }
