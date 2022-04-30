@@ -185,13 +185,14 @@ return [
         'required' => [
             'default' => 'This field is required.',
             'option' => 'Select an option.',
-            'image' => 'Select an image.'
+            'image' => 'Select an image.',
+            'email' => 'Email is required.'
         ],
         'email' => 'Enter a valid email address.',
         'minlength' => 'Enter minimum :value characters.',
         'maxlength' => 'Enter maximum :value characters.',
         'remote' => [
-            'email' => 'This email is not available.',
+            'email' => 'This email is already in use.',
         ],
         'equalTo' => 'The entered data does not match.',
         'min' => 'Enter a value greater than or equal to :value.',

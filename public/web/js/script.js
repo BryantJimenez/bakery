@@ -152,6 +152,14 @@
 	}
 })(jQuery);
 
+function errorNotification() {
+  Lobibox.notify('error', {
+    title: Lang.get('admin.js.500.title'),
+    sound: true,
+    msg: Lang.get('admin.js.500.msg')
+  });
+}
+
 // Sticky nav
 if($('.element_to_stick').length) {
 	$(window).on('scroll', function () {
@@ -413,3 +421,139 @@ window.addEventListener('contentChanged', event => {
     	});
     }
 });
+
+// Open and close add coupons
+$('#btn-coupon').click(function(event) {
+	toggleBtnCoupon();
+});
+
+function toggleBtnCoupon() {
+	$("#card-add-coupon").toggle();
+	if ($('#btn-coupon').hasClass('open')) {
+		$('#btn-coupon').text(Lang.get('web.js.coupons.buttons.add'));
+		$('#btn-coupon').removeClass('open');
+	} else {
+		$('#btn-coupon').text(Lang.get('web.js.coupons.buttons.close'));
+		$('#btn-coupon').addClass('open');
+	}
+}
+
+// Add coupon
+$('#btn-add-coupon').click(function() {
+	addCoupon();
+});
+
+function addCoupon() {
+	$("#card-add-coupon .validate-coupon, #card-add-coupon .validate-email").addClass('d-none');
+	$('#btn-add-coupon').attr('disabled', true);
+	var coupon=$('#input-coupon').val(), email=$('input[type="email"]').val();
+	if (coupon!="" && email!="") {
+		$.ajax({
+			url: '/coupon/add',
+			type: 'POST',
+			dataType: 'json',
+			data: {coupon: coupon, email: email},
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		})
+		.done(function(obj) {
+			if (obj.state) {
+				Livewire.emit('cartCoupon', obj.coupon);
+
+				$("#div-coupon div").remove();
+				$("#div-coupon").html('<div class="alert alert-success">'+
+				'<div>'+
+				'<p class="mb-1">'+Lang.get('web.js.coupons.notifications.add.message')+'</p>'+
+				'<a href="javascript:void(0);" id="remove-coupon">'+Lang.get('web.js.coupons.buttons.remove')+'</a>'+
+				'</div>'+
+				'<div>');
+
+				// Remove coupon
+				$('#remove-coupon').on('click', function() {
+					removeCoupon();
+				});
+
+				Lobibox.notify('success', {
+					title: Lang.get('web.js.coupons.notifications.add.title'),
+					sound: true,
+					msg: Lang.get('web.js.coupons.notifications.add.message')
+				});
+			} else {
+				$('#btn-add-coupon').attr('disabled', false);
+				Lobibox.notify('error', {
+					title: obj.title,
+					sound: true,
+					msg: obj.message
+				});
+			}
+		})
+		.fail(function() {
+			$('#btn-add-coupon').attr('disabled', false);
+			errorNotification();
+		});
+	} else {
+		if (email=="") {
+			$("#card-add-coupon .validate-email").removeClass('d-none');
+		}
+		if (coupon=="") {
+			$("#card-add-coupon .validate-coupon").removeClass('d-none');
+		}
+		$('#btn-add-coupon').attr('disabled', false);
+	}
+}
+
+// Remove coupon
+$('#remove-coupon').click(function() {
+	removeCoupon();
+});
+
+function removeCoupon() {
+	$.ajax({
+		url: '/coupon/remove',
+		type: 'POST',
+		dataType: 'json',
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	})
+	.done(function(obj) {
+		if (obj.state) {
+			Livewire.emit('cartCoupon', null);
+
+			$("#div-coupon div").remove();
+			$("#div-coupon").html('<a href="javascript:void(0);" id="btn-coupon">'+Lang.get('web.js.coupons.buttons.add')+'</a>'+
+			'<div class="row" style="display: none;" id="card-add-coupon">'+
+			'<div class="form-group col-lg-8 col-md-8 col-12">'+
+			'<input type="text" class="form-control" name="coupon" placeholder="'+Lang.get('form.coupon.placeholder')+'" id="input-coupon">'+
+			'<p class="text-danger font-weight-bold validate-coupon d-none mb-0">'+Lang.get('validation.validate.required.default')+'</p>'+
+			'<p class="text-danger font-weight-bold validate-email d-none mb-0">'+Lang.get('validation.validate.required.email')+'</p>'+
+			'</div>'+
+			'<div class="form-group col-lg-4 col-md-4 col-12">'+
+			'<button type="button" class="btn_1 gradient full-width mb_5" id="btn-add-coupon">'+Lang.get('form.buttons.add')+'</button>'+
+			'</div>'+
+			'</div>');
+
+			// // Open and close add coupons
+			$('#btn-coupon').on('click', function(event) {
+				toggleBtnCoupon();
+			});
+
+			// Add coupon
+			$('#btn-add-coupon').on('click', function() {
+				addCoupon();
+			});
+
+			Lobibox.notify('success', {
+				title: Lang.get('web.js.coupons.notifications.remove.title'),
+				sound: true,
+				msg: Lang.get('web.js.coupons.notifications.remove.message')
+			});
+		} else {
+			errorNotification();
+		}
+	})
+	.fail(function() {
+		errorNotification();
+	});
+}

@@ -194,6 +194,24 @@ function selectArray($arrays, $selectedItems) {
 	return $selects;
 }
 
+function selectArrayDays($selectedItems) {
+	$selects="";
+	$arrays=['1' => trans('admin.values_attributes.days.1'), '2' => trans('admin.values_attributes.days.2'), '3' => trans('admin.values_attributes.days.3'), '4' => trans('admin.values_attributes.days.4'), '5' => trans('admin.values_attributes.days.5'), '6' => trans('admin.values_attributes.days.6'), '7' => trans('admin.values_attributes.days.7')];
+	foreach ($arrays as $key => $array) {
+		$select="";
+		if (count($selectedItems)>0) {
+			foreach ($selectedItems as $selected) {
+				if ($selected==$key) {
+					$select="selected";
+					break;
+				}
+			}
+		}
+		$selects.='<option value="'.$key.'" '.$select.'>'.$array.'</option>';
+	}
+	return $selects;
+}
+
 function store_files($file, $file_name, $route) {
 	$image=$file_name.".".$file->getClientOriginalExtension();
 	if (file_exists(public_path().$route.$image)) {
@@ -252,7 +270,7 @@ function cartComplements($complements) {
 
 function typeDelivery($type, $badge=true) {
 	if ($badge) {
-		if ($type==trans('admin.values_attributes.types_delivery.orders.eat on site') || $type==trans('admin.values_attributes.types_delivery.orders.to take away') || $type==trans('admin.values_attributes.types_delivery.orders.delivery')) {
+		if ($type==trans('admin.values_attributes.types.deliveries.eat on site') || $type==trans('admin.values_attributes.types.deliveries.to take away') || $type==trans('admin.values_attributes.types.deliveries.delivery')) {
 			return '<span class="badge badge-primary">'.$type.'</span>';
 		}
 		return '<span class="badge badge-dark">'.$type.'</span>';
@@ -268,4 +286,40 @@ function methodPayment($method, $badge=true) {
 		return '<span class="badge badge-dark">'.$method.'</span>';
 	}
 	return $method;
+}
+
+function scheduleText($days) {
+	$collect=collect($days)->sort()->values();
+	$stairway=($collect->count()>2) ? true : false;
+	$i=$collect->first();
+	
+	foreach ($collect as $key => $value) {
+		if ($collect->count()>2) {
+			if ($value!=$i) {
+				$stairway=false;
+			}
+		}
+		$i++;
+	}
+
+	if ($stairway) {
+		$text=trans('web.home.footer.schedule.text.stairway', ['first' => trans('admin.values_attributes.days.'.$collect->first()), 'last' => trans('admin.values_attributes.days.'.$collect->last())]);
+	} else {
+		if ($collect->count()>2) {
+			$i=1;
+			$text='';
+			foreach ($collect as $key => $value) {
+				$text.=trans('admin.values_attributes.days.'.$value);
+				$text.=($collect->count()!=$i+1) ? ', ' : ' '.trans('web.home.footer.schedule.text.and').' ';
+				$i++;
+			}
+			$text=substr($text, 0, -2);
+		} elseif ($collect->count()==2) {
+			$text=trans('web.home.footer.schedule.text.two days', ['first' => trans('admin.values_attributes.days.'.$collect->first()), 'last' => trans('admin.values_attributes.days.'.$collect->last())]);
+		} elseif ($collect->count()==1) {
+			$text=trans('admin.values_attributes.days.'.$collect->first());
+		}
+	}
+
+	return $text;
 }

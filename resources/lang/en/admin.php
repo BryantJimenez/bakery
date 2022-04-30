@@ -19,8 +19,10 @@ return [
         'orders' => 'Orders',
         'agencies' => 'Agencies',
         'attributes' => 'Attributes',
+        'coupons' => 'Coupons',
         'currencies' => 'Currencies',
         'languages' => 'Languages',
+        'schedules' => 'Schedules',
         'settings' => 'Settings'
     ],
 
@@ -44,6 +46,7 @@ return [
             'complements' => 'Complements',
             'agencies' => 'Agencies',
             'attributes' => 'Attributes',
+            'coupons' => 'Coupons',
             'orders' => [
                 'confirms' => 'Orders Confirms',
                 'pendings' => 'Orders Pendings'
@@ -203,7 +206,8 @@ return [
                 'order' => 'Order Information',
                 'products' => 'Order Products',
                 'payment' => 'Payment Details',
-                'shipping' => 'Shipping Information'
+                'shipping' => 'Shipping Information',
+                'coupon' => 'Coupon Details'
             ]
         ],
         'info' => [
@@ -214,6 +218,7 @@ return [
             'qty' => 'Quantity',
             'subtotal' => 'Subtotal',
             'shipping' => 'Shipping',
+            'discount' => 'Discount',
             'total' => 'Total',
             'reason' => 'Reason',
             'commission' => 'Comission',
@@ -257,6 +262,21 @@ return [
         ]
     ],
 
+    'coupons' => [
+        'titles' => [
+            'index' => 'List of Coupons',
+            'create' => 'Create Coupon',
+            'edit' => 'Edit Coupon'
+        ],
+        'modals' => [
+            'titles' => [
+                'deactivate' => 'Are you sure you want to deactivate this coupon?',
+                'activate' => 'Are you sure you want to activate this coupon?',
+                'delete' => 'Are you sure you want to delete this coupon?'
+            ]
+        ]
+    ],
+
     'currencies' => [
         'titles' => [
             'index' => 'List of Currencies',
@@ -287,6 +307,21 @@ return [
             'group single' => 'Group / Single',
             'key' => 'Key',
             'search' => 'Search all translations'
+        ]
+    ],
+
+    'schedules' => [
+        'titles' => [
+            'index' => 'List of Schedules',
+            'create' => 'Create Schedule',
+            'edit' => 'Edit Schedule'
+        ],
+        'modals' => [
+            'titles' => [
+                'deactivate' => 'Are you sure you want to deactivate this schedule?',
+                'activate' => 'Are you sure you want to activate this schedule?',
+                'delete' => 'Are you sure you want to delete this schedule?'
+            ]
         ]
     ],
 
@@ -338,6 +373,21 @@ return [
                 'rejected' => 'Rejected',
                 'confirmed' => 'Confirmed',
                 'pending' => 'Pending'
+            ],
+            'settings' => [
+                'open' => 'Open',
+                'closed' => 'Closed'
+            ]
+        ],
+        'types' => [
+            'coupons' => [
+                'fixed' => 'Fixed',
+                'percentage' => 'Percentage'
+            ],
+            'deliveries' => [
+                'eat on site' => 'Eat On Site',
+                'to take away' => 'To Take Away',
+                'delivery' => 'Delivery'
             ]
         ],
         'conditions' => [
@@ -347,10 +397,18 @@ return [
         'methods' => [
             'card' => 'Card'
         ],
-        'types_delivery' => [
-            'eat on site' => 'Eat On Site',
-            'to take away' => 'To Take Away',
-            'delivery' => 'Delivery'
+        'days' => [
+            '1' => 'Monday',
+            '2' => 'Tuesday',
+            '3' => 'Wednesday',
+            '4' => 'Thursday',
+            '5' => 'Friday',
+            '6' => 'Saturday',
+            '7' => 'Sunday'
+        ],
+        'forces' => [
+            'yes' => 'Yes',
+            'no' => 'No'
         ]
     ],
     'not added' => 'Not Added',
@@ -439,6 +497,14 @@ return [
                     'activate' => 'The attribute has been successfully activated.'
                 ],
 
+                'coupons' => [
+                    'store' => 'The coupon has been successfully registered.',
+                    'update' => 'The coupon has been successfully edited.',
+                    'destroy' => 'The coupon has been successfully deleted.',
+                    'deactivate' => 'The coupon has been successfully deactivated.',
+                    'activate' => 'The coupon has been successfully activated.'
+                ],
+
                 'currencies' => [
                     'store' => 'The customer has been successfully registered.',
                     'update' => 'The customer has been successfully edited.',
@@ -449,6 +515,14 @@ return [
 
                 'languages' => [
                     'store' => 'The language has been successfully registered.'
+                ],
+
+                'schedules' => [
+                    'store' => 'The schedule has been successfully registered.',
+                    'update' => 'The schedule has been successfully edited.',
+                    'destroy' => 'The schedule has been successfully deleted.',
+                    'deactivate' => 'The schedule has been successfully deactivated.',
+                    'activate' => 'The schedule has been successfully activated.'
                 ],
 
                 'settings' => [
@@ -498,6 +572,13 @@ return [
                     '422' => [
                         'title' => 'The language already exists',
                         'msg' => 'This language is already registered.'
+                    ]
+                ],
+
+                'schedules' => [
+                    '422' => [
+                        'title' => 'The schedule already exists',
+                        'msg' => 'This schedule interferes with another already registered.'
                     ]
                 ]
             ]

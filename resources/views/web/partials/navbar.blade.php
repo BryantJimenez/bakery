@@ -17,7 +17,7 @@
             <li class="">
                 <div class="dropdown user languages clearfix">
                     <a href="javascript:void(0);" class="dropdown-toggle" id="dropdownMenuLanguages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe"></i></a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-menu-content">
                             <ul>
                                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
@@ -36,6 +36,9 @@
             <li>
                 <livewire:web.cart.header />
             </li>
+            <li class="pt-3">
+                <a href="javascript:void(0);" class="font-weight-semibold">@lang('web.menu.points', ['points' => Auth::user()->points])</a>
+            </li>
             <li class="mt-lg-0 mt-1">
                 <div class="dropdown user clearfix">
                     <a href="javascript:void(0);" data-toggle="dropdown">
@@ -44,7 +47,7 @@
                         </figure>
                         <span>{{ Auth::user()->name." ".Auth::user()->lastname }}</span>
                     </a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-menu-content">
                             <ul>
                                 @can('dashboard')
@@ -83,6 +86,9 @@
             <ul>
                 <li>
                     <a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('home'), [], true) }}" hreflang="{{ app()->getLocale() }}">@lang('web.menu.home')</a>
+                </li>
+                <li>
+                    <a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.shop'), [], true) }}" hreflang="{{ app()->getLocale() }}">@lang('web.menu.shop')</a>
                 </li>
                 <li class="d-lg-none">
                     <a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.checkout'), [], true) }}" hreflang="{{ app()->getLocale() }}">@lang('web.menu.checkout')</a>

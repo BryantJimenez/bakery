@@ -95,6 +95,21 @@ return [
 		'label' => 'Ruta',
 		'placeholder' => 'Introduzca una ruta'
 	],
+	'code' => [
+		'label' => 'Código'
+	],
+	'limit' => [
+		'label' => 'Límite de Usos',
+		'placeholder' => 'Introduzca un límite de usos',
+		'abbreviation' => 'Límite'
+	],
+	'discount' => [
+		'label' => 'Descuento',
+		'placeholder' => 'Introduzca el descuento'
+	],
+	'uses' => [
+		'label' => 'Usos'
+	],
 	'iso' => [
 		'label' => 'ISO',
 		'placeholder' => 'Introduzca un código iso'
@@ -109,6 +124,17 @@ return [
 	],
 	'language' => [
 		'label' => 'Idioma'
+	],
+	'start_time' => [
+		'label' => 'Hora de Inicio',
+		'placeholder' => 'Seleccione la hora de inicio'
+	],
+	'end_time' => [
+		'label' => 'Hora de Fin',
+		'placeholder' => 'Seleccione la hora de fin'
+	],
+	'days' => [
+		'label' => 'Días'
 	],
 	'currency' => [
 		'label' => 'Moneda'
@@ -143,6 +169,9 @@ return [
 		'label' => 'Método de Pago',
 		'placeholder' => 'Seleccione un método de pago',
 		'abbreviation' => 'Pago'
+	],
+	'coupon' => [
+		'placeholder' => 'Introduzca un coupón'
 	],
 	'date' => [
 		'label' => 'Fecha',

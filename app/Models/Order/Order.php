@@ -3,6 +3,7 @@
 namespace App\Models\Order;
 
 use App\Models\User;
+use App\Models\Coupon;
 use App\Models\Currency;
 use App\Models\Payment\Payment;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ class Order extends Model
 {
 	use SoftDeletes;
 
-    protected $fillable = ['subtotal', 'delivery', 'total', 'fee', 'balance', 'type_delivery', 'phone', 'state', 'user_id', 'currency_id', 'payment_id'];
+    protected $fillable = ['subtotal', 'delivery', 'discount', 'total', 'fee', 'balance', 'type_delivery', 'phone', 'state', 'user_id', 'currency_id', 'coupon_id', 'payment_id'];
 
     /**
      * Get the type delivery.
@@ -22,11 +23,11 @@ class Order extends Model
     public function getTypeDeliveryAttribute($value)
     {
         if ($value=='3') {
-            trans('admin.values_attributes.types_delivery.orders.delivery');
+            return trans('admin.values_attributes.types.deliveries.delivery');
         } elseif ($value=='2') {
-            trans('admin.values_attributes.types_delivery.orders.to take away');
+            return trans('admin.values_attributes.types.deliveries.to take away');
         } elseif ($value=='1') {
-            trans('admin.values_attributes.types_delivery.orders.eat on site');
+            return trans('admin.values_attributes.types.deliveries.eat on site');
         }
         return trans('admin.values_attributes.unknown');
     }
@@ -61,11 +62,11 @@ class Order extends Model
             $query->withTrashed();
         }, 'currency' => function($query) {
             $query->withTrashed();
+        }, 'coupon' => function($query) {
+            $query->withTrashed();
         }, 'payment' => function($query) {
             $query->withTrashed();
-        }, 'shipping' => function($query) {
-            $query->withTrashed();
-        }, 'shipping.agency' => function($query) {
+        }, 'shipping', 'shipping.agency' => function($query) {
             $query->withTrashed();
         }, 'order_products.product' => function($query) {
             $query->withTrashed();
@@ -91,6 +92,10 @@ class Order extends Model
 
     public function currency() {
         return $this->belongsTo(Currency::class);
+    }
+
+    public function coupon() {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function payment() {

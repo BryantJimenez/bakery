@@ -18,7 +18,8 @@ class SettingController extends Controller
     public function update(SettingUpdateRequest $request) {
         $setting=Setting::where('id', 1)->firstOrFail();
         $currency=Currency::where('slug', request('currency_id'))->first();
-        $data=array('terms' => request('terms'), 'privacity' => request('privacity'), 'stripe_public' => request('stripe_public'), 'stripe_secret' => request('stripe_secret'), 'currency_id' => $currency->id);
+        $force=(request('state')=='1') ? '1' : '0';
+        $data=array('terms' => request('terms'), 'privacity' => request('privacity'), 'stripe_public' => request('stripe_public'), 'stripe_secret' => request('stripe_secret'), 'force' => $force, 'state' => request('state'), 'currency_id' => $currency->id);
         $setting->fill($data)->save();
 
         if ($setting) {

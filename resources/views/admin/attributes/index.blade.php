@@ -59,7 +59,7 @@
 												@can('attributes.edit')
 												<a href="{{ route('attributes.edit', ['attribute' => $attribute->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="@lang('admin.table.edit')"><i class="fa fa-edit"></i></a>
 												@endcan
-												@if($attribute->state=='Activo')
+												@if($attribute->state==trans('admin.values_attributes.states.active'))
 												@can('attributes.deactive')
 												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.deactivate')" onclick="deactiveAttribute('{{ $attribute->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan

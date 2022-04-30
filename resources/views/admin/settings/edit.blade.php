@@ -34,7 +34,15 @@
 							@csrf
 							@method('PUT')
 							<div class="row">
-								<div class="form-group col-12">
+								<div class="form-group col-lg-6 col-md-6 col-12">
+									<label class="col-form-label">@lang('form.state.label')<b class="text-danger">*</b></label>
+									<select class="form-control @error('state') is-invalid @enderror" name="state" required>
+										<option value="1" @if($setting->state==trans('admin.values_attributes.states.settings.open')) selected @endif>@lang('admin.values_attributes.states.settings.open')</option>
+										<option value="0" @if($setting->state==trans('admin.values_attributes.states.settings.closed')) selected @endif>@lang('admin.values_attributes.states.settings.closed')</option>
+									</select>
+								</div>
+
+								<div class="form-group col-lg-6 col-md-6 col-12">
 									<label class="col-form-label">@lang('form.currency.label')<b class="text-danger">*</b></label>
 									<select class="form-control @error('currency_id') is-invalid @enderror" name="currency_id" required>
 										<option value="">@lang('form.select.select')</option>

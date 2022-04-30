@@ -991,6 +991,57 @@ $(document).ready(function(){
 		});
 	});
 
+	// Coupons
+	$("button[action='coupon']").on("click",function(){
+		if ($("#formCoupon").length) {
+			$("#formCoupon").validate().destroy();
+		}
+		var max=999999999;
+		if ($('#typeCoupon').val()=="1") {
+			max=100;
+		}
+		$("#formCoupon").validate({
+			rules:
+			{
+				type: {
+					required: true
+				},
+
+				limit: {
+					required: true,
+					min: 1
+				},
+
+				discount: {
+					required: true,
+					min: 1,
+					max: 900
+				}
+			},
+			messages:
+			{
+				type: {
+					required: Lang.get('validation.validate.required.option')
+				},
+
+				limit: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'})
+				},
+
+				discount: {
+					required: Lang.get('validation.validate.required.default'),
+					min: Lang.get('validation.validate.min', {value: '{0}'}),
+					max: Lang.get('validation.validate.max', {value: '{0}'})
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='coupon']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
 	// Currencies
 	$("button[action='currency']").on("click",function(){
 		$("#formCurrency").validate({
@@ -1041,11 +1092,95 @@ $(document).ready(function(){
 		});
 	});
 
+	// Languages
+	$("button[action='language']").on("click",function(){
+		$("#formLanguage").validate({
+			rules:
+			{
+				name: {
+					required: true,
+					minlength: 2,
+					maxlength: 191
+				},
+
+				locale: {
+					required: true,
+					minlength: 2,
+					maxlength: 2
+				}
+			},
+			messages:
+			{
+				name: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				},
+
+				locale: {
+					required: Lang.get('validation.validate.required.default'),
+					minlength: Lang.get('validation.validate.minlength', {value: '{0}'}),
+					maxlength: Lang.get('validation.validate.maxlength', {value: '{0}'})
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='language']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
+	// Schedules
+	$("button[action='schedule']").on("click",function(){
+		$("#formSchedule").validate({
+			rules:
+			{
+				start: {
+					required: true,
+					date: false,
+					time: false
+				},
+
+				end: {
+					required: true,
+					date: false,
+					time: false
+				},
+
+				days: {
+					required: true
+				}
+			},
+			messages:
+			{
+				start: {
+					required: Lang.get('validation.validate.required.default')
+				},
+
+				end: {
+					required: Lang.get('validation.validate.required.default')
+				},
+
+				days: {
+					required: Lang.get('validation.validate.required.option')
+				}
+			},
+			submitHandler: function(form) {
+				$("button[action='schedule']").attr('disabled', true);
+				form.submit();
+			}
+		});
+	});
+
 	// Settings
 	$("button[action='setting']").on("click",function(){
 		$("#formSetting").validate({
 			rules:
 			{
+				state: {
+					required: true
+				},
+
 				currency_id: {
 					required: true
 				},
@@ -1076,6 +1211,10 @@ $(document).ready(function(){
 			},
 			messages:
 			{
+				state: {
+					required: Lang.get('validation.validate.required.option')
+				},
+
 				currency_id: {
 					required: Lang.get('validation.validate.required.option')
 				},

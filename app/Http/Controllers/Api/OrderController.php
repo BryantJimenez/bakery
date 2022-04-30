@@ -72,7 +72,7 @@ class OrderController extends ApiController
     * )
     */
     public function index(Request $request) {
-        $orders=Order::with(['user', 'currency', 'payment', 'shipping', 'order_products.product.category', 'order_products.complements.complement', 'order_products.complements.group.attribute'])->get()->map(function($order) {
+        $orders=Order::with(['user.language', 'currency', 'payment', 'shipping', 'order_products.product.category', 'order_products.complements.complement', 'order_products.complements.group.attribute'])->get()->map(function($order) {
             return $this->dataOrder($order);
         });
 

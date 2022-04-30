@@ -53,7 +53,7 @@
 										<td>{{ $order['user']->name." ".$order['user']->lastname }}</td>
 										<td>{{ number_format($order->total, 2, ",", ".").$order['currency']->symbol }}</td>
 										<td>{!! typeDelivery($order->type_delivery) !!}</td>
-										<td>{!! statePayment($order->payment->state) !!}</td>
+										<td>{!! statePayment($order['payment']->state) !!}</td>
 										<td>{!! stateOrder($order->state) !!}</td>
 										<td>{{ $order->created_at->format("d-m-Y H:i a") }}</td>
 										@if(auth()->user()->can('orders.show') || auth()->user()->can('orders.confirmed') || auth()->user()->can('orders.rejected'))

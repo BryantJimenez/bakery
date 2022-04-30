@@ -276,6 +276,32 @@ $(document).ready(function() {
     });
   }
 
+  if ($('#startTimeFlatpickr').length && $('#endTimeFlatpickr').length) {
+    var startFlatpickr=flatpickr(document.getElementById('startTimeFlatpickr'), {
+      locale: locale,
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: false,
+      maxTime: "23:59",
+      onChange: function(selectedDates, dateStr, instance) {
+        endFlatpickr.set("minTime", $("#startTimeFlatpickr").val());
+      }
+    });
+
+    var endFlatpickr=flatpickr(document.getElementById('endTimeFlatpickr'), {
+      locale: locale,
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: false,
+      minTime: "00:00",
+      onChange: function(selectedDates, dateStr, instance) {
+        startFlatpickr.set("maxTime", $("#endTimeFlatpickr").val());
+      }
+    });
+  }
+
   //touchspin
   if ($('.int').length) {
     $(".int").TouchSpin({
@@ -317,6 +343,38 @@ $(document).ready(function() {
     });
   }
 
+  if ($('.int-positive').length) {
+    $(".int-positive").TouchSpin({
+      min: 1,
+      max: 999999999,
+      buttondown_class: 'btn btn-primary pt-2 pb-3',
+      buttonup_class: 'btn btn-primary pt-2 pb-3'
+    });
+  }
+
+  if ($('.discount').length && $('#typeCoupon').length) {
+    var max=1, step=1, decimals=0;
+    if ($('#typeCoupon').val()!='') {
+      if ($('#typeCoupon').val()=='1') {
+        max=100;
+        step=1;
+        decimals=0;
+      } else if ($('#typeCoupon').val()=='2') {
+        max=999999999;
+        step=0.05;
+        decimals=2;
+      }
+    }
+    $(".discount").TouchSpin({
+      min: 1,
+      max: max,
+      step: step,
+      decimals: decimals,
+      buttondown_class: 'btn btn-primary pt-2 pb-3',
+      buttonup_class: 'btn btn-primary pt-2 pb-3'
+    });
+  }
+
   // CKeditor plugin
   if ($('#content-term').length) {
     CKEDITOR.config.height=400;
@@ -353,6 +411,18 @@ $('#stateCheckbox').change(function(event) {
     $('#stateHidden').val(1);
   } else {
     $('#stateHidden').val(0);
+  }
+});
+
+// function to change discount touchspin for the type of coupon
+$('#typeCoupon').change(function(event) {
+  $(".discount").trigger("touchspin.updatesettings", {max: 1, step: 1, decimals: 0});
+  if ($(this).val()!='') {
+    if ($(this).val()=='1') {
+      $(".discount").trigger("touchspin.updatesettings", {max: 100, step: 1, decimals: 0});
+    } else if ($(this).val()=='2') {
+      $(".discount").trigger("touchspin.updatesettings", {max: 999999999, step: 0.05, decimals: 2});
+    }
   }
 });
 
@@ -447,6 +517,16 @@ function activeAttribute(slug) {
   $('#formActiveAttribute').attr('action', '/admin/attributes/' + slug + '/activate');
 }
 
+function deactiveCoupon(slug) {
+  $("#deactiveCoupon").modal();
+  $('#formDeactiveCoupon').attr('action', '/admin/coupons/' + slug + '/deactivate');
+}
+
+function activeCoupon(slug) {
+  $("#activeCoupon").modal();
+  $('#formActiveCoupon').attr('action', '/admin/coupons/' + slug + '/activate');
+}
+
 function deactiveCurrency(slug) {
   $("#deactiveCurrency").modal();
   $('#formDeactiveCurrency').attr('action', '/admin/currencies/' + slug + '/deactivate');
@@ -455,6 +535,16 @@ function deactiveCurrency(slug) {
 function activeCurrency(slug) {
   $("#activeCurrency").modal();
   $('#formActiveCurrency').attr('action', '/admin/currencies/' + slug + '/activate');
+}
+
+function deactiveSchedule(id) {
+  $("#deactiveSchedule").modal();
+  $('#formDeactiveSchedule').attr('action', '/admin/schedules/' + id + '/deactivate');
+}
+
+function activeSchedule(id) {
+  $("#activeSchedule").modal();
+  $('#formActiveSchedule').attr('action', '/admin/schedules/' + id + '/activate');
 }
 
 // functions to ask when deleting
@@ -498,9 +588,19 @@ function deleteAttribute(slug) {
   $('#formDeleteAttribute').attr('action', '/admin/attributes/' + slug);
 }
 
+function deleteCoupon(slug) {
+  $("#deleteCoupon").modal();
+  $('#formDeleteCoupon').attr('action', '/admin/coupons/' + slug);
+}
+
 function deleteCurrency(slug) {
   $("#deleteCurrency").modal();
   $('#formDeleteCurrency').attr('action', '/admin/currencies/' + slug);
+}
+
+function deleteSchedule(id) {
+  $("#deleteSchedule").modal();
+  $('#formDeleteSchedule').attr('action', '/admin/schedules/' + id);
 }
 
 // Function to open modal to assign groups to a product

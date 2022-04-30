@@ -23,7 +23,8 @@ return [
 			],
 			'category' => 'Esta categoría ya existe.',
 			'attribute' => 'Este atributo ya existe.',
-			'currency' => 'Esta moneda ya existe.'
+			'currency' => 'Esta moneda ya existe.',
+			'schedule' => 'Este horario interfiere con otro ya registrado.'
 		],
 		'500' => 'Ha ocurrido un error durante el proceso, intentelo nuevamente.'
 	],
@@ -114,7 +115,15 @@ return [
 		'update' => 'El atributo ha sido editado exitosamente.',
 		'destroy' => 'El atributo ha sido eliminado exitosamente.',
 		'deactivate' => 'El atributo ha sido desactivado exitosamente.',
-		'activate' => 'El atributo ha sido activado exitosamente.',
+		'activate' => 'El atributo ha sido activado exitosamente.'
+	],
+
+	'coupons' => [
+		'store' => 'El cupón ha sido registrado exitosamente.',
+		'update' => 'El cupón ha sido editado exitosamente.',
+		'destroy' => 'El cupón ha sido eliminado exitosamente.',
+		'deactivate' => 'El cupón ha sido desactivado exitosamente.',
+		'activate' => 'El cupón ha sido activado exitosamente.'
 	],
 
 	'currencies' => [
@@ -129,6 +138,14 @@ return [
 		'store' => 'El idioma ha sido registrado exitosamente.',
 		'update' => 'El idioma ha sido editado exitosamente.',
 		'destroy' => 'El idioma ha sido eliminado exitosamente.'
+	],
+
+	'schedules' => [
+		'store' => 'El horario ha sido registrado exitosamente.',
+		'update' => 'El horario ha sido editado exitosamente.',
+		'destroy' => 'El horario ha sido eliminado exitosamente.',
+		'deactivate' => 'El horario ha sido desactivado exitosamente.',
+		'activate' => 'El horario ha sido activado exitosamente.'
 	],
 
 	'settings' => [

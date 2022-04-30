@@ -19,6 +19,8 @@ class CreateSettingsTable extends Migration
             $table->json('privacity')->default('[]');
             $table->string('stripe_public')->nullable();
             $table->string('stripe_secret')->nullable();
+            $table->enum('force', [0, 1])->default(0);
+            $table->enum('state', [0, 1])->default(0);
             $table->bigInteger('currency_id')->unsigned()->nullable();
             $table->timestamps();
 

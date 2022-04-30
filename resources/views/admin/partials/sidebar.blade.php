@@ -110,6 +110,16 @@
             </li>
             @endcan
 
+            @can('coupons.index')
+            <li class="menu {{ active('admin/coupons', 0) }}">
+                <a href="{{ route('coupons.index') }}" aria-expanded="{{ menu_expanded('admin/coupons', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fas fa-ticket-alt"></i> @lang('admin.sidebar.coupons')</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
+
             @can('currencies.index')
             <li class="menu {{ active('admin/currencies', 0) }}">
                 <a href="{{ route('currencies.index') }}" aria-expanded="{{ menu_expanded('admin/currencies', 0) }}" class="dropdown-toggle">
@@ -125,6 +135,16 @@
                 <a href="{{ route('languages.index') }}" aria-expanded="{{ menu_expanded('admin/languages', 0) }}" class="dropdown-toggle">
                     <div class="">
                         <span><i class="fa fa-language"></i> @lang('admin.sidebar.languages')</span>
+                    </div>
+                </a>
+            </li>
+            @endcan
+
+            @can('schedules.index')
+            <li class="menu {{ active('admin/schedules', 0) }}">
+                <a href="{{ route('schedules.index') }}" aria-expanded="{{ menu_expanded('admin/schedules', 0) }}" class="dropdown-toggle">
+                    <div class="">
+                        <span><i class="fa fa-calendar"></i> @lang('admin.sidebar.schedules')</span>
                     </div>
                 </a>
             </li>

@@ -63,7 +63,7 @@
 												@can('currencies.edit')
 												<a href="{{ route('currencies.edit', ['currency' => $currency->slug]) }}" class="btn btn-info btn-sm bs-tooltip" title="@lang('admin.table.edit')"><i class="fa fa-edit"></i></a>
 												@endcan
-												@if($currency->state=='Activo')
+												@if($currency->state==trans('admin.values_attributes.states.active'))
 												@can('currencies.deactive')
 												<button type="button" class="btn btn-danger btn-sm bs-tooltip" title="@lang('admin.table.deactivate')" onclick="deactiveCurrency('{{ $currency->slug }}')"><i class="fa fa-power-off"></i></button>
 												@endcan

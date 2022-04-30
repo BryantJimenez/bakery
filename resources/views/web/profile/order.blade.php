@@ -37,7 +37,7 @@
 							<p class="mb-1"><strong>@lang('admin.orders.info.type delivery'):</strong> {{ $order->type_delivery }}</p>
 						</div>
 
-						@if($order->type_delivery==trans('admin.values_attributes.types_delivery.orders.delivery'))
+						@if($order->type_delivery==trans('admin.values_attributes.types.deliveries.orders.delivery'))
 						<div class="col-12">
 							<p class="mb-1"><strong>@lang('admin.orders.info.address shipping'):</strong> {{ $order['shipping']->address }}</p>
 						</div>
@@ -104,6 +104,10 @@
 										<tr>
 											<td colspan="4" class="text-primary text-left text-uppercase font-weight-bold">@lang('admin.orders.info.shipping')</td>
 											<td class="text-primary text-uppercase font-weight-bold">{{ number_format($order->delivery, 2, ",", ".").$order['currency']->symbol }}</td>
+										</tr>
+										<tr>
+											<td colspan="4" class="text-primary text-left text-uppercase font-weight-bold">@lang('admin.orders.info.discount')</td>
+											<td class="text-primary text-uppercase font-weight-bold">{{ '-'.number_format($order->discount, 2, ",", ".").$order['currency']->symbol }}</td>
 										</tr>
 										<tr>
 											<td colspan="4" class="text-primary text-left text-uppercase font-weight-bold">@lang('admin.orders.info.total')</td>

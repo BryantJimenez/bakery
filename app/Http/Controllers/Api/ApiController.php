@@ -94,6 +94,11 @@ use Illuminate\Http\Request;
 * )
 *
 * @OA\Tag(
+*	name="Coupons",
+*	description="Coupons endpoints"
+* )
+*
+* @OA\Tag(
 *	name="Currencies",
 *	description="Currencies endpoints"
 * )
@@ -101,6 +106,11 @@ use Illuminate\Http\Request;
 * @OA\Tag(
 *	name="Languages",
 *	description="Languages endpoints"
+* )
+*
+* @OA\Tag(
+*	name="Schedules",
+*	description="Schedules endpoints"
 * )
 *
 * @OA\Tag(
@@ -124,8 +134,8 @@ class ApiController extends Controller
 		$user->address=(!is_null($user->address)) ? $user->address : '';
 		$user->rol=roleUser($user, false);
 		$user->photo=(!is_null($user->photo)) ? asset('/admins/img/users/'.$user->photo) : '';
-		$user->language=(!is_null($user['language'])) ? $this->dataLanguage($user['language']) : [];
-		$data=$user->only("id", "name", "lastname", "slug", "photo", "phone", "address", "email", "state", "language", "rol");
+		$user->language=(!is_null($user['language']) && !empty($user['language'])) ? $this->dataLanguage($user['language']) : [];
+		$data=$user->only("id", "name", "lastname", "slug", "photo", "phone", "address", "email", "points", "state", "language", "rol");
 		return $data;
 	}
 
@@ -205,6 +215,11 @@ class ApiController extends Controller
 		$order->currency=(!is_null($order['currency'])) ? $this->dataCurrency($order['currency']) : [];
 		$order->shipping=(!is_null($order['shipping'])) ? $this->dataShipping($order['shipping']) : [];
 		$order->payment=(!is_null($order['payment'])) ? $this->dataPayment($order['payment']) : [];
+		if (!is_null($order['coupon'])) {
+			$order->coupon=$order['coupon']->only("id", "code", "slug", "discount", "type", "state");
+		} else {
+			$order->coupon=[];
+		}
 		$order->products=$order['order_products']->map(function($order_product) {
 			if (!is_null($order_product['product'])) {
 				$order_product['product']->image=(!is_null($order_product['product']->image)) ? asset('/admins/img/products/'.$order_product['product']->image) : '';
@@ -221,7 +236,7 @@ class ApiController extends Controller
 			$data=$order_product->only("id", "qty", "price", "complement_price", "subtotal", "product", "complements");
 			return $data;
 		});
-		$data=$order->only("id", "subtotal", "delivery", "total", "fee", "balance", "state", "user", "currency", "shipping", "payment", "products");
+		$data=$order->only("id", "subtotal", "delivery", "discount", "total", "fee", "balance", "state", "user", "currency", "shipping", "payment", "coupon", "products");
 		return $data;
 	}
 
@@ -233,6 +248,11 @@ class ApiController extends Controller
 
 	public function dataAttribute($attribute) {
 		$data=$attribute->only("id", "name", "slug", "state");
+		return $data;
+	}
+
+	public function dataCoupon($coupon) {
+		$data=$coupon->only("id", "code", "slug", "discount", "limit", "use", "type", "state");
 		return $data;
 	}
 
@@ -249,7 +269,7 @@ class ApiController extends Controller
 	}
 
 	public function dataPayment($payment) {
-		$data=$payment->only("id", "subtotal", "delivery", "total", "fee", "balance", "method", "state");
+		$data=$payment->only("id", "subtotal", "delivery", "discount", "total", "fee", "balance", "method", "state");
 		return $data;
 	}
 
@@ -259,13 +279,23 @@ class ApiController extends Controller
 		return $data;
 	}
 
+	public function dataSchedule($schedule) {
+		$schedule->start_time=date('H:i', strtotime($schedule->start));
+		$schedule->end_time=date('H:i', strtotime($schedule->end));
+		$schedule->days=collect($schedule->days)->map(function($day) {
+			return trans('admin.values_attributes.days.'.$day);
+		});
+		$data=$schedule->only("id", "start_time", "end_time", "days", "state");
+		return $data;
+	}
+
 	public function dataSetting($setting) {
 		$setting->terms=(!is_null($setting->terms)) ? $setting->terms : "";
 		$setting->privacity=(!is_null($setting->privacity)) ? $setting->privacity : "";
 		$setting->stripe_public=(!is_null($setting->stripe_public)) ? $setting->stripe_public : "";
 		$setting->stripe_secret=(!is_null($setting->stripe_secret)) ? $setting->stripe_secret : "";
 		$setting->currency=(!is_null($setting['currency'])) ? $this->dataCurrency($setting['currency']) : [];
-		$data=$setting->only("id", "terms", "privacity", "stripe_public", "stripe_secret", "currency");
+		$data=$setting->only("id", "terms", "privacity", "stripe_public", "stripe_secret", "currency", 'force', 'state');
 		return $data;
 	}
 }

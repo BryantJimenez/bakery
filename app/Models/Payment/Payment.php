@@ -3,6 +3,7 @@
 namespace App\Models\Payment;
 
 use App\Models\User;
+use App\Models\Coupon;
 use App\Models\Currency;
 use App\Models\Order\Order;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ class Payment extends Model
 {
     use SoftDeletes;
     
-    protected $fillable = ['subject', 'subtotal', 'delivery', 'total', 'fee', 'balance', 'method', 'state', 'currency_id', 'user_id'];
+    protected $fillable = ['subject', 'subtotal', 'delivery', 'discount', 'total', 'fee', 'balance', 'method', 'state', 'currency_id', 'user_id', 'coupon_id'];
 
     /**
      * Get the method.
@@ -50,6 +51,10 @@ class Payment extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function coupon() {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function stripe() {

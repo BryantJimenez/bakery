@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
 use Stripe\StripeClient;
 use Stripe\Exception\CardException;
 use Stripe\Exception\RateLimitException;
@@ -16,58 +17,74 @@ use Exception;
 use Auth;
 
 trait StripeTrait {
-	public function stripePayment($request, $total, $subject, $currency) {
+	private $public;
+	private $secret;
+	private $stripe;
+
+	public function initStripe() {
+		$setting=Setting::first();
+		if (!is_null($setting) && !is_null($setting->stripe_public) && !is_null($setting->stripe_secret)) {
+			$this->public=$setting->stripe_public;
+			$this->secret=$setting->stripe_secret;
+			$this->stripe=new StripeClient(['api_key' => $this->secret, 'stripe_version' => '2020-08-27']);
+			\Stripe\Stripe::setApiKey($this->secret);
+		}
+	}
+
+	public function payWithStripe($total, $currency, $subject, $token) {
+		$this->initStripe();
+
 		try {
-			$data=$this->stripeTransaction($request, $total, $subject, $currency);
+			$data=$this->stripeTransaction($total, $currency, $subject, $token);
 			$result=array('status' => 'success', 'data' => $data);
 		} catch(CardException $e) {
-			Log::error('Pago con Stripe: El estado es:'.$e->getHttpStatus().'\n'.'El tipo es: '.$e->getError()->type.'\n'.'El codido es: '.$e->getError()->code.'\n'.'El parametro es: '.$e->getError()->param.'\n'.'El mensaje es: '.$e->getError()->message);
-			$result=array('status' => 'error', 'message' => 'El estado es:'.$e->getHttpStatus().', El tipo es: '.$e->getError()->type.', El codido es: '.$e->getError()->code.', El parametro es: '.$e->getError()->param.', El mensaje es: '.$e->getError()->message);
+			Log::error('Stripe Card Exception: The state is: '.$e->getHttpStatus().'\n'.'The type is: '.$e->getError()->type.'\n'.'The code is: '.$e->getError()->code.'\n'.'The parameter is: '.$e->getError()->param.'\n'.'The message is: '.$e->getError()->message);
+			$result=array('status' => 'error', 'message' => 'The state is: '.$e->getHttpStatus().', The type is: '.$e->getError()->type.', The code is: '.$e->getError()->code.', The parameter is: '.$e->getError()->param.', The message is: '.$e->getError()->message);
 		} catch (RateLimitException $e) {
-			Log::error("Pago con Stripe: ".$e->getMessage());
+			Log::error("Stripe Rate Limit Exception: ".$e->getMessage());
 			$result=array('status' => 'error', 'message' => $e->getMessage());
 		} catch (InvalidRequestException $e) {
-			Log::error("Pago con Stripe: ".$e->getMessage());
+			Log::error("Stripe Invalid Request Exception: ".$e->getMessage());
 			$result=array('status' => 'error', 'message' => $e->getMessage());
 		} catch (AuthenticationException $e) {
-			Log::error("Pago con Stripe: ".$e->getMessage());
+			Log::error("Stripe Authentication Exception: ".$e->getMessage());
 			$result=array('status' => 'error', 'message' => $e->getMessage());
 		} catch (ApiConnectionException $e) {
-			Log::error("Pago con Stripe: ".$e->getMessage());
+			Log::error("Stripe Api Connection Exception: ".$e->getMessage());
 			$result=array('status' => 'error', 'message' => $e->getMessage());
 		} catch (ApiErrorException $e) {
-			Log::error("Pago con Stripe: ".$e->getMessage());
+			Log::error("Stripe Api Error Exception: ".$e->getMessage());
 			$result=array('status' => 'error', 'message' => $e->getMessage());
 		} catch (Exception $e) {
-			Log::error("Pago con Stripe: ".$e->getMessage());
+			Log::error("Stripe Exception: ".$e->getMessage());
 			$result=array('status' => 'error', 'message' => $e->getMessage());
 		}
 
 		return $result;
 	}
 
-	public function stripeTransaction($request, $total, $subject, $currency) {
-		$setting=Setting::first();
-		$stripe=new StripeClient($setting->stripe_secret);
-
+	public function stripeTransaction($total, $currency, $subject, $token) {
 		$user=Auth::user();
 		if (is_null($user->stripe_id)) {
 			$user->createOrGetStripeCustomer();
-			$customer=$user->updateStripeCustomer(
-				['name' => $user->name." ".$user->lastname, 'phone' => $user->phone, 'address' => $user->address, 'source' => $request->stripeToken]
-			);
+			$customer=$user->updateStripeCustomer([
+				'name' => $user->name." ".$user->lastname,
+				'phone' => $user->phone,
+				'address' => $user->address,
+				'source' => $token
+			]);
 		}
 
 		$amount=str_replace(".", "", number_format($total, 2, '.', ''));
 		$amount=(int)$amount;
 
-		$charge=$stripe->charges->create([
+		$charge=$this->stripe->charges->create([
 			'amount' => $amount,
 			'currency' => $currency,
 			'description' => $subject,
-			'source' => $request->stripeToken
+			'source' => $token
 		]);
-		$balance_transaction=$stripe->balanceTransactions->retrieve($charge->balance_transaction);
+		$balance_transaction=$this->stripe->balanceTransactions->retrieve($charge->balance_transaction);
 
 		$data=array('charge' => $charge, 'balance_transaction' => $balance_transaction);
 		return $data;

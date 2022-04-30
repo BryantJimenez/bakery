@@ -23,7 +23,8 @@ return [
 			],
 			'category' => 'This category already exists.',
 			'attribute' => 'This attribute already exists.',
-			'currency' => 'This currency already exists.'
+			'currency' => 'This currency already exists.',
+			'schedule' => 'This schedule interferes with another already registered.'
 		],
 		'500' => 'An error occurred during the process, please try again.'
 	],
@@ -114,7 +115,15 @@ return [
 		'update' => 'The attribute has been successfully edited.',
 		'destroy' => 'The attribute has been successfully deleted.',
 		'deactivate' => 'The attribute has been successfully deactivated.',
-		'activate' => 'The attribute has been successfully activated.',
+		'activate' => 'The attribute has been successfully activated.'
+	],
+
+	'coupons' => [
+		'store' => 'The coupon has been successfully registered.',
+		'update' => 'The coupon has been successfully edited.',
+		'destroy' => 'The coupon has been successfully deleted.',
+		'deactivate' => 'The coupon has been successfully deactivated.',
+		'activate' => 'The coupon has been successfully activated.'
 	],
 
 	'currencies' => [
@@ -129,6 +138,14 @@ return [
 		'store' => 'The language has been successfully registered.',
 		'update' => 'The language has been successfully edited.',
 		'destroy' => 'The language has been successfully deleted.'
+	],
+
+	'schedules' => [
+		'store' => 'The schedule has been successfully registered.',
+		'update' => 'The schedule has been successfully edited.',
+		'destroy' => 'The schedule has been successfully deleted.',
+		'deactivate' => 'The schedule has been successfully deactivated.',
+		'activate' => 'The schedule has been successfully activated.'
 	],
 
 	'settings' => [

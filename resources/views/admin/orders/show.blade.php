@@ -133,6 +133,10 @@
 												<td class="text-primary text-uppercase font-weight-bold">{{ number_format($order->delivery, 2, ",", ".").$order['currency']->symbol }}</td>
 											</tr>
 											<tr>
+												<td colspan="4" class="text-primary text-uppercase font-weight-bold">@lang('admin.orders.info.discount')</td>
+												<td class="text-primary text-uppercase font-weight-bold">{{ '-'.number_format($order->discount, 2, ",", ".").$order['currency']->symbol }}</td>
+											</tr>
+											<tr>
 												<td colspan="4" class="text-primary text-uppercase font-weight-bold">@lang('admin.orders.info.total')</td>
 												<td class="text-primary text-uppercase font-weight-bold">{{ number_format($order->total, 2, ",", ".").$order['currency']->symbol }}</td>
 											</tr>
@@ -173,6 +177,9 @@
 							</li>
 							<li class="contacts-block__item">
 								<span class="h6 text-black"><b>@lang('admin.orders.info.shipping'):</b> {{ number_format($order['payment']->delivery, 2, ",", ".").$order['currency']->symbol }}</span>
+							</li>
+							<li class="contacts-block__item">
+								<span class="h6 text-black"><b>@lang('admin.orders.info.discount'):</b> <b class="text-danger">{{ "-".number_format($order['payment']->discount, 2, ",", ".").$order['currency']->symbol }}</b></span>
 							</li>
 							<li class="contacts-block__item">
 								<span class="h6 text-black"><b>@lang('admin.orders.info.commission'):</b> <b class="text-danger">{{ "-".number_format($order['payment']->fee, 2, ",", ".").$order['currency']->symbol }}</b></span>
@@ -217,6 +224,35 @@
 							</li>
 							<li class="contacts-block__item">
 								<span class="h6 text-black"><b>@lang('form.address.label'):</b> {{ $order['shipping']->address }}</span>
+							</li>
+						</ul>
+					</div>                                    
+				</div>
+			</div>
+		</div>
+	</div>
+	@endif
+
+	@if(!is_null($order['coupon']))
+	<div class="col-xl-6 col-lg-6 col-md-6 col-12 layout-top-spacing">
+
+		<div class="user-profile layout-spacing">
+			<div class="widget-content widget-content-area">
+				<div class="d-flex justify-content-between">
+					<h3 class="pb-3">@lang('admin.orders.subtitles.show.coupon')</h3>
+				</div>
+				<div class="user-info-list">
+
+					<div class="">
+						<ul class="contacts-block list-unstyled mw-100 mx-2">
+							<li class="contacts-block__item">
+								<span class="h6 text-black"><b>@lang('form.code.label'):</b> {{ $order['coupon']->code }}</span>
+							</li>
+							<li class="contacts-block__item">
+								<span class="h6 text-black"><b>@lang('form.discount.label'):</b> @if($order['coupon']->type==trans('admin.values_attributes.types.coupons.percentage')){{ number_format($order['coupon']->discount, 0, '', '') }}@else{{ number_format($order['coupon']->discount, 2, ',', '.') }}@endif</span>
+							</li>
+							<li class="contacts-block__item">
+								<span class="h6 text-black"><b>@lang('form.type.label'):</b> {{ $order['coupon']->type }}</span>
 							</li>
 						</ul>
 					</div>                                    

@@ -97,6 +97,15 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'attributes.active']);
         Permission::create(['name' => 'attributes.deactive']);
 
+        // Coupon Permisssions
+        Permission::create(['name' => 'coupons.index']);
+        Permission::create(['name' => 'coupons.create']);
+        Permission::create(['name' => 'coupons.show']);
+        Permission::create(['name' => 'coupons.edit']);
+        Permission::create(['name' => 'coupons.delete']);
+        Permission::create(['name' => 'coupons.active']);
+        Permission::create(['name' => 'coupons.deactive']);
+
         // Currency Permissions
         Permission::create(['name' => 'currencies.index']);
         Permission::create(['name' => 'currencies.create']);
@@ -106,16 +115,25 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'currencies.active']);
         Permission::create(['name' => 'currencies.deactive']);
 
-        // Permisos de Idiomas
+        // Language Permisssions
         Permission::create(['name' => 'languages.index']);
         Permission::create(['name' => 'languages.create']);
         Permission::create(['name' => 'languages.show']);
         Permission::create(['name' => 'languages.edit']);
         Permission::create(['name' => 'languages.delete']);
 
-        // Permisos de Traducciones
+        // Translation Permissions
         Permission::create(['name' => 'translations.index']);
         Permission::create(['name' => 'translations.create']);
+
+        // Schedule Permissions
+        Permission::create(['name' => 'schedules.index']);
+        Permission::create(['name' => 'schedules.create']);
+        Permission::create(['name' => 'schedules.show']);
+        Permission::create(['name' => 'schedules.edit']);
+        Permission::create(['name' => 'schedules.delete']);
+        Permission::create(['name' => 'schedules.active']);
+        Permission::create(['name' => 'schedules.deactive']);
 
         // Setting Permissions
         Permission::create(['name' => 'settings.index']);

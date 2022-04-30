@@ -44,6 +44,7 @@
 			<ul class="clearfix">
 				<li>@lang('web.cart.card.subtotal')<span>{{ number_format($subtotal, 2, ",", ".").currencySymbol($currency) }}</span></li>
 				<li>@lang('web.cart.card.delivery')<span>{{ number_format($delivery, 2, ",", ".").currencySymbol($currency) }}</span></li>
+				<li>@lang('web.cart.card.discount')<span>{{ number_format($discount, 2, ",", ".").currencySymbol($currency) }}</span></li>
 				<li class="total">@lang('web.cart.card.total')<span>{{ number_format($total, 2, ",", ".").currencySymbol($currency) }}</span></li>
 			</ul>
 			<div class="btn_1_mobile">

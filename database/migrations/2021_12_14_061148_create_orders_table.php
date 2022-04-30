@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->float('subtotal', 10, 2)->default(0.00)->unsigned();
             $table->float('delivery', 10, 2)->default(0.00)->unsigned();
+            $table->float('discount', 10, 2)->default(0.00)->unsigned();
             $table->float('total', 10, 2)->default(0.00)->unsigned();
             $table->float('fee', 10, 2)->default(0.00)->unsigned();
             $table->float('balance', 10, 2)->default(0.00)->unsigned();
@@ -25,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->enum('state', [0, 1, 2])->default(2);
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('currency_id')->unsigned()->nullable();
+            $table->bigInteger('coupon_id')->unsigned()->nullable();
             $table->bigInteger('payment_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -32,6 +34,7 @@ class CreateOrdersTable extends Migration
             #Relations
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null')->onUpdate('cascade');
         });
     }

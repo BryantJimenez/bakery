@@ -1926,6 +1926,429 @@
                 ]
             }
         },
+        "/api/v1/coupons": {
+            "get": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Get coupons",
+                "description": "Returns all coupons",
+                "operationId": "indexCoupon",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show all coupons.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Register coupon",
+                "description": "Create a new coupon",
+                "operationId": "storeCoupon",
+                "parameters": [
+                    {
+                        "name": "discount",
+                        "in": "query",
+                        "description": "Discount of coupon",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of uses of coupon",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of coupon (1=Percentage, 2=Fixed)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "1",
+                                "2"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Registered coupon.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/coupons/{id}": {
+            "get": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Get coupon",
+                "description": "Returns a single coupon",
+                "operationId": "showCoupon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show coupon.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Update coupon",
+                "description": "Update a single coupon",
+                "operationId": "updateCoupon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "discount",
+                        "in": "query",
+                        "description": "Discount of coupon",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of uses of coupon",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of coupon (1=Percentage, 2=Fixed)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "1",
+                                "2"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update coupon.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Delete coupon",
+                "description": "Delete a single coupon",
+                "operationId": "destroyCoupon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete coupon.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/coupons/{id}/deactivate": {
+            "put": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Deactivate coupon",
+                "description": "Deactivate a single coupon",
+                "operationId": "deactivateCoupon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deactivate coupon.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/coupons/{id}/activate": {
+            "put": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Activate coupon",
+                "description": "Activate a single coupon",
+                "operationId": "activateCoupon",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activate coupon.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/currencies": {
             "get": {
                 "tags": [
@@ -4974,6 +5397,418 @@
                 ]
             }
         },
+        "/api/v1/schedules": {
+            "get": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Get schedules",
+                "description": "Returns all schedules",
+                "operationId": "indexSchedule",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show all schedules.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Register schedule",
+                "description": "Create a new schedule",
+                "operationId": "storeSchedule",
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start time of schedule (H:i)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "End time of schedule (H:i)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "days[]",
+                        "in": "query",
+                        "description": "Days of schedule (1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday, 7=Sunday)",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Registered schedule.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/schedules/{id}": {
+            "get": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Get schedule",
+                "description": "Returns a single schedule",
+                "operationId": "showSchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show schedule.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Update schedule",
+                "description": "Update a single schedule",
+                "operationId": "updateSchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Start time of schedule (H:i)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "end",
+                        "in": "query",
+                        "description": "End time of schedule (H:i)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "days[]",
+                        "in": "query",
+                        "description": "Days of schedule (1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday, 7=Sunday)",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update schedule.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "422": {
+                        "description": "Data not valid."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Delete schedule",
+                "description": "Delete a single schedule",
+                "operationId": "destroySchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete schedule.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/schedules/{id}/deactivate": {
+            "put": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Deactivate schedule",
+                "description": "Deactivate a single schedule",
+                "operationId": "deactivateSchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deactivate schedule.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/schedules/{id}/activate": {
+            "put": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Activate schedule",
+                "description": "Activate a single schedule",
+                "operationId": "activateSchedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search for ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Locale for example ('es','en')",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Activate schedule.",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    },
+                    "404": {
+                        "description": "No results found."
+                    },
+                    "500": {
+                        "description": "An error occurred during the process."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/settings": {
             "get": {
                 "tags": [
@@ -5073,6 +5908,19 @@
                         "required": false,
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "description": "State of shop (0=Closed, 1=Open)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "1",
+                                "0"
+                            ]
                         }
                     },
                     {
@@ -5763,12 +6611,20 @@
             "description": "Attributes endpoints"
         },
         {
+            "name": "Coupons",
+            "description": "Coupons endpoints"
+        },
+        {
             "name": "Currencies",
             "description": "Currencies endpoints"
         },
         {
             "name": "Languages",
             "description": "Languages endpoints"
+        },
+        {
+            "name": "Schedules",
+            "description": "Schedules endpoints"
         },
         {
             "name": "Settings",

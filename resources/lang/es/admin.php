@@ -19,8 +19,10 @@ return [
     'orders' => 'Pedidos',
     'agencies' => 'Agencias',
     'attributes' => 'Atributos',
+    'coupons' => 'Cupones',
     'currencies' => 'Monedas',
     'languages' => 'Idiomas',
+    'schedules' => 'Horarios',
     'settings' => 'Ajustes'
   ],
 
@@ -44,6 +46,7 @@ return [
       'complements' => 'Complementos',
       'agencies' => 'Agencias',
       'attributes' => 'Atributos',
+      'coupons' => 'Cupones',
       'orders' => [
         'confirms' => 'Pedidos Confirmados',
         'pendings' => 'Pedidos Pendientes'
@@ -203,7 +206,8 @@ return [
         'order' => 'Datos del Pedido',
         'products' => 'Productos del Pedido',
         'payment' => 'Datos del Pago',
-        'shipping' => 'Datos del Envío'        
+        'shipping' => 'Datos del Envío',
+        'coupon' => 'Datos del Cupón'      
       ]
     ],
     'info' => [
@@ -214,6 +218,7 @@ return [
       'qty' => 'Cantidad',
       'subtotal' => 'Subtotal',
       'shipping' => 'Envío',
+      'discount' => 'Descuento',
       'total' => 'Total',
       'reason' => 'Motivo',
       'commission' => 'Comisión',
@@ -257,6 +262,21 @@ return [
     ]
   ],
 
+  'coupons' => [
+    'titles' => [
+      'index' => 'Lista de Cupones',
+      'create' => 'Crear Cupón',
+      'edit' => 'Editar Cupón'
+    ],
+    'modals' => [
+      'titles' => [
+        'deactivate' => '¿Está seguro de que desea desactivar este cupón?',
+        'activate' => '¿Está seguro de que desea activar a este cupón?',
+        'delete' => '¿Está seguro de que desea eliminar este cupón?'
+      ]
+    ]
+  ],
+
   'currencies' => [
     'titles' => [
       'index' => 'Lista de Monedas',
@@ -287,6 +307,21 @@ return [
       'group single' => 'Grupo / Individual',
       'key' => 'Índice',
       'search' => 'Buscar todas las traducciones'
+    ]
+  ],
+
+  'schedules' => [
+    'titles' => [
+      'index' => 'Lista de Horarios',
+      'create' => 'Crear Horario',
+      'edit' => 'Editar Horario'
+    ],
+    'modals' => [
+      'titles' => [
+        'deactivate' => '¿Está seguro de que desea desactivar este horario?',
+        'activate' => '¿Está seguro de que desea activar a este horario?',
+        'delete' => '¿Está seguro de que desea eliminar este horario?'
+      ]
     ]
   ],
   
@@ -338,6 +373,21 @@ return [
         'rejected' => 'Rechazado',
         'confirmed' => 'Confirmado',
         'pending' => 'Pendiente'
+      ],
+      'settings' => [
+        'open' => 'Abierto',
+        'closed' => 'Cerrado'
+      ]
+    ],
+    'types' => [
+      'coupons' => [
+        'fixed' => 'Fijo',
+        'percentage' => 'Porcentaje'
+      ],
+      'deliveries' => [
+        'eat on site' => 'Comer en el Lugar',
+        'to take away' => 'Recoger para Llevar',
+        'delivery' => 'A Domicilio'
       ]
     ],
     'conditions' => [
@@ -347,10 +397,18 @@ return [
     'methods' => [
       'card' => 'Tarjeta'
     ],
-    'types_delivery' => [
-      'eat on site' => 'Comer en el Lugar',
-      'to take away' => 'Recoger para Llevar',
-      'delivery' => 'A Domicilio'
+    'days' => [
+      '1' => 'Lunes',
+      '2' => 'Martes',
+      '3' => 'Miércoles',
+      '4' => 'Jueves',
+      '5' => 'Viernes',
+      '6' => 'Sábado',
+      '7' => 'Domingo'
+    ],
+    'forces' => [
+      'yes' => 'Si',
+      'no' => 'No'
     ]
   ],
   'not added' => 'No Ingresado',
@@ -438,6 +496,14 @@ return [
           'deactivate' => 'El atributo ha sido desactivado exitosamente.',
           'activate' => 'El atributo ha sido activado exitosamente.'
         ],
+
+        'coupons' => [
+          'store' => 'El cupón ha sido registrado exitosamente.',
+          'update' => 'El cupón ha sido editado exitosamente.',
+          'destroy' => 'El cupón ha sido eliminado exitosamente.',
+          'deactivate' => 'El cupón ha sido desactivado exitosamente.',
+          'activate' => 'El cupón ha sido activado exitosamente.'
+        ],
         
         'currencies' => [
           'store' => 'La moneda ha sido registrada exitosamente.',
@@ -449,6 +515,14 @@ return [
         
         'languages' => [
           'store' => 'El idioma ha sido registrado exitosamente.'
+        ],
+
+        'schedules' => [
+          'store' => 'El horario ha sido registrado exitosamente.',
+          'update' => 'El horario ha sido editado exitosamente.',
+          'destroy' => 'El horario ha sido eliminado exitosamente.',
+          'deactivate' => 'El horario ha sido desactivado exitosamente.',
+          'activate' => 'El horario ha sido activado exitosamente.'
         ],
         
         'settings' => [
@@ -498,6 +572,13 @@ return [
           '422' => [
             'title' => 'El idioma ya existe',
             'msg' => 'Este idioma ya se encuentra registrada.'
+          ]
+        ],
+
+        'schedules' => [
+          '422' => [
+            'title' => 'El horario ya existe',
+            'msg' => 'Este horario interfiere con otro ya registrado.'
           ]
         ]
       ]
@@ -552,7 +633,7 @@ return [
 
     'date' => [
       'cancel' => 'Cancelar',
-      'clear' => 'Limpiar',
+      'clear' => 'Limpiar'
     ]
   ]
 ];

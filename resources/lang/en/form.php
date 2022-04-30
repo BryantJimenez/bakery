@@ -95,6 +95,21 @@ return [
 		'label' => 'Route',
 		'placeholder' => 'Enter a route'
 	],
+	'code' => [
+		'label' => 'Code'
+	],
+	'limit' => [
+		'label' => 'Limit of Uses',
+		'placeholder' => 'Enter a limit of uses',
+		'abbreviation' => 'Limit'
+	],
+	'discount' => [
+		'label' => 'Discount',
+		'placeholder' => 'Enter the discount'
+	],
+	'uses' => [
+		'label' => 'Uses'
+	],
 	'iso' => [
 		'label' => 'ISO',
 		'placeholder' => 'Enter an iso code'
@@ -106,6 +121,17 @@ return [
 	'locale' => [
 		'label' => 'Locale',
 		'placeholder' => 'Enter a locale'
+	],
+	'start_time' => [
+		'label' => 'Start Time',
+		'placeholder' => 'Select start time'
+	],
+	'end_time' => [
+		'label' => 'End Time',
+		'placeholder' => 'Select end time'
+	],
+	'days' => [
+		'label' => 'Days'
 	],
 	'currency' => [
 		'label' => 'Currency'
@@ -143,6 +169,9 @@ return [
 		'label' => 'Payment Method',
 		'placeholder' => 'Select a payment method',
 		'abbreviation' => 'Payment'
+	],
+	'coupon' => [
+		'placeholder' => 'Enter a coupon'
 	],
 	'date' => [
 		'label' => 'Date',

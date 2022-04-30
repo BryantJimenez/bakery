@@ -177,13 +177,14 @@ return [
         'required' => [
             'default' => 'Este campo es obligatorio.',
             'option' => 'Seleccione una opción.',
-            'image' => 'Seleccione una imagen.'
+            'image' => 'Seleccione una imagen.',
+            'email' => 'El email es obligatorio.'
         ],
         'email' => 'Introduce una dirección de correo valida.',
         'minlength' => 'Escribe mínimo :value caracteres.',
         'maxlength' => 'Escribe máximo :value caracteres.',
         'remote' => [
-            'email' => 'Este email no esta disponible.',
+            'email' => 'Este correo ya está en uso.',
         ],
         'equalTo' => 'Los datos ingresados no coinciden.',
         'min' => 'Escribe un valor mayor o igual a :value.',

@@ -41,6 +41,9 @@
 	<!-- Custom Style CSS -->
 	<link href="{{ asset('/web/css/style.css') }}" rel="stylesheet">
 	<!-- Custom Style CSS -->
+
+	<!-- PWA -->
+	@laravelPWA
 </head>
 <body class="goto-here bg-white">
 

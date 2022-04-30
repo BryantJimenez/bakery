@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\Setting;
 use App\Models\Cart\Cart;
+use JoeDixon\Translation\Language;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -80,11 +81,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $language_id=NULL;
+        $language=Language::where('language', app()->getLocale())->first();
+        if (!is_null($language)) {
+            $language_id=$language->id;
+        }
         $user=User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'language_id' => $language_id
         ]);
 
         if ($user) {

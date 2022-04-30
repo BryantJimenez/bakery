@@ -219,6 +219,16 @@ class SettingController extends ApiController
     *       )
     *   ),
     *   @OA\Parameter(
+    *       name="state",
+    *       in="query",
+    *       description="State of shop (0=Closed, 1=Open)",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           enum={"1", "0"}
+    *       )
+    *   ),
+    *   @OA\Parameter(
     *       name="currency_id",
     *       in="query",
     *       description="Currency ID",
@@ -264,7 +274,8 @@ class SettingController extends ApiController
     public function update(SettingUpdateRequest $request) {
         $setting=Setting::with(['currency'])->first();
         $currency=Currency::where('id', request('currency_id'))->first();
-        $data=array('terms' => request('terms'), 'privacity' => request('privacity'), 'stripe_public' => request('stripe_public'), 'stripe_secret' => request('stripe_secret'), 'currency_id' => $currency->id);
+        $force=(request('state')=='1') ? '1' : '0';
+        $data=array('terms' => request('terms'), 'privacity' => request('privacity'), 'stripe_public' => request('stripe_public'), 'stripe_secret' => request('stripe_secret'), 'force' => $force, 'state' => request('state'), 'currency_id' => $currency->id);
         $setting->fill($data)->save();
         if ($setting) {
             $setting=Setting::with(['currency'])->first();

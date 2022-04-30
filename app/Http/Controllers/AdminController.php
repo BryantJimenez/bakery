@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Group\Group;
-use App\Models\Complement;
 use App\Models\Agency;
+use App\Models\Coupon;
+use App\Models\Product;
+use App\Models\Category;
 use App\Models\Attribute;
+use App\Models\Complement;
 use App\Models\Order\Order;
+use App\Models\Group\Group;
 use App\Models\Payment\Payment;
 use JoeDixon\Translation\Language;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
@@ -33,10 +34,11 @@ class AdminController extends Controller
         $complements=Complement::count();
         $agencies=Agency::count();
         $attributes=Attribute::count();
+        $coupons=Coupon::count();
         $orders_confirms=Order::where('state', '1')->count();
         $orders_pendings=Order::where('state', '2')->count();
         $payments=Payment::count();
-        return view('admin.home', compact('users', 'customers', 'categories', 'products', 'groups', 'complements', 'agencies', 'attributes', 'orders_confirms', 'orders_pendings', 'payments'));
+        return view('admin.home', compact('users', 'customers', 'categories', 'products', 'groups', 'complements', 'agencies', 'attributes', 'coupons', 'orders_confirms', 'orders_pendings', 'payments'));
     }
 
     public function profile() {

@@ -22,12 +22,20 @@ Route::get('/users/email', 'AdminController@emailVerifyAdmin');
 //////////////////////////////////////////// WEB ////////////////////////////////////////////////
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 	Route::get('/', 'WebController@index')->name('home');
+	Route::get('/shop', 'WebController@shop')->name('web.shop');
 	// Checkout
 	Route::group(['prefix' => 'checkout'], function () {
 		Route::get('/', 'WebController@checkout')->name('web.checkout');
 		Route::post('/', 'WebController@checkoutStore')->name('web.checkout.store');
 	});
+	// Coupons
+	Route::group(['prefix' => 'coupon'], function () {
+		Route::post('/add', 'WebController@couponAdd')->name('web.coupon.add');
+		Route::post('/remove', 'WebController@couponRemove')->name('web.coupon.remove');
+	});
 });
+// PWA
+Route::get('/offline', 'WebController@offline')->name('offline');
 // Profile
 Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function () {
 	Route::get('/', 'WebController@profile')->name('web.profile');
@@ -162,6 +170,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'locale']],
 		Route::put('/{attribute:slug}/deactivate', 'AttributeController@deactivate')->name('attributes.deactivate')->middleware('permission:attributes.deactive');
 	});
 
+	// Coupons
+	Route::group(['prefix' => 'coupons'], function () {
+		Route::get('/', 'CouponController@index')->name('coupons.index')->middleware('permission:coupons.index');
+		Route::get('/create', 'CouponController@create')->name('coupons.create')->middleware('permission:coupons.create');
+		Route::post('/', 'CouponController@store')->name('coupons.store')->middleware('permission:coupons.create');
+		Route::get('/{coupon:slug}/edit', 'CouponController@edit')->name('coupons.edit')->middleware('permission:coupons.edit');
+		Route::put('/{coupon:slug}', 'CouponController@update')->name('coupons.update')->middleware('permission:coupons.edit');
+		Route::delete('/{coupon:slug}', 'CouponController@destroy')->name('coupons.delete')->middleware('permission:coupons.delete');
+		Route::put('/{coupon:slug}/activate', 'CouponController@activate')->name('coupons.activate')->middleware('permission:coupons.active');
+		Route::put('/{coupon:slug}/deactivate', 'CouponController@deactivate')->name('coupons.deactivate')->middleware('permission:coupons.deactive');
+	});
+
 	// Currencies
 	Route::group(['prefix' => 'currencies'], function () {
 		Route::get('/', 'CurrencyController@index')->name('currencies.index')->middleware('permission:currencies.index');
@@ -172,6 +192,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'locale']],
 		Route::delete('/{currency:slug}', 'CurrencyController@destroy')->name('currencies.delete')->middleware('permission:currencies.delete');
 		Route::put('/{currency:slug}/activate', 'CurrencyController@activate')->name('currencies.activate')->middleware('permission:currencies.active');
 		Route::put('/{currency:slug}/deactivate', 'CurrencyController@deactivate')->name('currencies.deactivate')->middleware('permission:currencies.deactive');
+	});
+
+	// Schedules
+	Route::group(['prefix' => 'schedules'], function () {
+		Route::get('/', 'ScheduleController@index')->name('schedules.index')->middleware('permission:schedules.index');
+		Route::get('/create', 'ScheduleController@create')->name('schedules.create')->middleware('permission:schedules.create');
+		Route::post('/', 'ScheduleController@store')->name('schedules.store')->middleware('permission:schedules.create');
+		Route::get('/{schedule:id}/edit', 'ScheduleController@edit')->name('schedules.edit')->middleware('permission:schedules.edit');
+		Route::put('/{schedule:id}', 'ScheduleController@update')->name('schedules.update')->middleware('permission:schedules.edit');
+		Route::delete('/{schedule:id}', 'ScheduleController@destroy')->name('schedules.delete')->middleware('permission:schedules.delete');
+		Route::put('/{schedule:id}/activate', 'ScheduleController@activate')->name('schedules.activate')->middleware('permission:schedules.active');
+		Route::put('/{schedule:id}/deactivate', 'ScheduleController@deactivate')->name('schedules.deactivate')->middleware('permission:schedules.deactive');
 	});
 
 	// Settings

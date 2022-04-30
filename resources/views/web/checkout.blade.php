@@ -53,6 +53,15 @@
 				</div>
 			</div>
 			@else
+			@if($setting->state==trans('admin.values_attributes.states.settings.closed'))
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<ul class="mb-0">
+					<li>@lang('web.notifications.error.messages.closed')</li>
+				</ul>
+			</div>
+			@endif
+
 			<form action="{{ route('web.checkout.store') }}" method="POST" id="formCheckout">
 				@csrf
 				<div class="box_order_form">
@@ -150,6 +159,27 @@
 								<span class="payment-errors text-danger" id="card-errors"></span>
 							</div>
 							@endif
+
+							<div class="col-12 mb-3" id="div-coupon">
+								@if(!session()->has('coupon'))
+								<a href="javascript:void(0);" id="btn-coupon">@lang('web.js.coupons.buttons.add')</a>
+								<div class="row" style="display: none;" id="card-add-coupon">
+									<div class="form-group col-lg-8 col-md-8 col-12">
+										<input type="text" class="form-control" name="coupon" placeholder="@lang('form.coupon.placeholder')" id="input-coupon">
+										<p class="text-danger font-weight-bold validate-coupon d-none mb-0">@lang('validation.validate.required.default')</p>
+										<p class="text-danger font-weight-bold validate-email d-none mb-0">@lang('validation.validate.required.email')</p>
+									</div>
+									<div class="form-group col-lg-4 col-md-4 col-12">
+										<button type="button" class="btn_1 gradient full-width mb_5" id="btn-add-coupon">@lang('form.buttons.add')</button>
+									</div>
+								</div>
+								@else
+								<div class="alert alert-success">
+									<p class="mb-1">@lang('web.js.coupons.notifications.add.message')</p>
+									<a href="javascript:void(0);" id="remove-coupon">@lang('web.js.coupons.buttons.remove')</a>
+								</div>
+								@endif
+							</div>
 
 							<div class="col-12">
 								<button type="submit" class="btn_1 gradient full-width mb_5" action="checkout">@lang('web.checkout.button')</button>

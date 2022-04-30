@@ -1,32 +1,92 @@
-@extends('layouts.web')
+@extends('layouts.landing')
 
 @section('title', trans('admin.name'))
 
 @section('links')
-<link href="{{ asset('/web/css/template/home.css') }}" rel="stylesheet">
-<link href="{{ asset('/web/css/template/detail-page.css') }}" rel="stylesheet">
-<link href="{{ asset('/admins/vendor/mcustomscrollbar/jquery.mCustomScrollbar.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('/admins/vendor/lobibox/Lobibox.min.css') }}">
 @endsection
 
 @section('content')
 
-<section class="container">
-	<div class="row">
-		<div class="col-12 mb-lg-0 my-4">
-			<livewire:web.shop.shop />
+<section id="hero" class="d-flex align-items-center">
+    <div class="container pt-0">
+    	<div class="row">
+    		<div class="col-lg-5 col-md-6 col-12 d-flex align-items-center">
+    			<div class="w-100 text-md-left text-center z-index-1">
+    				<span class="h2 text-white great-vibes mb-3">@lang('web.home.banner.heading')</span>
+    				<h1 class="text-white noto-serif mb-4">@lang('web.home.banner.title')</h1>
+		      		<a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('web.shop'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="btn btn-white rounded">@lang('web.home.banner.button')</a>
+    			</div>
+    		</div>
+    		<div class="col-lg-7 col-md-6 col-12 d-md-flex d-none justify-content-center flex-column">
+    			<div class="z-index-1">
+    				<img src="{{ asset('web/img/landing/hero_one.png') }}" class="hero-one">
+    				<img src="{{ asset('web/img/landing/hero_two.png') }}" class="hero-two">
+    			</div>
+
+    			<p class="text-white my-3 pl-4 z-index-1">@lang('web.home.banner.text')</p>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="social-media d-flex justify-content-center flex-lg-column flex-row z-index-1">
+		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
+			<img src="{{ asset('web/img/landing/instagram.svg') }}" width="18" height="18" title="Instagram" alt="Instagram">
+		</a>
+
+		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
+			<img src="{{ asset('web/img/landing/facebook.svg') }}" width="10" height="18" title="Facebook" alt="Facebook">
+		</a>
+
+		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
+			<img src="{{ asset('web/img/landing/twitter.svg') }}" width="18" height="15" title="Twitter" alt="Twitter">
+		</a>
+
+		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
+			<img src="{{ asset('web/img/landing/pinterest.svg') }}" width="13" height="16" title="Pinterest" alt="Pinterest">
+		</a>
+
+		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
+			<img src="{{ asset('web/img/landing/youtube.svg') }}" width="18" height="14" title="Youtube" alt="Youtube">
+		</a>
+    </div>
+
+    <img src="{{ asset('web/img/landing/food.svg') }}" class="position-absolute d-sm-block d-none img-food">
+</section>
+
+<section id="products">
+	<div class="container">
+		<livewire:web.home.products />
+	</div>
+</section>
+
+<section id="about">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-5 col-lg-6 col-md-6 col-12">
+				<span class="h5 great-vibes">@lang('web.home.about.heading')</span>
+				<h1 class="noto-serif mb-3">@lang('web.home.about.title')</h1>
+				<p class="brandon-text">@lang('web.home.about.paragraphs.one')</p>
+				<p class="brandon-text">@lang('web.home.about.paragraphs.two')</p>
+			</div>
+
+			<div class="col-xl-7 col-lg-6 col-md-6 col-12">
+    			<img src="{{ asset('web/img/landing/about_one.png') }}" class="about-one">
+    			<img src="{{ asset('web/img/landing/about_two.png') }}" class="about-two">
+    		</div>
 		</div>
+	</div>
+
+	<div class="shapes">
+		<img src="{{ asset('web/img/landing/shapes_one.png') }}" class="shape-one">
+		<img src="{{ asset('web/img/landing/shapes_two.png') }}" class="shape-two">
 	</div>
 </section>
 
 @livewire('web.shop.product-modal')
 
-<div id="toTop"></div>
-
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ asset('/admins/vendor/lazyload/lazyload.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/admins/vendor/sticky-sidebar/sticky_sidebar.min.js') }}"></script>
 <script src="{{ asset('/admins/vendor/lobibox/Lobibox.js') }}"></script>
 @endsection

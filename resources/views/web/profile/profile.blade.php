@@ -26,6 +26,7 @@
 			<div class="detail_page_head clearfix">
 				<div class="title">
 					<h1>{{ Auth::user()->name." ".Auth::user()->lastname }}</h1>
+					<h6>@lang('web.menu.points', ['points' => Auth::user()->points])</h6>
 				</div>
 			</div>
 			<h6>@lang('form.email.label'): {{ Auth::user()->email }}</h6>

@@ -153,6 +153,17 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::put('/{attribute:id}/deactivate', 'Api\AttributeController@deactivate')->middleware('permission:attributes.deactive');
 		});
 
+		// Coupons
+		Route::group(['prefix' => 'coupons'], function () {
+			Route::get('/', 'Api\CouponController@index')->middleware('permission:coupons.index');
+			Route::post('/', 'Api\CouponController@store')->middleware('permission:coupons.create');
+			Route::get('/{coupon:id}', 'Api\CouponController@show')->middleware('permission:coupons.show');
+			Route::put('/{coupon:id}', 'Api\CouponController@update')->middleware('permission:coupons.edit');
+			Route::delete('/{coupon:id}', 'Api\CouponController@destroy')->middleware('permission:coupons.delete');
+			Route::put('/{coupon:id}/activate', 'Api\CouponController@activate')->middleware('permission:coupons.active');
+			Route::put('/{coupon:id}/deactivate', 'Api\CouponController@deactivate')->middleware('permission:coupons.deactive');
+		});
+
 		// Currencies
 		Route::group(['prefix' => 'currencies'], function () {
 			Route::get('/', 'Api\CurrencyController@index')->middleware('permission:currencies.index');
@@ -170,6 +181,17 @@ Route::group(['prefix' => 'v1'], function() {
 			Route::post('/', 'Api\LanguageController@store')->middleware('permission:languages.create');
 			Route::get('/{language:id}', 'Api\LanguageController@show')->middleware('permission:languages.show');
 			Route::delete('/{language:id}', 'Api\LanguageController@destroy')->middleware('permission:languages.delete');
+		});
+
+		// Schedules
+		Route::group(['prefix' => 'schedules'], function () {
+			Route::get('/', 'Api\ScheduleController@index')->middleware('permission:schedules.index');
+			Route::post('/', 'Api\ScheduleController@store')->middleware('permission:schedules.create');
+			Route::get('/{schedule:id}', 'Api\ScheduleController@show')->middleware('permission:schedules.show');
+			Route::put('/{schedule:id}', 'Api\ScheduleController@update')->middleware('permission:schedules.edit');
+			Route::delete('/{schedule:id}', 'Api\ScheduleController@destroy')->middleware('permission:schedules.delete');
+			Route::put('/{schedule:id}/activate', 'Api\ScheduleController@activate')->middleware('permission:schedules.active');
+			Route::put('/{schedule:id}/deactivate', 'Api\ScheduleController@deactivate')->middleware('permission:schedules.deactive');
 		});
 
 		// Settings
