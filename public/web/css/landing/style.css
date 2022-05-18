@@ -75,6 +75,7 @@
 
 .navbar {
   padding: 0;
+  width: 100%;
 }
 
 .navbar ul {
@@ -167,6 +168,10 @@
 @media (max-width: 991px) {
   .mobile-nav-toggle {
     display: block;
+  }
+
+  .navbar {
+    width: unset;
   }
 
   .navbar ul {
@@ -323,12 +328,18 @@
 
 #hero .hero-one {
 	width: 40%;
+  height: 325px;
+  max-height: 325px;
+  object-fit: cover;
 	margin: 0px 10px 25px;
 	border-radius: 10px;
 }
 
 #hero .hero-two {
 	width: 40%;
+  height: 325px;
+  max-height: 325px;
+  object-fit: cover;
 	margin: 25px 10px 0px;
 	border-radius: 10px;
 }
@@ -383,6 +394,10 @@
     line-height: 44px;
   }
 
+  #hero .hero-one, #hero .hero-two {
+    max-height: 200px;
+  }
+
   #hero p {
     margin-left: 3%;
   }
@@ -403,6 +418,10 @@
   #hero h1 {
     font-size: 32px;
     line-height: 36px;
+  }
+
+  #hero:before, #hero:after {
+    content: unset;
   }
 }
 

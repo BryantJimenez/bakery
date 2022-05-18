@@ -20,8 +20,9 @@
     		</div>
     		<div class="col-lg-7 col-md-6 col-12 d-md-flex d-none justify-content-center flex-column">
     			<div class="z-index-1">
-    				<img src="{{ asset('web/img/landing/hero_one.png') }}" class="hero-one">
-    				<img src="{{ asset('web/img/landing/hero_two.png') }}" class="hero-two">
+    				@foreach($banners as $banner)
+    				<img src="{{ image_exist('/admins/img/products/', $banner->image, false, false) }}" class="@if($loop->first){{ 'hero-one' }}@elseif($loop->last){{ 'hero-two' }}@endif">
+    				@endforeach
     			</div>
 
     			<p class="text-white my-3 pl-4 z-index-1">@lang('web.home.banner.text')</p>
@@ -36,18 +37,6 @@
 
 		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
 			<img src="{{ asset('web/img/landing/facebook.svg') }}" width="10" height="18" title="Facebook" alt="Facebook">
-		</a>
-
-		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
-			<img src="{{ asset('web/img/landing/twitter.svg') }}" width="18" height="15" title="Twitter" alt="Twitter">
-		</a>
-
-		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
-			<img src="{{ asset('web/img/landing/pinterest.svg') }}" width="13" height="16" title="Pinterest" alt="Pinterest">
-		</a>
-
-		<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center m-2">
-			<img src="{{ asset('web/img/landing/youtube.svg') }}" width="18" height="14" title="Youtube" alt="Youtube">
 		</a>
     </div>
 

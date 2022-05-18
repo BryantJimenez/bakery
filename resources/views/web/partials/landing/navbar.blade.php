@@ -8,6 +8,23 @@
             </div>
 
             <nav id="navbar" class="navbar pr-4">
+                @guest
+                <ul>
+                    <li class="dropdown">
+                        <a href="javascript:void(0);"  class="nav-link p-0">
+                            <span>@lang('web.menu.languages')</span>
+                        </a>
+                        <ul class="py-2">
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $locales)
+                            <li class="py-0">
+                                <a href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" hreflang="{{ $localeCode }}" rel="alternate">{{ $locales['native'] }}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+                @endguest
+
                 <ul>
                     <li>
                         <a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('home'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="nav-link active p-0">@lang('web.menu.home')</a>
@@ -22,7 +39,7 @@
                     <li>
                         <a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale(), route('login'), [], true) }}" hreflang="{{ app()->getLocale() }}" class="nav-link p-0">@lang('web.menu.sign in')</a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown d-block d-lg-none">
                         <a href="javascript:void(0);"  class="nav-link p-0">
                             <span>@lang('web.menu.languages')</span>
                         </a>

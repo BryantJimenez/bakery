@@ -58,8 +58,9 @@ class WebController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
+        $banners=Product::where('state', '1')->inRandomOrder()->take(2)->get();
         $schedules=Schedule::where('state', '1')->get();
-        return view('web.home', compact('schedules'));
+        return view('web.home', compact('banners', 'schedules'));
     }
 
     public function offline() {

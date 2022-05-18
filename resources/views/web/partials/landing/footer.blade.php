@@ -40,25 +40,13 @@
 			<div class="col-12 py-4">
 				<div class="row">
 					<div class="col-12 d-flex justify-content-center">
-						<div class="social-media d-flex justify-content-between">
+						<div class="social-media d-flex justify-content-center">
 							<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center mx-1">
 								<img src="{{ asset('web/img/landing/instagram-footer.svg') }}" width="18" height="18" title="Instagram" alt="Instagram">
 							</a>
 
 							<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center mx-1">
 								<img src="{{ asset('web/img/landing/facebook-footer.svg') }}" width="10" height="18" title="Facebook" alt="Facebook">
-							</a>
-
-							<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center mx-1">
-								<img src="{{ asset('web/img/landing/twitter-footer.svg') }}" width="18" height="15" title="Twitter" alt="Twitter">
-							</a>
-
-							<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center mx-1">
-								<img src="{{ asset('web/img/landing/pinterest-footer.svg') }}" width="13" height="16" title="Pinterest" alt="Pinterest">
-							</a>
-
-							<a href="javascript:void(0);" target="_blank" class="d-flex justify-content-center align-items-center mx-1">
-								<img src="{{ asset('web/img/landing/youtube-footer.svg') }}" width="18" height="14" title="Youtube" alt="Youtube">
 							</a>
 						</div>
 					</div>

@@ -1015,7 +1015,7 @@ $(document).ready(function(){
 				discount: {
 					required: true,
 					min: 1,
-					max: 900
+					max: max
 				}
 			},
 			messages:
