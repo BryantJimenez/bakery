@@ -312,6 +312,15 @@ $(document).ready(function() {
     });
   }
 
+  if ($('.qty').length) {
+    $(".qty").TouchSpin({
+      min: 1,
+      max: 999999999,
+      buttondown_class: 'btn btn-primary pt-2 pb-3',
+      buttonup_class: 'btn btn-primary pt-2 pb-3'
+    });
+  }
+
   if ($('.decimal').length) {
     $(".decimal").TouchSpin({
       min: 0,
